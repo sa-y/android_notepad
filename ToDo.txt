@@ -1,0 +1,530 @@
+! LATEST
+#############################
+!! notepad-app
+
+* ノート一覧画面のタイトル部分にノートの数を表示
+
+* 日本語リソース作成
+
+* ソート順を変更指定可能にする
+** 作成日時 ≒ ID 
+** 変更日時
+** タイトル(?)
+
+* 設定画面作成
+** 設定項目
+*** ソート順
+*** 日記タイトルの日付フォーマット
+
+#############################
+!! notepad-app-level-11
+
+* SearchView の OnQueryTextSubmit でソフトウェアキーボードを非表示にする
+
+* 設定画面の作成
+** 設定項目
+*** 日記モードの日付フォーマット
+*** ノート一覧画面のソート順
+*** ノート一覧のシングルペインモード
+** 手順
+*** NotepadPreferenceActivity ?
+*** AndroidManifest.xml に NotepadPreferenceActivity を登録
+
+
+* キーボードのみで利用する際のユーザビリティの改善
+** ノート一覧画面でノートを選択して一気に編集する方法が欲しい
+*** リスト項目の選択時にもう一度リスト項目をクリックした際に編集開始する？
+** キーボードで編集している際にキーボードのみ編集を完了する方法が欲しい
+*** 「Done」メニューアイテムをを作る？
+*** 「Done」ボタンを作る？
+*** オプションメニューに「Done(Save?)」を追加してショートカットキーを設定？
+
+* 編集や追加時のフォーカス位置の調整
+** ノート追加時にタイトルにフォーカスが合うようにする(?)
+
+* ノート一覧画面のタイトル部分にノートの数を表示
+
+* 日本語リソース作成
+
+#############################
+!! notepad-common
+
+* NoteSearchQueryParser に日付記法とかもあってもいいかも
+** 書式
+*** mtime_start:<yyyymmddHHMMSS>
+*** mtime_end:<yyyymmddHHMMSS>
+*** あるいは mtime:<yyyymmdd[HHMMSS]>-<yyyymmdd[HHMMSS]>
+** 手順
+*** ContentProvider 側で処理できるようなURIを決める
+    -> URI の query parameter を使う？
+    -> contents://org.routine_work.notepad.noteprovider/notes?mtime=<yyyymmddHHMMSS>-<yyyymmddHHMMSS>
+    -> query word 検索も変えた方が統一感が出るのでは?
+       -> 変更前 : contents://org.routine_work.notepad.noteprovider/search_notes/<query_word>
+       -> 変更後 : contents://org.routine_work.notepad.noteprovider/notes?q=<query_word>
+*** ContentProvider 側の処理を実装
+*** NoteSearchQueryParser にパース機能を実装
+*** NoteSearchQueryParser を利用するコードの修正
+
+############################################################
+! 0.1.4
+
+!! notepad-app
+#* 検索機能の見直し
+#** NotepadActivity が検索処理を行うようにするべきか検討
+#** する場合、検索状態を解除する手段が必要？
+#   -> NotepadActivity で検索する
+
+#* 検索機能をNotepadActivityで実行するように修正
+#* 手順
+#** NotepadActivity を修正
+#*** 検索用EditText とボタンを設定
+#*** 通常モードと検索モードの2モード作成する
+#*** 検索用インテントに対する処理を実装
+#*** NotepadActivity 内部の検索ボタンやメニューアイテムで検索用UIを表示
+#*** 検索用インテントでクエリーが設定された場合も検索用UIを自動で表示
+#*** 検索モードでバックキーが押された場合に通常モードに戻るようにする
+#** AndroidManifest.xml を編集
+#** SearchNoteActivity を削除
+
+#* リファクタリング
+#** id:add_button を add_new_note_button に変更
+#** id:delete_button を delete_note_button に変更
+#** id:edit_button を edit_note_button に変更
+#** id:add_menuitem を add_new_note_menuitem に変更
+#** id:edit_menuitem を edit_note_menuitem に変更
+#** id:delete_menuitem を delete_note_menuitem に変更
+#** id:view_menuitem を view_note_menuitem に変更
+#** string:add を new_note に変更 内容を 「New Note」
+
+#* 検索キャンセルボタン用のアイコンを作成
+
+#* NoteDetailActivity で検索を受け付けないように修正
+#** 理由
+#*** 受け付けると NotepadActivity -> NoteDetailActivity -> NotepadActivity とループする
+#*** NotepadActivity を singleInstance にしてみたが NoteDetailActivity -> NotepadActivity となってしまった
+#** 手順
+#*** AndroidManifest.xml で default_searchable の指定を削除
+#*** NoteDetailActivity のオプションメニューの検索を削除
+#*** 検索ボタンのある端末で検索が起動しないことを確認
+
+#* NoteDetailActivity のオプションメニューを整理
+#** 共通
+#*** 終了
+#** ノート一覧画面
+#*** 新規 O
+#*** 編集 X
+#*** 削除 O
+#*** 検索 O
+#** ノート表示画面
+#*** 新規 O
+#*** 編集 O
+#*** 削除 O
+#** ノート編集画面
+#*** 新規 O
+#*** 編集 X
+#*** 削除 X
+#** ノート削除画面
+#*** 新規 X
+#*** 編集 X
+#*** 削除 X
+
+#* ActionBar のボタンの整理
+#** ノート一覧画面
+#*** 検索 O
+#*** 新規 O
+#*** 編集 X
+#*** 削除 X
+#** 表示画面
+#*** 新規 X
+#*** 編集 O
+#*** 削除 O
+#** 編集画面
+#*** 新規 O
+#*** 編集 X
+#*** 削除 X
+#** 削除画面
+#*** 削除実行ボタン
+
+#* 日記モード(?)
+#** 日時に基づいたタイトルのノートを編集画面で開くようなショートカットを作成できるようにする。
+#*** 日付をタイトルにしたノートを探して編集画面で開く
+#*** ノートがなければ作成する。
+#** 手順
+#*** EditDailyNoteActivity を作成
+#*** AndroidManifest.xml に EditDailyNoteActivity を登録
+
+#* EditText 部分の複数行の場合のスタイルを変更する。
+#  -> 却下
+#** 手順
+#*** 画像を用意
+#**** textfield_holo_dark_multiline_default.9.png
+#**** textfield_holo_dark_multiline_disabled.9.png
+#**** textfield_holo_dark_multiline_disabled_focused.9.png
+#**** textfield_holo_dark_multiline_focused.9.png
+#*** edit_text_holo_dark.xml を修正
+#** 結果
+#*** android:state_multiline 属性は Android 3.0 以降からしか使えない
+
+#* NotepadActivity にホームボタンを追加
+#** 検索条件をリセットして一覧をリロードする？
+
+#* NotepadActivity#goHomeActivity() の名前変更
+#** NotepadActivity#goNoteListActivity() とか？
+#   -> やっぱりなし
+
+
+#* NoteDetailActivity を直接開いた際に、オプションメニューのQUITが機能していない
+#  -> NotepadActivity.quitApplication() 後にfinish()を呼び出ス用に修正
+
+!! notepad-app-level-11
+
+#* Split Action Bar を設定
+#  -> 不採用
+#** pom.xml でビルドに使う SDK を Level 14 に修正
+#** AndroidManifest.xml で activity 要素に
+#   android:uiOption="splitActionBarWhenNarrow"
+#   を設定
+#*** 3.0 で実行した場合はこの属性は単に無視されるはず…
+#** 4.x と 3.x でテスト
+#** 結果
+#*** 4.x の Phone で試したけど SearchView も下に行ってしまう
+#*** SearchView を開いた際に SearchView の「x」ボタンとメニューが重なる
+
+#* クエリー文字列をパースする処理を notepad-common に抽出する
+#** クエリー文字列から ContentProvider URI を作成するパーサクラスを作成
+#*** NoteSearchQueryParser
+#*** NoteSearchQueryParser#parseQuery(CharSequence queryString) : Uri
+#** 記法(とりあえず２つ)
+#*** ID記法 id:<note_id> -> content://org.routine_work.notepad.noteprovider/notes/<note_id>
+#*** その他 <query_string> -> content://org.routine_work.notepad.noteprovider/search_notes/<query_string>
+
+
+#* ノート表示画面の表示、非表示の際にアニメーションする
+#** LayoutTransition を使う
+#** アニメーションを設定する
+#
+
+#* 検索処理の修正
+#** 検討
+#*** SearchView に SearchableInfo を設定しているのをやめる
+#*** notepad-app と同様に SearchView のテキストチェンジでクエリーを更新
+#*** 検索系の Intent 受信時は SearchView へのクエリー設定とする？
+#   -> Intent 受信時に SearchView はまだできていないのでは？
+#   -> できていないことは確認
+#*** Intent 受信時に queryString を確認して SearchView 生成時に設定、生成後は
+#    queryString は使わずに、 SearchView のみで動作すればよい
+#** 手順
+#*** SearchView に SearchableInfo を設定しているのをやめる
+#*** SearchView.OnQueryTextListener を実装
+#*** initializeWithInitent() で initialQueryString にクエリーを設定
+#*** onCreateOptionsMenu() で SearchView が作成されたら initialQueryString を setQuery() で設定する
+
+#* 日記モード(?)
+#** 日時に基づいたタイトルのノートを編集画面で開くようなショートカットを作成できるようにする。
+#*** 日付をタイトルにしたノートを探して編集画面で開く
+#*** ノートがなければ作成する。
+#** 手順
+#*** EditDailyNoteActivity を作成
+#*** AndroidManifest.xml に EditDailyNoteActivity を登録
+
+#* NoteDetailFragment のアクションアイテムに削除を追加
+#  -> 却下
+#** 結果
+#*** ifRoom指定でもオプションメニューのQUITの下に入ってしまう…
+#*** やっぱりいまいち？
+#*** MultiChoiceModeListener をやめて ContextMenu に Edit と Delete を置く？
+
+#* 削除用のアクティビティを削除?
+#   -> 却下
+#** 手順
+#*** DeleteNotesFragment 削除
+#*** DeleteNotesActivity 削除
+#** 結果
+#*** MultiChoiceModeListener での削除を止めたので削除アクティビティが必要になった
+
+! 0.1.3
+
+!! notepad-app
+#* 検索機能
+
+#* 新規作成での編集中に画面を回転させると2つノートが出来るバグ
+#** 再現手順
+#*** 新規作成
+#*** テキストを入力
+#*** 画面を回転
+#*** テキストを編集
+#*** 編集終了
+#*** で2つの別のノートとして保存される
+#** 原因
+#*** 現在、画面回転時にアクティビティが再生成されるようになっている。
+#*** 回転前のアクティビティの onPause() で編集内容は保存されている。
+#*** しかし保存した先の ノートURI そのものを保存していない
+#*** 回転後に生成されたアクティビティのノートURIは null のままである。
+#*** 回転後のアクティビティの onPause() で新規ノートとして保存される。
+#** 対策(以下のいずれか)
+#*** 画面回転時にアクティビティを再生成しないように変更する。
+#*** onSaveInstanceState() で noteUri を保存して、 onCreate() で復元する。 -> 採用
+
+#* ノート編集画面で端末を回転させるとノート表示画面になってしまうバグ
+#** 再現手順
+#*** ノート表示画面で編集ボタンを押す
+#*** ノート編集画面が表示される
+#*** 端末を傾けて画面を回転させる
+#*** ノート表示画面が表示される(編集した情報は保存されている)
+#** 原因
+#*** 現在、NoteDetailActivity は画面回転時にアクティビティを再生成するように設定されている。
+#*** ノート表示画面からノート編集画面への遷移はアクティビティの再生成ではなくて onNewIntent() による遷移となっている。
+#*** 画面回転時にアクティビティを再生成される場合、最初に生成されたときに送られたIntentが再度送られる。
+#*** この場合であればノート表示画面生成時に送信された ACTION_VIEW を持つ Intent となる。
+#** 対策(以下のいずれか)
+#*** 画面回転時にアクティビティを再生成しないように変更する。
+#*** 現在、表示モードなのか編集モードなのかをアクティビティが保存しておき、再生成時にそのモードを復元する。 -> 採用
+#*** ノート表示画面とノート編集画面を別アクティビティにする。
+#*** ノート表示画面を撤廃する(ACTION_VIEW のときも ACTION_EDIT と同じ扱いにする)。
+
+#* 編集、追加、回転すると最初に編集しているノートを新規ノートの内容で上書きしてしまうバグ
+#** 再現手順
+#*** ノート編集画面を開く
+#*** 新規ボタンを押して新規ノートを作成
+#*** 画面を回転
+#*** バックボタンで編集を完了
+#*** 最初に編集していたノートが空になる
+#** 原因
+#*** 現在、NoteDetailActivity は画面回転時にアクティビティを再生成するように設定されている。
+#*** ノート回転前は currentNoteUri は null であり、 回転後の Intent#getData() には最初の開いたノートの URI が入っている
+#*** ノート回転後 currentNoteUri は Intent#getData() が採用されて最初の開いたノートの URI が入っている
+#*** 保存時には最初の開いたノートの URI に上書きしてしまう
+#** 対策
+#*** 新規作成時の currentNoteUri を null ではなく、特別の値にする
+#*** 保存済みかどうかの判定は null チェックではなくタイプにする
+
+
+#* 編集画面と表示画面の EditText 部分のスタイルを設定する
+#** テーマを定義して設定した。
+
+!! notepad-app-level-11
+
+#* 新規作成での編集中に画面を回転させると2つノートが出来るバグ
+#** 再現手順
+#*** 新規作成
+#*** テキストを入力
+#*** 画面を回転
+#*** テキストを編集
+#*** 編集終了
+#*** で2つの別のノートとして保存される
+
+#* ノート表示画面からノート追加をして戻ってきたときの処理を変更
+#** 状況
+#*** 現在は表示していたノートが表示される
+#*** データに変更があっても更新されない。
+#** 編集、追加などして戻った場合に一覧が表示される様に修正
+#*** NotepadActivity#onActivityResult() で常に詳細表示を閉じるように変更
+#** 対策
+#*** アクティビティの開始を NotepadActivity に集中させて子アクティビティの
+#    終了時の処理を NotepadActivity#onActivityResult() にまとめる。
+#*** NoteControlCallback インターフェースを定義 NotepadActivity に実装
+#**** void startViewNote(Uri noteUri);
+#**** void startEditNote(Uri noteUri);
+#**** void startDeleteNote(Uri noteUri);
+#**** void startAddNote();
+#**** void startDeleteNotes();
+#*** 各フラグメントからの子アクティビティの呼び出しをコールバック呼び出しに置き換え。
+
+#* ViewNotesFragment を CursorLoader を使うように変更
+
+#* Android 3.1 でノートが保存されない場合がある
+#** 再現手順
+#*** 新規ノートを開く
+#*** ノートを編集する
+#*** 新規ノートを開く(前のノートは保存される)
+#*** ノートを編集する
+#*** 新規ノートを開くと編集中だったノートが保存されない
+#** 原因
+#*** 現在、 EditNoteFragment#onPause() と EditNoteFragment#onSaveInstanceState() で保存処理をしている
+#*** 画面回転時以外では EditNoteFragment#onPause() の保存処理が期待される
+#*** 新規ノート作成はインテントを送信して onNewIntent() で処理している
+#*** 最初の呼び出し時には EditNoteFragment#onPause() が呼ばれる
+#*** なぜか2回目の呼び出し時には EditNoteFragment#onPause() が呼ばれない
+#*** Android 3.1 のバグ？
+#** 対策
+#*** NoteDetailActivity#onPause() 内で Fragment が EditNoteFragment の場合に保存処理を呼ぶようにする
+
+#* ショートカットから編集アクティビティが呼ばれた場合に古い内容が表示される場合がある。
+#** 再現手順
+#*** 事前に「ノートA」のショートカットを作成する。
+#*** ノート一覧から「ノートA」を選び詳細表示する。
+#*** ホームボタンを押してホーム画面に戻る。
+#*** 「ノートA」のショートカットを起動して編集画面を開く
+#*** 「ノートA」を編集して戻るボタンを押す。
+#*** 「ノートA」の詳細表示画面に戻るが、編集前の内容が表示されている。
+#** 原因
+#*** 現在の実装だと NotepadActivity#onActivityResult() でリロードを行っている。
+#*** ショートカットから編集画面を呼び出した場合 startActivityForResult() による
+#    アクティビティ呼び出しではないため、 onActivityResult() が呼ばれない
+#*** 結果としてリロードが行われず古い情報が表示されることがある。
+#** 対策
+#*** NoteDetailFragment 内のロード処理を CursorLoader を使うように変更してみる
+#    -> 詳細表示画面は編集後の情報に更新されるようになった
+#    -> 一覧画面の方が更新されない
+#*** ViewNotesFragment に コンテンツの Uri を変更せずにリロードを行う reloadNotes() を用意
+#*** NotepadActivity#onResume() から reloadNotes() を呼び出す
+#    -> 対策完了
+
+# * 検索機能の追加
+
+#* 検索機能を修正
+#** NotepadActivity 自体が検索アクティビティとして動作するようにする。
+#*** NotepadActivity の ActionBar に ActionView として SearchView を配置
+#*** SearchView へのテキスト入力でインクリメンタルサーチできるようにする。
+#**** 検索時にノート表示用のフラグメントは非表示にする
+#     ->ノート表示用のフラグメントを非表示にするとアクションアイテムが再生成される。
+#       それにより開いたはずの SearchView が閉じてしまう -> なし
+#*** SearchActivity を削除
+#** 検索キーのついたキーボードを接続して、検索キーの動作を確認する
+#   -> NotepadActivity では検索キーにより SearchBox が開き検索できた．
+#   -> ただし単語検索はできるがサジェストされた項目をカーソルキーで選択してもなにも反応しない
+#   -> NoteDetailActivity では反応無し
+#** AndroidManifest.xml でデフォルト検索アクティビティの設定をどうするべきか検討する
+#*** NoteDetailActivity から検索した際に NotepadActivity が動く
+#*** NotepadActivity が singleInstance であればいい？
+
+#* SearchView を ActionView として設定してあるメニューアイテムが
+#  カーソルキーでフォーカスしない．
+#  -> どうにもならない．
+
+#* Ctrl-F で検索が開くが SearchView ではなく SearchBox が開く．なぜ？
+#  -> どうにもならないぽい．
+
+#* Add Note を New Note に変更
+#** ラベルの変更 
+#** ショートカットキーの変更 A->N
+
+#* Search のショートカットキーを Ctrl-F に変更
+
+#* ViewNotesFragment の名前を NoteListFragment に変更
+#
+#* DeleteNotesActivity を廃止して NotepadActivity の ActionMode で実装する
+#** ActionMode で実装可能かを調べる
+#   -> 可能ぽい
+#** どこに実装するか?
+#*** 現在は DeleteNotesFragment で削除している
+#*** ViewNotesFragment に削除処理を移動
+#*** ViewNotesFragment にアクションモードを作成
+#** 手順
+#*** ListFragment のサブクラスでにアクションモードを設定するサンプルを作る？
+
+!! notepad-common
+
+#* 検索用のコンテントプロバイダでリミットのオプションを処理するように修正
+#** Uri#getQueryParameter("limit") でパラメータを取得
+#** SQLiteQueryBuilder#query() に渡すように修正
+
+#* SearchBox 以外からの検索用のURIの処理を追加する
+#** 定数 : NoteStore.CONTENT_SEARCH_URI : Uri
+#** 文字列 : content://org.routine_work.notepad.noteprovider/search_notes/<keyword>
+
+
+############################################################
+! 0.1.2
+
+!! notepad-app
+#* クラス名、ファイル名のリファクタリング
+#** EditNoteActivity -> NoteDetailActivity
+
+#* Intent の取り扱いを修正？
+#** 編集中にホームに戻ってショートカットから同じノートを開くと2つ同時に
+#   編集状態になる。
+#** singleTop にする？
+#*** 自動保存が必要になる？
+
+#* ノート編集画面で EditText にフォーカスが当たっているときだけ
+#  ActionBar を非表示にしてみる
+#  -> ActionBar 以外には EditText しか存在しないので常に非表示になってしまう。
+#     よって却下
+
+#* ノート一覧画面でノート選択時に文字が見えなくなるバグを修正。
+
+#* EditNoteActivity の singleTop は必要なのか？調査
+#** -> 必要
+#** 自分自身から呼ぶときは FLAG_ACTIVITY_CLEAR_TOP で処理するが
+#   ショートカットなどから来るときには singleTop が効く。
+
+#* NoteDetailActivity で編集用の EditText の lines, minLines, maxLines など
+#  を調整する。
+#** キーボード表示したときのリサイズを有効にした場合の動作を確認する。
+#   ->リサイズ時には minLines を無視して縮小されてしまった。
+
+#* quit メニューを追加
+#** NotepadActivity に ACTION_QUIT で終了する処理を追加
+#** NotepadActivity に quit 項目を追加
+#** DeleteNotesActivity に quit 項目を追加
+#** NoteDetailActivity に quit 項目を追加
+
+#* ActionBar と ActionBar のボタン用の背景を ninepach で用意する。
+
+#* NoteDetailActivity のホームボタンがACTION_EDIT時しか使えないバグを修正
+
+!! notepad-app-level-11
+#* EditNoteActivity の singleTop は必要なのか？
+#** -> 必要
+#** 自分自身から呼ぶときは FLAG_ACTIVITY_CLEAR_TOP で処理するが
+#   ショートカットなどから来るときには singleTop が効く。
+
+#* ショートカット作成機能
+
+#* クラス名、ファイル名のリファクタリング
+
+#* 詳細アクティビティを singleTop に
+
+#* オプションメニューの終了の処理方法を変更
+#** NotepadActivity が ACTION_QUIT を受け取ると終了するように修正。
+#** RESULT_QUIT での終了をやめて NotepadActivity を ACTION_QUIT で起動するように修正
+#*** NotepadActivity.quitApplication() を実装
+#*** quit メニューアイテムの処理を NotepadActivity.quitApplication() の呼び出しに変更
+#*** startActivityForResult() で起動している箇所を startActivity() に修正
+#*** onActivityResult() での RESULT_QUIT の処理を削除
+
+############################################################
+! 0.1.1
+
+!! notepad-app
+#* ショートカット作成機能
+#** PickNoteActivity を実装
+#*** ACTION_PICK に対応
+#** CreateNoteShortcutActivity を実装
+#** アイコンが正しく表示されない？
+
+#* DB にインデックスを作成
+#* REINDEX 機能を NoteStore に追加
+#* VACUME 機能を NoteStore に追加
+
+#* ノート削除画面の実装
+#** EditNoteActivity に実装
+
+############################################################
+! 0.1.0
+
+!! notepad-app
+#* ソート順をID 降順にする(新規ノートが上に来る)
+
+#* スクリーンサイズに対応
+#** dimension に切り出し。
+#** スクリーンサイズ毎にパラメータを調整
+#*** small QVGA
+#*** normal HVGA
+#*** normal WVGA
+#*** large WVGA (Galaxy Tab)
+#*** large XGA 
+#*** xlarge WXGA 
+
+!! notepad-app-level-11
+#* ノートの削除画面を実装
+#** DeleteNoteFragment
+#** DeleteNoteActivity
+#** Intent.ACTION_DELETE に応答させる
+
+#* 複数ノートの削除画面を実装
+#** DeleteNotesFragment
+#** DeleteNotesActivity
+
+
