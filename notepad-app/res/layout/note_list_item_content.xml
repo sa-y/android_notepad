@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:orientation="horizontal"
+>
+	<LinearLayout 
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_weight="1"
+		android:orientation="vertical"
+	>
+		<TextView
+			android:id="@+id/note_title_textview"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_vertical"
+			android:gravity="left"
+			android:singleLine="true"
+			android:ellipsize="marquee"
+			android:text="&lt;NOTE_TITLE&gt;"
+			android:textSize="@dimen/note_list_item_title_textSize"
+			android:textColor="?android:attr/textColorPrimary"
+		/>
+
+		<TextView
+			android:id="@+id/note_content_textview"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_vertical"
+			android:gravity="left"
+			android:singleLine="true"
+			android:ellipsize="end"
+			android:text="&lt;NOTE_TITLE&gt;"
+			android:textSize="@dimen/note_list_item_content_textSize"
+			android:textColor="?android:attr/textColorSecondary"
+		/>
+	</LinearLayout>
+
+	<TextView
+		android:id="@+id/note_modified_textview"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_weight="0"
+		android:layout_gravity="right|center_vertical"
+		android:text="&lt;NOTE_MODIFIED&gt;"
+		android:textSize="@dimen/note_list_item_modified_textSize"
+		android:textColor="?android:attr/textColorSecondary"
+	/>
+
+</LinearLayout>

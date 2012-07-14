@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:orientation="horizontal"
+	android:paddingLeft="@dimen/list_item_paddingLeft"
+	android:paddingRight="@dimen/list_item_paddingRight"
+	android:paddingTop="@dimen/list_item_paddingTop"
+	android:paddingBottom="@dimen/list_item_paddingBottom"
+>
+	<include layout="@layout/note_list_item_content" />
+</LinearLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- note_list_item -->
+	<dimen name="note_list_item_title_textSize">24dip</dimen>
+	<dimen name="note_list_item_content_textSize">18dip</dimen>
+	<dimen name="note_list_item_modified_textSize">20dip</dimen>
+	<dimen name="note_list_item_content_layout_margin">4dip</dimen>
+	<dimen name="note_list_item_checked_layout_margin">4dip</dimen>
+</resources>

@@ -1,0 +1,202 @@
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.routine_work</groupId>
+	<artifactId>notepad-app-level-11</artifactId>
+	<packaging>apk</packaging>
+	<version>0.1.4</version>
+	<name>Notepad App Level 11</name>
+	<url>http://www.example.com/</url>
+
+	<parent>
+		<groupId>org.routine_work</groupId>
+		<artifactId>notepad-project</artifactId>
+		<version>0.1.4</version>
+	</parent>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>android</groupId>
+			<artifactId>android</artifactId>
+			<version>3.0_r2</version>
+			<!--
+			<version>1.5_r3</version>
+			<version>1.5_r4</version>
+			<version>1.6_r2</version>
+			<version>2.1.2</version>
+			<version>2.1_r1</version>
+			<version>2.2.1</version>
+			<version>2.3.1</version>
+			<version>2.3.3</version>
+			-->
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.routine_work</groupId>
+			<artifactId>notepad-common</artifactId>
+			<version>0.1.4</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<plugins>
+			<plugin>
+				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+				<artifactId>android-maven-plugin</artifactId>
+				<configuration>
+					<sdk>
+						<path>${env.ANDROID_HOME}</path>
+						<!--
+                        <path>C:/Java/android-sdk</path>
+						-->
+						<platform>11</platform>
+					</sdk>
+					<proguard>
+						<skip>true</skip>
+						<config>proguard.conf</config>
+					</proguard>
+					<extractDuplicates>true</extractDuplicates>
+				</configuration>
+				<extensions>true</extensions>
+			</plugin>
+
+			<!-- mvn compile -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+
+			<!-- mvn assembly:assembly -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+			</plugin>
+
+			<!-- mvn resources:resources -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+			</plugin>
+
+			<!-- mvn site-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<configuration>
+
+					<reportPlugins>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-project-info-reports-plugin</artifactId>
+						</plugin>
+
+						<!-- mvn javadoc:javadoc -->
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-javadoc-plugin</artifactId>
+						</plugin>
+					</reportPlugins>
+				</configuration>
+			</plugin>
+
+		</plugins>
+
+		<!-- mvn resources:resources -->
+		<resources>
+			<resource>
+				<directory>res</directory>
+				<filtering>false</filtering>
+				<includes>
+					<include>**/*.properties</include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
+
+	<profiles>
+
+		<profile>
+			<!-- profile for release build -->
+			<!-- mvn -Pandroid-release package -->
+			<id>android-release</id>
+			<build>
+				<plugins>
+
+					<!-- enable release sign -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-jarsigner-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>signing</id>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+								<phase>package</phase>
+								<inherited>true</inherited>
+								<configuration>
+									<archiveDirectory></archiveDirectory>
+									<includes>
+										<include>target/*.apk</include>
+									</includes>
+									<keystore>${sign.keystore}</keystore>
+									<storepass>${sign.storepass}</storepass>
+									<alias>${sign.alias}</alias>
+									<keypass>${sign.keypass}</keypass>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+					<!-- 
+						 - Disable debug sign 
+						 - Enable zipalign
+						 - Enable proguard
+					 -->
+					<plugin>
+						<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+						<artifactId>android-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>zipalign-application-apk</id>
+								<phase>package</phase>
+								<goals>
+									<goal>zipalign</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<zipalign>
+								<verbose>true</verbose>
+								<inputApk>${project.build.directory}/${project.artifactId}-${project.version}.apk</inputApk>
+								<outputApk>${project.build.directory}/${project.artifactId}-${project.version}-signed-aligned.apk</outputApk>
+							</zipalign>
+							<sign>
+								<debug>false</debug>
+							</sign>
+							<proguard>
+								<skip>false</skip>
+								<config>proguard.conf</config>
+							</proguard>
+						</configuration>
+					</plugin>
+
+				</plugins>
+			</build>
+		</profile> <!-- android-release -->
+
+	</profiles>
+
+</project>

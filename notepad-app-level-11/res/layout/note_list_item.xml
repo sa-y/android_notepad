@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view xmlns:android="http://schemas.android.com/apk/res/android"
+	  class="org.routine_work.widget.CheckableLinearLayout"
+	  android:layout_width="fill_parent"
+	  android:layout_height="wrap_content"
+	  android:orientation="horizontal"
+	  android:paddingLeft="@dimen/list_item_paddingLeft"
+	  android:paddingRight="@dimen/list_item_paddingRight"
+	  android:paddingTop="@dimen/list_item_paddingTop"
+	  android:paddingBottom="@dimen/list_item_paddingBottom"
+>
+	<LinearLayout 
+		android:orientation="vertical"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_weight="1"
+	>
+		<LinearLayout 
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+		>
+			<TextView
+				style="@style/note_list_item_title"
+				android:id="@+id/note_title_textview"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:text="&lt;NOTE_TITLE&gt;"
+			/>
+
+			<TextView
+				style="@style/note_list_item_modified"
+				android:id="@+id/note_modified_textview"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="0"
+				android:text="&lt;NOTE_MODIFIED&gt;"
+			/>
+		</LinearLayout>
+
+		<TextView
+			style="@style/note_list_item_content"
+			android:id="@+id/note_content_textview"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="&lt;NOTE_CONTENT&gt;"
+		/>
+
+	</LinearLayout>
+
+	<CheckedTextView
+		android:id="@android:id/checkbox"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_weight="0"
+		android:layout_marginLeft="4dip"
+		android:layout_gravity="center"
+		android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+	/>
+</view>

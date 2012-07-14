@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Notepad</string>
+    <string name="quit">Quit</string>
+
+	<string name="no_note">No Note</string>
+
+	<string name="title">Title</string>
+	<string name="text">Text</string>
+
+	<string name="note_not_exist">The specified note does not exist.</string>
+	<string name="note_not_specified">A note is not specified.</string>
+
+	<string name="search_note_label">Notepad</string>
+	<string name="search_note_hint">Search note</string>
+	<string name="search_note_description">search_note_description</string>
+
+	<string name="daily_note">Daily Note</string>
+
+	<!-- activity title -->
+	<string name="note_list_title">Note List</string>
+	<string name="view_note_title">View Note</string>
+	<string name="edit_note_title">Edit Note</string>
+	<string name="add_new_note_title">Add New Note</string>
+	<string name="delete_note_title">Delete Note</string>
+	<string name="select_note_title">Select Note</string>
+
+	<!-- menu item label -->
+	<string name="new_note">New</string>
+	<string name="view_note">View</string>
+	<string name="edit_note">Edit</string>
+	<string name="delete_note">Delete</string>
+	<string name="delete_notes">Delete Notes</string>
+	<string name="search_note">Search</string>
+
+	<!-- create note shortcut -->
+	<string name="new_shortcut">New Shortcut</string>
+	<string name="shortcut_name">Shortcut Name</string>
+
+</resources>

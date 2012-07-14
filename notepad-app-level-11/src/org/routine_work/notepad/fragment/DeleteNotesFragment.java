@@ -1,0 +1,183 @@
+/*
+ * The MIT License
+ *
+ * Copyright 2012 Masahiko, SAWAI <masahiko.sawai@gmail.com>.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.routine_work.notepad.fragment;
+
+import android.app.Activity;
+import android.app.ListFragment;
+import android.app.LoaderManager;
+import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.content.CursorLoader;
+import android.content.Loader;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
+import org.routine_work.notepad.NotepadConstants;
+import org.routine_work.notepad.R;
+import org.routine_work.notepad.provider.NoteStore;
+import org.routine_work.utils.Log;
+
+public class DeleteNotesFragment extends ListFragment
+	implements NotepadConstants, LoaderManager.LoaderCallbacks<Cursor>
+{
+
+	private static final String LOG_TAG = "simple-notepad";
+	private static final int NOTE_LOADER_ID = 0;
+	private SimpleCursorAdapter listAdapter;
+
+	public DeleteNotesFragment()
+	{
+	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(true);
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+		Bundle savedInstanceState)
+	{
+		View v = inflater.inflate(R.layout.note_list_fragment, container, false);
+
+		return v;
+	}
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState)
+	{
+		super.onActivityCreated(savedInstanceState);
+
+		// Init list adapter
+		NoteListItemViewBinder noteListItemViewBinder = new NoteListItemViewBinder(getActivity());
+		noteListItemViewBinder.setCheckboxVisible(true);
+		listAdapter = new SimpleCursorAdapter(getActivity(),
+			R.layout.note_list_item, null,
+			MAPPING_FROM, MAPPING_TO);
+		listAdapter.setViewBinder(noteListItemViewBinder);
+		setListAdapter(listAdapter);
+
+		// Init LoaderManager
+		LoaderManager loaderManager = getLoaderManager();
+		loaderManager.initLoader(NOTE_LOADER_ID, null, this);
+
+		// Init ListView
+		ListView listView = getListView();
+		listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater)
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		super.onCreateOptionsMenu(menu, menuInflater);
+		menuInflater.inflate(R.menu.delete_cancel_option_menu, menu);
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		boolean result = true;
+		Log.v(LOG_TAG, "Hello");
+
+		switch (item.getItemId())
+		{
+			case R.id.cancel_menuitem:
+				Log.d(LOG_TAG, "cancel_menuitem");
+				getActivity().setResult(Activity.RESULT_CANCELED);
+				getActivity().finish();
+				break;
+			case R.id.delete_note_menuitem:
+				Log.d(LOG_TAG, "delete_note_menuitem");
+				deleteCheckedNotes();
+				getActivity().setResult(Activity.RESULT_OK);
+				getActivity().finish();
+				break;
+			default:
+				result = super.onOptionsItemSelected(item);
+		}
+
+		Log.v(LOG_TAG, "Bye");
+		return result;
+	}
+
+	// BEGIN ---------- LoaderManager.LoaderCallbacks<Cursor> ----------
+	public Loader<Cursor> onCreateLoader(int i, Bundle bundle)
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		String sortOrder = NoteStore.NoteColumns.DATE_MODIFIED + " DESC";
+		CursorLoader cursorLoader = new CursorLoader(getActivity(),
+			NoteStore.CONTENT_URI, null, null, null, sortOrder);
+
+		Log.v(LOG_TAG, "Bye");
+		return cursorLoader;
+	}
+
+	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor)
+	{
+		Log.v(LOG_TAG, "Hello");
+		listAdapter.swapCursor(cursor);
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	public void onLoaderReset(Loader<Cursor> loader)
+	{
+		Log.v(LOG_TAG, "Hello");
+		listAdapter.swapCursor(null);
+		Log.v(LOG_TAG, "Bye");
+	}
+	// END ---------- LoaderManager.LoaderCallbacks<Cursor> ----------
+
+	private void deleteCheckedNotes()
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		ContentResolver cr = getActivity().getContentResolver();
+		ListView listView = getListView();
+		long[] checkItemIds = listView.getCheckItemIds();
+		for (int i = checkItemIds.length - 1; i >= 0; i--)
+		{
+			long id = checkItemIds[i];
+			Log.d(LOG_TAG, "delete note. i => " + i + ", id => " + id);
+			Uri noteUri = ContentUris.withAppendedId(NoteStore.CONTENT_URI, id);
+			cr.delete(noteUri, null, null);
+		}
+
+		Log.v(LOG_TAG, "Bye");
+	}
+}

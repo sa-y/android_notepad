@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<style name="Widget.Holo.EditText" parent="@android:style/Widget.EditText" >
+		<item name="android:textColor" >@color/primary_text_holo_dark</item>
+		<item name="android:background" >@drawable/edit_text_holo_dark</item>
+	</style>
+
+	<style name="Theme.MyTheme" parent="@android:style/Theme.NoTitleBar" >
+		<item name="android:editTextStyle">@style/Widget.Holo.EditText</item>
+	</style>
+</resources>

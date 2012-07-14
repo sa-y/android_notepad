@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<style name="body">
+		<item name="android:layout_width">fill_parent</item>
+		<item name="android:layout_height">fill_parent</item>
+		<item name="android:layout_margin">0dip</item>
+		<item name="android:paddingLeft">@dimen/body_paddingLeft</item>
+		<item name="android:paddingRight">@dimen/body_paddingRight</item>
+		<item name="android:paddingTop">@dimen/body_paddingTop</item>
+		<item name="android:paddingBottom">@dimen/body_paddingBottom</item>
+	</style>
+
+</resources>

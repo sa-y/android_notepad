@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- actionbar -->
+	<dimen name="actionbar_layout_height">40dip</dimen>
+	<dimen name="actionbar_title_textSize">18sp</dimen>
+	<dimen name="actionbar_title_paddingLeft">8dip</dimen>
+	<dimen name="actionbar_button_padding">8dip</dimen>
+</resources>

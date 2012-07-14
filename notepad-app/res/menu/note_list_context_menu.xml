@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item
+		android:id="@+id/view_note_menuitem"
+		android:title="@string/view_note"
+		android:icon="@android:drawable/ic_menu_view"
+		android:numericShortcut="1"
+		android:alphabeticShortcut="v"
+	/>
+	<item
+		android:id="@+id/edit_note_menuitem"
+		android:title="@string/edit_note"
+		android:icon="@android:drawable/ic_menu_edit"
+		android:numericShortcut="2"
+		android:alphabeticShortcut="e"
+	/>
+	<item
+		android:id="@+id/delete_note_menuitem"
+		android:title="@string/delete_note"
+		android:icon="@android:drawable/ic_menu_delete"
+		android:numericShortcut="3"
+		android:alphabeticShortcut="d"
+	/>
+</menu>
