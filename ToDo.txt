@@ -1,4 +1,5 @@
 ! LATEST
+
 #############################
 !! notepad-app
 
@@ -18,8 +19,6 @@
 
 #############################
 !! notepad-app-level-11
-
-* SearchView の OnQueryTextSubmit でソフトウェアキーボードを非表示にする
 
 * 設定画面の作成
 ** 設定項目
@@ -49,6 +48,10 @@
 #############################
 !! notepad-common
 
+* ContentProvider の検索用URLを変更
+** 変更前 : contents://org.routine_work.notepad.noteprovider/search_notes/<query_word>
+** 変更後 : contents://org.routine_work.notepad.noteprovider/notes?q=<query_word>
+
 * NoteSearchQueryParser に日付記法とかもあってもいいかも
 ** 書式
 *** mtime_start:<yyyymmddHHMMSS>
@@ -58,9 +61,6 @@
 *** ContentProvider 側で処理できるようなURIを決める
     -> URI の query parameter を使う？
     -> contents://org.routine_work.notepad.noteprovider/notes?mtime=<yyyymmddHHMMSS>-<yyyymmddHHMMSS>
-    -> query word 検索も変えた方が統一感が出るのでは?
-       -> 変更前 : contents://org.routine_work.notepad.noteprovider/search_notes/<query_word>
-       -> 変更後 : contents://org.routine_work.notepad.noteprovider/notes?q=<query_word>
 *** ContentProvider 側の処理を実装
 *** NoteSearchQueryParser にパース機能を実装
 *** NoteSearchQueryParser を利用するコードの修正
@@ -178,6 +178,8 @@
 
 !! notepad-app-level-11
 
+#* SearchView の OnQueryTextSubmit でソフトウェアキーボードを非表示にする
+
 #* Split Action Bar を設定
 #  -> 不採用
 #** pom.xml でビルドに使う SDK を Level 14 に修正
@@ -188,7 +190,8 @@
 #** 4.x と 3.x でテスト
 #** 結果
 #*** 4.x の Phone で試したけど SearchView も下に行ってしまう
-#*** SearchView を開いた際に SearchView の「x」ボタンとメニューが重なる
+#*** SearchView を開いた際に SearchView の「×」ボタンとオプション
+#    メニューが重なって×ボタンを押すことができない。
 
 #* クエリー文字列をパースする処理を notepad-common に抽出する
 #** クエリー文字列から ContentProvider URI を作成するパーサクラスを作成
