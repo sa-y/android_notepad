@@ -22,6 +22,12 @@
 #############################
 !! notepad-app-level-11
 
+* 削除画面の新規ノートのオプションメニューを削除したい
+** NoteDetailActivity で追加しているので削除時にも追加されてしまう
+** ViewNoteFragment, EditNoteFragment, DeleteNoteFragment のうち
+   使うのは EditNoteFragment のみ？
+** EditNoteFragment で追加するように修正する
+
 * 設定画面の作成
 ** 設定項目
 *** 日記モードの日付フォーマット
