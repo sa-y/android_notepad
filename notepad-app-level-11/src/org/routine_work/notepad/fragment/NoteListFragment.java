@@ -203,7 +203,7 @@ public class NoteListFragment extends ListFragment
 
 		if (this.contentUri == null)
 		{
-			this.contentUri = NoteStore.CONTENT_SEARCH_URI;
+			this.contentUri = NoteStore.CONTENT_URI;
 		}
 
 		String sortOrder = NoteStore.NoteColumns.DATE_MODIFIED + " DESC";

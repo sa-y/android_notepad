@@ -49,8 +49,6 @@ public class NoteProvider extends ContentProvider
 	private static final int ITEM_BY_ID = 2;
 	private static final int SUGGEST_SEARCH_ALL = 3;
 	private static final int SUGGEST_SEARCH_BY_WORD = 4;
-	private static final int SEARCH_ALL = 5;
-	private static final int SEARCH_BY_WORD = 6;
 	private static final UriMatcher URI_MATCHER;
 	private static final Map<String, String> SUGGESTION_PROJECTION_MAP;
 	// DB
@@ -61,8 +59,6 @@ public class NoteProvider extends ContentProvider
 		URI_MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
 		URI_MATCHER.addURI(NoteStore.AUTHORITY, SearchManager.SUGGEST_URI_PATH_QUERY, SUGGEST_SEARCH_ALL);
 		URI_MATCHER.addURI(NoteStore.AUTHORITY, SearchManager.SUGGEST_URI_PATH_QUERY + "/*", SUGGEST_SEARCH_BY_WORD);
-		URI_MATCHER.addURI(NoteStore.AUTHORITY, "search_notes", SEARCH_ALL);
-		URI_MATCHER.addURI(NoteStore.AUTHORITY, "search_notes/*", SEARCH_BY_WORD);
 		URI_MATCHER.addURI(NoteStore.AUTHORITY, "notes", ITEM_ALL);
 		URI_MATCHER.addURI(NoteStore.AUTHORITY, "notes/#", ITEM_BY_ID);
 
@@ -109,23 +105,19 @@ public class NoteProvider extends ContentProvider
 		switch (match)
 		{
 			case SUGGEST_SEARCH_BY_WORD:
-			case SEARCH_BY_WORD:
 				Log.d(LOG_TAG, "*SEARCH_BY_WORD");
 				String queryWord = uri.getLastPathSegment().trim();
 				Log.d(LOG_TAG, "queryWord => " + queryWord);
-				if (!TextUtils.isEmpty(queryWord))
-				{
-					queryWord = "%" + queryWord + "%";
-					qb.appendWhere(NoteColumns.TITLE + " LIKE ");
-					qb.appendWhereEscapeString(queryWord);
-					qb.appendWhere(" OR ");
-					qb.appendWhere(NoteColumns.CONTENT + " LIKE ");
-					qb.appendWhereEscapeString(queryWord);
-				}
+				setUpQueryByWord(qb, queryWord);
 				break;
 			case SUGGEST_SEARCH_ALL:
-			case SEARCH_ALL:
+				break;
 			case ITEM_ALL:
+				uri.getQueryParameter("q");
+				Log.d(LOG_TAG, "*SEARCH_BY_WORD");
+				String q = uri.getQueryParameter("q");
+				Log.d(LOG_TAG, "queryWord => " + q);
+				setUpQueryByWord(qb, q);
 				break;
 			case ITEM_BY_ID:
 				qb.appendWhere(NoteColumns._ID + "=" + uri.getPathSegments().get(1));
@@ -256,7 +248,6 @@ public class NoteProvider extends ContentProvider
 		switch (URI_MATCHER.match(uri))
 		{
 			case SUGGEST_SEARCH_ALL:
-			case SEARCH_ALL:
 			case ITEM_ALL:
 				type = NoteStore.NOTE_LIST_CONTENT_TYPE;
 				break;
@@ -292,5 +283,18 @@ public class NoteProvider extends ContentProvider
 		}
 
 		return limit;
+	}
+
+	private static void setUpQueryByWord(SQLiteQueryBuilder queryBuilder, String queryWord)
+	{
+		if (!TextUtils.isEmpty(queryWord))
+		{
+			queryWord = "%" + queryWord + "%";
+			queryBuilder.appendWhere(NoteColumns.TITLE + " LIKE ");
+			queryBuilder.appendWhereEscapeString(queryWord);
+			queryBuilder.appendWhere(" OR ");
+			queryBuilder.appendWhere(NoteColumns.CONTENT + " LIKE ");
+			queryBuilder.appendWhereEscapeString(queryWord);
+		}
 	}
 }

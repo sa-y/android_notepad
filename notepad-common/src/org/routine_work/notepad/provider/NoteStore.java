@@ -52,9 +52,9 @@ public class NoteStore
 	}
 	public static final String AUTHORITY = "org.routine_work.notepad.noteprovider";
 	public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/notes");
-	public static final Uri CONTENT_SEARCH_URI = Uri.parse("content://" + AUTHORITY + "/search_notes");
 	public static final String NOTE_LIST_CONTENT_TYPE = "vnd.android.cursor.dir/vnd.routine_work.note";
 	public static final String NOTE_ITEM_CONTENT_TYPE = "vnd.android.cursor.item/vnd.routine_work.note";
+	public static final String PARAM_KEY_QUERY = "q";
 
 	public static boolean checkNote(ContentResolver cr, Uri uri)
 	{

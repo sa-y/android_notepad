@@ -25,14 +25,15 @@ package org.routine_work.notepad.utils;
 
 import android.content.ContentUris;
 import android.net.Uri;
+import android.net.Uri.Builder;
 import android.text.TextUtils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.routine_work.notepad.provider.NoteStore;
 
 /**
- * "id:<note_item_id>" - Item Id query
- * other - word query
+ * "id:<note_item_id>" - Item Id query other - word query
+ *
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
 public class NoteSearchQueryParser
@@ -56,8 +57,10 @@ public class NoteSearchQueryParser
 				contentUri = ContentUris.withAppendedId(NoteStore.CONTENT_URI, itemId);
 			}
 			else
-			{ // word query
-				contentUri = Uri.withAppendedPath(NoteStore.CONTENT_SEARCH_URI, queryString.toString());
+			{ 	// word query
+				Builder builder = NoteStore.CONTENT_URI.buildUpon();
+				builder.appendQueryParameter(NoteStore.PARAM_KEY_QUERY, queryString.toString());
+				contentUri = builder.build();
 			}
 		}
 
