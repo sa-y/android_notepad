@@ -22,10 +22,6 @@
 #############################
 !! notepad-app-level-11
 
-* NotepadActivity のバックボタンの動作変更
-** SearchView 表示時なら SearchView を閉じる
-** SearchView 非表示ならデフォルト動作させる
-
 * 設定画面の作成
 ** 設定項目
 *** 日記モードの日付フォーマット
@@ -188,6 +184,10 @@
 #  -> NotepadActivity.quitApplication() 後にfinish()を呼び出ス用に修正
 
 !! notepad-app-level-11
+
+#* NotepadActivity のバックボタンの動作変更
+#** SearchView 表示時なら SearchView を閉じる
+#** SearchView 非表示ならデフォルト動作させる
 
 #* NotepadActivity の SearchView で検索時に詳細画面を表示する際に
 #  SearchView がアイコン化されるが、ソフトウェアキーボードが表示された

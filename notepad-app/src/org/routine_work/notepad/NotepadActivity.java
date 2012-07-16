@@ -391,7 +391,7 @@ public class NotepadActivity extends ListActivity
 			result = super.onKeyDown(keyCode, event);
 		}
 
-		Log.v(LOG_TAG, "Hello");
+		Log.v(LOG_TAG, "Bye");
 		return result;
 	}
 

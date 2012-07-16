@@ -38,6 +38,7 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -267,6 +268,29 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		}
 
 		Log.v(LOG_TAG, "Bye");
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{
+		boolean result;
+		Log.v(LOG_TAG, "Hello");
+
+		if ((keyCode == KeyEvent.KEYCODE_BACK)
+			&& searchView.isIconified() == false)
+		{
+			searchView.setQuery(null, false);
+			searchView.setIconified(true);
+			result = true;
+
+		}
+		else
+		{
+			result = super.onKeyDown(keyCode, event);
+		}
+
+		Log.v(LOG_TAG, "Bye");
+		return result;
 	}
 
 	// BEGIN ---------- SeachView.OnCloseListener ----------
