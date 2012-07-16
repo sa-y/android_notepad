@@ -26,9 +26,6 @@
 ** SearchView 表示時なら SearchView を閉じる
 ** SearchView 非表示ならデフォルト動作させる
 
-* グローバル検索から来た動作がおかしい
-** NotepadActivity が起動した状態でグローバル検索から NotepadActivity にくると検索されていない
-
 * 設定画面の作成
 ** 設定項目
 *** 日記モードの日付フォーマット
@@ -191,6 +188,18 @@
 #  -> NotepadActivity.quitApplication() 後にfinish()を呼び出ス用に修正
 
 !! notepad-app-level-11
+
+#* グローバル検索から来た動作がおかしい
+#** 再現手順
+#*** NotepadActivity を起動
+#*** ホームに戻る
+#*** でグローバル検索ノートを選択して NotepadActivity にくる
+#*** NotepadActivity で検索されていない
+#** 原因
+#*** 現状クエリーは initialQueryString に設定して SearchView 初期化時に設定
+#*** SearchView はすでに初期化済みなので initialQueryString の値が反映されない
+#** 対策
+#*** SearchView が初期化済みかどうかで処理を分岐
 
 #* SearchView の OnQueryTextSubmit でソフトウェアキーボードを非表示にする
 

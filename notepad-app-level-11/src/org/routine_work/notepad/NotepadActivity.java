@@ -200,6 +200,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		{
 			searchView.setIconified(false);
 		}
+		initialQueryString = null;
 
 		Log.v(LOG_TAG, "Bye");
 		return true;
@@ -265,38 +266,6 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 				reloadNoteList();
 				closeNoteDetailFragment();
 			}
-		}
-
-		Log.v(LOG_TAG, "Bye");
-	}
-
-	private void doSeachWithQueryText(String queryString)
-	{
-		Log.v(LOG_TAG, "Hello");
-		Log.v(LOG_TAG, "queryString => " + queryString);
-
-		Uri contentUri = NoteSearchQueryParser.parseQuery(queryString);
-
-		FragmentManager fm = getFragmentManager();
-		NoteListFragment noteListFragment = (NoteListFragment) fm.findFragmentById(R.id.note_list_fragment);
-		if (noteListFragment != null)
-		{
-			Log.d(LOG_TAG, "noteListFragment => " + noteListFragment);
-			noteListFragment.setContentUri(contentUri);
-		}
-
-		Log.v(LOG_TAG, "Bye");
-	}
-
-	private void reloadNoteList()
-	{
-		Log.v(LOG_TAG, "Hello");
-
-		FragmentManager fm = getFragmentManager();
-		NoteListFragment noteListFragment = (NoteListFragment) fm.findFragmentById(R.id.note_list_fragment);
-		if (noteListFragment != null)
-		{
-			noteListFragment.reload();
 		}
 
 		Log.v(LOG_TAG, "Bye");
@@ -423,6 +392,107 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		Log.v(LOG_TAG, "Bye");
 	}
 
+	private void initializeWithIntent(Intent intent)
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		Log.d(LOG_TAG, "------------------------------");
+		Log.d(LOG_TAG, "intent.action => " + intent.getAction());
+		Log.d(LOG_TAG, "intent.data => " + intent.getData());
+		Log.d(LOG_TAG, "intent.type => " + intent.getType());
+		Log.d(LOG_TAG, "intent.scheme => " + intent.getScheme());
+		Log.d(LOG_TAG, "------------------------------");
+
+		closeNoteDetailFragment();
+
+		String action = intent.getAction();
+		if (ACTION_QUIT.equals(action))
+		{
+			finish();
+		}
+		else if (Intent.ACTION_SEARCH.equals(action))
+		{
+			setSearchQueryString(intent.getStringExtra(SearchManager.QUERY));
+		}
+		else if (Intent.ACTION_VIEW.equals(action))
+		{
+			int flags = intent.getFlags();
+			Log.v(LOG_TAG, "flags => 0x" + Integer.toHexString(flags));
+
+			if ((flags & Intent.FLAG_ACTIVITY_NEW_TASK) != 0)
+			{
+				Log.d(LOG_TAG, "flags includes FLAG_ACTIVITY_NEW_TASK");
+
+				boolean processed = false;
+				Uri data = intent.getData();
+				if (data != null)
+				{
+					ContentResolver contentResolver = getContentResolver();
+					String type = contentResolver.getType(data);
+					if (NoteStore.NOTE_ITEM_CONTENT_TYPE.equals(type))
+					{
+						Log.d(LOG_TAG, "open note : data => " + data);
+						String noteIdString = data.getLastPathSegment();
+						Log.d(LOG_TAG, "open note : noteIdString => " + noteIdString);
+						setSearchQueryString("id:" + noteIdString);
+						processed = true;
+					}
+				}
+
+				if (!processed)
+				{
+					setSearchQueryString(intent.getStringExtra(SearchManager.QUERY));
+				}
+			}
+		}
+		else
+		{
+			setSearchQueryString(null);
+		}
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	private void setSearchQueryString(String queryString)
+	{
+		Log.v(LOG_TAG, "Hello");
+		Log.d(LOG_TAG, "queryString => " + queryString);
+		if (searchView != null)
+		{
+			Log.d(LOG_TAG, "set query string to searchView");
+			searchView.setQuery(queryString, true);
+			if (!TextUtils.isEmpty(queryString))
+			{
+				searchView.setIconified(false);
+			}
+		}
+		else
+		{
+			Log.d(LOG_TAG, "set query string to initialQueryString");
+			initialQueryString = queryString;
+		}
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	private void doSeachWithQueryText(String queryString)
+	{
+		Log.v(LOG_TAG, "Hello");
+		Log.v(LOG_TAG, "queryString => " + queryString);
+
+		Uri contentUri = NoteSearchQueryParser.parseQuery(queryString);
+
+		FragmentManager fm = getFragmentManager();
+		NoteListFragment noteListFragment = (NoteListFragment) fm.findFragmentById(R.id.note_list_fragment);
+		if (noteListFragment != null)
+		{
+			Log.d(LOG_TAG, "noteListFragment => " + noteListFragment);
+			noteListFragment.setContentUri(contentUri);
+		}
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
 	private void setEnableDetailView(boolean detailView)
 	{
 		int listVisibility = View.VISIBLE;
@@ -458,81 +528,17 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		}
 	}
 
-	private void initializeWithIntent(Intent intent)
+	private void reloadNoteList()
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		Log.d(LOG_TAG, "------------------------------");
-		Log.d(LOG_TAG, "intent.action => " + intent.getAction());
-		Log.d(LOG_TAG, "intent.data => " + intent.getData());
-		Log.d(LOG_TAG, "intent.type => " + intent.getType());
-		Log.d(LOG_TAG, "intent.scheme => " + intent.getScheme());
-		Log.d(LOG_TAG, "------------------------------");
-
-		initialQueryString = null;
-		closeNoteDetailFragment();
-
-		String action = intent.getAction();
-		if (ACTION_QUIT.equals(action))
+		FragmentManager fm = getFragmentManager();
+		NoteListFragment noteListFragment = (NoteListFragment) fm.findFragmentById(R.id.note_list_fragment);
+		if (noteListFragment != null)
 		{
-			finish();
-		}
-		else if (Intent.ACTION_SEARCH.equals(action))
-		{
-			initialQueryString = intent.getStringExtra(SearchManager.QUERY);
-		}
-		else if (Intent.ACTION_VIEW.equals(action))
-		{
-			int flags = intent.getFlags();
-			Log.v(LOG_TAG, "flags => 0x" + Integer.toHexString(flags));
-
-			if ((flags & Intent.FLAG_ACTIVITY_NEW_TASK) != 0)
-			{
-				Log.d(LOG_TAG, "flags includes FLAG_ACTIVITY_NEW_TASK");
-
-				boolean processed = false;
-				Uri data = intent.getData();
-				if (data != null)
-				{
-					ContentResolver contentResolver = getContentResolver();
-					String type = contentResolver.getType(data);
-					if (NoteStore.NOTE_ITEM_CONTENT_TYPE.equals(type))
-					{
-						Log.d(LOG_TAG, "open note : data => " + data);
-						String noteIdString = data.getLastPathSegment();
-						Log.d(LOG_TAG, "open note : data => " + data);
-						initialQueryString = "id:" + noteIdString;
-						processed = true;
-					}
-				}
-
-				if (!processed)
-				{
-					initialQueryString = intent.getStringExtra(SearchManager.QUERY);
-				}
-			}
-		}
-		else
-		{
-			initialQueryString = null;
+			noteListFragment.reload();
 		}
 
-		Log.v(LOG_TAG, "Bye");
-	}
-
-	private void doSearchWithQuery(String queryString)
-	{
-		Log.v(LOG_TAG, "Hello");
-		Log.d(LOG_TAG, "queryString => " + queryString);
-
-		// update
-		doSeachWithQueryText(queryString);
-
-		// save query history
-		SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this,
-			RecentQueryTextSuggestionProvider.AUTHORITY,
-			RecentQueryTextSuggestionProvider.DATABASE_MODE_QUERIES);
-		suggestions.saveRecentQuery(queryString, null);
 		Log.v(LOG_TAG, "Bye");
 	}
 
