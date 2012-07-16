@@ -37,7 +37,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.SearchRecentSuggestions;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -50,7 +49,6 @@ import org.routine_work.notepad.fragment.NoteDetailFragment;
 import org.routine_work.notepad.fragment.NoteListFragment;
 import org.routine_work.notepad.fragment.ViewNoteFragment;
 import org.routine_work.notepad.provider.NoteStore;
-import org.routine_work.notepad.provider.RecentQueryTextSuggestionProvider;
 import org.routine_work.notepad.utils.NoteSearchQueryParser;
 import org.routine_work.utils.IMEUtils;
 import org.routine_work.utils.Log;
@@ -570,6 +568,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 				viewNoteFragment.loadNote();
 			}
 
+			searchView.clearFocus();
 		}
 
 		Log.v(LOG_TAG, "Bye");

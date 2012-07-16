@@ -189,6 +189,10 @@
 
 !! notepad-app-level-11
 
+#* NotepadActivity の SearchView で検索時に詳細画面を表示する際に
+#  SearchView がアイコン化されるが、ソフトウェアキーボードが表示された
+#  ままになるバグを修正。
+
 #* グローバル検索から来た動作がおかしい
 #** 再現手順
 #*** NotepadActivity を起動
