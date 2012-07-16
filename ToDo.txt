@@ -5,6 +5,8 @@
 
 * ノート一覧画面のタイトル部分にノートの数を表示
 
+* 検索用 EditText のアクションを検索用に設定する
+
 * 日本語リソース作成
 
 * ソート順を変更指定可能にする
@@ -20,6 +22,13 @@
 #############################
 !! notepad-app-level-11
 
+* NotepadActivity のバックボタンの動作変更
+** SearchView 表示時なら SearchView を閉じる
+** SearchView 非表示ならデフォルト動作させる
+
+* グローバル検索から来た動作がおかしい
+** NotepadActivity が起動した状態でグローバル検索から NotepadActivity にくると検索されていない
+
 * 設定画面の作成
 ** 設定項目
 *** 日記モードの日付フォーマット
@@ -28,7 +37,6 @@
 ** 手順
 *** NotepadPreferenceActivity ?
 *** AndroidManifest.xml に NotepadPreferenceActivity を登録
-
 
 * キーボードのみで利用する際のユーザビリティの改善
 ** ノート一覧画面でノートを選択して一気に編集する方法が欲しい
@@ -48,9 +56,6 @@
 #############################
 !! notepad-common
 
-* ContentProvider の検索用URLを変更
-** 変更前 : contents://org.routine_work.notepad.noteprovider/search_notes/<query_word>
-** 変更後 : contents://org.routine_work.notepad.noteprovider/notes?q=<query_word>
 
 * NoteSearchQueryParser に日付記法とかもあってもいいかも
 ** 書式
@@ -64,6 +69,15 @@
 *** ContentProvider 側の処理を実装
 *** NoteSearchQueryParser にパース機能を実装
 *** NoteSearchQueryParser を利用するコードの修正
+
+* 作成時間による表示URIがあってもいい?
+** 例
+*** contents://org.routine_work.notepad.noteprovider/notes/2012
+*** contents://org.routine_work.notepad.noteprovider/notes/201212
+*** contents://org.routine_work.notepad.noteprovider/notes/20121231
+** 全部クエリーパラメータのほうが簡単？
+*** contents://org.routine_work.notepad.noteprovider/notes?ctime_s=<yyyymmddHHMMSS>&ctime_e=<yyyymmddHHMMSS>
+
 
 ############################################################
 ! 0.1.4
@@ -244,6 +258,16 @@
 #*** DeleteNotesActivity 削除
 #** 結果
 #*** MultiChoiceModeListener での削除を止めたので削除アクティビティが必要になった
+
+!! notepad-common
+#* ContentProvider の検索用URLを変更
+#** 変更前 : contents://org.routine_work.notepad.noteprovider/search_notes/<query_word>
+#** 変更後 : contents://org.routine_work.notepad.noteprovider/notes?q=<query_word>
+#** 手順
+#*** NoteProvider を修正
+#*** NoteStore を修正
+#*** NoteSearchQueryParser を修正
+#*** NoteStore.CONTENT_SEACH_URI を削除
 
 ! 0.1.3
 
