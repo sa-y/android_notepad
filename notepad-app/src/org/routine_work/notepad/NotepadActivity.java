@@ -37,6 +37,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.*;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
@@ -44,8 +45,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.utils.NoteSearchQueryParser;
+import org.routine_work.utils.IMEUtils;
 import org.routine_work.utils.Log;
 
 /**
@@ -54,6 +57,7 @@ import org.routine_work.utils.Log;
  */
 public class NotepadActivity extends ListActivity
 	implements View.OnClickListener, OnItemClickListener,
+	TextView.OnEditorActionListener,
 	NotepadConstants
 {
 
@@ -122,6 +126,7 @@ public class NotepadActivity extends ListActivity
 
 		searchEditText = (EditText) findViewById(R.id.search_edittext);
 		searchEditText.addTextChangedListener(new SearchEditTextWatcher());
+		searchEditText.setOnEditorActionListener(this);
 
 		setActionMode(ACTION_MODE_NORMAL);
 
@@ -329,8 +334,7 @@ public class NotepadActivity extends ListActivity
 				break;
 			case R.id.search_note_menuitem:
 				Log.d(LOG_TAG, "search_note_menuitem is selected..");
-				setActionMode(ACTION_MODE_SEARCH);
-				searchEditText.requestFocus();
+				enterSearchMode();
 				break;
 			case R.id.quit_menuitem:
 				Log.d(LOG_TAG, "quit_menuitem is selected.");
@@ -361,8 +365,7 @@ public class NotepadActivity extends ListActivity
 				break;
 			case R.id.search_button:
 				Log.d(LOG_TAG, "search_button is clicked.");
-				setActionMode(ACTION_MODE_SEARCH);
-				searchEditText.requestFocus();
+				enterSearchMode();
 				break;
 			case R.id.cancel_search_button:
 				Log.d(LOG_TAG, "cancel_search_button is clicked.");
@@ -384,7 +387,6 @@ public class NotepadActivity extends ListActivity
 		{
 			cancelSearchMode();
 			result = true;
-
 		}
 		else
 		{
@@ -393,6 +395,15 @@ public class NotepadActivity extends ListActivity
 
 		Log.v(LOG_TAG, "Bye");
 		return result;
+	}
+
+	public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
+	{
+		if (actionId == EditorInfo.IME_ACTION_SEARCH)
+		{
+			IMEUtils.hideSoftKeyboardWindow(this, v);
+		}
+		return true;
 	}
 
 	private void initializeWithIntent(Intent intent)
@@ -517,20 +528,6 @@ public class NotepadActivity extends ListActivity
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void processIntent(Intent intent)
-	{
-		Log.v(LOG_TAG, "Hello");
-
-		String action = intent.getAction();
-		if (ACTION_QUIT.equals(action))
-		{
-			Log.d(LOG_TAG, "action => " + action);
-			finish();
-		}
-
-		Log.v(LOG_TAG, "Bye");
-	}
-
 	private void setActionMode(int newActionMode)
 	{
 		Log.v(LOG_TAG, "Hello");
@@ -604,6 +601,17 @@ public class NotepadActivity extends ListActivity
 			searchEditText.setText(null);
 			getListView().requestFocus();
 			setActionMode(ACTION_MODE_NORMAL);
+			IMEUtils.hideSoftKeyboardWindow(this, searchEditText);
+		}
+	}
+
+	private void enterSearchMode()
+	{
+		if (actionMode != ACTION_MODE_SEARCH)
+		{
+			setActionMode(ACTION_MODE_SEARCH);
+			searchEditText.requestFocus();
+			IMEUtils.showSoftKeyboardWindow(this, searchEditText);
 		}
 	}
 
