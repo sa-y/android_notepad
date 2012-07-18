@@ -36,6 +36,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import org.routine_work.notepad.fragment.DeleteNoteFragment;
 import org.routine_work.notepad.fragment.EditNoteFragment;
+import org.routine_work.notepad.fragment.NoteControlCallback;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.utils.Log;
 
@@ -138,7 +139,6 @@ public class NoteDetailActivity extends Activity
 		Log.v(LOG_TAG, "Hello");
 
 		MenuInflater menuInflater = getMenuInflater();
-		menuInflater.inflate(R.menu.add_note_option_menu, menu);
 		menuInflater.inflate(R.menu.quit_option_menu, menu);
 
 		Log.v(LOG_TAG, "Bye");
@@ -162,10 +162,6 @@ public class NoteDetailActivity extends Activity
 				Log.d(LOG_TAG, "quit_menuitem is clicked.");
 				NotepadActivity.quitApplication(this);
 				finish();
-				break;
-			case R.id.add_new_note_menuitem:
-				Log.d(LOG_TAG, "add_new_note_menuitem is clicked.");
-				startAddNewNoteActivity();
 				break;
 			default:
 				result = super.onOptionsItemSelected(item);
@@ -296,17 +292,6 @@ public class NoteDetailActivity extends Activity
 		}
 		currentAction = nextAction;
 		Log.d(LOG_TAG, "currentAction => " + currentAction);
-
-		Log.v(LOG_TAG, "Bye");
-	}
-
-	private void startAddNewNoteActivity()
-	{
-		Log.v(LOG_TAG, "Hello");
-
-		Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.CONTENT_URI);
-		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		startActivity(intent);
 
 		Log.v(LOG_TAG, "Bye");
 	}

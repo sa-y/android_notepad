@@ -25,10 +25,15 @@ package org.routine_work.notepad.fragment;
 
 import android.app.ActionBar;
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import org.routine_work.notepad.R;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.utils.Log;
 
@@ -78,6 +83,17 @@ public class EditNoteFragment extends NoteDetailFragment
 	}
 
 	@Override
+	public void onCreate(Bundle savedInstanceState)
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(true);
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 		Bundle savedInstanceState)
 	{
@@ -104,35 +120,6 @@ public class EditNoteFragment extends NoteDetailFragment
 	}
 
 	@Override
-	public void onPause()
-	{
-		Log.v(LOG_TAG, "Hello");
-
-		super.onPause();
-
-		Log.v(LOG_TAG, "Bye");
-	}
-
-	@Override
-	public void onResume()
-	{
-		Log.v(LOG_TAG, "Hello");
-
-		super.onResume();
-//		loadNote();
-//
-//		Log.d(LOG_TAG, "------------------------------------------------------------");
-//		Log.d(LOG_TAG, "noteUri => " + noteUri);
-//		Log.d(LOG_TAG, "noteTitle => " + noteTitleEditText.getText());
-//		Log.d(LOG_TAG, "noteContent => " + noteContentEditText.getText());
-//		Log.d(LOG_TAG, "originalNoteTitle => " + originalNoteTitle);
-//		Log.d(LOG_TAG, "originalNoteContent => " + originalNoteContent);
-//		Log.d(LOG_TAG, "------------------------------------------------------------");
-//
-		Log.v(LOG_TAG, "Bye");
-	}
-
-	@Override
 	public void onSaveInstanceState(Bundle outState)
 	{
 		Log.v(LOG_TAG, "Hello");
@@ -143,6 +130,36 @@ public class EditNoteFragment extends NoteDetailFragment
 		Log.v(LOG_TAG, "Bye");
 	}
 
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
+	{
+		super.onCreateOptionsMenu(menu, inflater);
+		Log.v(LOG_TAG, "Hello");
+
+		inflater.inflate(R.menu.add_note_option_menu, menu);
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		boolean result = true;
+
+		switch (item.getItemId())
+		{
+			case R.id.add_new_note_menuitem:
+				Log.d(LOG_TAG, "add_new_note_menuitem is clicked.");
+				startAddNewNoteActivity();
+				break;
+			default:
+				result = super.onOptionsItemSelected(item);
+		}
+
+		return result;
+	}
+
+	// BEGIN : View.OnFocusChangeListener
 	public void onFocusChange(View view, boolean focused)
 	{
 		ActionBar actionBar = getActivity().getActionBar();
@@ -158,6 +175,7 @@ public class EditNoteFragment extends NoteDetailFragment
 			}
 		}
 	}
+	// END : View.OnFocusChangeListener
 
 	public boolean saveNote()
 	{
@@ -261,5 +279,16 @@ public class EditNoteFragment extends NoteDetailFragment
 		Log.d(LOG_TAG, "result => " + result);
 		Log.v(LOG_TAG, "Bye");
 		return result;
+	}
+
+	private void startAddNewNoteActivity()
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.CONTENT_URI);
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(intent);
+
+		Log.v(LOG_TAG, "Bye");
 	}
 }
