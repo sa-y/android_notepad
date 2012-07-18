@@ -3,9 +3,12 @@
 #############################
 !! notepad-app
 
-* ノート一覧画面のタイトル部分にノートの数を表示
+* ボタンやオプションメニューから検索を選んだ場合に EditBox にフォーカスが
+  移るがソフトウェアキーボードが表示されない。表示されるように修正。
 
-* 検索用 EditText のアクションを検索用に設定する
+* 検索用 EditText を閉じた際に、ソフトウェアキーボードが閉じないバグ。
+
+* ノート一覧画面のタイトル部分にノートの数を表示
 
 * 日本語リソース作成
 
@@ -76,6 +79,9 @@
 ! 0.1.4
 
 !! notepad-app
+
+#* 検索用 EditText のアクションを検索用に設定する
+
 #* 検索機能の見直し
 #** NotepadActivity が検索処理を行うようにするべきか検討
 #** する場合、検索状態を解除する手段が必要？
@@ -179,7 +185,6 @@
 #** NotepadActivity#goNoteListActivity() とか？
 #   -> やっぱりなし
 
-
 #* NoteDetailActivity を直接開いた際に、オプションメニューのQUITが機能していない
 #  -> NotepadActivity.quitApplication() 後にfinish()を呼び出ス用に修正
 
@@ -190,7 +195,6 @@
 #** ViewNoteFragment, EditNoteFragment, DeleteNoteFragment のうち
 #   使うのは EditNoteFragment のみ？
 #** EditNoteFragment で追加するように修正する
-
 
 #* NotepadActivity のバックボタンの動作変更
 #** SearchView 表示時なら SearchView を閉じる
