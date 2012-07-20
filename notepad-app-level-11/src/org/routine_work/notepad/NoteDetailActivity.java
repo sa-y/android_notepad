@@ -33,10 +33,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.Toast;
 import org.routine_work.notepad.fragment.DeleteNoteFragment;
 import org.routine_work.notepad.fragment.EditNoteFragment;
-import org.routine_work.notepad.fragment.NoteControlCallback;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.utils.Log;
 
@@ -55,6 +55,13 @@ public class NoteDetailActivity extends Activity
 		Log.v(LOG_TAG, "Hello");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.note_detail_activity);
+
+		// When software keyboard was displayed, the window is adjust resize.
+//		getWindow().setSoftInputMode(
+//			WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
+//			|WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+		getWindow().setSoftInputMode(
+			WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
 		Log.v(LOG_TAG, "Hi!");
 		Intent intent = getIntent();
