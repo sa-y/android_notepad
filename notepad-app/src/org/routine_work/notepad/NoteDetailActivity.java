@@ -31,11 +31,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.*;
+import android.view.View.OnFocusChangeListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import org.routine_work.notepad.provider.NoteStore;
+import org.routine_work.utils.IMEUtils;
 import org.routine_work.utils.Log;
 
 /**
@@ -44,13 +46,15 @@ import org.routine_work.utils.Log;
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
 public class NoteDetailActivity extends Activity
-	implements View.OnClickListener, NotepadConstants
+	implements View.OnClickListener, OnFocusChangeListener,
+	NotepadConstants
 {
 
 	private static final String SAVE_KEY_CURRENT_NOTE_URI = "currentNoteUri";
 	private static final String SAVE_KEY_CURRENT_ACTION = "currentAction";
 	private static final String LOG_TAG = "simple-notepad";
 	// views
+	private ViewGroup actionBarContainer;
 	private TextView titleTextView;
 	private ImageButton homeImageButton;
 	private ImageButton addNewNoteImageButton;
@@ -77,12 +81,16 @@ public class NoteDetailActivity extends Activity
 //		getWindow().setSoftInputMode(
 //			WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN
 //			| WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+		getWindow().setSoftInputMode(
+			WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
 		setContentView(R.layout.note_detail_activity);
 
-
+		actionBarContainer = (ViewGroup) findViewById(R.id.actionbar_container);
 		noteTitleEditText = (EditText) findViewById(R.id.note_title_edittext);
+		noteTitleEditText.setOnFocusChangeListener(this);
 		noteContentEditText = (EditText) findViewById(R.id.note_content_edittext);
+		noteContentEditText.setOnFocusChangeListener(this);
 
 		titleTextView = (TextView) findViewById(R.id.title_textview);
 		homeImageButton = (ImageButton) findViewById(R.id.home_button);
@@ -312,6 +320,36 @@ public class NoteDetailActivity extends Activity
 	}
 
 	@Override
+	public void onFocusChange(View v, boolean hasFocus)
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		switch (v.getId())
+		{
+			case R.id.note_title_edittext:
+				if (hasFocus)
+				{
+					IMEUtils.showSoftKeyboardWindow(this, v);
+				}
+				break;
+			case R.id.note_content_edittext:
+				if (hasFocus)
+				{
+					Log.d(LOG_TAG, LOG_TAG);
+					actionBarContainer.setVisibility(View.GONE);
+					IMEUtils.showSoftKeyboardWindow(this, v);
+				}
+				else
+				{
+					actionBarContainer.setVisibility(View.VISIBLE);
+				}
+				break;
+		}
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
 		// 子アクティビティを FLAG_ACTIVITY_CLEAR_TOP で起動するからここには来ない?
@@ -333,6 +371,7 @@ public class NoteDetailActivity extends Activity
 		Log.d(LOG_TAG, "currentAction => " + currentAction);
 		Log.d(LOG_TAG, "currentNoteUri => " + currentNoteUri);
 
+		actionBarContainer.setVisibility(View.VISIBLE);
 		// load saved note uri
 		String newAction = null;
 		Uri newNoteUri = null;

@@ -37,6 +37,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.*;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.View.OnFocusChangeListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
@@ -57,7 +58,7 @@ import org.routine_work.utils.Log;
  */
 public class NotepadActivity extends ListActivity
 	implements View.OnClickListener, OnItemClickListener,
-	TextView.OnEditorActionListener,
+	TextView.OnEditorActionListener, OnFocusChangeListener,
 	NotepadConstants
 {
 
@@ -126,6 +127,7 @@ public class NotepadActivity extends ListActivity
 
 		searchEditText = (EditText) findViewById(R.id.search_edittext);
 		searchEditText.addTextChangedListener(new SearchEditTextWatcher());
+		searchEditText.setOnFocusChangeListener(this);
 		searchEditText.setOnEditorActionListener(this);
 
 		setActionMode(ACTION_MODE_NORMAL);
@@ -397,6 +399,7 @@ public class NotepadActivity extends ListActivity
 		return result;
 	}
 
+	// TextView.OnEditorActionListener
 	public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
 	{
 		if (actionId == EditorInfo.IME_ACTION_SEARCH)
@@ -404,6 +407,14 @@ public class NotepadActivity extends ListActivity
 			IMEUtils.hideSoftKeyboardWindow(this, v);
 		}
 		return true;
+	}
+
+	public void onFocusChange(View v, boolean hasFocus)
+	{
+		if (v.getId() == R.id.search_edittext && hasFocus)
+		{
+			IMEUtils.showSoftKeyboardWindow(this, v);
+		}
 	}
 
 	private void initializeWithIntent(Intent intent)

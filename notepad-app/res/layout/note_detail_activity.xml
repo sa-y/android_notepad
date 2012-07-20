@@ -6,7 +6,10 @@
 	android:orientation="vertical"
 >
 	<!-- action bar -->
-	<LinearLayout style="@style/actionbar" >
+	<LinearLayout
+		style="@style/actionbar"
+		android:id="@+id/actionbar_container"
+	>
 		<ImageButton
 			style="@style/actionbar_left_button" 
 			android:id="@+id/home_button"
