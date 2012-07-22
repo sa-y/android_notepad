@@ -47,6 +47,14 @@
 #############################
 !! notepad-common
 
+* タイトルや本文の編集の可不可のフラグを導入
+** カラム名
+*** title_locked
+*** text_locked
+** EditDailyNoteActivity などで作成した場合、デフォルトで title_locked を true にする
+** テーブル構成変更なので SQLite のコンバートロジックが必要
+*** とりあえず TSV に出力してインポートでいいのかな？
+
 * NoteSearchQueryParser に日付記法とかもあってもいいかも
 ** 書式
 *** mtime_start:<yyyymmddHHMMSS>
@@ -65,7 +73,7 @@
 *** contents://org.routine_work.notepad.noteprovider/notes/2012
 *** contents://org.routine_work.notepad.noteprovider/notes/201212
 *** contents://org.routine_work.notepad.noteprovider/notes/20121231
-** 数値の羅列はIDと区別がつかないからダメだ
+** 数値の羅列はIDと区別がつかないからダメ
 ** 全部クエリーパラメータのほうが簡単？
 *** contents://org.routine_work.notepad.noteprovider/notes?ctime_s=<yyyymmddHHMMSS>&ctime_e=<yyyymmddHHMMSS>
 
