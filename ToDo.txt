@@ -20,6 +20,8 @@
 #############################
 !! notepad-app-level-11
 
+* PickNoteActivity のデータロードを CursorLoader を使うように修正
+
 * 設定画面の作成
 ** 設定項目
 *** 日記モードの日付フォーマット
@@ -54,6 +56,7 @@
 ** EditDailyNoteActivity などで作成した場合、デフォルトで title_locked を true にする
 ** テーブル構成変更なので SQLite のコンバートロジックが必要
 *** とりあえず TSV に出力してインポートでいいのかな？
+*** テキストにタブが入っているか…
 
 * NoteSearchQueryParser に日付記法とかもあってもいいかも
 ** 書式
@@ -77,6 +80,14 @@
 ** 全部クエリーパラメータのほうが簡単？
 *** contents://org.routine_work.notepad.noteprovider/notes?ctime_s=<yyyymmddHHMMSS>&ctime_e=<yyyymmddHHMMSS>
 
+############################################################
+! 0.1.5
+
+!! notepad-app
+
+!! notepad-app-level-11
+
+!! notepad-common
 
 ############################################################
 ! 0.1.4

@@ -96,6 +96,13 @@ public class NotepadActivity extends ListActivity
 	private Cursor cursor;
 	private EditText searchEditText;
 
+	static
+	{
+		Log.setOutputLevel(Log.VERBOSE);
+		Log.setTraceMode(true);
+		Log.setIndentMode(true);
+	}
+
 	public static void goHomeActivity(Context context)
 	{
 		Intent homeIntent = new Intent(Intent.ACTION_VIEW, NoteStore.CONTENT_URI);
@@ -117,9 +124,6 @@ public class NotepadActivity extends ListActivity
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
-		Log.setOutputLevel(Log.VERBOSE);
-		Log.setTraceMode(true);
-		Log.setIndentMode(true);
 		Log.v(LOG_TAG, "Hello");
 
 		super.onCreate(savedInstanceState);

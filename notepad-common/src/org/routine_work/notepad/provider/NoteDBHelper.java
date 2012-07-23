@@ -23,9 +23,15 @@
  */
 package org.routine_work.notepad.provider;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import org.routine_work.notepad.provider.NoteStore.NoteColumns;
 import org.routine_work.utils.Log;
 
 /**
@@ -33,16 +39,28 @@ import org.routine_work.utils.Log;
  * @author sawai
  */
 class NoteDBHelper extends SQLiteOpenHelper
-		implements NoteDBConstants {
+	implements NoteDBConstants
+{
 
 	private String LOG_TAG = "simple-notepad";
+	private Context context;
 
-	NoteDBHelper(Context context) {
+	static
+	{
+		Log.setOutputLevel(Log.VERBOSE);
+		Log.setTraceMode(true);
+		Log.setIndentMode(true);
+	}
+
+	NoteDBHelper(Context context)
+	{
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		this.context = context;
 	}
 
 	@Override
-	public void onCreate(SQLiteDatabase db) {
+	public void onCreate(SQLiteDatabase db)
+	{
 		Log.w(LOG_TAG, "Create database.");
 		Log.w(LOG_TAG, "CREATE_TABLE_SQL => " + CREATE_TABLE_SQL);
 		db.execSQL(CREATE_TABLE_SQL);
@@ -57,18 +75,135 @@ class NoteDBHelper extends SQLiteOpenHelper
 	}
 
 	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
+	{
 		Log.w(LOG_TAG, "Upgrading database from version " + oldVersion + " to "
-				+ newVersion + ", which will destroy all old data");
+			+ newVersion + ".");
+
+		// backup data
+		File backupDir = context.getDir("note_db_backup", Context.MODE_PRIVATE);
+		if (oldVersion == 4)
+		{
+			backupV4To(db, backupDir);
+		}
+		// upgrade table
 		db.execSQL(DROP_TABLE_SQL);
+
+		// restore data
 		onCreate(db);
+
+		restoreFrom(db, backupDir);
 	}
 
-	public void reindex(SQLiteDatabase db) {
+	public void reindex(SQLiteDatabase db)
+	{
 		db.execSQL(REINDEX_SQL);
 	}
 
-	public void vacuum(SQLiteDatabase db) {
+	public void vacuum(SQLiteDatabase db)
+	{
 		db.execSQL(VACCUM_SQL);
+	}
+
+	public void backupV4To(SQLiteDatabase db, File backupDirectory)
+	{
+		Log.v(LOG_TAG, "Hello");
+		Log.v(LOG_TAG, "backupDirectory => " + backupDirectory);
+
+		Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null);
+		if (cursor != null && cursor.moveToFirst())
+		{
+			int idIndex = cursor.getColumnIndex(NoteColumns._ID);
+			int titleIndex = cursor.getColumnIndex(NoteColumns.TITLE);
+			int contentIndex = cursor.getColumnIndex(NoteColumns.CONTENT);
+			int dateAddedIndex = cursor.getColumnIndex(NoteColumns.DATE_ADDED);
+			int dateModifiedIndex = cursor.getColumnIndex(NoteColumns.DATE_MODIFIED);
+
+			int index = 0;
+			do
+			{
+				Note note = new Note();
+				note.id = cursor.getLong(idIndex);
+				note.title = cursor.getString(titleIndex);
+				note.content = cursor.getString(contentIndex);
+				note.titleLocked = false;
+				note.contentLocked = false;
+				note.added = cursor.getLong(dateAddedIndex);
+				note.modified = cursor.getLong(dateModifiedIndex);
+
+				File noteFile = new File(backupDirectory, String.format("%08d", index++));
+				Log.d(LOG_TAG, "backup : noteFile => " + noteFile);
+				try
+				{
+					Note.writeNoteTo(note, noteFile);
+				}
+				catch (FileNotFoundException ex)
+				{
+					Log.e(LOG_TAG, "Note.writeNoteTo() Failed.", ex);
+				}
+				catch (IOException ex)
+				{
+					Log.e(LOG_TAG, "Note.writeNoteTo() Failed.", ex);
+				}
+			}
+			while (cursor.moveToNext());
+
+		}
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	public void restoreFrom(SQLiteDatabase db, File backupDirectory)
+	{
+		Log.v(LOG_TAG, "Hello");
+		Log.v(LOG_TAG, "backupDirectory => " + backupDirectory);
+		File[] listFiles = backupDirectory.listFiles();
+
+		for (File noteFile : listFiles)
+		{
+			try
+			{
+				Log.d(LOG_TAG, "restore : noteFile => " + noteFile);
+				Note note = Note.readNoteFrom(noteFile);
+				ContentValues values = new ContentValues();
+				values.put(NoteColumns._ID, note.id);
+				values.put(NoteColumns.TITLE, note.title);
+				values.put(NoteColumns.CONTENT, note.content);
+				values.put(NoteColumns.TITLE_LOCKED, note.titleLocked);
+				values.put(NoteColumns.CONTENT_LOCKED, note.contentLocked);
+				values.put(NoteColumns.DATE_ADDED, note.added);
+				values.put(NoteColumns.DATE_MODIFIED, note.modified);
+				db.insert(TABLE_NAME, null, values);
+			}
+			catch (FileNotFoundException ex)
+			{
+				Log.e(LOG_TAG, "Note.readNoteFrom() Failed.", ex);
+			}
+			catch (IOException ex)
+			{
+				Log.e(LOG_TAG, "Note.readNoteFrom() Failed.", ex);
+			}
+			catch (ClassNotFoundException ex)
+			{
+				Log.e(LOG_TAG, "Note.readNoteFrom() Failed.", ex);
+			}
+		}
+
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	public void clearBackupFiles(SQLiteDatabase db, File backupDirectory)
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		File[] listFiles = backupDirectory.listFiles();
+		for (File noteFile : listFiles)
+		{
+			Log.d(LOG_TAG, "Delete : noteFile => " + noteFile);
+			noteFile.delete();
+		}
+
+		Log.v(LOG_TAG, "Bye");
 	}
 }

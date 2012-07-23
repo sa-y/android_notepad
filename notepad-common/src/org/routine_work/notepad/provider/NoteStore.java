@@ -49,6 +49,8 @@ public class NoteStore
 		String DATE_MODIFIED = "date_modified";
 		String TITLE = "title";
 		String CONTENT = "content";
+		String TITLE_LOCKED = "title_locked";
+		String CONTENT_LOCKED = "content_locked";
 	}
 	public static final String AUTHORITY = "org.routine_work.notepad.noteprovider";
 	public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/notes");
@@ -93,6 +95,8 @@ public class NoteStore
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(NoteColumns.TITLE, title);
 		initialValues.put(NoteColumns.CONTENT, content);
+		initialValues.put(NoteColumns.TITLE_LOCKED, false);
+		initialValues.put(NoteColumns.CONTENT_LOCKED, false);
 		initialValues.put(NoteColumns.DATE_ADDED, now);
 		initialValues.put(NoteColumns.DATE_MODIFIED, now);
 

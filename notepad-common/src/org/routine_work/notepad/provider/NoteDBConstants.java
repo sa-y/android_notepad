@@ -33,15 +33,17 @@ interface NoteDBConstants
 {
 
 	String DATABASE_NAME = "NoteDB";
-	int DATABASE_VERSION = 4;
+	int DATABASE_VERSION = 5;
 	String TABLE_NAME = "Notes";
 	// CREATE SQL
 	String CREATE_TABLE_SQL = "CREATE TABLE " + TABLE_NAME + "("
 		+ "  " + NoteColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT"
 		+ ", " + NoteColumns.TITLE + " TEXT"
 		+ ", " + NoteColumns.CONTENT + " TEXT"
-		+ ", " + NoteColumns.DATE_ADDED + " INTEGER"
-		+ ", " + NoteColumns.DATE_MODIFIED + " INTEGER"
+		+ ", " + NoteColumns.TITLE_LOCKED + " BOOLEAN NOT NULL"
+		+ ", " + NoteColumns.CONTENT_LOCKED + " BOOLEAN NOT NULL"
+		+ ", " + NoteColumns.DATE_ADDED + " INTEGER NOT NULL"
+		+ ", " + NoteColumns.DATE_MODIFIED + " INTEGER NOT NULL"
 		+ ");";
 	// DROP SQL
 	String DROP_TABLE_SQL = "DROP TABLE " + TABLE_NAME + ";";
@@ -55,5 +57,4 @@ interface NoteDBConstants
 		+ "ON " + TABLE_NAME + "(" + NoteColumns.DATE_MODIFIED + ");";
 	String REINDEX_SQL = "REINDEX;";
 	String VACCUM_SQL = "VACUUM;";
-
 }
