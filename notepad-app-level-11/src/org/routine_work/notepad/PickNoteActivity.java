@@ -33,6 +33,7 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -62,7 +63,10 @@ public class PickNoteActivity extends ListActivity
 
 		Intent intent = getIntent();
 		String title = intent.getStringExtra(Intent.EXTRA_TITLE);
-		setTitle(title);
+		if (!TextUtils.isEmpty(title))
+		{
+			setTitle(title);
+		}
 
 		listAdapter = new SimpleCursorAdapter(this,
 			R.layout.note_list_item, null,
