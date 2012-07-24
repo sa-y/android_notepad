@@ -22,6 +22,8 @@
 
 * PickNoteActivity のデータロードを CursorLoader を使うように修正
 
+* ショートカット作成時に PickNoteActivity を開いた際にタイトルが表示されないバグ
+
 * 設定画面の作成
 ** 設定項目
 *** 日記モードの日付フォーマット

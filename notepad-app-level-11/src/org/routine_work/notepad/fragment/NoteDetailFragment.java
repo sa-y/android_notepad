@@ -54,7 +54,6 @@ public class NoteDetailFragment extends Fragment
 	}
 	private static final String LOG_TAG = "simple-notepad";
 	private static final String SAVE_KEY_NOTE_URI = "noteUri";
-	private static final int NOTE_LOADER_ID = 1;
 	protected EditText noteTitleEditText;
 	protected EditText noteContentEditText;
 	protected boolean viewIsInflated = false;

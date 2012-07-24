@@ -58,7 +58,6 @@ public class NoteListFragment extends ListFragment
 {
 
 	private static final String LOG_TAG = "simple-notepad";
-	private static final int NOTE_LOADER_ID = 0;
 	private boolean narrowLayout = false;
 	private SimpleCursorAdapter listAdapter;
 	private Uri contentUri;
@@ -68,7 +67,6 @@ public class NoteListFragment extends ListFragment
 	public NoteListFragment()
 	{
 	}
-
 
 	public void setNarrowLayout(boolean narrowLayout)
 	{

@@ -25,9 +25,11 @@ package org.routine_work.notepad;
 
 import android.app.Activity;
 import android.app.ListActivity;
-import android.content.ContentResolver;
+import android.app.LoaderManager;
 import android.content.ContentUris;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -40,17 +42,16 @@ import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.utils.Log;
 
 public class PickNoteActivity extends ListActivity
-	implements AdapterView.OnItemClickListener, NotepadConstants
+	implements NotepadConstants,
+	AdapterView.OnItemClickListener,
+	LoaderManager.LoaderCallbacks<Cursor>
 {
 
+	// class variables
 	private static final String LOG_TAG = "simple-notepad";
-	// instances
+	// instance variables
 	private SimpleCursorAdapter listAdapter;
-	private Cursor cursor;
 
-	/**
-	 * Called when the activity is first created.
-	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -63,21 +64,17 @@ public class PickNoteActivity extends ListActivity
 		String title = intent.getStringExtra(Intent.EXTRA_TITLE);
 		setTitle(title);
 
-		initializeListData();
+		listAdapter = new SimpleCursorAdapter(this,
+			R.layout.note_list_item, null,
+			MAPPING_FROM, MAPPING_TO);
+		listAdapter.setViewBinder(new NoteListItemViewBinder(this));
+		setListAdapter(listAdapter);
+
+		LoaderManager loaderManager = getLoaderManager();
+		loaderManager.initLoader(NOTE_LOADER_ID, null, this);
 
 		ListView listView = getListView();
 		listView.setOnItemClickListener(this);
-
-		Log.v(LOG_TAG, "Bye");
-	}
-
-	@Override
-	protected void onDestroy()
-	{
-		Log.v(LOG_TAG, "Hello");
-
-		finalizeListData();
-		super.onDestroy();
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -96,32 +93,31 @@ public class PickNoteActivity extends ListActivity
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void initializeListData()
+	// BEGIN ---------- LoaderManager.LoaderCallbacks<Cursor> ----------
+	public Loader<Cursor> onCreateLoader(int id, Bundle bundle)
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		ContentResolver cr = getContentResolver();
-		cursor = NoteStore.getAllNotes(cr);
-
-		listAdapter = new SimpleCursorAdapter(this,
-			R.layout.note_list_item, cursor,
-			MAPPING_FROM, MAPPING_TO);
-		listAdapter.setViewBinder(new NoteListItemViewBinder(this));
-		setListAdapter(listAdapter);
+		String sortOrder = NoteStore.NoteColumns.DATE_MODIFIED + " DESC";
+		CursorLoader cursorLoader = new CursorLoader(this,
+			NoteStore.CONTENT_URI, null, null, null, sortOrder);
 
 		Log.v(LOG_TAG, "Bye");
+		return cursorLoader;
 	}
 
-	private void finalizeListData()
+	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor)
 	{
 		Log.v(LOG_TAG, "Hello");
-
-		if (cursor != null)
-		{
-			cursor.close();
-			cursor = null;
-		}
-
+		listAdapter.swapCursor(cursor);
 		Log.v(LOG_TAG, "Bye");
 	}
+
+	public void onLoaderReset(Loader<Cursor> loader)
+	{
+		Log.v(LOG_TAG, "Hello");
+		listAdapter.swapCursor(null);
+		Log.v(LOG_TAG, "Bye");
+	}
+	// END ---------- LoaderManager.LoaderCallbacks<Cursor> ----------
 }

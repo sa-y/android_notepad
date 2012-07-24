@@ -36,6 +36,7 @@ public interface NotepadConstants
 	int REQUEST_CODE_DELETE_NOTE = 104;
 	int REQUEST_CODE_DELETE_NOTES = 105;
 	int REQUEST_CODE_PICK_NOTE = 106;
+	int NOTE_LOADER_ID = 0;
 	String[] MAPPING_FROM =
 	{
 		NoteStore.NoteColumns.TITLE,

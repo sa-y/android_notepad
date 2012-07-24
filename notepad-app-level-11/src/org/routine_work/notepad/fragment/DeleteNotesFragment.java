@@ -47,11 +47,11 @@ import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.utils.Log;
 
 public class DeleteNotesFragment extends ListFragment
-	implements NotepadConstants, LoaderManager.LoaderCallbacks<Cursor>
+	implements NotepadConstants,
+	LoaderManager.LoaderCallbacks<Cursor>
 {
 
 	private static final String LOG_TAG = "simple-notepad";
-	private static final int NOTE_LOADER_ID = 0;
 	private SimpleCursorAdapter listAdapter;
 
 	public DeleteNotesFragment()
