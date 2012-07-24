@@ -82,6 +82,10 @@
 
 !! notepad-common
 
+#* NoteStore の未使用メソッドを削除
+#** NoteStore.getAllNotes(ContentResolver cr) : Cursor
+#** NoteStore.selectByText(ContentResolver cr, String queryText) : Cursor
+
 #* タイトルや本文の編集の可不可のフラグを導入
 #** カラム名
 #*** title_locked

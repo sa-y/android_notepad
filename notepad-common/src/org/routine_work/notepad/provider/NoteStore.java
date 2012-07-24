@@ -124,69 +124,6 @@ public class NoteStore
 		return updatedCount;
 	}
 
-	public static Cursor getAllNotes(ContentResolver cr)
-	{
-		Cursor result = null;
-		Log.v(LOG_TAG, "Hello");
-
-		Cursor cursor = cr.query(CONTENT_URI, null, null, null,
-			NoteColumns.DATE_MODIFIED + " DESC");
-		if (cursor != null && cursor.moveToFirst())
-		{
-			result = cursor;
-		}
-
-		Log.v(LOG_TAG, "Bye");
-		return result;
-	}
-
-	public static Cursor selectByText(ContentResolver cr, String queryText)
-	{
-		Cursor result = null;
-		Log.v(LOG_TAG, "Hello");
-
-		if (TextUtils.isEmpty(queryText))
-		{
-			result = getAllNotes(cr);
-		}
-		else
-		{
-			String query = "%" + queryText.trim() + "%";
-			Log.v(LOG_TAG, "query => " + query);
-
-			StringBuilder selection = new StringBuilder();
-			selection.append(" ( ");
-			selection.append(NoteColumns.TITLE);
-			selection.append(" LIKE ? ");
-			selection.append(" ) ");
-			selection.append(" OR ");
-			selection.append(" ( ");
-			selection.append(NoteColumns.CONTENT);
-			selection.append(" LIKE ? ");
-			selection.append(" ) ");
-
-			Log.v(LOG_TAG, "selection => " + selection);
-
-			Cursor cursor = cr.query(NoteStore.CONTENT_URI, null,
-				selection.toString(),
-				new String[]
-				{
-					query, query,
-				}, NoteColumns.DATE_MODIFIED + " DESC");
-
-			if (cursor != null)
-			{
-				if (cursor.moveToFirst())
-				{
-					result = cursor;
-				}
-			}
-		}
-
-		Log.v(LOG_TAG, "Bye");
-		return result;
-	}
-
 	/**
 	 * Get the number of notes in NoteProvider.
 	 *
