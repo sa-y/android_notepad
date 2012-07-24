@@ -20,10 +20,6 @@
 #############################
 !! notepad-app-level-11
 
-* PickNoteActivity のデータロードを CursorLoader を使うように修正
-
-* ショートカット作成時に PickNoteActivity を開いた際にタイトルが表示されないバグ
-
 * 設定画面の作成
 ** 設定項目
 *** 日記モードの日付フォーマット
@@ -51,15 +47,6 @@
 #############################
 !! notepad-common
 
-* タイトルや本文の編集の可不可のフラグを導入
-** カラム名
-*** title_locked
-*** text_locked
-** EditDailyNoteActivity などで作成した場合、デフォルトで title_locked を true にする
-** テーブル構成変更なので SQLite のコンバートロジックが必要
-*** とりあえず TSV に出力してインポートでいいのかな？
-*** テキストにタブが入っているか…
-
 * NoteSearchQueryParser に日付記法とかもあってもいいかも
 ** 書式
 *** mtime_start:<yyyymmddHHMMSS>
@@ -78,7 +65,7 @@
 *** contents://org.routine_work.notepad.noteprovider/notes/2012
 *** contents://org.routine_work.notepad.noteprovider/notes/201212
 *** contents://org.routine_work.notepad.noteprovider/notes/20121231
-** 数値の羅列はIDと区別がつかないからダメ
+** 数値の羅列はIDと区別がつかないから無理
 ** 全部クエリーパラメータのほうが簡単？
 *** contents://org.routine_work.notepad.noteprovider/notes?ctime_s=<yyyymmddHHMMSS>&ctime_e=<yyyymmddHHMMSS>
 
@@ -89,7 +76,21 @@
 
 !! notepad-app-level-11
 
+#* PickNoteActivity のデータロードを CursorLoader を使うように修正
+
+#* ショートカット作成時に PickNoteActivity を開いた際にタイトルが表示されないバグ
+
 !! notepad-common
+
+#* タイトルや本文の編集の可不可のフラグを導入
+#** カラム名
+#*** title_locked
+#*** text_locked
+#** EditDailyNoteActivity などで作成した場合、デフォルトで title_locked を true にする
+#** テーブル構成変更なので SQLite のコンバートロジックが必要
+#*** とりあえず TSV に出力してインポートでいいのかな？
+#*** テキストにタブが入っているか…
+#*** 行毎にオブジェクトに変換して1行を1ファイルにシリアライズしてバックアップ
 
 ############################################################
 ! 0.1.4
