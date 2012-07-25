@@ -155,6 +155,10 @@
 									<storepass>${sign.storepass}</storepass>
 									<alias>${sign.alias}</alias>
 									<keypass>${sign.keypass}</keypass>
+									<arguments>
+										<argument>-sigalg</argument> <argument>MD5withRSA</argument>
+										<argument>-digestalg</argument> <argument>SHA1</argument>
+									</arguments>
 								</configuration>
 							</execution>
 						</executions>
