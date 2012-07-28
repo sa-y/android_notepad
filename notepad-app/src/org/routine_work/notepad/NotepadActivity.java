@@ -44,6 +44,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.*;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.utils.NoteSearchQueryParser;
+import org.routine_work.notepad.utils.NoteUtils;
 import org.routine_work.utils.IMEUtils;
 import org.routine_work.utils.Log;
 
@@ -280,7 +281,7 @@ public class NotepadActivity extends ListActivity
 				startDeleteNoteActivityById(menuInfo.id);
 				break;
 			case R.id.share_note_menuitem:
-				shareNoteById(menuInfo.id);
+				NoteUtils.shareNote(this, menuInfo.id);
 				break;
 			default:
 				result = super.onContextItemSelected(item);
@@ -534,44 +535,6 @@ public class NotepadActivity extends ListActivity
 
 		Intent intent = new Intent(this, DeleteNotesActivity.class);
 		startActivityForResult(intent, REQUEST_CODE_DELETE_NOTES);
-
-		Log.v(LOG_TAG, "Bye");
-	}
-
-	private void shareNoteById(long id)
-	{
-		Log.v(LOG_TAG, "Hello");
-		Log.d(LOG_TAG, "id => " + id);
-
-		ContentResolver contentResolver = getContentResolver();
-		Uri noteUri = ContentUris.withAppendedId(NoteStore.CONTENT_URI, id);
-		Cursor cursor = contentResolver.query(noteUri, null, null, null, null);
-		if (cursor != null)
-		{
-			try
-			{
-				if (cursor.moveToFirst())
-				{
-					int titleIndex = cursor.getColumnIndex(NoteStore.NoteColumns.TITLE);
-					int contentIndex = cursor.getColumnIndex(NoteStore.NoteColumns.CONTENT);
-					String noteTitle = cursor.getString(titleIndex);
-					String noteContent = cursor.getString(contentIndex);
-					Log.d(LOG_TAG, "noteTitle => " + noteTitle);
-					Log.d(LOG_TAG, "noteContent => " + noteContent);
-
-					Intent shareIntent = new Intent(Intent.ACTION_SEND);
-					shareIntent.setType("text/plain");
-					shareIntent.putExtra(Intent.EXTRA_TITLE, noteTitle);
-					shareIntent.putExtra(Intent.EXTRA_SUBJECT, noteTitle);
-					shareIntent.putExtra(Intent.EXTRA_TEXT, noteContent);
-					startActivity(shareIntent);
-				}
-			}
-			finally
-			{
-				cursor.close();
-			}
-		}
 
 		Log.v(LOG_TAG, "Bye");
 	}
