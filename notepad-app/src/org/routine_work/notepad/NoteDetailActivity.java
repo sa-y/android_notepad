@@ -30,13 +30,14 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.view.*;
 import android.view.View.OnFocusChangeListener;
+import android.view.*;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import org.routine_work.notepad.provider.NoteStore;
+import org.routine_work.notepad.utils.NoteUtils;
 import org.routine_work.utils.IMEUtils;
 import org.routine_work.utils.Log;
 
@@ -184,6 +185,7 @@ public class NoteDetailActivity extends Activity
 		menuInflater.inflate(R.menu.add_new_note_option_menu, menu);
 		menuInflater.inflate(R.menu.edit_note_option_menu, menu);
 		menuInflater.inflate(R.menu.delete_note_option_menu, menu);
+		menuInflater.inflate(R.menu.share_note_option_menu, menu);
 		menuInflater.inflate(R.menu.quit_menu, menu);
 
 		Log.v(LOG_TAG, "Bye");
@@ -199,23 +201,27 @@ public class NoteDetailActivity extends Activity
 		MenuItem addNewNoteMenuItem = menu.findItem(R.id.add_new_note_menuitem);
 		MenuItem editNoteMenuItem = menu.findItem(R.id.edit_note_menuitem);
 		MenuItem deleteNoteMenuItem = menu.findItem(R.id.delete_note_menuitem);
+		MenuItem shareNoteMenuItem = menu.findItem(R.id.share_note_menuitem);
 		if (Intent.ACTION_VIEW.equals(currentAction))
 		{
 			addNewNoteMenuItem.setVisible(true);
 			editNoteMenuItem.setVisible(true);
 			deleteNoteMenuItem.setVisible(true);
+			shareNoteMenuItem.setVisible(true);
 		}
 		else if (Intent.ACTION_EDIT.equals(currentAction))
 		{
 			addNewNoteMenuItem.setVisible(true);
 			editNoteMenuItem.setVisible(false);
 			deleteNoteMenuItem.setVisible(false);
+			shareNoteMenuItem.setVisible(false);
 		}
 		else if (Intent.ACTION_DELETE.equals(currentAction))
 		{
 			addNewNoteMenuItem.setVisible(false);
 			editNoteMenuItem.setVisible(false);
 			deleteNoteMenuItem.setVisible(false);
+			shareNoteMenuItem.setVisible(false);
 		}
 
 		Log.v(LOG_TAG, "Bye");
@@ -242,6 +248,10 @@ public class NoteDetailActivity extends Activity
 			case R.id.delete_note_menuitem:
 				Log.d(LOG_TAG, "delete_note_menuitem selected.");
 				startDeleteNoteActivity();
+				break;
+			case R.id.share_note_menuitem:
+				Log.d(LOG_TAG, "share_note_menuitem selected.");
+				NoteUtils.shareNote(this, currentNoteUri);
 				break;
 			case R.id.quit_menuitem:
 				Log.d(LOG_TAG, "quit_menuitem selected.");
