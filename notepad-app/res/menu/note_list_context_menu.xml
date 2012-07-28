@@ -21,4 +21,11 @@
 		android:numericShortcut="3"
 		android:alphabeticShortcut="d"
 	/>
+	<item
+		android:id="@+id/share_note_menuitem"
+		android:title="@string/share_note"
+		android:icon="@android:drawable/ic_menu_share"
+		android:numericShortcut="4"
+		android:alphabeticShortcut="s"
+	/>
 </menu>

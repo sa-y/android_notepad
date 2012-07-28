@@ -35,18 +35,13 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.*;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.*;
 import android.view.View.OnFocusChangeListener;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
+import android.widget.*;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.utils.NoteSearchQueryParser;
 import org.routine_work.utils.IMEUtils;
@@ -265,7 +260,7 @@ public class NotepadActivity extends ListActivity
 	@Override
 	public boolean onContextItemSelected(MenuItem item)
 	{
-		boolean result;
+		boolean result = true;;
 
 		AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo();
 		Log.v(LOG_TAG, "list item position => " + menuInfo.position);
@@ -277,15 +272,15 @@ public class NotepadActivity extends ListActivity
 		{
 			case R.id.view_note_menuitem:
 				startViewNoteActivityById(menuInfo.id);
-				result = true;
 				break;
 			case R.id.edit_note_menuitem:
 				startEditNoteActivityById(menuInfo.id);
-				result = true;
 				break;
 			case R.id.delete_note_menuitem:
 				startDeleteNoteActivityById(menuInfo.id);
-				result = true;
+				break;
+			case R.id.share_note_menuitem:
+				shareNoteById(menuInfo.id);
 				break;
 			default:
 				result = super.onContextItemSelected(item);
@@ -539,6 +534,44 @@ public class NotepadActivity extends ListActivity
 
 		Intent intent = new Intent(this, DeleteNotesActivity.class);
 		startActivityForResult(intent, REQUEST_CODE_DELETE_NOTES);
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	private void shareNoteById(long id)
+	{
+		Log.v(LOG_TAG, "Hello");
+		Log.d(LOG_TAG, "id => " + id);
+
+		ContentResolver contentResolver = getContentResolver();
+		Uri noteUri = ContentUris.withAppendedId(NoteStore.CONTENT_URI, id);
+		Cursor cursor = contentResolver.query(noteUri, null, null, null, null);
+		if (cursor != null)
+		{
+			try
+			{
+				if (cursor.moveToFirst())
+				{
+					int titleIndex = cursor.getColumnIndex(NoteStore.NoteColumns.TITLE);
+					int contentIndex = cursor.getColumnIndex(NoteStore.NoteColumns.CONTENT);
+					String noteTitle = cursor.getString(titleIndex);
+					String noteContent = cursor.getString(contentIndex);
+					Log.d(LOG_TAG, "noteTitle => " + noteTitle);
+					Log.d(LOG_TAG, "noteContent => " + noteContent);
+
+					Intent shareIntent = new Intent(Intent.ACTION_SEND);
+					shareIntent.setType("text/plain");
+					shareIntent.putExtra(Intent.EXTRA_TITLE, noteTitle);
+					shareIntent.putExtra(Intent.EXTRA_SUBJECT, noteTitle);
+					shareIntent.putExtra(Intent.EXTRA_TEXT, noteContent);
+					startActivity(shareIntent);
+				}
+			}
+			finally
+			{
+				cursor.close();
+			}
+		}
 
 		Log.v(LOG_TAG, "Bye");
 	}
