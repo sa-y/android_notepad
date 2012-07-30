@@ -39,6 +39,7 @@ import android.widget.EditText;
 import org.routine_work.notepad.NotepadConstants;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.provider.NoteStore;
+import org.routine_work.notepad.utils.NoteUtils;
 import org.routine_work.utils.Log;
 
 public class NoteDetailFragment extends Fragment
@@ -211,7 +212,6 @@ public class NoteDetailFragment extends Fragment
 		Log.v(LOG_TAG, "Bye");
 	}
 
-
 	public void setEditable(boolean editable)
 	{
 		Log.v(LOG_TAG, "Hello");
@@ -322,4 +322,16 @@ public class NoteDetailFragment extends Fragment
 		Log.v(LOG_TAG, "Bye");
 	}
 	// END ---------- LoaderManager.LoaderCallbacks<Cursor> ----------
+
+	protected void startShareNoteActivity()
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		String noteTitle = noteTitleEditText.getText().toString();
+		String noteContent = noteContentEditText.getText().toString();
+		NoteUtils.shareNote(getActivity(), noteTitle, noteContent);
+
+		Log.v(LOG_TAG, "Bye");
+
+	}
 }

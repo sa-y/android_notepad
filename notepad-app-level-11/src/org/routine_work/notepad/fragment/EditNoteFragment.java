@@ -137,6 +137,7 @@ public class EditNoteFragment extends NoteDetailFragment
 		Log.v(LOG_TAG, "Hello");
 
 		inflater.inflate(R.menu.add_note_option_menu, menu);
+		inflater.inflate(R.menu.share_note_option_menu, menu);
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -151,6 +152,10 @@ public class EditNoteFragment extends NoteDetailFragment
 			case R.id.add_new_note_menuitem:
 				Log.d(LOG_TAG, "add_new_note_menuitem is clicked.");
 				startAddNewNoteActivity();
+				break;
+			case R.id.share_note_menuitem:
+				Log.d(LOG_TAG, "share_note_menuitem is clicked.");
+				startShareNoteActivity();
 				break;
 			default:
 				result = super.onOptionsItemSelected(item);

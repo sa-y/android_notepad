@@ -52,15 +52,7 @@ public class NoteUtils
 						int contentIndex = cursor.getColumnIndex(NoteStore.NoteColumns.CONTENT);
 						String noteTitle = cursor.getString(titleIndex);
 						String noteContent = cursor.getString(contentIndex);
-						Log.d(LOG_TAG, "noteTitle => " + noteTitle);
-						Log.d(LOG_TAG, "noteContent => " + noteContent);
-
-						Intent shareIntent = new Intent(Intent.ACTION_SEND);
-						shareIntent.setType("text/plain");
-						shareIntent.putExtra(Intent.EXTRA_TITLE, noteTitle);
-						shareIntent.putExtra(Intent.EXTRA_SUBJECT, noteTitle);
-						shareIntent.putExtra(Intent.EXTRA_TEXT, noteContent);
-						context.startActivity(shareIntent);
+						shareNote(context, noteTitle, noteContent);
 					}
 				}
 				finally
@@ -69,6 +61,22 @@ public class NoteUtils
 				}
 			}
 		}
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	public static void shareNote(Context context, String noteTitle, String noteContent)
+	{
+		Log.v(LOG_TAG, "Hello");
+		Log.d(LOG_TAG, "titile => " + noteTitle);
+		Log.d(LOG_TAG, "content => " + noteContent);
+
+		Intent shareIntent = new Intent(Intent.ACTION_SEND);
+		shareIntent.setType("text/plain");
+		shareIntent.putExtra(Intent.EXTRA_TITLE, noteTitle);
+		shareIntent.putExtra(Intent.EXTRA_SUBJECT, noteTitle);
+		shareIntent.putExtra(Intent.EXTRA_TEXT, noteContent);
+		context.startActivity(shareIntent);
 
 		Log.v(LOG_TAG, "Bye");
 	}

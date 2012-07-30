@@ -107,7 +107,7 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 				break;
 			case R.id.share_note_menuitem:
 				Log.d(LOG_TAG, "share_note_menuitem is clicked.");
-				NoteUtils.shareNote(getActivity(), noteUri);
+				startShareNoteActivity();
 				break;
 			case R.id.delete_note_menuitem:
 				Log.d(LOG_TAG, "delete_note_menuitem is clicked.");

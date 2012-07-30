@@ -102,6 +102,8 @@
 
 !! notepad-app-level-11
 
+#* ノート編集画面のオプションメニューに Share を追加
+
 #* ノートをインテントで送信する機能を追加
 #** ノート一覧のコンテキストメニュー
 #*** menu/note_list_context_menu.xml を変更
@@ -109,6 +111,7 @@
 #** ノート表示画面のオプションメニュー
 #*** menu/share_note_option_menu.xml を追加
 #*** ViewNoteFragment.java を変更
+
 
 #* PickNoteActivity のデータロードを CursorLoader を使うように修正
 
