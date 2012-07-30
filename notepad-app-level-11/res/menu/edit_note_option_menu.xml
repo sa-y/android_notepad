@@ -4,8 +4,9 @@
 		android:id="@+id/edit_note_menuitem"
 		android:title="@string/edit_note"
 		android:icon="@android:drawable/ic_menu_edit"
-		android:showAsAction="always|withText"
-		android:numericShortcut="1"
+		android:showAsAction="ifRoom|withText"
 		android:alphabeticShortcut="e"
+		android:menuCategory="container"
+		android:orderInCategory="1"
 	/>
 </menu>

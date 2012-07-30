@@ -32,6 +32,7 @@
 	<string name="edit_note">Edit</string>
 	<string name="delete_note">Delete</string>
 	<string name="delete_notes">Delete Notes</string>
+	<string name="share_note">Share</string>
 	<string name="save">Save</string>
 	<string name="search">Search</string>
 

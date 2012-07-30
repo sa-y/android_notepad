@@ -24,13 +24,11 @@
 package org.routine_work.notepad.fragment;
 
 import android.app.Activity;
-import android.content.ContentResolver;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.*;
 import org.routine_work.notepad.NotepadConstants;
 import org.routine_work.notepad.R;
-import org.routine_work.notepad.provider.NoteStore;
+import org.routine_work.notepad.utils.NoteUtils;
 import org.routine_work.utils.Log;
 
 public class ViewNoteFragment extends NoteDetailFragment implements NotepadConstants
@@ -90,7 +88,7 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 
 		super.onCreateOptionsMenu(menu, menuInflater);
 		menuInflater.inflate(R.menu.edit_note_option_menu, menu);
-//		menuInflater.inflate(R.menu.delete_note_option_menu, menu);
+		menuInflater.inflate(R.menu.share_note_option_menu, menu);
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -106,6 +104,10 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 			case R.id.edit_note_menuitem:
 				Log.d(LOG_TAG, "edit_note_menuitem is clicked.");
 				startEditNoteActivity();
+				break;
+			case R.id.share_note_menuitem:
+				Log.d(LOG_TAG, "share_note_menuitem is clicked.");
+				NoteUtils.shareNote(getActivity(), noteUri);
 				break;
 			case R.id.delete_note_menuitem:
 				Log.d(LOG_TAG, "delete_note_menuitem is clicked.");
@@ -123,7 +125,8 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		if (noteControlCallback != null && isNoteItemUri(noteUri))
+		if (noteControlCallback != null
+			&& NoteUtils.isNoteItemUri(getActivity(), noteUri))
 		{
 			noteControlCallback.startEditNote(noteUri);
 		}
@@ -135,21 +138,12 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		if (noteControlCallback != null && isNoteItemUri(noteUri))
+		if (noteControlCallback != null
+			&& NoteUtils.isNoteItemUri(getActivity(), noteUri))
 		{
 			noteControlCallback.startDeleteNote(noteUri);
 		}
 
 		Log.v(LOG_TAG, "Bye");
-	}
-
-	private boolean isNoteItemUri(Uri uri)
-	{
-		ContentResolver contentResolver = getActivity().getContentResolver();
-		String type = contentResolver.getType(uri);
-		Log.d(LOG_TAG, "noteUri => " + uri + ", type => " + type);
-		boolean result = NoteStore.NOTE_ITEM_CONTENT_TYPE.equals(type);
-
-		return result;
 	}
 }

@@ -6,8 +6,9 @@
 		android:icon="@android:drawable/ic_menu_search"
 		android:showAsAction="always|withText"
 		android:actionViewClass="android.widget.SearchView"
-		android:numericShortcut="3"
 		android:alphabeticShortcut="f"
+		android:menuCategory="container"
+		android:orderInCategory="0"
 	/>
 	<!--
 		android:showAsAction="ifRoom|withText"

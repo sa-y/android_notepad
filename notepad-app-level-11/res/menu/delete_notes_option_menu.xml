@@ -5,8 +5,9 @@
 		android:title="@string/delete_notes"
 		android:icon="@android:drawable/ic_menu_delete"
 		android:showAsAction="never"
-		android:numericShortcut="2"
 		android:alphabeticShortcut="d"
+		android:menuCategory="container"
+		android:orderInCategory="4"
 	/>
 	<!--
 		android:showAsAction="ifRoom|withText"

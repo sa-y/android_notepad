@@ -5,7 +5,6 @@
 		android:title="@string/delete_note"
 		android:icon="@android:drawable/ic_menu_delete"
 		android:showAsAction="ifRoom|withText"
-		android:numericShortcut="2"
 		android:alphabeticShortcut="d"
 	/>
 </menu>

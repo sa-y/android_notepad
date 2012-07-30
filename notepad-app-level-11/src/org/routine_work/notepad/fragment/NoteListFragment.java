@@ -49,6 +49,7 @@ import android.widget.SimpleCursorAdapter;
 import org.routine_work.notepad.NotepadConstants;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.provider.NoteStore;
+import org.routine_work.notepad.utils.NoteUtils;
 import org.routine_work.utils.Log;
 
 public class NoteListFragment extends ListFragment
@@ -172,6 +173,9 @@ public class NoteListFragment extends ListFragment
 				break;
 			case R.id.edit_note_menuitem:
 				editNote(menuInfo.id);
+				break;
+			case R.id.share_note_menuitem:
+				NoteUtils.shareNote(getActivity(), menuInfo.id);
 				break;
 			default:
 				result = super.onContextItemSelected(item);

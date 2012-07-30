@@ -38,35 +38,51 @@ public class NoteUtils
 		Log.v(LOG_TAG, "Hello");
 		Log.d(LOG_TAG, "noteUri => " + noteUri);
 
-		ContentResolver contentResolver = context.getContentResolver();
-		Cursor cursor = contentResolver.query(noteUri, null, null, null, null);
-		if (cursor != null)
+		if (isNoteItemUri(context, noteUri))
 		{
-			try
+			ContentResolver contentResolver = context.getContentResolver();
+			Cursor cursor = contentResolver.query(noteUri, null, null, null, null);
+			if (cursor != null)
 			{
-				if (cursor.moveToFirst())
+				try
 				{
-					int titleIndex = cursor.getColumnIndex(NoteStore.NoteColumns.TITLE);
-					int contentIndex = cursor.getColumnIndex(NoteStore.NoteColumns.CONTENT);
-					String noteTitle = cursor.getString(titleIndex);
-					String noteContent = cursor.getString(contentIndex);
-					Log.d(LOG_TAG, "noteTitle => " + noteTitle);
-					Log.d(LOG_TAG, "noteContent => " + noteContent);
+					if (cursor.moveToFirst())
+					{
+						int titleIndex = cursor.getColumnIndex(NoteStore.NoteColumns.TITLE);
+						int contentIndex = cursor.getColumnIndex(NoteStore.NoteColumns.CONTENT);
+						String noteTitle = cursor.getString(titleIndex);
+						String noteContent = cursor.getString(contentIndex);
+						Log.d(LOG_TAG, "noteTitle => " + noteTitle);
+						Log.d(LOG_TAG, "noteContent => " + noteContent);
 
-					Intent shareIntent = new Intent(Intent.ACTION_SEND);
-					shareIntent.setType("text/plain");
-					shareIntent.putExtra(Intent.EXTRA_TITLE, noteTitle);
-					shareIntent.putExtra(Intent.EXTRA_SUBJECT, noteTitle);
-					shareIntent.putExtra(Intent.EXTRA_TEXT, noteContent);
-					context.startActivity(shareIntent);
+						Intent shareIntent = new Intent(Intent.ACTION_SEND);
+						shareIntent.setType("text/plain");
+						shareIntent.putExtra(Intent.EXTRA_TITLE, noteTitle);
+						shareIntent.putExtra(Intent.EXTRA_SUBJECT, noteTitle);
+						shareIntent.putExtra(Intent.EXTRA_TEXT, noteContent);
+						context.startActivity(shareIntent);
+					}
 				}
-			}
-			finally
-			{
-				cursor.close();
+				finally
+				{
+					cursor.close();
+				}
 			}
 		}
 
 		Log.v(LOG_TAG, "Bye");
+	}
+
+	public static boolean isNoteItemUri(Context context, Uri uri)
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		ContentResolver contentResolver = context.getContentResolver();
+		String type = contentResolver.getType(uri);
+		Log.d(LOG_TAG, "noteUri => " + uri + ", type => " + type);
+		boolean result = NoteStore.NOTE_ITEM_CONTENT_TYPE.equals(type);
+
+		Log.v(LOG_TAG, "Bye");
+		return result;
 	}
 }
