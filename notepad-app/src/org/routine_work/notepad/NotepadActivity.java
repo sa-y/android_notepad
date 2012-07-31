@@ -35,13 +35,13 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.*;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnFocusChangeListener;
 import android.view.inputmethod.EditorInfo;
+import android.widget.*;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.*;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.utils.NoteSearchQueryParser;
 import org.routine_work.notepad.utils.NoteUtils;
@@ -261,7 +261,7 @@ public class NotepadActivity extends ListActivity
 	@Override
 	public boolean onContextItemSelected(MenuItem item)
 	{
-		boolean result = true;;
+		boolean result = true;
 
 		AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo();
 		Log.v(LOG_TAG, "list item position => " + menuInfo.position);
@@ -311,6 +311,7 @@ public class NotepadActivity extends ListActivity
 		menuInflater.inflate(R.menu.add_new_note_option_menu, menu);
 		menuInflater.inflate(R.menu.delete_notes_option_menu, menu);
 		menuInflater.inflate(R.menu.search_note_option_menu, menu);
+		menuInflater.inflate(R.menu.preferences_menu, menu);
 		menuInflater.inflate(R.menu.quit_menu, menu);
 
 		Log.v(LOG_TAG, "Bye");
@@ -337,6 +338,10 @@ public class NotepadActivity extends ListActivity
 			case R.id.search_note_menuitem:
 				Log.d(LOG_TAG, "search_note_menuitem is selected..");
 				enterSearchMode();
+				break;
+			case R.id.preferences_menuitem:
+				Log.d(LOG_TAG, "preferences_menuitem is selected.");
+				startPreferencesActivity();
 				break;
 			case R.id.quit_menuitem:
 				Log.d(LOG_TAG, "quit_menuitem is selected.");
@@ -535,6 +540,16 @@ public class NotepadActivity extends ListActivity
 
 		Intent intent = new Intent(this, DeleteNotesActivity.class);
 		startActivityForResult(intent, REQUEST_CODE_DELETE_NOTES);
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	private void startPreferencesActivity()
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		Intent intent = new Intent(this, NotepadPreferenceActivity.class);
+		startActivity(intent);
 
 		Log.v(LOG_TAG, "Bye");
 	}

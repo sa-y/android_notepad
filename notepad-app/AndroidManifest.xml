@@ -87,6 +87,14 @@
 			</intent-filter>
 		</activity>
 
+		<activity android:name=".NotepadPreferenceActivity"
+			android:label="@string/preferences_title"
+		/>
+
+		<activity android:name=".AboutAppActivity" 
+			android:label="@string/about_app_title"
+		/>
+
 		<!-- notes content provider -->
 		<provider
 			android:name=".provider.NoteProvider"
