@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<!-- Holo Dark -->
+	<style name="MyWidget.Holo.EditText" parent="@android:style/Widget.Holo.EditText" >
+		<item name="android:textColor" >@color/primary_text_holo_dark</item>
+	</style>
+
+	<style name="MyTheme.Holo" parent="@android:style/Theme.Holo" >
+		<item name="android:editTextStyle">@style/MyWidget.Holo.EditText</item>
+	</style>
+
+	<!-- Holo Light -->
+	<!-- ToDo
+	<style name="MyTheme.Holo.Light" parent="@android:style/Theme.Holo.Light" >
+	</style>
+	-->
+</resources>

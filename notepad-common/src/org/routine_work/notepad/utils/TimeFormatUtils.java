@@ -33,6 +33,7 @@ import java.util.Date;
  */
 public class TimeFormatUtils
 {
+
 	private static final String YYYYMMDD = "yyyyMMdd";
 
 	public static String formatTime(Context context, long modifiedTime)
