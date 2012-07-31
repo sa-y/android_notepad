@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="about_app_title">このアプリについて</string>
+	<string name="about_app_summary">このアプリケーションについての情報を表示</string>
+	<string name="version">バージョン</string>
+	<string name="build_time">構築日時</string>
+	<string name="build_time_format">yyyyMMdd-kkmmss</string>
+	<string name="application_store">アプリケーションストア</string>
+	<string name="application_management">アプリケーションの管理</string>
+	<string name="open">開く</string>
+</resources>

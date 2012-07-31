@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="about_app_title">About App</string>
+	<string name="about_app_summary">Infomation about this application</string>
+	<string name="version">Version</string>
+	<string name="build_time">Build Time</string>
+	<string name="build_time_format">yyyyMMdd-kkmmss</string>
+	<string name="application_store">Application Store</string>
+	<string name="application_management">Application Management</string>
+	<string name="open">Open</string>
+</resources>

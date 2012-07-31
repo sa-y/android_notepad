@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+<!--
+	<PreferenceCategory android:title="@string/dashboard_category_title" >
+		<ListPreference
+			android:key="@string/dashboard_view_mode_key"
+			android:defaultValue="@string/dashboard_view_mode_default_value"
+			android:title="@string/dashboard_view_mode"
+			android:dialogTitle="@string/dashboard_view_mode_title"
+			android:entries="@array/dashboard_view_mode_entries"
+			android:entryValues="@array/dashboard_view_mode_values"
+		/>
+	</PreferenceCategory>
+-->
+
+
+	<PreferenceCategory android:title="@string/etc" >
+		<PreferenceScreen
+		   android:title="@string/about_app_title"
+		   android:summary="@string/about_app_summary"
+		>
+			<intent
+				android:action="android.intent.action.MAIN"
+				android:targetPackage="org.routine_work.notepad"
+				android:targetClass="org.routine_work.notepad.AboutAppActivity"
+			/>
+		</PreferenceScreen>
+	</PreferenceCategory>
+
+
+<!--
+	<PreferenceCategory android:title="Debug" >
+		<PreferenceScreen
+		   android:title="Debug"
+		   android:summary="Debug functions"
+		>
+			<intent
+				android:action="android.intent.action.MAIN"
+				android:targetPackage="org.routine_work.android.battery_logger"
+				android:targetClass="org.routine_work.android.battery_logger.DebugActivity"
+			/>
+		</PreferenceScreen>
+	</PreferenceCategory>
+-->
+
+</PreferenceScreen>
