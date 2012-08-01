@@ -184,6 +184,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		menuInflater.inflate(R.menu.search_notes_option_menu, menu);
 		menuInflater.inflate(R.menu.add_note_option_menu, menu);
 		menuInflater.inflate(R.menu.delete_notes_option_menu, menu);
+		menuInflater.inflate(R.menu.preferences_option_menu, menu);
 		menuInflater.inflate(R.menu.quit_option_menu, menu);
 
 		// setup SearchView 
@@ -229,6 +230,9 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 				break;
 			case R.id.search_notes_menuitem:
 				onSearchRequested();
+				break;
+			case R.id.preferences_menuitem:
+				startPreferencesActivity();
 				break;
 			case R.id.quit_menuitem:
 				finish();
@@ -613,6 +617,16 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 				fm.popBackStack();
 			}
 		}
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	private void startPreferencesActivity()
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		Intent intent = new Intent(this, NotepadPreferenceActivity.class);
+		startActivity(intent);
+
 		Log.v(LOG_TAG, "Bye");
 	}
 }

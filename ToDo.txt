@@ -26,7 +26,6 @@
 #############################
 !! notepad-app-level-11
 
-
 * ノートテンプレート機能
 ** 新規ノート作成時のテンプレートを作成、管理する機能
 ** 画面
@@ -36,17 +35,11 @@
 *** 日時(yyyy mm dd HH MM SS)
 *** ??
 
-* 設定画面の作成
-** とりあえず AboutApp だけの設定画面を作成
-** 手順
-*** NotepadPreferenceActivity ?
-*** xml/notepad_preference.xml 
-*** AboutAppActivity 実装
-*** AndroidManifest.xml に NotepadPreferenceActivity を登録
-
 * 設定:ノート一覧画面のソート順追加
 
 * 設定:ノート一覧のシングルペインモード追加
+** 縦画面時の設定
+** 横画面時の設定
 
 * キーボードのみで利用する際のユーザビリティの改善
 ** ノート一覧画面でノートを選択して一気に編集する方法が欲しい
@@ -108,6 +101,15 @@
 #*** NoteDetailActivity を修正
 
 !! notepad-app-level-11
+
+
+#* 設定画面の作成
+#** とりあえず AboutApp だけの設定画面を作成
+#** 手順
+#*** NotepadPreferenceActivity ?
+#*** xml/notepad_preference.xml 
+#*** AboutAppActivity 実装
+#*** AndroidManifest.xml に NotepadPreferenceActivity を登録
 
 #* ノート表示画面の EditText のスタイルを設定
 #** 文字をもう少し明るくする

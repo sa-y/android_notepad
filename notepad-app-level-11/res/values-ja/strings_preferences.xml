@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="preferences">設定</string>
+	<string name="preferences_title">設定</string>
+
+	<string name="etc">その他</string>
+
+</resources>

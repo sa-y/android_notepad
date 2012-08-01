@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<dimen name="about_app_paddingTop">4dip</dimen>
+	<dimen name="about_app_paddingBottom">4dip</dimen>
+	<dimen name="about_app_paddingRight">4dip</dimen>
+	<dimen name="about_app_paddingLeft">4dip</dimen>
+
+	<dimen name="about_app_icon_frame_padding">8dip</dimen>
+	<dimen name="about_app_info_frame_padding">8dip</dimen>
+
+	<dimen name="about_app_info_item_margin">4dip</dimen>
+
+	<dimen name="about_app_name_textSize">32sp</dimen>
+	<dimen name="about_app_version_textSize">20sp</dimen>
+
+	<dimen name="about_app_label_textSize">14sp</dimen>
+</resources>
