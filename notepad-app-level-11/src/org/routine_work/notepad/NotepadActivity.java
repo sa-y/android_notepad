@@ -111,7 +111,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		Resources resources = getResources();
 		layoutSinglePaneValue = resources.getString(R.string.note_list_layout_single_value);
 		layoutWideTwoPaneValue = resources.getString(R.string.note_list_layout_wide_two_value);
-		layout = PreferenceUtils.getNoteListLayout(this);
+		layout = NotepadPreferenceUtils.getNoteListLayout(this);
 
 		// setup layout transition
 		LayoutTransition layoutTransition = new LayoutTransition();

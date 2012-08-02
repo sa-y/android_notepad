@@ -34,7 +34,7 @@ import org.routine_work.utils.Log;
  *
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
-public class PreferenceUtils
+public class NotepadPreferenceUtils
 {
 	private static final String LOG_TAG = "simple-notepad";
 
