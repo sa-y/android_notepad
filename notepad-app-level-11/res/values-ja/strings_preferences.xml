@@ -6,4 +6,11 @@
 
 	<string name="etc">その他</string>
 
+	<!-- Layout -->
+	<string name="layout_category_title">レイアウト</string>
+	<!-- Layout : Note List -->
+	<string name="note_list_layout">ノート一覧のレイアウト</string>
+	<string name="note_list_layout_title">ノート一覧のレイアウト</string>
+	<string name="single_pane">Single Pane</string>
+	<string name="two_pane">Two Pane</string>
 </resources>

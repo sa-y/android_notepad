@@ -25,6 +25,7 @@ package org.routine_work.notepad;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.PreferenceActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -114,10 +115,10 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 		String prefKey;
 		CharSequence summary;
 
-//		prefKey = getString(R.string.dashboard_view_mode_key);
-//		ListPreference dashboardViewModePreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
-//		summary = dashboardViewModePreference.getEntry();
-//		dashboardViewModePreference.setSummary(summary);
+		prefKey = getString(R.string.note_list_layout_key);
+		ListPreference dashboardViewModePreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
+		summary = dashboardViewModePreference.getEntry();
+		dashboardViewModePreference.setSummary(summary);
 
 	}
 }

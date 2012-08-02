@@ -6,4 +6,10 @@
 
 	<string name="etc">Etc</string>
 
+	<string name="layout_category_title">Layout</string>
+	<!-- Layout : Note List -->
+	<string name="note_list_layout">Note List Layout</string>
+	<string name="note_list_layout_title">Note List Layout</string>
+	<string name="single_pane">Single Pane</string>
+	<string name="two_pane">Two Pane</string>
 </resources>

@@ -34,7 +34,7 @@ import android.app.SearchManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -62,7 +62,9 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 	public static final String ACTION_QUIT = NotepadActivity.class.getPackage().getName() + ".ACTION_QUIT";
 	public static final String NOTE_DETAIL_TAG = "NoteDetail";
 	private static final String LOG_TAG = "simple-notepad";
-	private boolean isSinglePane = false;
+	private String layout;
+	private String layoutSinglePaneValue;
+	private String layoutWideTwoPaneValue;
 	private SearchView searchView;
 	private String initialQueryString = null;
 
@@ -106,15 +108,10 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.notepad_activity);
 
-		Configuration configuration = getResources().getConfiguration();
-		int screenSize = configuration.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
-		switch (screenSize)
-		{
-			case Configuration.SCREENLAYOUT_SIZE_SMALL:
-			case Configuration.SCREENLAYOUT_SIZE_NORMAL:
-				isSinglePane = true;
-				break;
-		}
+		Resources resources = getResources();
+		layoutSinglePaneValue = resources.getString(R.string.note_list_layout_single_value);
+		layoutWideTwoPaneValue = resources.getString(R.string.note_list_layout_wide_two_value);
+		layout = PreferenceUtils.getNoteListLayout(this);
 
 		// setup layout transition
 		LayoutTransition layoutTransition = new LayoutTransition();
@@ -125,17 +122,6 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		LinearLayout noteDetailContainer = (LinearLayout) findViewById(R.id.note_detail_container);
 		noteDetailContainer.setLayoutTransition(layoutTransition);
 
-		Log.v(LOG_TAG, "isSinglePane => " + isSinglePane);
-		FragmentManager fm = getFragmentManager();
-		NoteListFragment viewNotesFragment = (NoteListFragment) fm.findFragmentById(R.layout.note_list_fragment);
-		if (viewNotesFragment != null)
-		{
-			if (isSinglePane == false)
-			{
-				Log.v(LOG_TAG, "setNarrowLayout(true)");
-				viewNotesFragment.setNarrowLayout(true);
-			}
-		}
 
 		initializeWithIntent(getIntent());
 
@@ -526,7 +512,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		if (detailView)
 		{
 			detailVisibility = View.VISIBLE;
-			if (isSinglePane)
+			if (layoutSinglePaneValue.equals(layout))
 			{
 				listVisibility = View.GONE;
 			}
