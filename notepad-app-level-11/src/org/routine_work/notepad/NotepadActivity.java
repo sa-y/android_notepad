@@ -24,6 +24,8 @@
  */
 package org.routine_work.notepad;
 
+import org.routine_work.notepad.prefs.NotepadPreferenceActivity;
+import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
@@ -62,7 +64,6 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 	public static final String ACTION_QUIT = NotepadActivity.class.getPackage().getName() + ".ACTION_QUIT";
 	public static final String NOTE_DETAIL_TAG = "NoteDetail";
 	private static final String LOG_TAG = "simple-notepad";
-	private String layout;
 	private String layoutSinglePaneValue;
 	private String layoutWideTwoPaneValue;
 	private SearchView searchView;
@@ -111,7 +112,6 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		Resources resources = getResources();
 		layoutSinglePaneValue = resources.getString(R.string.note_list_layout_single_value);
 		layoutWideTwoPaneValue = resources.getString(R.string.note_list_layout_wide_two_value);
-		layout = NotepadPreferenceUtils.getNoteListLayout(this);
 
 		// setup layout transition
 		LayoutTransition layoutTransition = new LayoutTransition();
@@ -505,14 +505,14 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void setEnableDetailView(boolean detailView)
+	private void setEnableDetailView(boolean detailViewEnabled)
 	{
 		int listVisibility = View.VISIBLE;
 		int detailVisibility = View.GONE;
-		if (detailView)
+		if (detailViewEnabled)
 		{
 			detailVisibility = View.VISIBLE;
-			if (layoutSinglePaneValue.equals(layout))
+			if (layoutSinglePaneValue.equals(NotepadPreferenceUtils.getNoteListLayout(this)))
 			{
 				listVisibility = View.GONE;
 			}

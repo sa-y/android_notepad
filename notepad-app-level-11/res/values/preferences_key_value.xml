@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="note_list_layout_key" >note_list_layout</string>
+	<string name="note_list_layout_port_key" >note_list_layout_port</string>
+	<string name="note_list_layout_land_key" >note_list_layout_land</string>
 	<string name="note_list_layout_single_value" >SINGLE</string>
 	<string name="note_list_layout_wide_two_value" >WIDE_TWO</string>
-	<string name="note_list_layout_default_value" >@string/note_list_layout_single_value</string>
+	<string name="note_list_layout_port_default_value" >@string/note_list_layout_single_value</string>
+	<string name="note_list_layout_land_default_value" >@string/note_list_layout_single_value</string>
 
 	<string-array name="note_list_layout_entries">
 		<item>@string/single_pane</item>
-		<item>@string/two_pane</item>
+		<item>@string/wide_two_pane</item>
 	</string-array>
 
 	<string-array name="note_list_layout_values">

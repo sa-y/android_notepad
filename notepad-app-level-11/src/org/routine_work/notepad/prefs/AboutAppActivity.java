@@ -21,7 +21,7 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package org.routine_work.notepad;
+package org.routine_work.notepad.prefs;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -43,6 +43,8 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+import org.routine_work.notepad.NotepadActivity;
+import org.routine_work.notepad.R;
 import org.routine_work.utils.Log;
 
 /**

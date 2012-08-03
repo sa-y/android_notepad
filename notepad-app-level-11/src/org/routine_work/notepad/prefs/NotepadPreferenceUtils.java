@@ -21,13 +21,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.routine_work.notepad;
+package org.routine_work.notepad.prefs;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import org.routine_work.notepad.R;
 import org.routine_work.utils.Log;
 
 /**
@@ -36,40 +36,57 @@ import org.routine_work.utils.Log;
  */
 public class NotepadPreferenceUtils
 {
+
 	private static final String LOG_TAG = "simple-notepad";
 
 	public static String getNoteListLayout(Context context)
+	{
+		String noteListLayout;
+		Log.v(LOG_TAG, "Hello");
+
+		Resources resources = context.getResources();
+		Configuration configuration = resources.getConfiguration();
+		switch (configuration.orientation)
+		{
+			case Configuration.ORIENTATION_LANDSCAPE:
+				noteListLayout = getNoteListLayoutLand(context);
+				break;
+			default:
+				noteListLayout = getNoteListLayoutPort(context);
+				break;
+		}
+
+		Log.v(LOG_TAG, "noteListLayout => " + noteListLayout);
+		Log.v(LOG_TAG, "Bye");
+		return noteListLayout;
+	}
+
+	public static String getNoteListLayoutPort(Context context)
 	{
 		String preferenceName = context.getPackageName() + "_preferences";
 		SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
 		Resources resources = context.getResources();
 
-		String key = resources.getString(R.string.note_list_layout_key);
-		String value = sharedPreferences.getString(key, null);
+		String key = resources.getString(R.string.note_list_layout_port_key);
+		String defaultValue = resources.getString(R.string.note_list_layout_port_default_value);
+		String value = sharedPreferences.getString(key, defaultValue);
 
-		if (value == null)
-		{
-			// Get Default value
-			Configuration configuration = resources.getConfiguration();
-			int screenSize = configuration.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
-			switch (screenSize)
-			{
-				case Configuration.SCREENLAYOUT_SIZE_SMALL:
-				case Configuration.SCREENLAYOUT_SIZE_NORMAL:
-					value = resources.getString(R.string.note_list_layout_single_value);
-					break;
-				default:
-					value = resources.getString(R.string.note_list_layout_wide_two_value);
-			}
+		Log.v(LOG_TAG, "noteListLayoutPort => " + value);
+		return value;
+	}
 
-			// Write Default Value
-			Editor edit = sharedPreferences.edit();
-			edit.putString(key, value);
-			edit.commit();
-		}
+	public static String getNoteListLayoutLand(Context context)
+	{
+		String preferenceName = context.getPackageName() + "_preferences";
+		SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
+		Resources resources = context.getResources();
 
+		String key = resources.getString(R.string.note_list_layout_land_key);
+		String defaultValue = resources.getString(R.string.note_list_layout_land_default_value);
+		String value = sharedPreferences.getString(key, defaultValue);
 
 		Log.v(LOG_TAG, "noteListLayout => " + value);
 		return value;
 	}
+
 }

@@ -21,7 +21,7 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package org.routine_work.notepad;
+package org.routine_work.notepad.prefs;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -30,6 +30,8 @@ import android.preference.PreferenceActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import org.routine_work.notepad.NotepadActivity;
+import org.routine_work.notepad.R;
 import org.routine_work.utils.Log;
 
 /**
@@ -112,13 +114,16 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 
 	private void updateSummary()
 	{
-		String prefKey;
+		final String noteListLayoutPortKey = getString(R.string.note_list_layout_port_key);
+		final String noteListLayoutLandKey = getString(R.string.note_list_layout_land_key);
 		CharSequence summary;
 
-		prefKey = getString(R.string.note_list_layout_key);
-		ListPreference dashboardViewModePreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
-		summary = dashboardViewModePreference.getEntry();
-		dashboardViewModePreference.setSummary(summary);
+		ListPreference noteListLayoutPortPreference = (ListPreference) getPreferenceScreen().findPreference(noteListLayoutPortKey);
+		summary = noteListLayoutPortPreference.getEntry();
+		noteListLayoutPortPreference.setSummary(summary);
 
+		ListPreference noteListLayoutLandPreference = (ListPreference) getPreferenceScreen().findPreference(noteListLayoutLandKey);
+		summary = noteListLayoutLandPreference.getEntry();
+		noteListLayoutLandPreference.setSummary(summary);
 	}
 }

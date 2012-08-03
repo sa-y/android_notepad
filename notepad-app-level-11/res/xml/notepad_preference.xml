@@ -16,10 +16,18 @@
 
 	<PreferenceCategory android:title="@string/layout_category_title" >
 		<ListPreference
-			android:key="@string/note_list_layout_key"
-			android:defaultValue="@string/note_list_layout_default_value"
-			android:title="@string/note_list_layout"
-			android:dialogTitle="@string/note_list_layout_title"
+			android:key="@string/note_list_layout_port_key"
+			android:defaultValue="@string/note_list_layout_port_default_value"
+			android:title="@string/note_list_layout_port"
+			android:dialogTitle="@string/note_list_layout_port_title"
+			android:entries="@array/note_list_layout_entries"
+			android:entryValues="@array/note_list_layout_values"
+		/>
+		<ListPreference
+			android:key="@string/note_list_layout_land_key"
+			android:defaultValue="@string/note_list_layout_land_default_value"
+			android:title="@string/note_list_layout_land"
+			android:dialogTitle="@string/note_list_layout_land_title"
 			android:entries="@array/note_list_layout_entries"
 			android:entryValues="@array/note_list_layout_values"
 		/>
@@ -33,7 +41,7 @@
 			<intent
 				android:action="android.intent.action.MAIN"
 				android:targetPackage="org.routine_work.notepad"
-				android:targetClass="org.routine_work.notepad.AboutAppActivity"
+				android:targetClass="org.routine_work.notepad.prefs.AboutAppActivity"
 			/>
 		</PreferenceScreen>
 	</PreferenceCategory>
