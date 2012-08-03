@@ -111,6 +111,11 @@
 			android:label="@string/preferences_title"
 		/>
 
+		<activity android:name=".prefs.InitializePreferenceActivity" 
+			android:label="@string/initialize_preference"
+			android:theme="@android:style/Theme.Holo.Dialog"
+		/>
+
 		<activity android:name=".prefs.AboutAppActivity" 
 			android:label="@string/about_app_title"
 		/>

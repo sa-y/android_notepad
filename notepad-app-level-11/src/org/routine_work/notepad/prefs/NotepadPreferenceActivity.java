@@ -54,25 +54,28 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 		addPreferencesFromResource(R.xml.notepad_preference);
 		sharedPreferences = getPreferenceManager().getSharedPreferences();
 
-		updateSummary();
-
 		Log.v(LOG_TAG, "Bye");
 	}
 
 	@Override
 	protected void onResume()
 	{
+		Log.v(LOG_TAG, "Hello");
 		super.onResume();
-		SharedPreferences preferences = getPreferenceScreen().getSharedPreferences();
-		preferences.registerOnSharedPreferenceChangeListener(this);
+
+		sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+		updateSummary();
+		Log.v(LOG_TAG, "Bye");
 	}
 
 	@Override
 	protected void onPause()
 	{
-		SharedPreferences preferences = getPreferenceScreen().getSharedPreferences();
-		preferences.unregisterOnSharedPreferenceChangeListener(this);
+		Log.v(LOG_TAG, "Hello");
+		sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
+
 		super.onPause();
+		Log.v(LOG_TAG, "Bye");
 	}
 
 	@Override
@@ -114,16 +117,42 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 
 	private void updateSummary()
 	{
+		Log.v(LOG_TAG, "Hello");
+
 		final String noteListLayoutPortKey = getString(R.string.note_list_layout_port_key);
 		final String noteListLayoutLandKey = getString(R.string.note_list_layout_land_key);
+		final String noteListLayoutPortDefaultValue = getString(R.string.note_list_layout_port_default_value);
+		final String noteListLayoutLandDefaultValue = getString(R.string.note_list_layout_land_default_value);
 		CharSequence summary;
 
+		String noteListLayoutPortValue = sharedPreferences.getString(noteListLayoutPortKey, noteListLayoutPortDefaultValue);
+		summary = getLayoutName(noteListLayoutPortValue);
 		ListPreference noteListLayoutPortPreference = (ListPreference) getPreferenceScreen().findPreference(noteListLayoutPortKey);
-		summary = noteListLayoutPortPreference.getEntry();
 		noteListLayoutPortPreference.setSummary(summary);
 
+		String noteListLayoutLandValue = sharedPreferences.getString(noteListLayoutLandKey, noteListLayoutLandDefaultValue);
+		summary = getLayoutName(noteListLayoutLandValue);
 		ListPreference noteListLayoutLandPreference = (ListPreference) getPreferenceScreen().findPreference(noteListLayoutLandKey);
-		summary = noteListLayoutLandPreference.getEntry();
 		noteListLayoutLandPreference.setSummary(summary);
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	private String getLayoutName(String layoutValue)
+	{
+		final String noteListLayoutSingle = getString(R.string.note_list_layout_single_value);
+		final String noteListLayoutWideTwo = getString(R.string.note_list_layout_wide_two_value);
+		String name = null;
+
+		if (noteListLayoutSingle.equals(layoutValue))
+		{
+			name = getString(R.string.single_pane);
+		}
+		else if (noteListLayoutWideTwo.equals(layoutValue))
+		{
+			name = getString(R.string.wide_two_pane);
+		}
+
+		return name;
 	}
 }

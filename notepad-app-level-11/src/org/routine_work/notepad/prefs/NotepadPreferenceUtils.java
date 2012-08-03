@@ -25,6 +25,7 @@ package org.routine_work.notepad.prefs;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import org.routine_work.notepad.R;
@@ -89,4 +90,12 @@ public class NotepadPreferenceUtils
 		return value;
 	}
 
+	public static void reset(Context context)
+	{
+		String preferenceName = context.getPackageName() + "_preferences";
+		SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
+		Editor edit = sharedPreferences.edit();
+		edit.clear();
+		edit.commit();
+	}
 }

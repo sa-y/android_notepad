@@ -35,6 +35,16 @@
 
 	<PreferenceCategory android:title="@string/etc" >
 		<PreferenceScreen
+		   android:title="@string/initialize_preference_title"
+		   android:summary="@string/initialize_preference_summary"
+		>
+			<intent
+				android:action="android.intent.action.MAIN"
+				android:targetPackage="org.routine_work.notepad"
+				android:targetClass="org.routine_work.notepad.prefs.InitializePreferenceActivity"
+			/>
+		</PreferenceScreen>
+		<PreferenceScreen
 		   android:title="@string/about_app_title"
 		   android:summary="@string/about_app_summary"
 		>
