@@ -4,17 +4,16 @@
 !! notepad-app
 
 * Theme.Light ベースのテーマを追加
-** アイコンが黒背景を前提に作ってあるので白背景用を作成する
-*** 白背景 : #333333 で 60% の透過度
-*** 黒背景 : #FFFFFF で 80% の透過度
-*** ic_add.png
-*** ic_clear.png
-*** ic_delete.png
-*** ic_edit.png
-*** ic_home.png
-*** ic_launcher_notepad.png
-*** ic_save.png
-*** ic_search.png
+** Theme.Notepad.Light を作成
+#** アイコンが黒背景を前提に作ってあるので白背景用を作成する
+#*** 白背景 : #333333 で 60% の透過度
+#*** 黒背景 : #FFFFFF で 80% の透過度
+#*** ic_add.png
+#*** ic_clear.png
+#*** ic_delete.png
+#*** ic_edit.png
+#*** ic_home.png
+#*** ic_search.png
 
 * ノートテンプレート機能
 ** 新規ノート作成時のテンプレートを作成、管理する機能
@@ -35,6 +34,7 @@
 ** タイトル(?)
 
 * 設定:ノート一覧画面のソート順
+* 設定:テーマ選択
 
 #############################
 !! notepad-app-level-11

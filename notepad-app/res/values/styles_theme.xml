@@ -17,6 +17,8 @@
 		<item name="ic_clear">@drawable/ic_clear_dark</item>
 		<item name="ic_delete">@drawable/ic_delete_dark</item>
 		<item name="ic_edit">@drawable/ic_edit_dark</item>
+		<item name="ic_home">@drawable/ic_home_dark</item>
+		<item name="ic_search">@drawable/ic_search_dark</item>
 		<!--<item name="actionBarTitleStyle">@style/Widget.Black.ActionBarTitle</item>-->  
 	</style>
 
@@ -26,6 +28,8 @@
 		<item name="ic_clear">@drawable/ic_clear_light</item>
 		<item name="ic_delete">@drawable/ic_delete_light</item>
 		<item name="ic_edit">@drawable/ic_edit_light</item>
+		<item name="ic_home">@drawable/ic_home_light</item>
+		<item name="ic_search">@drawable/ic_search_light</item>
 		<!--<item name="actionBarTitleStyle">@style/Widget.Light.ActionBarTitle</item>-->  
 	</style>
 </resources>
