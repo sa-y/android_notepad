@@ -25,8 +25,9 @@
 		<ImageButton
 			style="@style/actionbar_right_button" 
 			android:id="@+id/add_new_note_button"
-			android:src="@drawable/ic_add"
+			android:src="?attr/ic_add"
 		/>
+			<!--android:src="@drawable/ic_add"-->
 
 		<!-- Search Mode -->
 		<EditText

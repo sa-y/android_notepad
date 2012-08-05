@@ -14,12 +14,14 @@
 	<style name="Theme.Notepad.Black" parent="@android:style/Theme.NoTitleBar" >
 		<item name="myColor">#f00</item>  
 		<item name="android:editTextStyle">@style/Widget.Holo.Black.EditText</item>
+		<item name="ic_add">@drawable/ic_add_dark</item>
 		<!--<item name="actionBarTitleStyle">@style/Widget.Black.ActionBarTitle</item>-->  
 	</style>
 
 	<style name="Theme.Notepad.Light" parent="@android:style/Theme.Light.NoTitleBar" >
 		<item name="myColor">#00f</item>  
 		<item name="android:editTextStyle">@style/Widget.Holo.Light.EditText</item>
+		<item name="ic_add">@drawable/ic_add_light</item>
 		<!--<item name="actionBarTitleStyle">@style/Widget.Light.ActionBarTitle</item>-->  
 	</style>
 </resources>
