@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<style name="Widget.Holo.EditText" parent="@android:style/Widget.EditText" >
+	<style name="Widget.Holo.Black.EditText" parent="@android:style/Widget.EditText" >
 		<item name="android:textColor" >@color/primary_text_holo_dark</item>
 		<item name="android:background" >@drawable/edit_text_holo_dark</item>
 	</style>
 
-	<style name="Theme.MyTheme" parent="@android:style/Theme.NoTitleBar" >
-		<item name="android:editTextStyle">@style/Widget.Holo.EditText</item>
+	<style name="Widget.Holo.Light.EditText" parent="@android:style/Widget.EditText" >
+		<item name="android:textColor" >@color/primary_text_holo_light</item>
+		<item name="android:background" >@drawable/edit_text_holo_dark</item>
+	</style>
+
+	<style name="Theme.Notepad.Black" parent="@android:style/Theme.NoTitleBar" >
+		<item name="myColor">#f00</item>  
+		<item name="android:editTextStyle">@style/Widget.Holo.Black.EditText</item>
+		<!--<item name="actionBarTitleStyle">@style/Widget.Black.ActionBarTitle</item>-->  
+	</style>
+
+	<style name="Theme.Notepad.Light" parent="@android:style/Theme.Light.NoTitleBar" >
+		<item name="myColor">#00f</item>  
+		<item name="android:editTextStyle">@style/Widget.Holo.Light.EditText</item>
+		<!--<item name="actionBarTitleStyle">@style/Widget.Light.ActionBarTitle</item>-->  
 	</style>
 </resources>

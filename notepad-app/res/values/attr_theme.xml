@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <declare-styleable name="Theme.MyTheme">
+        <attr name="myColor" format="color" />
+        <attr name="actionBarTitleStyle" format="reference" />
+    </declare-styleable>
+</resources>
