@@ -5,6 +5,11 @@
 
 * Theme.Light ベースのテーマを追加
 ** Theme.Notepad.Light を作成
+** drawable/edit_text_holo_light.xml を作成
+*** textfield_holo_dark_default.9.png
+*** textfield_holo_dark_disabled.9.png
+*** textfield_holo_dark_disabled_focused.9.png
+*** textfield_holo_dark_focused.9.png
 #** アイコンが黒背景を前提に作ってあるので白背景用を作成する
 #*** 白背景 : #333333 で 60% の透過度
 #*** 黒背景 : #FFFFFF で 80% の透過度
