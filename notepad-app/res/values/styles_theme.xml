@@ -15,6 +15,7 @@
 		<item name="android:editTextStyle">@style/Widget.Holo.Black.EditText</item>
 		<item name="ic_add">@drawable/ic_add_dark</item>
 		<item name="ic_clear">@drawable/ic_clear_dark</item>
+		<item name="ic_delete">@drawable/ic_delete_dark</item>
 		<!--<item name="actionBarTitleStyle">@style/Widget.Black.ActionBarTitle</item>-->  
 	</style>
 
@@ -22,6 +23,7 @@
 		<item name="android:editTextStyle">@style/Widget.Holo.Light.EditText</item>
 		<item name="ic_add">@drawable/ic_add_light</item>
 		<item name="ic_clear">@drawable/ic_clear_light</item>
+		<item name="ic_delete">@drawable/ic_delete_light</item>
 		<!--<item name="actionBarTitleStyle">@style/Widget.Light.ActionBarTitle</item>-->  
 	</style>
 </resources>

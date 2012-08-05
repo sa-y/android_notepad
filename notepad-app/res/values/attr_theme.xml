@@ -4,5 +4,6 @@
         <attr name="actionBarTitleStyle" format="reference" />
         <attr name="ic_add" format="reference" />
         <attr name="ic_clear" format="reference" />
+        <attr name="ic_delete" format="reference" />
     </declare-styleable>
 </resources>
