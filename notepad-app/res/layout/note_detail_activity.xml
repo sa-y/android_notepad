@@ -34,7 +34,7 @@
 		<ImageButton
 			style="@style/actionbar_right_button" 
 			android:id="@+id/edit_note_button"
-			android:src="@drawable/ic_edit"
+			android:src="?attr/ic_edit"
 		/>
 	</LinearLayout>
 
