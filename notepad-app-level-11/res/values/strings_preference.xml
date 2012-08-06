@@ -4,6 +4,13 @@
 	<string name="preferences">Preferences</string>
 	<string name="preferences_title">Preferences</string>
 
+	<!-- Theme Category -->
+	<string name="theme_category_title">Theme</string>
+	<string name="notepad_theme">Notepad Theme</string>
+	<string name="notepad_theme_title">Notepad Theme</string>
+	<string name="dark_theme">Dark Theme</string>
+	<string name="light_theme">Light Theme</string>
+
 	<!-- Layout Category -->
 	<string name="layout_category_title">Layout</string>
 	<!-- Layout : Note List -->

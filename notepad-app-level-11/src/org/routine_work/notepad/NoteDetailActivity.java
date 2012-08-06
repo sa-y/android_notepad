@@ -37,6 +37,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 import org.routine_work.notepad.fragment.DeleteNoteFragment;
 import org.routine_work.notepad.fragment.EditNoteFragment;
+import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.utils.Log;
 
@@ -53,6 +54,8 @@ public class NoteDetailActivity extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		Log.v(LOG_TAG, "Hello");
+
+		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.note_detail_activity);
 

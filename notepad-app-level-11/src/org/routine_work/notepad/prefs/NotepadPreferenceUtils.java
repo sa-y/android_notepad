@@ -40,6 +40,32 @@ public class NotepadPreferenceUtils
 
 	private static final String LOG_TAG = "simple-notepad";
 
+	public static int getTheme(Context context)
+	{
+		int themeId = R.style.Theme_Notepad_Dark;
+		Log.v(LOG_TAG, "Hello");
+
+		String preferenceName = context.getPackageName() + "_preferences";
+		SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
+		String key = context.getString(R.string.notepad_theme_key);
+		String defaultValue = context.getString(R.string.notepad_theme_default_value);
+		String themeValue = sharedPreferences.getString(key, defaultValue);
+
+		final String themeDark = context.getString(R.string.notepad_theme_dark_value);
+		final String themeLight = context.getString(R.string.notepad_theme_light_value);
+		if (themeDark.equals(themeValue))
+		{
+			themeId = R.style.Theme_Notepad_Dark;
+		}
+		else if (themeLight.equals(themeValue))
+		{
+			themeId = R.style.Theme_Notepad_Light;
+		}
+
+		Log.v(LOG_TAG, "Bye");
+		return themeId;
+	}
+
 	public static String getNoteListLayout(Context context)
 	{
 		String noteListLayout;

@@ -118,12 +118,20 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 	private void updateSummary()
 	{
 		Log.v(LOG_TAG, "Hello");
+		CharSequence summary;
 
+		// Theme
+		final String notepadThemeKey = getString(R.string.notepad_theme_key);
+		final String notepadThemeDefaultValue = getString(R.string.notepad_theme_default_value);
+		ListPreference notepadThemeListPreference = (ListPreference) getPreferenceScreen().findPreference(notepadThemeKey);
+		summary = notepadThemeListPreference.getEntry();
+		notepadThemeListPreference.setSummary(summary);
+
+		// Layout
 		final String noteListLayoutPortKey = getString(R.string.note_list_layout_port_key);
 		final String noteListLayoutLandKey = getString(R.string.note_list_layout_land_key);
 		final String noteListLayoutPortDefaultValue = getString(R.string.note_list_layout_port_default_value);
 		final String noteListLayoutLandDefaultValue = getString(R.string.note_list_layout_land_default_value);
-		CharSequence summary;
 
 		String noteListLayoutPortValue = sharedPreferences.getString(noteListLayoutPortKey, noteListLayoutPortDefaultValue);
 		summary = getLayoutName(noteListLayoutPortValue);

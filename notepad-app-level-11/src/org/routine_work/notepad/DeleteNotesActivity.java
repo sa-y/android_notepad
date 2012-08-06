@@ -28,6 +28,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.utils.Log;
 
 public class DeleteNotesActivity extends Activity implements NotepadConstants
@@ -38,6 +39,7 @@ public class DeleteNotesActivity extends Activity implements NotepadConstants
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
+		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.delete_notes_activity);
 	}

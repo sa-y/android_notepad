@@ -32,6 +32,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import java.util.Date;
+import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.utils.Log;
 
@@ -48,6 +49,7 @@ public class EditDailyNoteActivity extends Activity
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
+		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 		Log.v(LOG_TAG, "Hello");
 

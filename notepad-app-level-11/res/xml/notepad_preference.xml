@@ -14,6 +14,17 @@
 	</PreferenceCategory>
 -->
 
+	<PreferenceCategory android:title="@string/theme_category_title" >
+		<ListPreference
+			android:key="@string/notepad_theme_key"
+			android:defaultValue="@string/notepad_theme_default_value"
+			android:title="@string/notepad_theme"
+			android:dialogTitle="@string/notepad_theme_title"
+			android:entries="@array/notepad_theme_entries"
+			android:entryValues="@array/notepad_theme_values"
+		/>
+	</PreferenceCategory>
+
 	<PreferenceCategory android:title="@string/layout_category_title" >
 		<ListPreference
 			android:key="@string/note_list_layout_port_key"

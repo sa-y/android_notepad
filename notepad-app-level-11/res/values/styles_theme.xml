@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<!-- Holo Dark -->
-	<style name="MyWidget.Holo.EditText" parent="@android:style/Widget.Holo.EditText" >
+	<!-- EditText -->
+	<style name="Widget.Notepad.Dark.EditText" parent="@android:style/Widget.Holo.EditText" >
 		<item name="android:textColor" >@color/primary_text_holo_dark</item>
 	</style>
 
-	<style name="MyTheme.Holo" parent="@android:style/Theme.Holo" >
-		<item name="android:editTextStyle">@style/MyWidget.Holo.EditText</item>
+	<style name="Widget.Notepad.Light.EditText" parent="@android:style/Widget.Holo.Light.EditText" >
+		<item name="android:textColor" >@color/primary_text_holo_light</item>
+	</style>
+
+	<!-- Theme.Notepad -->
+	<style name="Theme.Notepad.Dark" parent="@android:style/Theme.Holo" >
+		<item name="android:editTextStyle">@style/Widget.Notepad.Dark.EditText</item>
+	</style>
+
+	<style name="Theme.Notepad.Light" parent="@android:style/Theme.Holo.Light" >
+		<item name="android:editTextStyle">@style/Widget.Notepad.Light.EditText</item>
 	</style>
 
 	<!-- Holo Light -->

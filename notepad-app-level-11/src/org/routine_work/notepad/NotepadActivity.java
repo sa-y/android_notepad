@@ -24,8 +24,6 @@
  */
 package org.routine_work.notepad;
 
-import org.routine_work.notepad.prefs.NotepadPreferenceActivity;
-import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
@@ -51,6 +49,8 @@ import org.routine_work.notepad.fragment.NoteControlCallback;
 import org.routine_work.notepad.fragment.NoteDetailFragment;
 import org.routine_work.notepad.fragment.NoteListFragment;
 import org.routine_work.notepad.fragment.ViewNoteFragment;
+import org.routine_work.notepad.prefs.NotepadPreferenceActivity;
+import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.utils.NoteSearchQueryParser;
 import org.routine_work.utils.IMEUtils;
@@ -106,6 +106,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 	{
 		Log.v(LOG_TAG, "Hello");
 
+		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.notepad_activity);
 

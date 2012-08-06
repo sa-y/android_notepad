@@ -39,6 +39,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import org.routine_work.notepad.fragment.NoteListItemViewBinder;
+import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.utils.Log;
 
@@ -58,6 +59,7 @@ public class PickNoteActivity extends ListActivity
 	{
 		Log.v(LOG_TAG, "Hello");
 
+		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pick_note_activity);
 

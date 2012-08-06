@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<!-- Theme -->
+	<string name="notepad_theme_key" >notepad_theme</string>
+	<string name="notepad_theme_dark_value" >notepad_theme_dark</string>
+	<string name="notepad_theme_light_value" >notepad_theme_light</string>
+	<string name="notepad_theme_default_value" >@string/notepad_theme_dark_value</string>
+
+	<string-array name="notepad_theme_entries">
+		<item>@string/dark_theme</item>
+		<item>@string/light_theme</item>
+	</string-array>
+
+	<string-array name="notepad_theme_values">
+		<item>@string/notepad_theme_dark_value</item>
+		<item>@string/notepad_theme_light_value</item>
+	</string-array>
+
+	<!-- Layout -->
 	<string name="note_list_layout_port_key" >note_list_layout_port</string>
 	<string name="note_list_layout_land_key" >note_list_layout_land</string>
 	<string name="note_list_layout_single_value" >SINGLE</string>
