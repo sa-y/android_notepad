@@ -8,7 +8,7 @@
 
 	<style name="Widget.Holo.Light.EditText" parent="@android:style/Widget.EditText" >
 		<item name="android:textColor" >@color/primary_text_holo_light</item>
-		<item name="android:background" >@drawable/edit_text_holo_dark</item>
+		<item name="android:background" >@drawable/edit_text_holo_light</item>
 	</style>
 
 	<style name="Theme.Notepad.Black" parent="@android:style/Theme.NoTitleBar" >
