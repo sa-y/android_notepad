@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="notepad_theme_key" >notepad_theme</string>
+	<string name="notepad_theme_black_value" >notepad_theme_black</string>
+	<string name="notepad_theme_light_value" >notepad_theme_light</string>
+	<string name="notepad_theme_default_value" >@string/notepad_theme_black_value</string>
+
+	<string-array name="notepad_theme_entries">
+		<item>@string/black_theme</item>
+		<item>@string/light_theme</item>
+	</string-array>
+
+	<string-array name="notepad_theme_values">
+		<item>@string/notepad_theme_black_value</item>
+		<item>@string/notepad_theme_light_value</item>
+	</string-array>
+
+</resources>

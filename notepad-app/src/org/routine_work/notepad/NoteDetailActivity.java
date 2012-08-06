@@ -30,12 +30,13 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.view.View.OnFocusChangeListener;
 import android.view.*;
+import android.view.View.OnFocusChangeListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.utils.NoteUtils;
 import org.routine_work.utils.IMEUtils;
@@ -76,6 +77,8 @@ public class NoteDetailActivity extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		Log.v(LOG_TAG, "Hello");
+
+		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 
 		// When software keyboard was displayed, the window is adjust resize.

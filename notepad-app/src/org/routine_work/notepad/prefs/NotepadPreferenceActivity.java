@@ -21,7 +21,7 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-package org.routine_work.notepad;
+package org.routine_work.notepad.prefs;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -29,6 +29,8 @@ import android.preference.PreferenceActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import org.routine_work.notepad.NotepadActivity;
+import org.routine_work.notepad.R;
 import org.routine_work.utils.Log;
 
 /**

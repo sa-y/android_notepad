@@ -42,6 +42,8 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.*;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
+import org.routine_work.notepad.prefs.NotepadPreferenceActivity;
+import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.utils.NoteSearchQueryParser;
 import org.routine_work.notepad.utils.NoteUtils;
@@ -122,6 +124,7 @@ public class NotepadActivity extends ListActivity
 	{
 		Log.v(LOG_TAG, "Hello");
 
+		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.view_notes_activity);
 

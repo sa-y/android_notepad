@@ -34,6 +34,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.utils.Log;
 
@@ -59,6 +60,7 @@ public class CreateNoteShortcutActivity extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		Log.v(LOG_TAG, "Hello");
+		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 
 		// When software keyboard was displayed, the window is adjust resize.
