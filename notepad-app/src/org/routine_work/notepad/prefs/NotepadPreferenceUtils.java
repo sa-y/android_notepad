@@ -40,7 +40,7 @@ public class NotepadPreferenceUtils
 
 	public static int getTheme(Context context)
 	{
-		int themeId = R.style.Theme_Notepad_Black;
+		int themeId = R.style.Theme_Notepad_Dark;
 
 		String preferenceName = context.getPackageName() + "_preferences";
 		SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
@@ -48,11 +48,11 @@ public class NotepadPreferenceUtils
 		String defaultValue = context.getString(R.string.notepad_theme_default_value);
 		String themeValue = sharedPreferences.getString(key, defaultValue);
 
-		final String themeBlack = context.getString(R.string.notepad_theme_black_value);
+		final String themeDark = context.getString(R.string.notepad_theme_dark_value);
 		final String themeLight = context.getString(R.string.notepad_theme_light_value);
-		if (themeBlack.equals(themeValue))
+		if (themeDark.equals(themeValue))
 		{
-			themeId = R.style.Theme_Notepad_Black;
+			themeId = R.style.Theme_Notepad_Dark;
 		}
 		else if (themeLight.equals(themeValue))
 		{

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<style name="Widget.Holo.Black.EditText" parent="@android:style/Widget.EditText" >
+	<style name="Widget.Holo.Dark.EditText" parent="@android:style/Widget.EditText" >
 		<item name="android:textColor" >@color/primary_text_holo_dark</item>
 		<item name="android:background" >@drawable/edit_text_holo_dark</item>
 	</style>
@@ -11,15 +11,15 @@
 		<item name="android:background" >@drawable/edit_text_holo_light</item>
 	</style>
 
-	<style name="Theme.Notepad.Black" parent="@android:style/Theme.NoTitleBar" >
-		<item name="android:editTextStyle">@style/Widget.Holo.Black.EditText</item>
+	<style name="Theme.Notepad.Dark" parent="@android:style/Theme.NoTitleBar" >
+		<item name="android:editTextStyle">@style/Widget.Holo.Dark.EditText</item>
 		<item name="ic_add">@drawable/ic_add_dark</item>
 		<item name="ic_clear">@drawable/ic_clear_dark</item>
 		<item name="ic_delete">@drawable/ic_delete_dark</item>
 		<item name="ic_edit">@drawable/ic_edit_dark</item>
 		<item name="ic_home">@drawable/ic_home_dark</item>
 		<item name="ic_search">@drawable/ic_search_dark</item>
-		<!--<item name="actionBarTitleStyle">@style/Widget.Black.ActionBarTitle</item>-->  
+		<!--<item name="actionBarTitleStyle">@style/Widget.Dark.ActionBarTitle</item>-->  
 	</style>
 
 	<style name="Theme.Notepad.Light" parent="@android:style/Theme.Light.NoTitleBar" >

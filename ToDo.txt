@@ -3,8 +3,6 @@
 #############################
 !! notepad-app
 
-* Theme 設定で summary を表示させる
-
 * ノートテンプレート機能
 ** 新規ノート作成時のテンプレートを作成、管理する機能
 ** 画面
@@ -27,9 +25,6 @@
 
 #############################
 !! notepad-app-level-11
-
-* Theme.Holo.Light ベースのテーマを追加
-* 設定:テーマ選択
 
 * ノートテンプレート機能
 ** 新規ノート作成時のテンプレートを作成、管理する機能
@@ -91,6 +86,10 @@
 
 !! notepad-app
 
+#* Theme.Notepad.Black を Theme.Notepad.Dark に変更
+
+#* Theme 設定で summary を表示させる
+
 #* 設定:テーマ選択機能
 
 #* Theme.Light ベースのテーマを追加
@@ -123,6 +122,9 @@
 #*** NoteDetailActivity を修正
 
 !! notepad-app-level-11
+
+#* Theme.Holo.Light ベースのテーマを追加
+#* 設定:テーマ選択
 
 #* 設定:ノート一覧のレイアウト設定
 #** シングルペインモード

@@ -8,7 +8,7 @@
 	<string name="theme_category_title">Theme</string>
 	<string name="notepad_theme">Notepad Theme</string>
 	<string name="notepad_theme_title">Notepad Theme</string>
-	<string name="black_theme">Black Theme</string>
+	<string name="dark_theme">Dark Theme</string>
 	<string name="light_theme">Light Theme</string>
 
 	<!-- Etc Category -->

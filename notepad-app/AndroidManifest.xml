@@ -10,7 +10,7 @@
 
 	<application
 		android:label="@string/app_name"
-		android:theme="@style/Theme.Notepad.Black"
+		android:theme="@style/Theme.Notepad.Dark"
 		android:icon="@drawable/ic_launcher_notepad"
 	>
 
