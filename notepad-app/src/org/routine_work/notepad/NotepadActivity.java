@@ -120,7 +120,7 @@ public class NotepadActivity extends ListActivity
 	 * Called when the activity is first created.
 	 */
 	@Override
-	public void onCreate(Bundle savedInstanceState)
+	protected void onCreate(Bundle savedInstanceState)
 	{
 		Log.v(LOG_TAG, "Hello");
 
@@ -419,10 +419,23 @@ public class NotepadActivity extends ListActivity
 
 	public void onFocusChange(View v, boolean hasFocus)
 	{
-		if (v.getId() == R.id.search_edittext && hasFocus)
+		Log.v(LOG_TAG, "Hello");
+
+		if (v.getId() == R.id.search_edittext)
 		{
-			IMEUtils.showSoftKeyboardWindow(this, v);
+			if (hasFocus)
+			{
+				Log.d(LOG_TAG, "search_edittext has focus.");
+				IMEUtils.showSoftKeyboardWindow(this, v);
+			}
+			else
+			{
+				Log.d(LOG_TAG, "search_edittext has focus.");
+				IMEUtils.hideSoftKeyboardWindow(this, v);
+			}
 		}
+
+		Log.v(LOG_TAG, "Bye");
 	}
 
 	private void initializeWithIntent(Intent intent)
@@ -436,6 +449,7 @@ public class NotepadActivity extends ListActivity
 		Log.d(LOG_TAG, "intent.scheme => " + intent.getScheme());
 		Log.d(LOG_TAG, "------------------------------");
 
+		String queryString = null;
 		String action = intent.getAction();
 		if (ACTION_QUIT.equals(action))
 		{
@@ -443,8 +457,7 @@ public class NotepadActivity extends ListActivity
 		}
 		else if (Intent.ACTION_SEARCH.equals(action))
 		{
-			String queryString = intent.getStringExtra(SearchManager.QUERY);
-			searchEditText.setText(queryString);
+			queryString = intent.getStringExtra(SearchManager.QUERY);
 		}
 		else if (Intent.ACTION_VIEW.equals(action))
 		{
@@ -465,27 +478,34 @@ public class NotepadActivity extends ListActivity
 					{
 						Log.d(LOG_TAG, "open note : data => " + data);
 						String idString = data.getLastPathSegment();
-						searchEditText.setText("id:" + idString);
+						queryString = "id:" + idString;
 						processed = true;
 					}
 				}
 
 				if (!processed)
 				{
-					String queryString = intent.getStringExtra(SearchManager.QUERY);
-					searchEditText.setText(queryString);
+					queryString = intent.getStringExtra(SearchManager.QUERY);
 				}
 			}
 		}
 
-		if (TextUtils.isEmpty(searchEditText.getText()))
+		if (queryString != null)
 		{
-			searchEditText.setText(null);
-			setActionMode(ACTION_MODE_NORMAL);
+			enterSearchMode();
+			if (TextUtils.isEmpty(queryString.trim()))
+			{
+				searchEditText.setText(null);
+			}
+			else
+			{
+				searchEditText.setText(queryString);
+			}
 		}
 		else
 		{
-			setActionMode(ACTION_MODE_SEARCH);
+			setActionMode(ACTION_MODE_NORMAL);
+			searchEditText.setText(null);
 		}
 
 		Log.v(LOG_TAG, "Bye");
@@ -630,7 +650,6 @@ public class NotepadActivity extends ListActivity
 			searchEditText.setText(null);
 			getListView().requestFocus();
 			setActionMode(ACTION_MODE_NORMAL);
-			IMEUtils.hideSoftKeyboardWindow(this, searchEditText);
 		}
 	}
 
@@ -640,7 +659,6 @@ public class NotepadActivity extends ListActivity
 		{
 			setActionMode(ACTION_MODE_SEARCH);
 			searchEditText.requestFocus();
-			IMEUtils.showSoftKeyboardWindow(this, searchEditText);
 		}
 	}
 
