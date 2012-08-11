@@ -57,6 +57,22 @@ public class NoteStore
 	public static final String NOTE_ITEM_CONTENT_TYPE = "vnd.android.cursor.item/vnd.routine_work.note";
 	public static final String PARAM_KEY_QUERY = "q";
 
+	public interface NoteTemplate
+	{
+
+		public interface Columns extends BaseColumns
+		{
+
+			String TITLE = "title";
+			String CONTENT = "content";
+			String TITLE_LOCKED = "title_locked";
+			String CONTENT_LOCKED = "content_locked";
+		}
+		Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/notetemplates");
+		String NOTE_TEMPLATE_LIST_CONTENT_TYPE = "vnd.android.cursor.dir/vnd.routine_work.notetemplate";
+		String NOTE_TEMPLATE_ITEM_CONTENT_TYPE = "vnd.android.cursor.item/vnd.routine_work.notetemplate";
+	}
+
 	public static boolean checkNote(ContentResolver cr, Uri uri)
 	{
 		boolean result = false;

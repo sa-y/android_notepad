@@ -33,10 +33,12 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.provider.BaseColumns;
 import android.text.TextUtils;
 import java.util.HashMap;
 import java.util.Map;
 import org.routine_work.notepad.provider.NoteStore.NoteColumns;
+import org.routine_work.notepad.provider.NoteStore.NoteTemplate;
 import org.routine_work.utils.Log;
 
 public class NoteProvider extends ContentProvider
@@ -49,6 +51,8 @@ public class NoteProvider extends ContentProvider
 	private static final int NOTES_ITEM_BY_ID = 2;
 	private static final int NOTES_SUGGEST_SEARCH_ALL = 3;
 	private static final int NOTES_SUGGEST_SEARCH_BY_WORD = 4;
+	private static final int NOTE_TEMPLATES_ITEM_ALL = 5;
+	private static final int NOTE_TEMPLATES_ITEM_BY_ID = 6;
 	private static final UriMatcher URI_MATCHER;
 	private static final Map<String, String> SUGGESTION_PROJECTION_MAP;
 	// DB
@@ -61,6 +65,8 @@ public class NoteProvider extends ContentProvider
 		URI_MATCHER.addURI(NoteStore.AUTHORITY, SearchManager.SUGGEST_URI_PATH_QUERY + "/*", NOTES_SUGGEST_SEARCH_BY_WORD);
 		URI_MATCHER.addURI(NoteStore.AUTHORITY, "notes", NOTES_ITEM_ALL);
 		URI_MATCHER.addURI(NoteStore.AUTHORITY, "notes/#", NOTES_ITEM_BY_ID);
+		URI_MATCHER.addURI(NoteStore.AUTHORITY, "notetemplates", NOTE_TEMPLATES_ITEM_ALL);
+		URI_MATCHER.addURI(NoteStore.AUTHORITY, "notetemplates/#", NOTE_TEMPLATES_ITEM_BY_ID);
 
 		SUGGESTION_PROJECTION_MAP = new HashMap<String, String>();
 		SUGGESTION_PROJECTION_MAP.put(SearchManager.SUGGEST_COLUMN_TEXT_1,
@@ -91,9 +97,15 @@ public class NoteProvider extends ContentProvider
 		Log.d(LOG_TAG, "query uri => " + uri);
 
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
-		qb.setTables(Notes.TABLE_NAME);
+
+		// Setup Table Name
+		String tableName = getTableName(uri);
+		Log.d(LOG_TAG, "tableName => " + tableName);
+		qb.setTables(tableName);
 
 		int match = URI_MATCHER.match(uri);
+
+		// Setup Projection Map if needed
 		switch (match)
 		{
 			case NOTES_SUGGEST_SEARCH_ALL:
@@ -102,6 +114,7 @@ public class NoteProvider extends ContentProvider
 				break;
 		}
 
+		// Setup Query
 		switch (match)
 		{
 			case NOTES_SUGGEST_SEARCH_BY_WORD:
@@ -121,6 +134,11 @@ public class NoteProvider extends ContentProvider
 				break;
 			case NOTES_ITEM_BY_ID:
 				qb.appendWhere(NoteColumns._ID + "=" + uri.getPathSegments().get(1));
+				break;
+			case NOTE_TEMPLATES_ITEM_ALL:
+				break;
+			case NOTE_TEMPLATES_ITEM_BY_ID:
+				qb.appendWhere(NoteTemplate.Columns._ID + "=" + uri.getPathSegments().get(1));
 				break;
 			default:
 				throw new IllegalArgumentException("Unsupported URI: " + uri);
@@ -143,7 +161,10 @@ public class NoteProvider extends ContentProvider
 		Log.v(LOG_TAG, "Hello");
 		Uri newUri = null;
 
-		long rowID = noteDB.insert(Notes.TABLE_NAME, null, initialValues);
+		String tableName = getTableName(uri);
+		Log.d(LOG_TAG, "tableName => " + tableName);
+
+		long rowID = noteDB.insert(tableName, null, initialValues);
 		Log.d(LOG_TAG, "rowID => " + rowID);
 
 		if (rowID > 0)
@@ -167,15 +188,20 @@ public class NoteProvider extends ContentProvider
 		int count;
 		Log.v(LOG_TAG, "Hello");
 
+		String tableName = getTableName(uri);
+		Log.d(LOG_TAG, "tableName => " + tableName);
+
 		switch (URI_MATCHER.match(uri))
 		{
 			case NOTES_ITEM_ALL:
-				count = noteDB.delete(Notes.TABLE_NAME, where, whereArgs);
+			case NOTE_TEMPLATES_ITEM_ALL:
+				count = noteDB.delete(tableName, where, whereArgs);
 				break;
 			case NOTES_ITEM_BY_ID:
+			case NOTE_TEMPLATES_ITEM_BY_ID:
 				String itemId = uri.getPathSegments().get(1);
 				StringBuilder whereClause = new StringBuilder();
-				whereClause.append(NoteStore.NoteColumns._ID);
+				whereClause.append(BaseColumns._ID);
 				whereClause.append("=");
 				whereClause.append(itemId);
 				if (!TextUtils.isEmpty(where))
@@ -185,7 +211,7 @@ public class NoteProvider extends ContentProvider
 					whereClause.append(")");
 				}
 
-				count = noteDB.delete(Notes.TABLE_NAME, whereClause.toString(),
+				count = noteDB.delete(tableName, whereClause.toString(),
 					whereArgs);
 				break;
 
@@ -205,17 +231,21 @@ public class NoteProvider extends ContentProvider
 		int count;
 		Log.v(LOG_TAG, "Hello");
 
+		String tableName = getTableName(uri);
+		Log.d(LOG_TAG, "tableName => " + tableName);
+
 		switch (URI_MATCHER.match(uri))
 		{
 			case NOTES_ITEM_ALL:
-				count = noteDB.update(Notes.TABLE_NAME, values, where, whereArgs);
+			case NOTE_TEMPLATES_ITEM_ALL:
+				count = noteDB.update(tableName, values, where, whereArgs);
 				break;
-
 			case NOTES_ITEM_BY_ID:
+			case NOTE_TEMPLATES_ITEM_BY_ID:
 				String segment = uri.getPathSegments().get(1);
 
 				StringBuilder whereClause = new StringBuilder();
-				whereClause.append(NoteColumns._ID);
+				whereClause.append(BaseColumns._ID);
 				whereClause.append("=");
 				whereClause.append(segment);
 				if (!TextUtils.isEmpty(where))
@@ -225,10 +255,9 @@ public class NoteProvider extends ContentProvider
 					whereClause.append(where);
 					whereClause.append(")");
 				}
-				count = noteDB.update(Notes.TABLE_NAME, values,
+				count = noteDB.update(tableName, values,
 					whereClause.toString(), whereArgs);
 				break;
-
 			default:
 				throw new IllegalArgumentException("Unknown URI " + uri);
 		}
@@ -261,6 +290,29 @@ public class NoteProvider extends ContentProvider
 		Log.d(LOG_TAG, "type => " + type);
 		Log.v(LOG_TAG, "Bye");
 		return type;
+	}
+
+	private static String getTableName(Uri uri)
+	{
+		String tableName = null;
+
+		switch (URI_MATCHER.match(uri))
+		{
+			case NOTES_SUGGEST_SEARCH_ALL:
+			case NOTES_SUGGEST_SEARCH_BY_WORD:
+			case NOTES_ITEM_ALL:
+			case NOTES_ITEM_BY_ID:
+				tableName = Notes.TABLE_NAME;
+				break;
+			case NOTE_TEMPLATES_ITEM_ALL:
+			case NOTE_TEMPLATES_ITEM_BY_ID:
+				tableName = NoteTemplates.TABLE_NAME;
+				break;
+			default:
+				throw new IllegalArgumentException("Unsupported URI: " + uri);
+		}
+
+		return tableName;
 	}
 
 	private static String getLimitParameter(Uri uri)
