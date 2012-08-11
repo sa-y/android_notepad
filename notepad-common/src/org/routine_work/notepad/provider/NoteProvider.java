@@ -45,10 +45,10 @@ public class NoteProvider extends ContentProvider
 
 	private static final String LOG_TAG = "simple-notepad";
 	// URI
-	private static final int ITEM_ALL = 1;
-	private static final int ITEM_BY_ID = 2;
-	private static final int SUGGEST_SEARCH_ALL = 3;
-	private static final int SUGGEST_SEARCH_BY_WORD = 4;
+	private static final int NOTES_ITEM_ALL = 1;
+	private static final int NOTES_ITEM_BY_ID = 2;
+	private static final int NOTES_SUGGEST_SEARCH_ALL = 3;
+	private static final int NOTES_SUGGEST_SEARCH_BY_WORD = 4;
 	private static final UriMatcher URI_MATCHER;
 	private static final Map<String, String> SUGGESTION_PROJECTION_MAP;
 	// DB
@@ -57,10 +57,10 @@ public class NoteProvider extends ContentProvider
 	static
 	{
 		URI_MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
-		URI_MATCHER.addURI(NoteStore.AUTHORITY, SearchManager.SUGGEST_URI_PATH_QUERY, SUGGEST_SEARCH_ALL);
-		URI_MATCHER.addURI(NoteStore.AUTHORITY, SearchManager.SUGGEST_URI_PATH_QUERY + "/*", SUGGEST_SEARCH_BY_WORD);
-		URI_MATCHER.addURI(NoteStore.AUTHORITY, "notes", ITEM_ALL);
-		URI_MATCHER.addURI(NoteStore.AUTHORITY, "notes/#", ITEM_BY_ID);
+		URI_MATCHER.addURI(NoteStore.AUTHORITY, SearchManager.SUGGEST_URI_PATH_QUERY, NOTES_SUGGEST_SEARCH_ALL);
+		URI_MATCHER.addURI(NoteStore.AUTHORITY, SearchManager.SUGGEST_URI_PATH_QUERY + "/*", NOTES_SUGGEST_SEARCH_BY_WORD);
+		URI_MATCHER.addURI(NoteStore.AUTHORITY, "notes", NOTES_ITEM_ALL);
+		URI_MATCHER.addURI(NoteStore.AUTHORITY, "notes/#", NOTES_ITEM_BY_ID);
 
 		SUGGESTION_PROJECTION_MAP = new HashMap<String, String>();
 		SUGGESTION_PROJECTION_MAP.put(SearchManager.SUGGEST_COLUMN_TEXT_1,
@@ -91,35 +91,35 @@ public class NoteProvider extends ContentProvider
 		Log.d(LOG_TAG, "query uri => " + uri);
 
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
-		qb.setTables(TABLE_NAME);
+		qb.setTables(Notes.TABLE_NAME);
 
 		int match = URI_MATCHER.match(uri);
 		switch (match)
 		{
-			case SUGGEST_SEARCH_ALL:
-			case SUGGEST_SEARCH_BY_WORD:
+			case NOTES_SUGGEST_SEARCH_ALL:
+			case NOTES_SUGGEST_SEARCH_BY_WORD:
 				qb.setProjectionMap(SUGGESTION_PROJECTION_MAP);
 				break;
 		}
 
 		switch (match)
 		{
-			case SUGGEST_SEARCH_BY_WORD:
+			case NOTES_SUGGEST_SEARCH_BY_WORD:
 				Log.d(LOG_TAG, "*SEARCH_BY_WORD");
 				String queryWord = uri.getLastPathSegment().trim();
 				Log.d(LOG_TAG, "queryWord => " + queryWord);
 				setUpQueryByWord(qb, queryWord);
 				break;
-			case SUGGEST_SEARCH_ALL:
+			case NOTES_SUGGEST_SEARCH_ALL:
 				break;
-			case ITEM_ALL:
+			case NOTES_ITEM_ALL:
 				uri.getQueryParameter("q");
 				Log.d(LOG_TAG, "*SEARCH_BY_WORD");
 				String q = uri.getQueryParameter("q");
 				Log.d(LOG_TAG, "queryWord => " + q);
 				setUpQueryByWord(qb, q);
 				break;
-			case ITEM_BY_ID:
+			case NOTES_ITEM_BY_ID:
 				qb.appendWhere(NoteColumns._ID + "=" + uri.getPathSegments().get(1));
 				break;
 			default:
@@ -143,7 +143,7 @@ public class NoteProvider extends ContentProvider
 		Log.v(LOG_TAG, "Hello");
 		Uri newUri = null;
 
-		long rowID = noteDB.insert(TABLE_NAME, null, initialValues);
+		long rowID = noteDB.insert(Notes.TABLE_NAME, null, initialValues);
 		Log.d(LOG_TAG, "rowID => " + rowID);
 
 		if (rowID > 0)
@@ -169,10 +169,10 @@ public class NoteProvider extends ContentProvider
 
 		switch (URI_MATCHER.match(uri))
 		{
-			case ITEM_ALL:
-				count = noteDB.delete(TABLE_NAME, where, whereArgs);
+			case NOTES_ITEM_ALL:
+				count = noteDB.delete(Notes.TABLE_NAME, where, whereArgs);
 				break;
-			case ITEM_BY_ID:
+			case NOTES_ITEM_BY_ID:
 				String itemId = uri.getPathSegments().get(1);
 				StringBuilder whereClause = new StringBuilder();
 				whereClause.append(NoteStore.NoteColumns._ID);
@@ -185,7 +185,7 @@ public class NoteProvider extends ContentProvider
 					whereClause.append(")");
 				}
 
-				count = noteDB.delete(TABLE_NAME, whereClause.toString(),
+				count = noteDB.delete(Notes.TABLE_NAME, whereClause.toString(),
 					whereArgs);
 				break;
 
@@ -207,11 +207,11 @@ public class NoteProvider extends ContentProvider
 
 		switch (URI_MATCHER.match(uri))
 		{
-			case ITEM_ALL:
-				count = noteDB.update(TABLE_NAME, values, where, whereArgs);
+			case NOTES_ITEM_ALL:
+				count = noteDB.update(Notes.TABLE_NAME, values, where, whereArgs);
 				break;
 
-			case ITEM_BY_ID:
+			case NOTES_ITEM_BY_ID:
 				String segment = uri.getPathSegments().get(1);
 
 				StringBuilder whereClause = new StringBuilder();
@@ -225,7 +225,7 @@ public class NoteProvider extends ContentProvider
 					whereClause.append(where);
 					whereClause.append(")");
 				}
-				count = noteDB.update(TABLE_NAME, values,
+				count = noteDB.update(Notes.TABLE_NAME, values,
 					whereClause.toString(), whereArgs);
 				break;
 
@@ -247,11 +247,11 @@ public class NoteProvider extends ContentProvider
 
 		switch (URI_MATCHER.match(uri))
 		{
-			case SUGGEST_SEARCH_ALL:
-			case ITEM_ALL:
+			case NOTES_SUGGEST_SEARCH_ALL:
+			case NOTES_ITEM_ALL:
 				type = NoteStore.NOTE_LIST_CONTENT_TYPE;
 				break;
-			case ITEM_BY_ID:
+			case NOTES_ITEM_BY_ID:
 				type = NoteStore.NOTE_ITEM_CONTENT_TYPE;
 				break;
 			default:
@@ -277,7 +277,7 @@ public class NoteProvider extends ContentProvider
 			}
 			catch (NumberFormatException e)
 			{
-				Log.e(LOG_TAG, "limit parameter is illegal value : limitText => " + limit);
+				Log.e(LOG_TAG, "limit parameter is illegal value : limitText => " + limit, e);
 				limit = null;
 			}
 		}

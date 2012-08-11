@@ -32,6 +32,7 @@ import android.content.SearchRecentSuggestionsProvider;
  */
 public class RecentQueryTextSuggestionProvider extends SearchRecentSuggestionsProvider
 {
+
 	public static final String AUTHORITY = "org.routine_work.notepad.recent_query_text_suggestion_provider";
 
 	public RecentQueryTextSuggestionProvider()

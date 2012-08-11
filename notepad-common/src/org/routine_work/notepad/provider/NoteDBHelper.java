@@ -62,16 +62,16 @@ class NoteDBHelper extends SQLiteOpenHelper
 	public void onCreate(SQLiteDatabase db)
 	{
 		Log.w(LOG_TAG, "Create database.");
-		Log.w(LOG_TAG, "CREATE_TABLE_SQL => " + CREATE_TABLE_SQL);
-		db.execSQL(CREATE_TABLE_SQL);
-		Log.w(LOG_TAG, "CREATE_TITLE_INDEX_SQL => " + CREATE_TITLE_INDEX_SQL);
-		db.execSQL(CREATE_TITLE_INDEX_SQL);
-		Log.w(LOG_TAG, "CREATE_CONTENT_INDEX_SQL => " + CREATE_CONTENT_INDEX_SQL);
-		db.execSQL(CREATE_CONTENT_INDEX_SQL);
-		Log.w(LOG_TAG, "CREATE_DATE_ADDED_INDEX_SQL => " + CREATE_DATE_ADDED_INDEX_SQL);
-		db.execSQL(CREATE_DATE_ADDED_INDEX_SQL);
-		Log.w(LOG_TAG, "CREATE_DATE_MODIFIED_INDEX_SQL => " + CREATE_DATE_MODIFIED_INDEX_SQL);
-		db.execSQL(CREATE_DATE_MODIFIED_INDEX_SQL);
+		Log.w(LOG_TAG, "Notes.CREATE_TABLE_SQL => " + Notes.CREATE_TABLE_SQL);
+		db.execSQL(Notes.CREATE_TABLE_SQL);
+		Log.w(LOG_TAG, "Notes.CREATE_TITLE_INDEX_SQL => " + Notes.CREATE_TITLE_INDEX_SQL);
+		db.execSQL(Notes.CREATE_TITLE_INDEX_SQL);
+		Log.w(LOG_TAG, "Notes.CREATE_CONTENT_INDEX_SQL => " + Notes.CREATE_CONTENT_INDEX_SQL);
+		db.execSQL(Notes.CREATE_CONTENT_INDEX_SQL);
+		Log.w(LOG_TAG, "Notes.CREATE_DATE_ADDED_INDEX_SQL => " + Notes.CREATE_DATE_ADDED_INDEX_SQL);
+		db.execSQL(Notes.CREATE_DATE_ADDED_INDEX_SQL);
+		Log.w(LOG_TAG, "Notes.CREATE_DATE_MODIFIED_INDEX_SQL => " + Notes.CREATE_DATE_MODIFIED_INDEX_SQL);
+		db.execSQL(Notes.CREATE_DATE_MODIFIED_INDEX_SQL);
 	}
 
 	@Override
@@ -87,7 +87,7 @@ class NoteDBHelper extends SQLiteOpenHelper
 			backupV4To(db, backupDir);
 		}
 		// upgrade table
-		db.execSQL(DROP_TABLE_SQL);
+		db.execSQL(Notes.DROP_TABLE_SQL);
 
 		// restore data
 		onCreate(db);
@@ -97,12 +97,12 @@ class NoteDBHelper extends SQLiteOpenHelper
 
 	public void reindex(SQLiteDatabase db)
 	{
-		db.execSQL(REINDEX_SQL);
+		db.execSQL(Notes.REINDEX_SQL);
 	}
 
 	public void vacuum(SQLiteDatabase db)
 	{
-		db.execSQL(VACCUM_SQL);
+		db.execSQL(Notes.VACCUM_SQL);
 	}
 
 	public void backupV4To(SQLiteDatabase db, File backupDirectory)
@@ -110,7 +110,7 @@ class NoteDBHelper extends SQLiteOpenHelper
 		Log.v(LOG_TAG, "Hello");
 		Log.v(LOG_TAG, "backupDirectory => " + backupDirectory);
 
-		Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null);
+		Cursor cursor = db.query(Notes.TABLE_NAME, null, null, null, null, null, null);
 		if (cursor != null && cursor.moveToFirst())
 		{
 			int idIndex = cursor.getColumnIndex(NoteColumns._ID);
@@ -173,7 +173,7 @@ class NoteDBHelper extends SQLiteOpenHelper
 				values.put(NoteColumns.CONTENT_LOCKED, note.contentLocked);
 				values.put(NoteColumns.DATE_ADDED, note.added);
 				values.put(NoteColumns.DATE_MODIFIED, note.modified);
-				db.insert(TABLE_NAME, null, values);
+				db.insert(Notes.TABLE_NAME, null, values);
 			}
 			catch (FileNotFoundException ex)
 			{

@@ -34,27 +34,32 @@ interface NoteDBConstants
 
 	String DATABASE_NAME = "NoteDB";
 	int DATABASE_VERSION = 5;
-	String TABLE_NAME = "Notes";
-	// CREATE SQL
-	String CREATE_TABLE_SQL = "CREATE TABLE " + TABLE_NAME + "("
-		+ "  " + NoteColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT"
-		+ ", " + NoteColumns.TITLE + " TEXT"
-		+ ", " + NoteColumns.CONTENT + " TEXT"
-		+ ", " + NoteColumns.TITLE_LOCKED + " BOOLEAN NOT NULL"
-		+ ", " + NoteColumns.CONTENT_LOCKED + " BOOLEAN NOT NULL"
-		+ ", " + NoteColumns.DATE_ADDED + " INTEGER NOT NULL"
-		+ ", " + NoteColumns.DATE_MODIFIED + " INTEGER NOT NULL"
-		+ ");";
-	// DROP SQL
-	String DROP_TABLE_SQL = "DROP TABLE " + TABLE_NAME + ";";
-	String CREATE_TITLE_INDEX_SQL = "CREATE INDEX " + NoteColumns.TITLE + "_index "
-		+ "ON " + TABLE_NAME + "(" + NoteColumns.TITLE + ");";
-	String CREATE_CONTENT_INDEX_SQL = "CREATE INDEX " + NoteColumns.CONTENT + "_index "
-		+ "ON " + TABLE_NAME + "(" + NoteColumns.CONTENT + ");";
-	String CREATE_DATE_ADDED_INDEX_SQL = "CREATE INDEX " + NoteColumns.DATE_ADDED + "_index "
-		+ "ON " + TABLE_NAME + "(" + NoteColumns.DATE_ADDED + ");";
-	String CREATE_DATE_MODIFIED_INDEX_SQL = "CREATE INDEX " + NoteColumns.DATE_MODIFIED + "_index "
-		+ "ON " + TABLE_NAME + "(" + NoteColumns.DATE_MODIFIED + ");";
-	String REINDEX_SQL = "REINDEX;";
-	String VACCUM_SQL = "VACUUM;";
+
+	interface Notes
+	{
+
+		String TABLE_NAME = "Notes";
+		// CREATE SQL
+		String CREATE_TABLE_SQL = "CREATE TABLE " + TABLE_NAME + "("
+			+ "  " + NoteColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT"
+			+ ", " + NoteColumns.TITLE + " TEXT"
+			+ ", " + NoteColumns.CONTENT + " TEXT"
+			+ ", " + NoteColumns.TITLE_LOCKED + " BOOLEAN NOT NULL"
+			+ ", " + NoteColumns.CONTENT_LOCKED + " BOOLEAN NOT NULL"
+			+ ", " + NoteColumns.DATE_ADDED + " INTEGER NOT NULL"
+			+ ", " + NoteColumns.DATE_MODIFIED + " INTEGER NOT NULL"
+			+ ");";
+		// DROP SQL
+		String DROP_TABLE_SQL = "DROP TABLE " + TABLE_NAME + ";";
+		String CREATE_TITLE_INDEX_SQL = "CREATE INDEX " + NoteColumns.TITLE + "_index "
+			+ "ON " + TABLE_NAME + "(" + NoteColumns.TITLE + ");";
+		String CREATE_CONTENT_INDEX_SQL = "CREATE INDEX " + NoteColumns.CONTENT + "_index "
+			+ "ON " + TABLE_NAME + "(" + NoteColumns.CONTENT + ");";
+		String CREATE_DATE_ADDED_INDEX_SQL = "CREATE INDEX " + NoteColumns.DATE_ADDED + "_index "
+			+ "ON " + TABLE_NAME + "(" + NoteColumns.DATE_ADDED + ");";
+		String CREATE_DATE_MODIFIED_INDEX_SQL = "CREATE INDEX " + NoteColumns.DATE_MODIFIED + "_index "
+			+ "ON " + TABLE_NAME + "(" + NoteColumns.DATE_MODIFIED + ");";
+		String REINDEX_SQL = "REINDEX;";
+		String VACCUM_SQL = "VACUUM;";
+	}
 }
