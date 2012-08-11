@@ -13,7 +13,6 @@
 *** テンプレート編集画面
 ** テンプレート変数
 *** 日時(yyyy mm dd HH MM SS)
-*** ??
 
 * ノート一覧画面のタイトル部分にノートの数を表示
 
@@ -36,7 +35,6 @@
 *** テンプレート編集画面
 ** テンプレート変数
 *** 日時(yyyy mm dd HH MM SS)
-*** ??
 
 * 設定:ノート一覧画面のソート順追加
 
@@ -164,6 +162,8 @@
 #* ショートカット作成時に PickNoteActivity を開いた際にタイトルが表示されないバグ
 
 !! notepad-common
+
+#* Content Provider にノートテンプレートを追加
 
 #* NoteStore の未使用メソッドを削除
 #** NoteStore.getAllNotes(ContentResolver cr) : Cursor
