@@ -31,19 +31,20 @@ import org.routine_work.notepad.provider.NoteStore;
  */
 public interface NotepadConstants
 {
+
 	int REQUEST_CODE_EDIT_NOTE = 102;
 	int REQUEST_CODE_ADD_NEW_NOTE = 103;
 	int REQUEST_CODE_DELETE_NOTE = 104;
 	int REQUEST_CODE_DELETE_NOTES = 105;
 	int REQUEST_CODE_PICK_NOTE = 106;
 	int NOTE_LOADER_ID = 0;
-	String[] MAPPING_FROM =
+	String[] NOTE_LIST_MAPPING_FROM =
 	{
-		NoteStore.NoteColumns.TITLE,
-		NoteStore.NoteColumns.CONTENT,
-		NoteStore.NoteColumns.DATE_MODIFIED,
+		NoteStore.Note.Columns.TITLE,
+		NoteStore.Note.Columns.CONTENT,
+		NoteStore.Note.Columns.DATE_MODIFIED,
 	};
-	int[] MAPPING_TO =
+	int[] NOTE_LIST_MAPPING_TO =
 	{
 		R.id.note_title_textview,
 		R.id.note_content_textview,

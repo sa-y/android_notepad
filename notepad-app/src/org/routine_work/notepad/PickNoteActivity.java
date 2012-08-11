@@ -100,7 +100,7 @@ public class PickNoteActivity extends ListActivity
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		Uri noteUri = ContentUris.withAppendedId(NoteStore.CONTENT_URI, id);
+		Uri noteUri = ContentUris.withAppendedId(NoteStore.Note.CONTENT_URI, id);
 		Intent resultIntent = new Intent();
 		resultIntent.setData(noteUri);
 		setResult(Activity.RESULT_OK, resultIntent);
@@ -114,8 +114,8 @@ public class PickNoteActivity extends ListActivity
 		Log.v(LOG_TAG, "Hello");
 
 		ContentResolver cr = getContentResolver();
-		Cursor c = cr.query(NoteStore.CONTENT_URI, null, null, null,
-			NoteStore.NoteColumns.DATE_MODIFIED + " DESC");
+		Cursor c = cr.query(NoteStore.Note.CONTENT_URI, null, null, null,
+			NoteStore.Note.Columns.DATE_MODIFIED + " DESC");
 		if (c != null && c.moveToFirst())
 		{
 			cursor = c;
@@ -123,7 +123,7 @@ public class PickNoteActivity extends ListActivity
 
 		listAdapter = new SimpleCursorAdapter(this,
 			R.layout.note_list_item, cursor,
-			MAPPING_FROM, MAPPING_TO);
+			NOTE_LIST_MAPPING_FROM, NOTE_LIST_MAPPING_TO);
 		listAdapter.setViewBinder(new NoteListItemViewBinder(this));
 		setListAdapter(listAdapter);
 

@@ -67,7 +67,7 @@ public class EditDailyNoteActivity extends Activity
 		}
 		else
 		{
-			intent = new Intent(Intent.ACTION_INSERT, NoteStore.CONTENT_URI);
+			intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
 			intent.putExtra(Intent.EXTRA_TITLE, dateString);
 		}
 		Log.d(LOG_TAG, "intent => " + intent);
@@ -82,18 +82,18 @@ public class EditDailyNoteActivity extends Activity
 		Uri result = null;
 
 		ContentResolver contentResolver = getContentResolver();
-		String selection = NoteStore.NoteColumns.TITLE + " = ? ";
+		String selection = NoteStore.Note.Columns.TITLE + " = ? ";
 		String[] selectionArgs = new String[]
 		{
 			title
 		};
-		Cursor cursor = contentResolver.query(NoteStore.CONTENT_URI, null,
+		Cursor cursor = contentResolver.query(NoteStore.Note.CONTENT_URI, null,
 			selection, selectionArgs, null);
 		if (cursor != null && cursor.moveToFirst())
 		{
-			int idColumnIndex = cursor.getColumnIndex(NoteStore.NoteColumns._ID);
+			int idColumnIndex = cursor.getColumnIndex(NoteStore.Note.Columns._ID);
 			long noteId = cursor.getLong(idColumnIndex);
-			result = ContentUris.withAppendedId(NoteStore.CONTENT_URI, noteId);
+			result = ContentUris.withAppendedId(NoteStore.Note.CONTENT_URI, noteId);
 		}
 
 		return result;

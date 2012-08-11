@@ -37,6 +37,7 @@ import org.routine_work.notepad.utils.TimeFormatUtils;
 public class NoteListItemViewBinder
 	implements SimpleCursorAdapter.ViewBinder
 {
+
 	private static final String LOG_TAG = "simple-notepad";
 	private Context context;
 
@@ -64,5 +65,4 @@ public class NoteListItemViewBinder
 
 		return result;
 	}
-
 }

@@ -140,7 +140,7 @@ public class CreateNoteShortcutActivity extends Activity
 			{
 				if (cursor.moveToFirst())
 				{
-					int titleIndex = cursor.getColumnIndex(NoteStore.NoteColumns.TITLE);
+					int titleIndex = cursor.getColumnIndex(NoteStore.Note.Columns.TITLE);
 					String noteTitle = cursor.getString(titleIndex);
 					Log.d(LOG_TAG, "noteTitle => " + noteTitle);
 
@@ -160,7 +160,7 @@ public class CreateNoteShortcutActivity extends Activity
 		Log.v(LOG_TAG, "Hello");
 
 		Intent intent = new Intent(Intent.ACTION_PICK);
-		intent.setType(NoteStore.NOTE_ITEM_CONTENT_TYPE);
+		intent.setType(NoteStore.Note.NOTE_ITEM_CONTENT_TYPE);
 		startActivityForResult(intent, REQUEST_CODE_PICK_NOTE);
 
 		Log.v(LOG_TAG, "Bye");

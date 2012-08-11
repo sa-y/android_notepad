@@ -103,7 +103,7 @@ public class NotepadActivity extends ListActivity
 
 	public static void goHomeActivity(Context context)
 	{
-		Intent homeIntent = new Intent(Intent.ACTION_VIEW, NoteStore.CONTENT_URI);
+		Intent homeIntent = new Intent(Intent.ACTION_VIEW, NoteStore.Note.CONTENT_URI);
 		homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		context.startActivity(homeIntent);
 	}
@@ -138,7 +138,7 @@ public class NotepadActivity extends ListActivity
 		// Init ListAdapter
 		listAdapter = new SimpleCursorAdapter(this,
 			R.layout.note_list_item, cursor,
-			MAPPING_FROM, MAPPING_TO);
+			NOTE_LIST_MAPPING_FROM, NOTE_LIST_MAPPING_TO);
 		listAdapter.setViewBinder(new NoteListItemViewBinder(this));
 		setListAdapter(listAdapter);
 
@@ -220,28 +220,28 @@ public class NotepadActivity extends ListActivity
 				Log.d(LOG_TAG, "Add new note is done.");
 				if (resultCode == RESULT_OK)
 				{
-					updateContentWithUri(NoteStore.CONTENT_URI);
+					updateContentWithUri(NoteStore.Note.CONTENT_URI);
 				}
 				break;
 			case REQUEST_CODE_EDIT_NOTE:
 				Log.d(LOG_TAG, "Edit note is done.");
 				if (resultCode == RESULT_OK)
 				{
-					updateContentWithUri(NoteStore.CONTENT_URI);
+					updateContentWithUri(NoteStore.Note.CONTENT_URI);
 				}
 				break;
 			case REQUEST_CODE_DELETE_NOTE:
 				Log.d(LOG_TAG, "Edit note is done.");
 				if (resultCode == RESULT_OK)
 				{
-					updateContentWithUri(NoteStore.CONTENT_URI);
+					updateContentWithUri(NoteStore.Note.CONTENT_URI);
 				}
 				break;
 			case REQUEST_CODE_DELETE_NOTES:
 				Log.d(LOG_TAG, "Delete notes is done.");
 				if (resultCode == RESULT_OK)
 				{
-					updateContentWithUri(NoteStore.CONTENT_URI);
+					updateContentWithUri(NoteStore.Note.CONTENT_URI);
 				}
 				break;
 		}
@@ -474,7 +474,7 @@ public class NotepadActivity extends ListActivity
 				{
 					ContentResolver contentResolver = getContentResolver();
 					String type = contentResolver.getType(data);
-					if (NoteStore.NOTE_ITEM_CONTENT_TYPE.equals(type))
+					if (NoteStore.Note.NOTE_ITEM_CONTENT_TYPE.equals(type))
 					{
 						Log.d(LOG_TAG, "open note : data => " + data);
 						String idString = data.getLastPathSegment();
@@ -515,7 +515,7 @@ public class NotepadActivity extends ListActivity
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.CONTENT_URI);
+		Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //		intent.putExtra(Intent.EXTRA_TITLE, "New Note");
 //		intent.putExtra(Intent.EXTRA_TEXT, "This is a text of new note.");
@@ -528,7 +528,7 @@ public class NotepadActivity extends ListActivity
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		Uri uri = ContentUris.withAppendedId(NoteStore.CONTENT_URI, id);
+		Uri uri = ContentUris.withAppendedId(NoteStore.Note.CONTENT_URI, id);
 		Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 		startActivityForResult(intent, REQUEST_CODE_VIEW_NOTE);
 
@@ -539,7 +539,7 @@ public class NotepadActivity extends ListActivity
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		Uri uri = ContentUris.withAppendedId(NoteStore.CONTENT_URI, id);
+		Uri uri = ContentUris.withAppendedId(NoteStore.Note.CONTENT_URI, id);
 		Intent intent = new Intent(Intent.ACTION_EDIT, uri);
 		startActivityForResult(intent, REQUEST_CODE_EDIT_NOTE);
 
@@ -550,7 +550,7 @@ public class NotepadActivity extends ListActivity
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		Uri uri = ContentUris.withAppendedId(NoteStore.CONTENT_URI, id);
+		Uri uri = ContentUris.withAppendedId(NoteStore.Note.CONTENT_URI, id);
 		Intent intent = new Intent(Intent.ACTION_DELETE, uri);
 		startActivityForResult(intent, REQUEST_CODE_DELETE_NOTE);
 
@@ -630,7 +630,7 @@ public class NotepadActivity extends ListActivity
 		Log.v(LOG_TAG, "Hello");
 		Log.v(LOG_TAG, "contentUri => " + contentUri);
 
-		String sortOrder = NoteStore.NoteColumns.DATE_MODIFIED + " DESC";
+		String sortOrder = NoteStore.Note.Columns.DATE_MODIFIED + " DESC";
 		Cursor newCursor = getContentResolver().query(contentUri, null, null, null, sortOrder);
 		listAdapter.changeCursor(newCursor);
 

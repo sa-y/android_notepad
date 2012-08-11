@@ -110,7 +110,7 @@ public class DeleteNoteFragment extends NoteDetailFragment implements NotepadCon
 		String type = contentResolver.getType(noteUri);
 		Log.d(LOG_TAG, "noteUri => " + noteUri);
 		Log.d(LOG_TAG, "type => " + type);
-		if (NoteStore.NOTE_ITEM_CONTENT_TYPE.equals(type))
+		if (NoteStore.Note.NOTE_ITEM_CONTENT_TYPE.equals(type))
 		{
 			contentResolver.delete(getNoteUri(), null, null);
 		}

@@ -31,7 +31,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import org.routine_work.notepad.provider.NoteStore.NoteColumns;
 import org.routine_work.utils.Log;
 
 /**
@@ -141,11 +140,11 @@ class NoteDBHelper extends SQLiteOpenHelper
 		Cursor cursor = db.query(Notes.TABLE_NAME, null, null, null, null, null, null);
 		if (cursor != null && cursor.moveToFirst())
 		{
-			int idIndex = cursor.getColumnIndex(NoteColumns._ID);
-			int titleIndex = cursor.getColumnIndex(NoteColumns.TITLE);
-			int contentIndex = cursor.getColumnIndex(NoteColumns.CONTENT);
-			int dateAddedIndex = cursor.getColumnIndex(NoteColumns.DATE_ADDED);
-			int dateModifiedIndex = cursor.getColumnIndex(NoteColumns.DATE_MODIFIED);
+			int idIndex = cursor.getColumnIndex(NoteStore.Note.Columns._ID);
+			int titleIndex = cursor.getColumnIndex(NoteStore.Note.Columns.TITLE);
+			int contentIndex = cursor.getColumnIndex(NoteStore.Note.Columns.CONTENT);
+			int dateAddedIndex = cursor.getColumnIndex(NoteStore.Note.Columns.DATE_ADDED);
+			int dateModifiedIndex = cursor.getColumnIndex(NoteStore.Note.Columns.DATE_MODIFIED);
 
 			int index = 0;
 			do
@@ -189,13 +188,13 @@ class NoteDBHelper extends SQLiteOpenHelper
 		Cursor cursor = db.query(Notes.TABLE_NAME, null, null, null, null, null, null);
 		if (cursor != null && cursor.moveToFirst())
 		{
-			int idIndex = cursor.getColumnIndex(NoteColumns._ID);
-			int titleIndex = cursor.getColumnIndex(NoteColumns.TITLE);
-			int contentIndex = cursor.getColumnIndex(NoteColumns.CONTENT);
-			int titleLockedIndex = cursor.getColumnIndex(NoteColumns.TITLE_LOCKED);
-			int contentLockedIndex = cursor.getColumnIndex(NoteColumns.CONTENT_LOCKED);
-			int dateAddedIndex = cursor.getColumnIndex(NoteColumns.DATE_ADDED);
-			int dateModifiedIndex = cursor.getColumnIndex(NoteColumns.DATE_MODIFIED);
+			int idIndex = cursor.getColumnIndex(NoteStore.Note.Columns._ID);
+			int titleIndex = cursor.getColumnIndex(NoteStore.Note.Columns.TITLE);
+			int contentIndex = cursor.getColumnIndex(NoteStore.Note.Columns.CONTENT);
+			int titleLockedIndex = cursor.getColumnIndex(NoteStore.Note.Columns.TITLE_LOCKED);
+			int contentLockedIndex = cursor.getColumnIndex(NoteStore.Note.Columns.CONTENT_LOCKED);
+			int dateAddedIndex = cursor.getColumnIndex(NoteStore.Note.Columns.DATE_ADDED);
+			int dateModifiedIndex = cursor.getColumnIndex(NoteStore.Note.Columns.DATE_MODIFIED);
 
 			int index = 0;
 			do
@@ -290,13 +289,13 @@ class NoteDBHelper extends SQLiteOpenHelper
 				Log.d(LOG_TAG, "restore : noteFile => " + noteFile);
 				Note note = Note.readNoteFrom(noteFile);
 				ContentValues values = new ContentValues();
-				values.put(NoteColumns._ID, note.id);
-				values.put(NoteColumns.TITLE, note.title);
-				values.put(NoteColumns.CONTENT, note.content);
-				values.put(NoteColumns.TITLE_LOCKED, note.titleLocked);
-				values.put(NoteColumns.CONTENT_LOCKED, note.contentLocked);
-				values.put(NoteColumns.DATE_ADDED, note.added);
-				values.put(NoteColumns.DATE_MODIFIED, note.modified);
+				values.put(NoteStore.Note.Columns._ID, note.id);
+				values.put(NoteStore.Note.Columns.TITLE, note.title);
+				values.put(NoteStore.Note.Columns.CONTENT, note.content);
+				values.put(NoteStore.Note.Columns.TITLE_LOCKED, note.titleLocked);
+				values.put(NoteStore.Note.Columns.CONTENT_LOCKED, note.contentLocked);
+				values.put(NoteStore.Note.Columns.DATE_ADDED, note.added);
+				values.put(NoteStore.Note.Columns.DATE_MODIFIED, note.modified);
 				db.insert(Notes.TABLE_NAME, null, values);
 			}
 			catch (FileNotFoundException ex)

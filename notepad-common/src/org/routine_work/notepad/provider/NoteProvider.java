@@ -37,8 +37,8 @@ import android.provider.BaseColumns;
 import android.text.TextUtils;
 import java.util.HashMap;
 import java.util.Map;
-import org.routine_work.notepad.provider.NoteStore.NoteColumns;
 import org.routine_work.notepad.provider.NoteStore.NoteTemplate;
+import org.routine_work.notepad.provider.NoteStore.Note;
 import org.routine_work.utils.Log;
 
 public class NoteProvider extends ContentProvider
@@ -70,14 +70,14 @@ public class NoteProvider extends ContentProvider
 
 		SUGGESTION_PROJECTION_MAP = new HashMap<String, String>();
 		SUGGESTION_PROJECTION_MAP.put(SearchManager.SUGGEST_COLUMN_TEXT_1,
-			NoteColumns.TITLE + " AS " + SearchManager.SUGGEST_COLUMN_TEXT_1);
+			Note.Columns.TITLE + " AS " + SearchManager.SUGGEST_COLUMN_TEXT_1);
 		SUGGESTION_PROJECTION_MAP.put(SearchManager.SUGGEST_COLUMN_TEXT_2,
-			NoteColumns.CONTENT + " AS " + SearchManager.SUGGEST_COLUMN_TEXT_2);
+			Note.Columns.CONTENT + " AS " + SearchManager.SUGGEST_COLUMN_TEXT_2);
 		SUGGESTION_PROJECTION_MAP.put(SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID,
-			NoteColumns._ID + " AS " + SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID);
-		SUGGESTION_PROJECTION_MAP.put(NoteColumns._ID, NoteColumns._ID);
+			Note.Columns._ID + " AS " + SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID);
+		SUGGESTION_PROJECTION_MAP.put(Note.Columns._ID, Note.Columns._ID);
 		SUGGESTION_PROJECTION_MAP.put(SearchManager.SUGGEST_COLUMN_INTENT_DATA,
-			"'" + NoteStore.CONTENT_URI + "'" + " AS " + SearchManager.SUGGEST_COLUMN_INTENT_DATA);
+			"'" + NoteStore.Note.CONTENT_URI + "'" + " AS " + SearchManager.SUGGEST_COLUMN_INTENT_DATA);
 	}
 
 	@Override
@@ -133,7 +133,7 @@ public class NoteProvider extends ContentProvider
 				setUpQueryByWord(qb, q);
 				break;
 			case NOTES_ITEM_BY_ID:
-				qb.appendWhere(NoteColumns._ID + "=" + uri.getPathSegments().get(1));
+				qb.appendWhere(Note.Columns._ID + "=" + uri.getPathSegments().get(1));
 				break;
 			case NOTE_TEMPLATES_ITEM_ALL:
 				break;
@@ -158,26 +158,22 @@ public class NoteProvider extends ContentProvider
 	@Override
 	public Uri insert(Uri uri, ContentValues initialValues)
 	{
-		Log.v(LOG_TAG, "Hello");
 		Uri newUri = null;
+		Log.v(LOG_TAG, "Hello");
 
-		String tableName = getTableName(uri);
-		Log.d(LOG_TAG, "tableName => " + tableName);
-
-		long rowID = noteDB.insert(tableName, null, initialValues);
-		Log.d(LOG_TAG, "rowID => " + rowID);
-
-		if (rowID > 0)
+		switch (URI_MATCHER.match(uri))
 		{
-			newUri = ContentUris.withAppendedId(NoteStore.CONTENT_URI, rowID);
-			getContext().getContentResolver().notifyChange(newUri, null);
+			case NOTES_ITEM_ALL:
+				newUri = insertNote(uri, initialValues);
+				break;
+			case NOTE_TEMPLATES_ITEM_ALL:
+				newUri = insertNoteTemplate(uri, initialValues);
+				break;
+			default:
+				throw new IllegalArgumentException("Unsupported URI: " + uri);
 		}
-		else
-		{
-			throw new SQLException("Failed to insert row into " + uri);
-		}
+
 		Log.d(LOG_TAG, "newUri => " + newUri);
-
 		Log.v(LOG_TAG, "Bye");
 		return newUri;
 	}
@@ -278,10 +274,16 @@ public class NoteProvider extends ContentProvider
 		{
 			case NOTES_SUGGEST_SEARCH_ALL:
 			case NOTES_ITEM_ALL:
-				type = NoteStore.NOTE_LIST_CONTENT_TYPE;
+				type = NoteStore.Note.NOTE_LIST_CONTENT_TYPE;
 				break;
 			case NOTES_ITEM_BY_ID:
-				type = NoteStore.NOTE_ITEM_CONTENT_TYPE;
+				type = NoteStore.Note.NOTE_ITEM_CONTENT_TYPE;
+				break;
+			case NOTE_TEMPLATES_ITEM_ALL:
+				type = NoteStore.NoteTemplate.NOTE_TEMPLATE_LIST_CONTENT_TYPE;
+				break;
+			case NOTE_TEMPLATES_ITEM_BY_ID:
+				type = NoteStore.NoteTemplate.NOTE_TEMPLATE_ITEM_CONTENT_TYPE;
 				break;
 			default:
 				throw new IllegalArgumentException("Unsupported URI: " + uri);
@@ -290,6 +292,42 @@ public class NoteProvider extends ContentProvider
 		Log.d(LOG_TAG, "type => " + type);
 		Log.v(LOG_TAG, "Bye");
 		return type;
+	}
+
+	private Uri insertNote(Uri uri, ContentValues initialValues)
+	{
+		Uri newUri = null;
+
+		long rowID = noteDB.insert(Notes.TABLE_NAME, null, initialValues);
+		Log.d(LOG_TAG, "rowID => " + rowID);
+		if (rowID > 0)
+		{
+			newUri = ContentUris.withAppendedId(NoteStore.Note.CONTENT_URI, rowID);
+			getContext().getContentResolver().notifyChange(newUri, null);
+		}
+		else
+		{
+			throw new SQLException("Failed to insert row into " + uri);
+		}
+		return newUri;
+	}
+
+	private Uri insertNoteTemplate(Uri uri, ContentValues initialValues)
+	{
+		Uri newUri = null;
+
+		long rowID = noteDB.insert(NoteTemplates.TABLE_NAME, null, initialValues);
+		Log.d(LOG_TAG, "rowID => " + rowID);
+		if (rowID > 0)
+		{
+			newUri = ContentUris.withAppendedId(NoteStore.NoteTemplate.CONTENT_URI, rowID);
+			getContext().getContentResolver().notifyChange(newUri, null);
+		}
+		else
+		{
+			throw new SQLException("Failed to insert row into " + uri);
+		}
+		return newUri;
 	}
 
 	private static String getTableName(Uri uri)
@@ -342,10 +380,10 @@ public class NoteProvider extends ContentProvider
 		if (!TextUtils.isEmpty(queryWord))
 		{
 			queryWord = "%" + queryWord + "%";
-			queryBuilder.appendWhere(NoteColumns.TITLE + " LIKE ");
+			queryBuilder.appendWhere(Note.Columns.TITLE + " LIKE ");
 			queryBuilder.appendWhereEscapeString(queryWord);
 			queryBuilder.appendWhere(" OR ");
-			queryBuilder.appendWhere(NoteColumns.CONTENT + " LIKE ");
+			queryBuilder.appendWhere(Note.Columns.CONTENT + " LIKE ");
 			queryBuilder.appendWhereEscapeString(queryWord);
 		}
 	}

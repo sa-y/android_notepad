@@ -154,8 +154,8 @@ public class DeleteNotesActivity extends ListActivity
 		Log.v(LOG_TAG, "Hello");
 
 		ContentResolver cr = getContentResolver();
-		Cursor c = cr.query(NoteStore.CONTENT_URI, null, null, null,
-			NoteStore.NoteColumns.DATE_MODIFIED + " DESC");
+		Cursor c = cr.query(NoteStore.Note.CONTENT_URI, null, null, null,
+			NoteStore.Note.Columns.DATE_MODIFIED + " DESC");
 		if (c != null && c.moveToFirst())
 		{
 			cursor = c;
@@ -163,7 +163,7 @@ public class DeleteNotesActivity extends ListActivity
 
 		listAdapter = new SimpleCursorAdapter(this,
 			R.layout.note_list_item_checkable, cursor,
-			MAPPING_FROM, MAPPING_TO);
+			NOTE_LIST_MAPPING_FROM, NOTE_LIST_MAPPING_TO);
 		listAdapter.setViewBinder(new NoteListItemViewBinder(this));
 		setListAdapter(listAdapter);
 
@@ -184,7 +184,7 @@ public class DeleteNotesActivity extends ListActivity
 				int checkedPosition = checkedItemPositions.keyAt(i);
 				long id = listView.getItemIdAtPosition(checkedPosition);
 				Log.d(LOG_TAG, "delete note. i => " + i + ", checkedPosition => " + checkedPosition + ", id => " + id);
-				Uri noteUri = ContentUris.withAppendedId(NoteStore.CONTENT_URI, id);
+				Uri noteUri = ContentUris.withAppendedId(NoteStore.Note.CONTENT_URI, id);
 				cr.delete(noteUri, null, null);
 			}
 		}

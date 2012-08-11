@@ -244,7 +244,7 @@ public class NoteDetailFragment extends Fragment
 		String type = getActivity().getContentResolver().getType(noteUri);
 		Log.d(LOG_TAG, "noteUri => " + noteUri);
 		Log.d(LOG_TAG, "type => " + type);
-		if (NoteStore.NOTE_ITEM_CONTENT_TYPE.equals(type))
+		if (NoteStore.Note.NOTE_ITEM_CONTENT_TYPE.equals(type))
 		{
 			loaderManager.restartLoader(NOTE_LOADER_ID, null, this);
 			Log.d(LOG_TAG, "restartLoader()");
@@ -274,7 +274,7 @@ public class NoteDetailFragment extends Fragment
 		if (this.noteUri != null)
 		{
 			String type = getActivity().getContentResolver().getType(noteUri);
-			if (NoteStore.NOTE_ITEM_CONTENT_TYPE.equals(type))
+			if (NoteStore.Note.NOTE_ITEM_CONTENT_TYPE.equals(type))
 			{
 				cursorLoader = new CursorLoader(getActivity(),
 					noteUri, null, null, null, null);
@@ -294,8 +294,8 @@ public class NoteDetailFragment extends Fragment
 		{
 			if (cursor.moveToFirst())
 			{
-				int titleColumnIndex = cursor.getColumnIndex(NoteStore.NoteColumns.TITLE);
-				int contentColumnIndex = cursor.getColumnIndex(NoteStore.NoteColumns.CONTENT);
+				int titleColumnIndex = cursor.getColumnIndex(NoteStore.Note.Columns.TITLE);
+				int contentColumnIndex = cursor.getColumnIndex(NoteStore.Note.Columns.CONTENT);
 				String noteTitle = cursor.getString(titleColumnIndex);
 				String noteContent = cursor.getString(contentColumnIndex);
 				Log.d(LOG_TAG, "noteTitle => " + noteTitle);

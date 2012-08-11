@@ -40,22 +40,26 @@ public class NoteStore
 {
 
 	private static final String LOG_TAG = "simple-notepad";
+	public static final String AUTHORITY = "org.routine_work.notepad.noteprovider";
+	public static final String PARAM_KEY_QUERY = "q";
 
-	public interface NoteColumns extends BaseColumns
+	public interface Note
 	{
 
-		String DATE_ADDED = "date_added";
-		String DATE_MODIFIED = "date_modified";
-		String TITLE = "title";
-		String CONTENT = "content";
-		String TITLE_LOCKED = "title_locked";
-		String CONTENT_LOCKED = "content_locked";
+		public interface Columns extends BaseColumns
+		{
+
+			String DATE_ADDED = "date_added";
+			String DATE_MODIFIED = "date_modified";
+			String TITLE = "title";
+			String CONTENT = "content";
+			String TITLE_LOCKED = "title_locked";
+			String CONTENT_LOCKED = "content_locked";
+		}
+		public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/notes");
+		public static final String NOTE_LIST_CONTENT_TYPE = "vnd.android.cursor.dir/vnd.routine_work.note";
+		public static final String NOTE_ITEM_CONTENT_TYPE = "vnd.android.cursor.item/vnd.routine_work.note";
 	}
-	public static final String AUTHORITY = "org.routine_work.notepad.noteprovider";
-	public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/notes");
-	public static final String NOTE_LIST_CONTENT_TYPE = "vnd.android.cursor.dir/vnd.routine_work.note";
-	public static final String NOTE_ITEM_CONTENT_TYPE = "vnd.android.cursor.item/vnd.routine_work.note";
-	public static final String PARAM_KEY_QUERY = "q";
 
 	public interface NoteTemplate
 	{
@@ -108,14 +112,14 @@ public class NoteStore
 
 		long now = System.currentTimeMillis();
 		ContentValues initialValues = new ContentValues();
-		initialValues.put(NoteColumns.TITLE, title);
-		initialValues.put(NoteColumns.CONTENT, content);
-		initialValues.put(NoteColumns.TITLE_LOCKED, false);
-		initialValues.put(NoteColumns.CONTENT_LOCKED, false);
-		initialValues.put(NoteColumns.DATE_ADDED, now);
-		initialValues.put(NoteColumns.DATE_MODIFIED, now);
+		initialValues.put(Note.Columns.TITLE, title);
+		initialValues.put(Note.Columns.CONTENT, content);
+		initialValues.put(Note.Columns.TITLE_LOCKED, false);
+		initialValues.put(Note.Columns.CONTENT_LOCKED, false);
+		initialValues.put(Note.Columns.DATE_ADDED, now);
+		initialValues.put(Note.Columns.DATE_MODIFIED, now);
 
-		Uri newUri = cr.insert(CONTENT_URI, initialValues);
+		Uri newUri = cr.insert(Note.CONTENT_URI, initialValues);
 		Log.d(LOG_TAG, "newUri => " + newUri);
 
 		Log.v(LOG_TAG, "Bye");
@@ -128,9 +132,9 @@ public class NoteStore
 
 		long now = System.currentTimeMillis();
 		ContentValues values = new ContentValues();
-		values.put(NoteColumns.TITLE, title);
-		values.put(NoteColumns.CONTENT, content);
-		values.put(NoteColumns.DATE_MODIFIED, now);
+		values.put(Note.Columns.TITLE, title);
+		values.put(Note.Columns.CONTENT, content);
+		values.put(Note.Columns.DATE_MODIFIED, now);
 
 		int updatedCount = cr.update(uri, values, null, null);
 		Log.d(LOG_TAG, "updatedCount => " + updatedCount);
@@ -152,14 +156,14 @@ public class NoteStore
 
 		String[] projection = new String[]
 		{
-			"count(*) AS " + NoteColumns._COUNT,
+			"count(*) AS " + Note.Columns._COUNT,
 		};
-		Cursor cursor = cr.query(CONTENT_URI, projection, null, null, null);
+		Cursor cursor = cr.query(Note.CONTENT_URI, projection, null, null, null);
 		try
 		{
 			if (cursor.moveToFirst())
 			{
-				int index = cursor.getColumnIndex(NoteColumns._COUNT);
+				int index = cursor.getColumnIndex(Note.Columns._COUNT);
 				noteCount = cursor.getInt(index);
 			}
 		}

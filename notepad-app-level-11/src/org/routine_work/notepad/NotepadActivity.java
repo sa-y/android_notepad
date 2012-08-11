@@ -387,7 +387,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.CONTENT_URI);
+		Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
 		startActivityForResult(intent, REQUEST_CODE_ADD_NEW_NOTE);
 
 		Log.v(LOG_TAG, "Bye");
@@ -442,7 +442,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 				{
 					ContentResolver contentResolver = getContentResolver();
 					String type = contentResolver.getType(data);
-					if (NoteStore.NOTE_ITEM_CONTENT_TYPE.equals(type))
+					if (NoteStore.Note.NOTE_ITEM_CONTENT_TYPE.equals(type))
 					{
 						Log.d(LOG_TAG, "open note : data => " + data);
 						String noteIdString = data.getLastPathSegment();

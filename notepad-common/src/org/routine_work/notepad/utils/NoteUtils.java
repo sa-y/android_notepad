@@ -27,7 +27,7 @@ public class NoteUtils
 		Log.v(LOG_TAG, "Hello");
 		Log.d(LOG_TAG, "noteId");
 
-		Uri noteUri = ContentUris.withAppendedId(NoteStore.CONTENT_URI, noteId);
+		Uri noteUri = ContentUris.withAppendedId(NoteStore.Note.CONTENT_URI, noteId);
 		shareNote(context, noteUri);
 
 		Log.v(LOG_TAG, "Bye");
@@ -48,8 +48,8 @@ public class NoteUtils
 				{
 					if (cursor.moveToFirst())
 					{
-						int titleIndex = cursor.getColumnIndex(NoteStore.NoteColumns.TITLE);
-						int contentIndex = cursor.getColumnIndex(NoteStore.NoteColumns.CONTENT);
+						int titleIndex = cursor.getColumnIndex(NoteStore.Note.Columns.TITLE);
+						int contentIndex = cursor.getColumnIndex(NoteStore.Note.Columns.CONTENT);
 						String noteTitle = cursor.getString(titleIndex);
 						String noteContent = cursor.getString(contentIndex);
 						shareNote(context, noteTitle, noteContent);
@@ -88,7 +88,7 @@ public class NoteUtils
 		ContentResolver contentResolver = context.getContentResolver();
 		String type = contentResolver.getType(uri);
 		Log.d(LOG_TAG, "noteUri => " + uri + ", type => " + type);
-		boolean result = NoteStore.NOTE_ITEM_CONTENT_TYPE.equals(type);
+		boolean result = NoteStore.Note.NOTE_ITEM_CONTENT_TYPE.equals(type);
 
 		Log.v(LOG_TAG, "Bye");
 		return result;

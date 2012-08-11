@@ -23,7 +23,7 @@
  */
 package org.routine_work.notepad.provider;
 
-import org.routine_work.notepad.provider.NoteStore.NoteColumns;
+import org.routine_work.notepad.provider.NoteStore.Note;
 import org.routine_work.notepad.provider.NoteStore.NoteTemplate;
 
 /**
@@ -42,26 +42,26 @@ interface NoteDBConstants
 		String TABLE_NAME = "Notes";
 		// CREATE SQL
 		String CREATE_TABLE_SQL = "CREATE TABLE " + TABLE_NAME + "("
-			+ "  " + NoteColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT"
-			+ ", " + NoteColumns.TITLE + " TEXT"
-			+ ", " + NoteColumns.CONTENT + " TEXT"
-			+ ", " + NoteColumns.TITLE_LOCKED + " BOOLEAN NOT NULL"
-			+ ", " + NoteColumns.CONTENT_LOCKED + " BOOLEAN NOT NULL"
-			+ ", " + NoteColumns.DATE_ADDED + " INTEGER NOT NULL"
-			+ ", " + NoteColumns.DATE_MODIFIED + " INTEGER NOT NULL"
+			+ "  " + Note.Columns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT"
+			+ ", " + Note.Columns.TITLE + " TEXT"
+			+ ", " + Note.Columns.CONTENT + " TEXT"
+			+ ", " + Note.Columns.TITLE_LOCKED + " BOOLEAN NOT NULL"
+			+ ", " + Note.Columns.CONTENT_LOCKED + " BOOLEAN NOT NULL"
+			+ ", " + Note.Columns.DATE_ADDED + " INTEGER NOT NULL"
+			+ ", " + Note.Columns.DATE_MODIFIED + " INTEGER NOT NULL"
 			+ ");";
 		String CREATE_TITLE_INDEX_SQL = "CREATE INDEX "
-			+ TABLE_NAME + "_" + NoteColumns.TITLE + "_index "
-			+ "ON " + TABLE_NAME + "(" + NoteColumns.TITLE + ");";
+			+ TABLE_NAME + "_" + Note.Columns.TITLE + "_index "
+			+ "ON " + TABLE_NAME + "(" + Note.Columns.TITLE + ");";
 		String CREATE_CONTENT_INDEX_SQL = "CREATE INDEX "
-			+ TABLE_NAME + "_" + NoteColumns.CONTENT + "_index "
-			+ "ON " + TABLE_NAME + "(" + NoteColumns.CONTENT + ");";
+			+ TABLE_NAME + "_" + Note.Columns.CONTENT + "_index "
+			+ "ON " + TABLE_NAME + "(" + Note.Columns.CONTENT + ");";
 		String CREATE_DATE_ADDED_INDEX_SQL = "CREATE INDEX "
-			+ TABLE_NAME + "_" + NoteColumns.DATE_ADDED + "_index "
-			+ "ON " + TABLE_NAME + "(" + NoteColumns.DATE_ADDED + ");";
+			+ TABLE_NAME + "_" + Note.Columns.DATE_ADDED + "_index "
+			+ "ON " + TABLE_NAME + "(" + Note.Columns.DATE_ADDED + ");";
 		String CREATE_DATE_MODIFIED_INDEX_SQL = "CREATE INDEX "
-			+ TABLE_NAME + "_" + NoteColumns.DATE_MODIFIED + "_index "
-			+ "ON " + TABLE_NAME + "(" + NoteColumns.DATE_MODIFIED + ");";
+			+ TABLE_NAME + "_" + Note.Columns.DATE_MODIFIED + "_index "
+			+ "ON " + TABLE_NAME + "(" + Note.Columns.DATE_MODIFIED + ");";
 		// DROP SQL
 		String DROP_TABLE_SQL = "DROP TABLE " + TABLE_NAME + ";";
 	}

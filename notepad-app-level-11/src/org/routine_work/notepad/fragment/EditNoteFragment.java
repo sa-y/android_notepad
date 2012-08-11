@@ -199,7 +199,7 @@ public class EditNoteFragment extends NoteDetailFragment
 
 				ContentResolver contentResolver = getActivity().getContentResolver();
 				String type = contentResolver.getType(noteUri);
-				if (NoteStore.NOTE_ITEM_CONTENT_TYPE.equals(type))
+				if (NoteStore.Note.NOTE_ITEM_CONTENT_TYPE.equals(type))
 				{
 					// Update
 					int updatedCount = NoteStore.updateNote(contentResolver, noteUri, noteTitle, noteContent);
@@ -290,7 +290,7 @@ public class EditNoteFragment extends NoteDetailFragment
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.CONTENT_URI);
+		Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intent);
 

@@ -119,7 +119,7 @@ public class NoteListFragment extends ListFragment
 		noteListItemViewBinder = new NoteListItemViewBinder(getActivity());
 		int listItemLayoutId = R.layout.note_list_item;
 		listAdapter = new SimpleCursorAdapter(getActivity(),
-			listItemLayoutId, null, MAPPING_FROM, MAPPING_TO);
+			listItemLayoutId, null, NOTE_LIST_MAPPING_FROM, NOTE_LIST_MAPPING_TO);
 		listAdapter.setViewBinder(noteListItemViewBinder);
 		setListAdapter(listAdapter);
 
@@ -205,10 +205,10 @@ public class NoteListFragment extends ListFragment
 
 		if (this.contentUri == null)
 		{
-			this.contentUri = NoteStore.CONTENT_URI;
+			this.contentUri = NoteStore.Note.CONTENT_URI;
 		}
 
-		String sortOrder = NoteStore.NoteColumns.DATE_MODIFIED + " DESC";
+		String sortOrder = NoteStore.Note.Columns.DATE_MODIFIED + " DESC";
 		CursorLoader cursorLoader = new CursorLoader(getActivity(),
 			contentUri, null, null, null, sortOrder);
 
@@ -311,7 +311,7 @@ public class NoteListFragment extends ListFragment
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		Uri noteUri = ContentUris.withAppendedId(NoteStore.CONTENT_URI, id);
+		Uri noteUri = ContentUris.withAppendedId(NoteStore.Note.CONTENT_URI, id);
 		if (noteControlCallback != null)
 		{
 			noteControlCallback.startDeleteNote(noteUri);
@@ -326,7 +326,7 @@ public class NoteListFragment extends ListFragment
 
 		if (noteControlCallback != null)
 		{
-			Uri noteUri = ContentUris.withAppendedId(NoteStore.CONTENT_URI, id);
+			Uri noteUri = ContentUris.withAppendedId(NoteStore.Note.CONTENT_URI, id);
 			noteControlCallback.startViewNote(noteUri);
 		}
 
@@ -337,7 +337,7 @@ public class NoteListFragment extends ListFragment
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		Uri noteUri = ContentUris.withAppendedId(NoteStore.CONTENT_URI, id);
+		Uri noteUri = ContentUris.withAppendedId(NoteStore.Note.CONTENT_URI, id);
 		if (noteControlCallback != null)
 		{
 			noteControlCallback.startEditNote(noteUri);
@@ -357,7 +357,7 @@ public class NoteListFragment extends ListFragment
 		{
 			long id = checkItemIds[i];
 			Log.d(LOG_TAG, "delete note. i => " + i + ", id => " + id);
-			Uri noteUri = ContentUris.withAppendedId(NoteStore.CONTENT_URI, id);
+			Uri noteUri = ContentUris.withAppendedId(NoteStore.Note.CONTENT_URI, id);
 			cr.delete(noteUri, null, null);
 		}
 

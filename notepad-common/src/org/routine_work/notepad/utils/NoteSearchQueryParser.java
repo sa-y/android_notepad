@@ -47,18 +47,18 @@ public class NoteSearchQueryParser
 
 		if (TextUtils.isEmpty(queryString))
 		{ // fetch all notes
-			contentUri = NoteStore.CONTENT_URI;
+			contentUri = NoteStore.Note.CONTENT_URI;
 		}
 		else
 		{
 			long itemId = parseItemIdQuery(queryString);
 			if (itemId != -1)
 			{ // item id query
-				contentUri = ContentUris.withAppendedId(NoteStore.CONTENT_URI, itemId);
+				contentUri = ContentUris.withAppendedId(NoteStore.Note.CONTENT_URI, itemId);
 			}
 			else
 			{ 	// word query
-				Builder builder = NoteStore.CONTENT_URI.buildUpon();
+				Builder builder = NoteStore.Note.CONTENT_URI.buildUpon();
 				builder.appendQueryParameter(NoteStore.PARAM_KEY_QUERY, queryString.toString());
 				contentUri = builder.build();
 			}

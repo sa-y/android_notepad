@@ -84,7 +84,7 @@ public class DeleteNotesFragment extends ListFragment
 		noteListItemViewBinder.setCheckboxVisible(true);
 		listAdapter = new SimpleCursorAdapter(getActivity(),
 			R.layout.note_list_item, null,
-			MAPPING_FROM, MAPPING_TO);
+			NOTE_LIST_MAPPING_FROM, NOTE_LIST_MAPPING_TO);
 		listAdapter.setViewBinder(noteListItemViewBinder);
 		setListAdapter(listAdapter);
 
@@ -140,9 +140,9 @@ public class DeleteNotesFragment extends ListFragment
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		String sortOrder = NoteStore.NoteColumns.DATE_MODIFIED + " DESC";
+		String sortOrder = NoteStore.Note.Columns.DATE_MODIFIED + " DESC";
 		CursorLoader cursorLoader = new CursorLoader(getActivity(),
-			NoteStore.CONTENT_URI, null, null, null, sortOrder);
+			NoteStore.Note.CONTENT_URI, null, null, null, sortOrder);
 
 		Log.v(LOG_TAG, "Bye");
 		return cursorLoader;
@@ -174,7 +174,7 @@ public class DeleteNotesFragment extends ListFragment
 		{
 			long id = checkItemIds[i];
 			Log.d(LOG_TAG, "delete note. i => " + i + ", id => " + id);
-			Uri noteUri = ContentUris.withAppendedId(NoteStore.CONTENT_URI, id);
+			Uri noteUri = ContentUris.withAppendedId(NoteStore.Note.CONTENT_URI, id);
 			cr.delete(noteUri, null, null);
 		}
 

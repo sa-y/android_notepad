@@ -229,7 +229,7 @@ public class NoteDetailActivity extends Activity
 			if (Intent.ACTION_INSERT.equals(nextAction))
 			{
 				Log.d(LOG_TAG, "Insert note.");
-				editNoteFragment.setNoteUri(NoteStore.CONTENT_URI);
+				editNoteFragment.setNoteUri(NoteStore.Note.CONTENT_URI);
 				editNoteFragment.setNoteTitle(null);
 				editNoteFragment.setNoteContent(null);
 				String noteTitle = intent.getStringExtra(Intent.EXTRA_TITLE);

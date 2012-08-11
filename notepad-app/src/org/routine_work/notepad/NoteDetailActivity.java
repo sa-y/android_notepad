@@ -432,7 +432,7 @@ public class NoteDetailActivity extends Activity
 		Log.d(LOG_TAG, "isFinishing() => " + isFinishing());
 		if (Intent.ACTION_INSERT.equals(newAction))
 		{
-			currentNoteUri = NoteStore.CONTENT_URI;
+			currentNoteUri = NoteStore.Note.CONTENT_URI;
 			noteTitleEditText.setText(null);
 			noteContentEditText.setText(null);
 
@@ -569,15 +569,15 @@ public class NoteDetailActivity extends Activity
 
 		ContentResolver contentResolver = getContentResolver();
 		String type = contentResolver.getType(currentNoteUri);
-		if (NoteStore.NOTE_ITEM_CONTENT_TYPE.equals(type))
+		if (NoteStore.Note.NOTE_ITEM_CONTENT_TYPE.equals(type))
 		{
 			Cursor cursor = contentResolver.query(currentNoteUri, null, null, null, null);
 			if (cursor != null)
 			{
 				if (cursor.moveToFirst())
 				{
-					int titleIndex = cursor.getColumnIndex(NoteStore.NoteColumns.TITLE);
-					int contentIndex = cursor.getColumnIndex(NoteStore.NoteColumns.CONTENT);
+					int titleIndex = cursor.getColumnIndex(NoteStore.Note.Columns.TITLE);
+					int contentIndex = cursor.getColumnIndex(NoteStore.Note.Columns.CONTENT);
 					String noteTitle = cursor.getString(titleIndex);
 					String noteContent = cursor.getString(contentIndex);
 					Log.d(LOG_TAG, "noteTitle => " + noteTitle);
@@ -686,7 +686,7 @@ public class NoteDetailActivity extends Activity
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.CONTENT_URI);
+		Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //		intent.putExtra(Intent.EXTRA_TITLE, "New Note");
 //		intent.putExtra(Intent.EXTRA_TEXT, "This is a text of new note.");
@@ -733,7 +733,7 @@ public class NoteDetailActivity extends Activity
 		String type = contentResolver.getType(uri);
 		Log.v(LOG_TAG, "uri => " + uri);
 		Log.v(LOG_TAG, "type => " + type);
-		if (NoteStore.NOTE_ITEM_CONTENT_TYPE.equals(type))
+		if (NoteStore.Note.NOTE_ITEM_CONTENT_TYPE.equals(type))
 		{
 			result = true;
 		}
