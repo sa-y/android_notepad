@@ -163,6 +163,8 @@
 
 !! notepad-common
 
+#* Content Provider のノートテンプレートに名前のカラムを追加
+
 #* Content Provider にノートテンプレートを追加
 
 #* NoteStore の未使用メソッドを削除

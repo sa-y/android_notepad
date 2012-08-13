@@ -40,6 +40,7 @@ public class NoteTemplate implements Serializable
 {
 
 	long id;
+	String name;
 	String title;
 	String content;
 	boolean titleLocked;

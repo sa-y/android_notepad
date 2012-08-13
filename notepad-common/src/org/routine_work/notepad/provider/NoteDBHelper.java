@@ -76,6 +76,8 @@ class NoteDBHelper extends SQLiteOpenHelper
 		// Note Templates Table
 		Log.w(LOG_TAG, "NoteTemplates.CREATE_TABLE_SQL => " + NoteTemplates.CREATE_TABLE_SQL);
 		db.execSQL(NoteTemplates.CREATE_TABLE_SQL);
+		Log.w(LOG_TAG, "NoteTemplates.CREATE_NAME_INDEX_SQL => " + NoteTemplates.CREATE_NAME_INDEX_SQL);
+		db.execSQL(NoteTemplates.CREATE_NAME_INDEX_SQL);
 		Log.w(LOG_TAG, "NoteTemplates.CREATE_TITLE_INDEX_SQL => " + NoteTemplates.CREATE_TITLE_INDEX_SQL);
 		db.execSQL(NoteTemplates.CREATE_TITLE_INDEX_SQL);
 		Log.w(LOG_TAG, "NoteTemplates.CREATE_CONTENT_INDEX_SQL => " + NoteTemplates.CREATE_CONTENT_INDEX_SQL);
@@ -99,9 +101,17 @@ class NoteDBHelper extends SQLiteOpenHelper
 		{
 			backupNotes(db, notesBackupDir);
 		}
-		else
+		else if (oldVersion >= 6)
 		{
 			backupNotes(db, notesBackupDir);
+		}
+
+		if (oldVersion == 7)
+		{
+			backupNoteTemplatesVersion7(db, noteTemplatesBackupDir);
+		}
+		else if (oldVersion >= 8)
+		{
 			backupNoteTemplates(db, noteTemplatesBackupDir);
 		}
 
@@ -230,7 +240,7 @@ class NoteDBHelper extends SQLiteOpenHelper
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	public void backupNoteTemplates(SQLiteDatabase db, File backupDirectory)
+	public void backupNoteTemplatesVersion7(SQLiteDatabase db, File backupDirectory)
 	{
 		Log.v(LOG_TAG, "Hello");
 		Log.v(LOG_TAG, "backupDirectory => " + backupDirectory);
@@ -249,6 +259,55 @@ class NoteDBHelper extends SQLiteOpenHelper
 			{
 				NoteTemplate noteTemplate = new NoteTemplate();
 				noteTemplate.id = cursor.getLong(idIndex);
+				noteTemplate.name = "";
+				noteTemplate.title = cursor.getString(titleIndex);
+				noteTemplate.content = cursor.getString(contentIndex);
+				noteTemplate.titleLocked = (cursor.getInt(titleLockedIndex) == 1);
+				noteTemplate.contentLocked = (cursor.getInt(contentLockedIndex) == 1);
+
+				File noteFile = new File(backupDirectory, String.format("%08d", index++));
+				Log.d(LOG_TAG, "backup : noteFile => " + noteFile);
+				try
+				{
+					NoteTemplate.writeNoteTo(noteTemplate, noteFile);
+				}
+				catch (FileNotFoundException ex)
+				{
+					Log.e(LOG_TAG, "Note.writeNoteTo() Failed.", ex);
+				}
+				catch (IOException ex)
+				{
+					Log.e(LOG_TAG, "Note.writeNoteTo() Failed.", ex);
+				}
+			}
+			while (cursor.moveToNext());
+
+		}
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	public void backupNoteTemplates(SQLiteDatabase db, File backupDirectory)
+	{
+		Log.v(LOG_TAG, "Hello");
+		Log.v(LOG_TAG, "backupDirectory => " + backupDirectory);
+
+		Cursor cursor = db.query(NoteTemplates.TABLE_NAME, null, null, null, null, null, null);
+		if (cursor != null && cursor.moveToFirst())
+		{
+			int idIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns._ID);
+			int nameIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.NAME);
+			int titleIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.TITLE);
+			int contentIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.CONTENT);
+			int titleLockedIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.TITLE_LOCKED);
+			int contentLockedIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.CONTENT_LOCKED);
+
+			int index = 0;
+			do
+			{
+				NoteTemplate noteTemplate = new NoteTemplate();
+				noteTemplate.id = cursor.getLong(idIndex);
+				noteTemplate.name = cursor.getString(nameIndex);
 				noteTemplate.title = cursor.getString(titleIndex);
 				noteTemplate.content = cursor.getString(contentIndex);
 				noteTemplate.titleLocked = (cursor.getInt(titleLockedIndex) == 1);
@@ -330,6 +389,7 @@ class NoteDBHelper extends SQLiteOpenHelper
 				NoteTemplate noteTemplate = NoteTemplate.readNoteFrom(noteTemplateFile);
 				ContentValues values = new ContentValues();
 				values.put(NoteStore.NoteTemplate.Columns._ID, noteTemplate.id);
+				values.put(NoteStore.NoteTemplate.Columns.NAME, noteTemplate.name);
 				values.put(NoteStore.NoteTemplate.Columns.TITLE, noteTemplate.title);
 				values.put(NoteStore.NoteTemplate.Columns.CONTENT, noteTemplate.content);
 				values.put(NoteStore.NoteTemplate.Columns.TITLE_LOCKED, noteTemplate.titleLocked);

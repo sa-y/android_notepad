@@ -67,6 +67,7 @@ public class NoteStore
 		public interface Columns extends BaseColumns
 		{
 
+			String NAME = "name";
 			String TITLE = "title";
 			String CONTENT = "content";
 			String TITLE_LOCKED = "title_locked";
