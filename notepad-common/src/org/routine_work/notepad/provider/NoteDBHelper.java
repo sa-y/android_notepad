@@ -41,7 +41,9 @@ class NoteDBHelper extends SQLiteOpenHelper
 	implements NoteDBConstants
 {
 
-	private String LOG_TAG = "simple-notepad";
+	private static final String LOG_TAG = "simple-notepad";
+	private static final String BACKUP_DIR_NOTES = "note_db_notes";
+	private static final String BACKUP_DIR_NOTE_TEMPLATES = "note_db_notetemplates";
 	private Context context;
 
 	static
@@ -60,6 +62,43 @@ class NoteDBHelper extends SQLiteOpenHelper
 	@Override
 	public void onCreate(SQLiteDatabase db)
 	{
+		createTables(db);
+	}
+
+	@Override
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
+	{
+		Log.w(LOG_TAG, "Upgrading database from version " + oldVersion + " to "
+			+ newVersion + ".");
+
+		// backup data
+		backupData(db, oldVersion);
+
+		// upgrade table
+		dropTables(db, oldVersion);
+		createTables(db);
+
+		// restore data
+		restoreData(db);
+
+		// clear backup data
+		cleanupBackupData(db);
+	}
+
+	public void reindex(SQLiteDatabase db)
+	{
+		db.execSQL(REINDEX_SQL);
+	}
+
+	public void vacuum(SQLiteDatabase db)
+	{
+		db.execSQL(VACCUM_SQL);
+	}
+
+	private void createTables(SQLiteDatabase db)
+	{
+		Log.v(LOG_TAG, "Hello");
+
 		Log.w(LOG_TAG, "Create database.");
 		// Notes Table
 		Log.w(LOG_TAG, "Notes.CREATE_TABLE_SQL => " + Notes.CREATE_TABLE_SQL);
@@ -82,17 +121,28 @@ class NoteDBHelper extends SQLiteOpenHelper
 		db.execSQL(NoteTemplates.CREATE_TITLE_INDEX_SQL);
 		Log.w(LOG_TAG, "NoteTemplates.CREATE_CONTENT_INDEX_SQL => " + NoteTemplates.CREATE_CONTENT_INDEX_SQL);
 		db.execSQL(NoteTemplates.CREATE_CONTENT_INDEX_SQL);
+
+		Log.v(LOG_TAG, "Bye");
 	}
 
-	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
+	private void dropTables(SQLiteDatabase db, int oldVersion)
 	{
-		Log.w(LOG_TAG, "Upgrading database from version " + oldVersion + " to "
-			+ newVersion + ".");
+		Log.v(LOG_TAG, "Hello");
 
-		// backup data
-		File notesBackupDir = context.getDir("note_db_notes", Context.MODE_PRIVATE);
-		File noteTemplatesBackupDir = context.getDir("note_db_notetemplates", Context.MODE_PRIVATE);
+		db.execSQL(Notes.DROP_TABLE_SQL);
+		if (oldVersion >= 6)
+		{
+			db.execSQL(NoteTemplates.DROP_TABLE_SQL);
+		}
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	private void backupData(SQLiteDatabase db, int oldVersion)
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		File notesBackupDir = context.getDir(BACKUP_DIR_NOTES, Context.MODE_PRIVATE);
 		if (oldVersion == 4)
 		{
 			backupNotesVersion4(db, notesBackupDir);
@@ -106,6 +156,7 @@ class NoteDBHelper extends SQLiteOpenHelper
 			backupNotes(db, notesBackupDir);
 		}
 
+		File noteTemplatesBackupDir = context.getDir(BACKUP_DIR_NOTE_TEMPLATES, Context.MODE_PRIVATE);
 		if (oldVersion == 7)
 		{
 			backupNoteTemplatesVersion7(db, noteTemplatesBackupDir);
@@ -115,34 +166,34 @@ class NoteDBHelper extends SQLiteOpenHelper
 			backupNoteTemplates(db, noteTemplatesBackupDir);
 		}
 
-		// upgrade table
-		db.execSQL(Notes.DROP_TABLE_SQL);
-		if (oldVersion >= 6)
-		{
-			db.execSQL(NoteTemplates.DROP_TABLE_SQL);
-		}
-		onCreate(db);
+		Log.v(LOG_TAG, "Bye");
+	}
 
-		// restore data
+	private void restoreData(SQLiteDatabase db)
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		File notesBackupDir = context.getDir(BACKUP_DIR_NOTES, Context.MODE_PRIVATE);
+		File noteTemplatesBackupDir = context.getDir(BACKUP_DIR_NOTE_TEMPLATES, Context.MODE_PRIVATE);
 		restoreNotes(db, notesBackupDir);
 		restoreNoteTemplates(db, noteTemplatesBackupDir);
 
-		// clear backup data
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	private void cleanupBackupData(SQLiteDatabase db)
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		File notesBackupDir = context.getDir(BACKUP_DIR_NOTES, Context.MODE_PRIVATE);
+		File noteTemplatesBackupDir = context.getDir(BACKUP_DIR_NOTE_TEMPLATES, Context.MODE_PRIVATE);
 		clearBackupFiles(db, notesBackupDir);
 		clearBackupFiles(db, noteTemplatesBackupDir);
+
+		Log.v(LOG_TAG, "Bye");
 	}
 
-	public void reindex(SQLiteDatabase db)
-	{
-		db.execSQL(REINDEX_SQL);
-	}
-
-	public void vacuum(SQLiteDatabase db)
-	{
-		db.execSQL(VACCUM_SQL);
-	}
-
-	public void backupNotesVersion4(SQLiteDatabase db, File backupDirectory)
+	private void backupNotesVersion4(SQLiteDatabase db, File backupDirectory)
 	{
 		Log.v(LOG_TAG, "Hello");
 		Log.v(LOG_TAG, "backupDirectory => " + backupDirectory);
@@ -190,7 +241,7 @@ class NoteDBHelper extends SQLiteOpenHelper
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	public void backupNotes(SQLiteDatabase db, File backupDirectory)
+	private void backupNotes(SQLiteDatabase db, File backupDirectory)
 	{
 		Log.v(LOG_TAG, "Hello");
 		Log.v(LOG_TAG, "backupDirectory => " + backupDirectory);
@@ -240,7 +291,7 @@ class NoteDBHelper extends SQLiteOpenHelper
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	public void backupNoteTemplatesVersion7(SQLiteDatabase db, File backupDirectory)
+	private void backupNoteTemplatesVersion7(SQLiteDatabase db, File backupDirectory)
 	{
 		Log.v(LOG_TAG, "Hello");
 		Log.v(LOG_TAG, "backupDirectory => " + backupDirectory);
@@ -287,7 +338,7 @@ class NoteDBHelper extends SQLiteOpenHelper
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	public void backupNoteTemplates(SQLiteDatabase db, File backupDirectory)
+	private void backupNoteTemplates(SQLiteDatabase db, File backupDirectory)
 	{
 		Log.v(LOG_TAG, "Hello");
 		Log.v(LOG_TAG, "backupDirectory => " + backupDirectory);
@@ -335,7 +386,7 @@ class NoteDBHelper extends SQLiteOpenHelper
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	public void restoreNotes(SQLiteDatabase db, File backupDirectory)
+	private void restoreNotes(SQLiteDatabase db, File backupDirectory)
 	{
 		Log.v(LOG_TAG, "Hello");
 		Log.v(LOG_TAG, "backupDirectory => " + backupDirectory);
@@ -375,7 +426,7 @@ class NoteDBHelper extends SQLiteOpenHelper
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	public void restoreNoteTemplates(SQLiteDatabase db, File backupDirectory)
+	private void restoreNoteTemplates(SQLiteDatabase db, File backupDirectory)
 	{
 		Log.v(LOG_TAG, "Hello");
 		Log.v(LOG_TAG, "backupDirectory => " + backupDirectory);
@@ -414,7 +465,7 @@ class NoteDBHelper extends SQLiteOpenHelper
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	public void clearBackupFiles(SQLiteDatabase db, File backupDirectory)
+	private void clearBackupFiles(SQLiteDatabase db, File backupDirectory)
 	{
 		Log.v(LOG_TAG, "Hello");
 

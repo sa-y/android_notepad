@@ -181,6 +181,43 @@ public class NoteStore
 		return noteCount;
 	}
 
+	/**
+	 * Get the number of notet emplates in NoteProvider.
+	 *
+	 * @param cr ContentResolver
+	 * @return the number of note templates in NoteProvider.
+	 */
+	public static int getNoteTemplateCount(ContentResolver cr)
+	{
+		int noteTemplateCount = 0;
+		Log.v(LOG_TAG, "Hello");
+
+		String[] projection = new String[]
+		{
+			"count(*) AS " + NoteTemplate.Columns._COUNT,
+		};
+		Cursor cursor = cr.query(NoteTemplate.CONTENT_URI, projection, null, null, null);
+		try
+		{
+			if (cursor.moveToFirst())
+			{
+				int index = cursor.getColumnIndex(NoteTemplate.Columns._COUNT);
+				noteTemplateCount = cursor.getInt(index);
+			}
+		}
+		finally
+		{
+			if (cursor != null)
+			{
+				cursor.close();
+			}
+		}
+
+		Log.v(LOG_TAG, "noteTemplateCount => " + noteTemplateCount);
+		Log.v(LOG_TAG, "Bye");
+		return noteTemplateCount;
+	}
+
 	public static void reindex(Context context)
 	{
 		NoteDBHelper helper = new NoteDBHelper(context);

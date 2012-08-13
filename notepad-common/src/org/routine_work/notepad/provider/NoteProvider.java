@@ -37,8 +37,8 @@ import android.provider.BaseColumns;
 import android.text.TextUtils;
 import java.util.HashMap;
 import java.util.Map;
-import org.routine_work.notepad.provider.NoteStore.NoteTemplate;
 import org.routine_work.notepad.provider.NoteStore.Note;
+import org.routine_work.notepad.provider.NoteStore.NoteTemplate;
 import org.routine_work.utils.Log;
 
 public class NoteProvider extends ContentProvider
