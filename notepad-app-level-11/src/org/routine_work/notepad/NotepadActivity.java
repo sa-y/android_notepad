@@ -182,10 +182,10 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 
 		searchView.setOnQueryTextListener(this);
 		searchView.setOnCloseListener(this);
-		searchView.setQuery(initialQueryString, true);
 		if (!TextUtils.isEmpty(initialQueryString))
 		{
 			searchView.setIconified(false);
+			searchView.setQuery(initialQueryString, true);
 		}
 		initialQueryString = null;
 
@@ -473,11 +473,11 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		if (searchView != null)
 		{
 			Log.d(LOG_TAG, "set query string to searchView");
-			searchView.setQuery(queryString, true);
 			if (!TextUtils.isEmpty(queryString))
 			{
 				searchView.setIconified(false);
 			}
+			searchView.setQuery(queryString, true);
 		}
 		else
 		{

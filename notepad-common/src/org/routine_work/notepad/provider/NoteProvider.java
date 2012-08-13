@@ -129,7 +129,7 @@ public class NoteProvider extends ContentProvider
 				uri.getQueryParameter("q");
 				Log.d(LOG_TAG, "*SEARCH_BY_WORD");
 				String q = uri.getQueryParameter("q");
-				Log.d(LOG_TAG, "queryWord => " + q);
+				Log.d(LOG_TAG, "q => " + q);
 				setUpQueryByWord(qb, q);
 				break;
 			case NOTES_ITEM_BY_ID:
@@ -145,9 +145,11 @@ public class NoteProvider extends ContentProvider
 		}
 
 		String limit = getLimitParameter(uri);
+		Log.v(LOG_TAG, "limit => " + limit);
 
 		Cursor cursor = qb.query(noteDB, projection, selection, selectionArgs,
 			null, null, sort, limit);
+		Log.v(LOG_TAG, "cursor => " + cursor);
 
 		cursor.setNotificationUri(getContext().getContentResolver(), uri);
 

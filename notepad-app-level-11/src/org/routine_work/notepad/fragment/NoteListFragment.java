@@ -67,6 +67,7 @@ public class NoteListFragment extends ListFragment
 
 	public NoteListFragment()
 	{
+		this.contentUri = NoteStore.Note.CONTENT_URI;
 	}
 
 	public void setNarrowLayout(boolean narrowLayout)
@@ -203,11 +204,6 @@ public class NoteListFragment extends ListFragment
 		Log.v(LOG_TAG, "Hello");
 		Log.d(LOG_TAG, "this.contentUri => " + this.contentUri);
 
-		if (this.contentUri == null)
-		{
-			this.contentUri = NoteStore.Note.CONTENT_URI;
-		}
-
 		String sortOrder = NoteStore.Note.Columns.DATE_MODIFIED + " DESC";
 		CursorLoader cursorLoader = new CursorLoader(getActivity(),
 			contentUri, null, null, null, sortOrder);
@@ -219,6 +215,7 @@ public class NoteListFragment extends ListFragment
 	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor)
 	{
 		Log.v(LOG_TAG, "Hello");
+		Log.d(LOG_TAG, "cursor => " + cursor);
 		listAdapter.swapCursor(cursor);
 		Log.v(LOG_TAG, "Bye");
 	}
