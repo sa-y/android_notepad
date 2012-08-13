@@ -3,16 +3,16 @@
 #############################
 !! notepad-app
 
+* Theme.Dialog ベースのテーマを作成する
+** Theme.Notepad.Dialog.Dark
+** Theme.Notepad.Dialog.Light
+
+* テンプレート編集画面作成
+* テンプレート選択画面作成
+* テンプレートを元に新規ノートを作成する画面
+
 * OptionMenu から検索を開くとソフトウェアキーボードが開かないバグを修正
 ** 検索ボタンからだと正常にソフトウェアキーボードが開く
-
-* ノートテンプレート機能
-** 新規ノート作成時のテンプレートを作成、管理する機能
-** 画面
-*** テンプレート一覧画面
-*** テンプレート編集画面
-** テンプレート変数
-*** 日時(yyyy mm dd HH MM SS)
 
 * ノート一覧画面のタイトル部分にノートの数を表示
 
@@ -27,6 +27,10 @@
 
 #############################
 !! notepad-app-level-11
+
+* Theme.Dialog ベースのテーマを作成する
+** Theme.Notepad.Dialog.Dark
+** Theme.Notepad.Dialog.Light
 
 * ノートテンプレート機能
 ** 新規ノート作成時のテンプレートを作成、管理する機能
@@ -86,6 +90,8 @@
 ! 0.1.5
 
 !! notepad-app
+
+#* テンプレート一覧画面作成
 
 #* Theme.Notepad.Black を Theme.Notepad.Dark に変更
 

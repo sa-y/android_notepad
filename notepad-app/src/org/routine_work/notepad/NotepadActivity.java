@@ -128,6 +128,11 @@ public class NotepadActivity extends ListActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.view_notes_activity);
 
+		int noteCount = NoteStore.getNoteCount(getContentResolver());
+		Log.d(LOG_TAG, "noteCount => " + noteCount);
+		int noteTemplateCount = NoteStore.getNoteTemplateCount(getContentResolver());
+		Log.d(LOG_TAG, "noteTemplateCount => " + noteTemplateCount);
+
 		searchEditText = (EditText) findViewById(R.id.search_edittext);
 		searchEditText.addTextChangedListener(new SearchEditTextWatcher());
 		searchEditText.setOnFocusChangeListener(this);
@@ -314,6 +319,7 @@ public class NotepadActivity extends ListActivity
 		menuInflater.inflate(R.menu.add_new_note_option_menu, menu);
 		menuInflater.inflate(R.menu.delete_notes_option_menu, menu);
 		menuInflater.inflate(R.menu.search_note_option_menu, menu);
+		menuInflater.inflate(R.menu.templates_option_menu, menu);
 		menuInflater.inflate(R.menu.preferences_menu, menu);
 		menuInflater.inflate(R.menu.quit_menu, menu);
 
@@ -341,6 +347,10 @@ public class NotepadActivity extends ListActivity
 			case R.id.search_note_menuitem:
 				Log.d(LOG_TAG, "search_note_menuitem is selected..");
 				enterSearchMode();
+				break;
+			case R.id.templates_menuitem:
+				Log.d(LOG_TAG, "templates_menuitem is selected..");
+				startTemplateListActivity();
 				break;
 			case R.id.preferences_menuitem:
 				Log.d(LOG_TAG, "preferences_menuitem is selected.");
@@ -572,6 +582,16 @@ public class NotepadActivity extends ListActivity
 		Log.v(LOG_TAG, "Hello");
 
 		Intent intent = new Intent(this, NotepadPreferenceActivity.class);
+		startActivity(intent);
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	private void startTemplateListActivity()
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		Intent intent = new Intent(Intent.ACTION_VIEW, NoteStore.NoteTemplate.CONTENT_URI);
 		startActivity(intent);
 
 		Log.v(LOG_TAG, "Bye");

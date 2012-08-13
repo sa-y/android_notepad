@@ -5,9 +5,13 @@
     <string name="quit">Quit</string>
 
 	<string name="no_note">No Note</string>
-
 	<string name="title">Title</string>
 	<string name="text">Text</string>
+
+	<string name="no_note_template">No Note Template</string>
+	<string name="template_name">Template Name</string>
+	<string name="title_template">Title Template</string>
+	<string name="text_template">Text Template</string>
 
 	<string name="note_not_exist">The specified note does not exist.</string>
 	<string name="note_not_specified">A note is not specified.</string>
@@ -26,6 +30,10 @@
 	<string name="delete_note_title">Delete Note</string>
 	<string name="select_note_title">Select Note</string>
 
+	<string name="note_template_list_title">Template List</string>
+	<string name="edit_note_template_title">Edit Template</string>
+	<string name="add_new_note_template_title">Add New Template</string>
+
 	<!-- menu item label -->
 	<string name="new_note">New</string>
 	<string name="view_note">View</string>
@@ -34,6 +42,10 @@
 	<string name="share_note">Share</string>
 	<string name="delete_notes">Delete Notes</string>
 	<string name="search_note">Search</string>
+
+	<string name="templates">Templates</string>
+	<string name="edit_note_template">Edit</string>
+	<string name="delete_note_template">Delete</string>
 
 	<!-- create note shortcut -->
 	<string name="new_shortcut">New Shortcut</string>

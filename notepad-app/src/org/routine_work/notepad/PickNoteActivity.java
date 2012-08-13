@@ -52,9 +52,6 @@ public class PickNoteActivity extends ListActivity
 	private SimpleCursorAdapter listAdapter;
 	private Cursor cursor;
 
-	/**
-	 * Called when the activity is first created.
-	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{

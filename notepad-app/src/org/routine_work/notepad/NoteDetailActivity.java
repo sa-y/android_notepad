@@ -472,7 +472,7 @@ public class NoteDetailActivity extends Activity
 		{
 			if (newNoteUri != null)
 			{
-				if (NoteStore.checkNote(getContentResolver(), newNoteUri))
+				if (NoteStore.exist(getContentResolver(), newNoteUri))
 				{
 					currentNoteUri = newNoteUri;
 					loadNote();
@@ -501,7 +501,7 @@ public class NoteDetailActivity extends Activity
 				finish();
 				return;
 			}
-			else if (NoteStore.checkNote(getContentResolver(), newNoteUri) == false)
+			else if (NoteStore.exist(getContentResolver(), newNoteUri) == false)
 			{
 				Toast.makeText(this, R.string.note_not_exist, Toast.LENGTH_LONG).show();
 				finish();
@@ -526,7 +526,7 @@ public class NoteDetailActivity extends Activity
 				finish();
 				return;
 			}
-			if (NoteStore.checkNote(getContentResolver(), newNoteUri) == false)
+			if (NoteStore.exist(getContentResolver(), newNoteUri) == false)
 			{
 				Toast.makeText(this, R.string.note_not_exist, Toast.LENGTH_LONG).show();
 				finish();

@@ -38,6 +38,8 @@ public interface NotepadConstants
 	int REQUEST_CODE_DELETE_NOTE = 104;
 	int REQUEST_CODE_DELETE_NOTES = 105;
 	int REQUEST_CODE_PICK_NOTE = 106;
+	int REQUEST_CODE_ADD_NOTE_TEMPLATE = 107;
+	int REQUEST_CODE_EDIT_NOTE_TEMPLATE = 108;
 	String ACTION_QUIT = NotepadConstants.class.getPackage().getName() + ".QUIT";
 	String[] NOTE_LIST_MAPPING_FROM =
 	{
@@ -50,5 +52,13 @@ public interface NotepadConstants
 		R.id.note_title_textview,
 		R.id.note_content_textview,
 		R.id.note_modified_textview,
+	};
+	String[] NOTE_TEMPLATE_LIST_MAPPING_FROM =
+	{
+		NoteStore.NoteTemplate.Columns.NAME,
+	};
+	int[] NOTE_TEMPLATE_LIST_MAPPING_TO =
+	{
+		android.R.id.text1,
 	};
 }

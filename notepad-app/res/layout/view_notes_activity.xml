@@ -16,7 +16,6 @@
 			android:id="@+id/title_textview"
 			android:text="@string/note_list_title"
 		/>
-			<!--style="@style/actionbar_title"--> 
 		<ImageButton
 			style="@style/actionbar_right_button" 
 			android:id="@+id/search_button"

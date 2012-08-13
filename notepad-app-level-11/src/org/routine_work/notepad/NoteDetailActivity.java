@@ -247,7 +247,7 @@ public class NoteDetailActivity extends Activity
 				Uri nextNoteUri = data;
 				Log.d(LOG_TAG, "Edit nextNoteUri => " + nextNoteUri);
 
-				if (NoteStore.checkNote(getContentResolver(), nextNoteUri))
+				if (NoteStore.exist(getContentResolver(), nextNoteUri))
 				{
 					editNoteFragment.setNoteUri(nextNoteUri);
 				}
@@ -287,7 +287,7 @@ public class NoteDetailActivity extends Activity
 			}
 			Log.d(LOG_TAG, "Delete nextNoteUri => " + nextNoteUri);
 
-			if (NoteStore.checkNote(getContentResolver(), nextNoteUri))
+			if (NoteStore.exist(getContentResolver(), nextNoteUri))
 			{
 				deleteNoteFragment.setNoteUri(nextNoteUri);
 			}

@@ -78,7 +78,7 @@ public class NoteStore
 		String NOTE_TEMPLATE_ITEM_CONTENT_TYPE = "vnd.android.cursor.item/vnd.routine_work.notetemplate";
 	}
 
-	public static boolean checkNote(ContentResolver cr, Uri uri)
+	public static boolean exist(ContentResolver cr, Uri uri)
 	{
 		boolean result = false;
 		Log.v(LOG_TAG, "Hello");
