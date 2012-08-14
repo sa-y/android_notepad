@@ -1,0 +1,109 @@
+/*
+ * The MIT License
+ *
+ * Copyright 2012 Masahiko, SAWAI <masahiko.sawai@gmail.com>.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+package org.routine_work.notepad;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
+import org.routine_work.utils.Log;
+
+/**
+ *
+ * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
+ */
+public class EditTextActivity extends Activity
+	implements View.OnClickListener
+{
+
+	private static final String LOG_TAG = "simple-notepad";
+	private EditText mainEditText;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState)
+	{
+		Log.v(LOG_TAG, "Hello");
+		setTheme(NotepadPreferenceUtils.getTheme(this));
+		super.onCreate(savedInstanceState);
+
+		getWindow().setSoftInputMode(
+			WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE
+			| WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+		setContentView(R.layout.edit_text_activity);
+
+		mainEditText = (EditText) findViewById(R.id.main_edittext);
+		ImageButton homeImageButton = (ImageButton) findViewById(R.id.home_button);
+		ImageButton cancelImageButton = (ImageButton) findViewById(R.id.cancel_button);
+		ImageButton okImageButton = (ImageButton) findViewById(R.id.ok_button);
+
+		homeImageButton.setOnClickListener(this);
+		cancelImageButton.setOnClickListener(this);
+		okImageButton.setOnClickListener(this);
+
+		Intent intent = getIntent();
+		String title = intent.getStringExtra(Intent.EXTRA_TITLE);
+		Log.v(LOG_TAG, "EXTRA_TITLE => " + title);
+		if (!TextUtils.isEmpty(title))
+		{
+			TextView titleTextView = (TextView) findViewById(R.id.title_textview);
+			titleTextView.setText(title);
+		}
+
+		String text = intent.getStringExtra(Intent.EXTRA_TEXT);
+		Log.v(LOG_TAG, "EXTRA_TEXT => " + text);
+		if (!TextUtils.isEmpty(text))
+		{
+			mainEditText.setText(text);
+		}
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	public void onClick(View v)
+	{
+		switch (v.getId())
+		{
+			case R.id.home_button:
+				NotepadActivity.goHomeActivity(this);
+				finish();
+				break;
+			case R.id.ok_button:
+				Intent okData = new Intent();
+				okData.putExtra(Intent.EXTRA_TEXT, mainEditText.getText().toString());
+				setResult(RESULT_OK, okData);
+				finish();
+				break;
+			case R.id.cancel_button:
+				setResult(RESULT_CANCELED);
+				finish();
+				break;
+		}
+	}
+}
