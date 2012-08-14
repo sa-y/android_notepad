@@ -10,4 +10,6 @@
 	<dimen name="list_item_paddingRight">3dip</dimen>
 	<dimen name="list_item_paddingTop">3dip</dimen>
 	<dimen name="list_item_paddingBottom">3dip</dimen>
+
+	<dimen name="editText_textSize">18sp</dimen>
 </resources>

@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Notepad</string>
+	<string name="app_name">Notepad</string>
 
-    <string name="quit">Quit</string>
+	<string name="quit">Quit</string>
 
 	<string name="no_note">No Note</string>
+
 	<string name="title">Title</string>
 	<string name="text">Text</string>
+	<string name="lock">Lock</string>
+	<string name="name">Name</string>
 
 	<string name="no_note_template">No Note Template</string>
 	<string name="template_name">Template Name</string>
 	<string name="title_template">Title Template</string>
 	<string name="text_template">Text Template</string>
+	<string name="title_lock">Title Lock</string>
+	<string name="content_lock">Content Lock</string>
 
 	<string name="note_not_exist">The specified note does not exist.</string>
 	<string name="note_not_specified">A note is not specified.</string>

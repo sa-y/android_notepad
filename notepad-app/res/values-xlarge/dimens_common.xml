@@ -10,4 +10,6 @@
 	<dimen name="list_item_paddingRight">6dip</dimen>
 	<dimen name="list_item_paddingTop">6dip</dimen>
 	<dimen name="list_item_paddingBottom">6dip</dimen>
+
+	<dimen name="editText_textSize">22sp</dimen>
 </resources>

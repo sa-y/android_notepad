@@ -129,6 +129,8 @@
 			android:label="@string/about_app_title"
 		/>
 
+		<activity android:name=".EditTextActivity" />
+
 		<!-- notes content provider -->
 		<provider
 			android:name=".provider.NoteProvider"

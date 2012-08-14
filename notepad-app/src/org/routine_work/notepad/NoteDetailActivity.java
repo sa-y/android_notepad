@@ -432,6 +432,7 @@ public class NoteDetailActivity extends Activity
 		Log.d(LOG_TAG, "isFinishing() => " + isFinishing());
 		if (Intent.ACTION_INSERT.equals(newAction))
 		{
+			Log.d(LOG_TAG, "ACTION_INSERT");
 			currentNoteUri = NoteStore.Note.CONTENT_URI;
 			noteTitleEditText.setText(null);
 			noteContentEditText.setText(null);
@@ -470,6 +471,7 @@ public class NoteDetailActivity extends Activity
 		}
 		else if (Intent.ACTION_EDIT.equals(newAction))
 		{
+			Log.d(LOG_TAG, "ACTION_EDIT");
 			if (newNoteUri != null)
 			{
 				if (NoteStore.exist(getContentResolver(), newNoteUri))
@@ -495,6 +497,7 @@ public class NoteDetailActivity extends Activity
 		}
 		else if (Intent.ACTION_VIEW.equals(newAction))
 		{
+			Log.d(LOG_TAG, "ACTION_VIEW");
 			if (newNoteUri == null)
 			{
 				Toast.makeText(this, R.string.note_not_specified, Toast.LENGTH_LONG).show();

@@ -4,34 +4,96 @@
 	style="@style/body"
 	android:orientation="vertical"
 >
-	<EditText
-		android:id="@+id/note_template_name_edittext"
+	<TextView
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_weight="0"
-		android:lines="1"
+		android:text="@string/name"
+		android:background="#6666"
+	/>
+
+	<TextView
+		style="?attr/editTextLikedTextViewStyle"
+		android:id="@+id/note_template_name_textview"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_weight="0"
+		android:layout_margin="2dip"
 		android:inputType="text"
 		android:hint="@string/template_name"
 	/>
 
-	<EditText
-		android:id="@+id/note_template_title_edittext"
+	<TextView
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_weight="0"
-		android:lines="1"
-		android:inputType="text"
-		android:hint="@string/title_template"
+		android:text="@string/title"
+		android:background="#6666"
 	/>
 
-	<EditText
-		android:id="@+id/note_template_content_edittext"
+	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_weight="0"
+		android:layout_margin="2dip"
+		android:orientation="horizontal"
+	>
+		<TextView
+			style="?attr/editTextLikedTextViewStyle"
+			android:id="@+id/note_template_title_textview"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:layout_margin="2dip"
+			android:inputType="text"
+			android:hint="@string/title_template"
+		/>
+
+		<CheckBox
+			android:id="@+id/note_template_title_lock_checkbox"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="0"
+			android:layout_margin="2dip"
+			android:text="@string/lock"
+		/>
+	</LinearLayout>
+
+	<TextView
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_weight="0"
+		android:text="@string/text"
+		android:background="#6666"
+	/>
+
+	<LinearLayout
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_weight="1"
-		android:minLines="2"
-		android:inputType="textMultiLine"
-		android:gravity="left|top"
-		android:hint="@string/text_template"
-	/>
+		android:layout_margin="2dip"
+		android:orientation="horizontal"
+	>
+		<TextView
+			style="?attr/editTextLikedTextViewStyle"
+			android:id="@+id/note_template_content_textview"
+			android:layout_width="wrap_content"
+			android:layout_height="fill_parent"
+			android:layout_weight="1"
+			android:layout_margin="2dip"
+			android:inputType="textMultiLine"
+			android:gravity="left|top"
+			android:hint="@string/text_template"
+		/>
+
+		<CheckBox
+			android:id="@+id/note_template_content_lock_checkbox"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="0"
+			android:layout_margin="2dip"
+			android:text="@string/lock"
+		/>
+	</LinearLayout>
+
 </LinearLayout>

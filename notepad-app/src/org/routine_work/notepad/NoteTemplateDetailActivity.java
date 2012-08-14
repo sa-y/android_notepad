@@ -32,14 +32,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.*;
-import android.view.View.OnFocusChangeListener;
-import android.widget.EditText;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
-import org.routine_work.utils.IMEUtils;
 import org.routine_work.utils.Log;
 
 /**
@@ -48,24 +46,30 @@ import org.routine_work.utils.Log;
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
 public class NoteTemplateDetailActivity extends Activity
-	implements View.OnClickListener, OnFocusChangeListener,
+	implements View.OnClickListener,
 	NotepadConstants
 {
 
 	private static final String SAVE_KEY_CURRENT_ACTION = "currentAction";
 	private static final String SAVE_KEY_CURRENT_NOTE_TEMAPLATE_URI = "currentNoteTemplateUri";
+	private static final int REQUEST_CODE_EDIT_TEMPLATE_NAME = 1;
+	private static final int REQUEST_CODE_EDIT_TEMPLATE_TITLE = 2;
+	private static final int REQUEST_CODE_EDIT_TEMPLATE_TEXT = 3;
 	private static final String LOG_TAG = "simple-notepad";
 	// views
-	private ViewGroup actionBarContainer;
 	private TextView titleTextView;
 	private ImageButton homeImageButton;
-	private EditText noteTemplateNameEditText;
-	private EditText noteTemplateTitleEditText;
-	private EditText noteTemplateContentEditText;
+	private TextView noteTemplateNameTextView;
+	private TextView noteTemplateTitleTextView;
+	private TextView noteTemplateContentTextView;
+	private CheckBox noteTemplateTitleLockedCheckBox;
+	private CheckBox noteTemplateContentLockedCheckBox;
 	// data
 	private String originalTemplateName = "";
 	private String originalTemplateTitle = "";
-	private String originalTemplateontent = "";
+	private String originalTemplateContent = "";
+	private boolean originalTemplateTitleLocked = false;
+	private boolean originalTemplateContentLocked = false;
 	private String currentAction;
 	private Uri currentNoteTemplateUri;
 
@@ -85,21 +89,23 @@ public class NoteTemplateDetailActivity extends Activity
 //			WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN
 //			| WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 		getWindow().setSoftInputMode(
-			WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+			WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED);
 
 		setContentView(R.layout.note_template_detail_activity);
 
-		actionBarContainer = (ViewGroup) findViewById(R.id.actionbar_container);
-		noteTemplateNameEditText = (EditText) findViewById(R.id.note_template_name_edittext);
-		noteTemplateNameEditText.setOnFocusChangeListener(this);
-		noteTemplateTitleEditText = (EditText) findViewById(R.id.note_template_title_edittext);
-		noteTemplateTitleEditText.setOnFocusChangeListener(this);
-		noteTemplateContentEditText = (EditText) findViewById(R.id.note_template_content_edittext);
-		noteTemplateContentEditText.setOnFocusChangeListener(this);
-
 		titleTextView = (TextView) findViewById(R.id.title_textview);
 		homeImageButton = (ImageButton) findViewById(R.id.home_button);
+		noteTemplateNameTextView = (TextView) findViewById(R.id.note_template_name_textview);
+		noteTemplateTitleTextView = (TextView) findViewById(R.id.note_template_title_textview);
+		noteTemplateContentTextView = (TextView) findViewById(R.id.note_template_content_textview);
+		noteTemplateTitleLockedCheckBox = (CheckBox) findViewById(R.id.note_template_title_lock_checkbox);
+		noteTemplateContentLockedCheckBox = (CheckBox) findViewById(R.id.note_template_content_lock_checkbox);
+
 		homeImageButton.setOnClickListener(this);
+
+		noteTemplateNameTextView.setOnClickListener(this);
+		noteTemplateTitleTextView.setOnClickListener(this);
+		noteTemplateContentTextView.setOnClickListener(this);
 
 		// process intent
 		initWithIntent(savedInstanceState, getIntent());
@@ -141,39 +147,34 @@ public class NoteTemplateDetailActivity extends Activity
 	}
 
 	@Override
-	protected void onResume()
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-		Log.v(LOG_TAG, "Hello");
-
-		super.onResume();
-		Log.d(LOG_TAG, "------------------------------------------------------------");
-		Log.d(LOG_TAG, "currentAction => " + currentAction);
-		Log.d(LOG_TAG, "currentNoteTemplateUri => " + currentNoteTemplateUri);
-		Log.d(LOG_TAG, "noteTemplateNameEditText.text => " + noteTemplateNameEditText.getText().toString());
-		Log.d(LOG_TAG, "noteTemplateTitleEditText.text => " + noteTemplateTitleEditText.getText().toString());
-		Log.d(LOG_TAG, "noteTemplateContentEditText.text => " + noteTemplateContentEditText.getText().toString());
-		Log.d(LOG_TAG, "originalTemplateName => " + originalTemplateName);
-		Log.d(LOG_TAG, "originalTemplateTitle => " + originalTemplateTitle);
-		Log.d(LOG_TAG, "originalTemplateontent => " + originalTemplateontent);
-		Log.d(LOG_TAG, "------------------------------------------------------------");
-
-		Log.v(LOG_TAG, "Bye");
-	}
-
-	@Override
-	protected void onDestroy()
-	{
-		Log.v(LOG_TAG, "Hello");
-		super.onDestroy();
-		Log.v(LOG_TAG, "Bye");
-	}
-
-	@Override
-	protected void onStop()
-	{
-		Log.v(LOG_TAG, "Hello");
-		super.onStop();
-		Log.v(LOG_TAG, "Bye");
+		switch (requestCode)
+		{
+			case REQUEST_CODE_EDIT_TEMPLATE_NAME:
+				if (resultCode == RESULT_OK)
+				{
+					String name = data.getStringExtra(Intent.EXTRA_TEXT);
+					noteTemplateNameTextView.setText(name);
+				}
+				break;
+			case REQUEST_CODE_EDIT_TEMPLATE_TITLE:
+				if (resultCode == RESULT_OK)
+				{
+					String title = data.getStringExtra(Intent.EXTRA_TEXT);
+					noteTemplateTitleTextView.setText(title);
+				}
+				break;
+			case REQUEST_CODE_EDIT_TEMPLATE_TEXT:
+				if (resultCode == RESULT_OK)
+				{
+					String content = data.getStringExtra(Intent.EXTRA_TEXT);
+					noteTemplateContentTextView.setText(content);
+				}
+				break;
+			default:
+				super.onActivityResult(requestCode, resultCode, data);
+		}
 	}
 
 	@Override
@@ -224,6 +225,18 @@ public class NoteTemplateDetailActivity extends Activity
 				finish();
 				NotepadActivity.goHomeActivity(this);
 				break;
+			case R.id.note_template_name_textview:
+				Log.d(LOG_TAG, "note_template_name_textview is clicked.");
+				startEditNameActivity();
+				break;
+			case R.id.note_template_title_textview:
+				Log.d(LOG_TAG, "note_template_title_textview is clicked.");
+				startEditTitleActivity();
+				break;
+			case R.id.note_template_content_textview:
+				Log.d(LOG_TAG, "note_template_content_textview is clicked.");
+				startEditTextActivity();
+				break;
 		}
 
 		Log.v(LOG_TAG, "Bye");
@@ -252,36 +265,6 @@ public class NoteTemplateDetailActivity extends Activity
 		return result;
 	}
 
-	@Override
-	public void onFocusChange(View v, boolean hasFocus)
-	{
-		Log.v(LOG_TAG, "Hello");
-
-		switch (v.getId())
-		{
-			case R.id.note_template_name_edittext:
-				if (hasFocus)
-				{
-					IMEUtils.showSoftKeyboardWindow(this, v);
-				}
-				break;
-			case R.id.note_template_title_edittext:
-				if (hasFocus)
-				{
-					IMEUtils.showSoftKeyboardWindow(this, v);
-				}
-				break;
-			case R.id.note_template_content_edittext:
-				if (hasFocus)
-				{
-					IMEUtils.showSoftKeyboardWindow(this, v);
-				}
-				break;
-		}
-
-		Log.v(LOG_TAG, "Bye");
-	}
-
 	protected void initWithIntent(Bundle savedInstanceState, Intent intent)
 	{
 		Log.v(LOG_TAG, "Hello");
@@ -290,7 +273,6 @@ public class NoteTemplateDetailActivity extends Activity
 		Log.d(LOG_TAG, "currentAction => " + currentAction);
 		Log.d(LOG_TAG, "currentNoteTemplateUri => " + currentNoteTemplateUri);
 
-		actionBarContainer.setVisibility(View.VISIBLE);
 		// load saved note uri
 		String newAction = null;
 		Uri newNoteTemplateUri = null;
@@ -339,18 +321,18 @@ public class NoteTemplateDetailActivity extends Activity
 		if (Intent.ACTION_INSERT.equals(newAction))
 		{
 			currentNoteTemplateUri = NoteStore.NoteTemplate.CONTENT_URI;
-			noteTemplateTitleEditText.setText(null);
-			noteTemplateContentEditText.setText(null);
+			noteTemplateTitleTextView.setText(null);
+			noteTemplateContentTextView.setText(null);
 
 			titleTextView.setText(R.string.add_new_note_template_title);
 
 			newAction = Intent.ACTION_EDIT;
 
-			noteTemplateNameEditText.requestFocus();
+			noteTemplateNameTextView.requestFocus();
 		}
 		else if (Intent.ACTION_EDIT.equals(newAction))
 		{
-			if (newNoteTemplateUri != null)
+			if (isNoteTemplateItemUri(newNoteTemplateUri))
 			{
 				if (NoteStore.exist(getContentResolver(), newNoteTemplateUri))
 				{
@@ -366,13 +348,15 @@ public class NoteTemplateDetailActivity extends Activity
 			}
 
 			titleTextView.setText(R.string.edit_note_template_title);
-			noteTemplateNameEditText.requestFocus();
+			noteTemplateNameTextView.requestFocus();
 		}
 
 		currentAction = newAction;
-		originalTemplateName = noteTemplateNameEditText.getText().toString();
-		originalTemplateTitle = noteTemplateTitleEditText.getText().toString();
-		originalTemplateontent = noteTemplateContentEditText.getText().toString();
+		originalTemplateName = noteTemplateNameTextView.getText().toString();
+		originalTemplateTitle = noteTemplateTitleTextView.getText().toString();
+		originalTemplateContent = noteTemplateContentTextView.getText().toString();
+		originalTemplateTitleLocked = noteTemplateTitleLockedCheckBox.isChecked();
+		originalTemplateContentLocked = noteTemplateContentLockedCheckBox.isChecked();
 		Log.d(LOG_TAG, "isFinishing() => " + isFinishing());
 
 		Log.v(LOG_TAG, "Bye");
@@ -394,19 +378,32 @@ public class NoteTemplateDetailActivity extends Activity
 					int nameIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.NAME);
 					int titleIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.TITLE);
 					int contentIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.CONTENT);
+					int titleLockedIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.TITLE_LOCKED);
+					int contentLockedIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.CONTENT_LOCKED);
+
 					String templateName = cursor.getString(nameIndex);
 					String templateTitle = cursor.getString(titleIndex);
 					String templateContent = cursor.getString(contentIndex);
+					boolean templateTitleLocked = cursor.getInt(titleLockedIndex) != 0;
+					boolean templateContentLocked = cursor.getInt(contentLockedIndex) != 0;
+
+					Log.d(LOG_TAG, "templateName => " + templateName);
 					Log.d(LOG_TAG, "templateTitle => " + templateTitle);
 					Log.d(LOG_TAG, "templateContent => " + templateContent);
+					Log.d(LOG_TAG, "templateTitleLocked => " + templateTitleLocked);
+					Log.d(LOG_TAG, "templateContentLocked => " + templateContentLocked);
 
-					noteTemplateNameEditText.setText(templateName);
-					noteTemplateTitleEditText.setText(templateTitle);
-					noteTemplateContentEditText.setText(templateContent);
+					noteTemplateNameTextView.setText(templateName);
+					noteTemplateTitleTextView.setText(templateTitle);
+					noteTemplateContentTextView.setText(templateContent);
+					noteTemplateTitleLockedCheckBox.setChecked(templateTitleLocked);
+					noteTemplateContentLockedCheckBox.setChecked(templateContentLocked);
 
-					originalTemplateName = noteTemplateNameEditText.getText().toString();
-					originalTemplateTitle = noteTemplateTitleEditText.getText().toString();
-					originalTemplateontent = noteTemplateContentEditText.getText().toString();
+					originalTemplateName = noteTemplateNameTextView.getText().toString();
+					originalTemplateTitle = noteTemplateTitleTextView.getText().toString();
+					originalTemplateContent = noteTemplateContentTextView.getText().toString();
+					originalTemplateTitleLocked = noteTemplateTitleLockedCheckBox.isChecked();
+					originalTemplateContentLocked = noteTemplateContentLockedCheckBox.isChecked();
 				}
 			}
 		}
@@ -419,19 +416,29 @@ public class NoteTemplateDetailActivity extends Activity
 		boolean result = false;
 		Log.v(LOG_TAG, "Hello");
 
-		String templateName = noteTemplateNameEditText.getText().toString();
-		String templateTitle = noteTemplateTitleEditText.getText().toString();
-		String templateContent = noteTemplateContentEditText.getText().toString();
+		String templateName = noteTemplateNameTextView.getText().toString();
+		String templateTitle = noteTemplateTitleTextView.getText().toString();
+		String templateContent = noteTemplateContentTextView.getText().toString();
+		boolean templateTitleLocked = noteTemplateTitleLockedCheckBox.isChecked();
+		boolean templateContentLocked = noteTemplateContentLockedCheckBox.isChecked();
+
 		Log.d(LOG_TAG, "templateName => " + templateName);
 		Log.d(LOG_TAG, "templateTitle => " + templateTitle);
 		Log.d(LOG_TAG, "templateContent => " + templateContent);
-		Log.d(LOG_TAG, "originalNoteName => " + originalTemplateName);
-		Log.d(LOG_TAG, "originalNoteTitle => " + originalTemplateTitle);
-		Log.d(LOG_TAG, "originalNoteContent => " + originalTemplateontent);
+		Log.d(LOG_TAG, "templateTitleLocked => " + templateTitleLocked);
+		Log.d(LOG_TAG, "templateContentLocked => " + templateContentLocked);
+
+		Log.d(LOG_TAG, "originalTemplateName => " + originalTemplateName);
+		Log.d(LOG_TAG, "originalTemplateTitle => " + originalTemplateTitle);
+		Log.d(LOG_TAG, "originalTemplateContent => " + originalTemplateContent);
+		Log.d(LOG_TAG, "originalTemplateTitleLocked => " + originalTemplateTitleLocked);
+		Log.d(LOG_TAG, "originalTemplateContentLocked => " + originalTemplateContentLocked);
 
 		if ((templateName.equals(originalTemplateName)
 			&& templateTitle.equals(originalTemplateTitle)
-			&& templateContent.equals(originalTemplateontent)) == false)
+			&& templateContent.equals(originalTemplateContent)
+			&& (templateTitleLocked == originalTemplateTitleLocked)
+			&& (templateContentLocked == originalTemplateContentLocked)) == false)
 		{
 			result = true;
 		}
@@ -464,16 +471,18 @@ public class NoteTemplateDetailActivity extends Activity
 		{
 			Log.d(LOG_TAG, "note is modified.");
 
-			String templateName = noteTemplateNameEditText.getText().toString();
-			String templateTitle = noteTemplateTitleEditText.getText().toString();
-			String templateContent = noteTemplateContentEditText.getText().toString();
+			String templateName = noteTemplateNameTextView.getText().toString();
+			String templateTitle = noteTemplateTitleTextView.getText().toString();
+			String templateContent = noteTemplateContentTextView.getText().toString();
+			boolean templateTitleLocked = noteTemplateTitleLockedCheckBox.isChecked();
+			boolean templateContentLocked = noteTemplateContentLockedCheckBox.isChecked();
 
 			ContentValues values = new ContentValues();
 			values.put(NoteStore.NoteTemplate.Columns.NAME, templateName);
 			values.put(NoteStore.NoteTemplate.Columns.TITLE, templateTitle);
 			values.put(NoteStore.NoteTemplate.Columns.CONTENT, templateContent);
-			values.put(NoteStore.NoteTemplate.Columns.TITLE_LOCKED, false);
-			values.put(NoteStore.NoteTemplate.Columns.CONTENT_LOCKED, false);
+			values.put(NoteStore.NoteTemplate.Columns.TITLE_LOCKED, templateTitleLocked);
+			values.put(NoteStore.NoteTemplate.Columns.CONTENT_LOCKED, templateContentLocked);
 
 			ContentResolver contentResolver = getContentResolver();
 			if (isNoteTemplateItemUri(currentNoteTemplateUri))
@@ -490,7 +499,9 @@ public class NoteTemplateDetailActivity extends Activity
 			}
 			originalTemplateName = templateName;
 			originalTemplateTitle = templateTitle;
-			originalTemplateontent = templateContent;
+			originalTemplateContent = templateContent;
+			originalTemplateTitleLocked = templateTitleLocked;
+			originalTemplateContentLocked = templateContentLocked;
 			setResult(RESULT_OK);
 		}
 		else
@@ -503,17 +514,45 @@ public class NoteTemplateDetailActivity extends Activity
 	private boolean isNoteTemplateItemUri(Uri uri)
 	{
 		boolean result = false;
+		Log.v(LOG_TAG, "Hello");
+		Log.d(LOG_TAG, "uri => " + uri);
 
-		ContentResolver contentResolver = getContentResolver();
-		String type = contentResolver.getType(uri);
-		Log.v(LOG_TAG, "uri => " + uri);
-		Log.v(LOG_TAG, "type => " + type);
-		if (NoteStore.NoteTemplate.NOTE_TEMPLATE_ITEM_CONTENT_TYPE.equals(type))
+		if (uri != null)
 		{
-			result = true;
+			String type = getContentResolver().getType(uri);
+			Log.v(LOG_TAG, "type => " + type);
+			if (NoteStore.NoteTemplate.NOTE_TEMPLATE_ITEM_CONTENT_TYPE.equals(type))
+			{
+				result = true;
+			}
 		}
-		Log.v(LOG_TAG, "isNoteTemplateItemUri => " + result);
 
+		Log.d(LOG_TAG, "result => " + result);
+		Log.v(LOG_TAG, "Bye");
 		return result;
+	}
+
+	private void startEditNameActivity()
+	{
+		Intent intent = new Intent(this, EditTextActivity.class);
+		intent.putExtra(Intent.EXTRA_TITLE, "Edit Template Name");
+		intent.putExtra(Intent.EXTRA_TEXT, noteTemplateNameTextView.getText().toString());
+		startActivityForResult(intent, REQUEST_CODE_EDIT_TEMPLATE_NAME);
+	}
+
+	private void startEditTitleActivity()
+	{
+		Intent intent = new Intent(this, EditTextActivity.class);
+		intent.putExtra(Intent.EXTRA_TITLE, "Edit Template Title");
+		intent.putExtra(Intent.EXTRA_TEXT, noteTemplateTitleTextView.getText().toString());
+		startActivityForResult(intent, REQUEST_CODE_EDIT_TEMPLATE_TITLE);
+	}
+
+	private void startEditTextActivity()
+	{
+		Intent intent = new Intent(this, EditTextActivity.class);
+		intent.putExtra(Intent.EXTRA_TITLE, "Edit Template Text");
+		intent.putExtra(Intent.EXTRA_TEXT, noteTemplateContentTextView.getText().toString());
+		startActivityForResult(intent, REQUEST_CODE_EDIT_TEMPLATE_TEXT);
 	}
 }
