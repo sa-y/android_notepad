@@ -472,7 +472,7 @@ public class NoteDetailActivity extends Activity
 		else if (Intent.ACTION_EDIT.equals(newAction))
 		{
 			Log.d(LOG_TAG, "ACTION_EDIT");
-			if (newNoteUri != null)
+			if (isNoteItemUri(newNoteUri))
 			{
 				if (NoteStore.exist(getContentResolver(), newNoteUri))
 				{
@@ -504,7 +504,8 @@ public class NoteDetailActivity extends Activity
 				finish();
 				return;
 			}
-			else if (NoteStore.exist(getContentResolver(), newNoteUri) == false)
+			else if (isNoteItemUri(newNoteUri)
+				&& (NoteStore.exist(getContentResolver(), newNoteUri) == false))
 			{
 				Toast.makeText(this, R.string.note_not_exist, Toast.LENGTH_LONG).show();
 				finish();
@@ -731,17 +732,22 @@ public class NoteDetailActivity extends Activity
 	private boolean isNoteItemUri(Uri uri)
 	{
 		boolean result = false;
+		Log.v(LOG_TAG, "Hello");
+		Log.d(LOG_TAG, "uri => " + uri);
 
-		ContentResolver contentResolver = getContentResolver();
-		String type = contentResolver.getType(uri);
-		Log.v(LOG_TAG, "uri => " + uri);
-		Log.v(LOG_TAG, "type => " + type);
-		if (NoteStore.Note.NOTE_ITEM_CONTENT_TYPE.equals(type))
+		if (uri != null)
 		{
-			result = true;
+			ContentResolver contentResolver = getContentResolver();
+			String type = contentResolver.getType(uri);
+			Log.v(LOG_TAG, "uri.type => " + type);
+			if (NoteStore.Note.NOTE_ITEM_CONTENT_TYPE.equals(type))
+			{
+				result = true;
+			}
 		}
-		Log.v(LOG_TAG, "isNoteItemUri => " + result);
 
+		Log.d(LOG_TAG, "result => " + result);
+		Log.v(LOG_TAG, "Bye");
 		return result;
 	}
 }
