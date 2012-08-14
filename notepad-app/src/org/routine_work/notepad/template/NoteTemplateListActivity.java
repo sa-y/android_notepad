@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.routine_work.notepad;
+package org.routine_work.notepad.template;
 
 import android.app.ListActivity;
 import android.content.ContentResolver;
@@ -42,6 +42,8 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import org.routine_work.notepad.NotepadActivity;
+import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.utils.Log;
@@ -50,7 +52,7 @@ import org.routine_work.utils.Log;
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
 public class NoteTemplateListActivity extends ListActivity
-	implements AdapterView.OnItemClickListener, OnClickListener, NotepadConstants
+	implements AdapterView.OnItemClickListener, OnClickListener, NoteTemplateConstants
 {
 
 	private static final String LOG_TAG = "simple-notepad";

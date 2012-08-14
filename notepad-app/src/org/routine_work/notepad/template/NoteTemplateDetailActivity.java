@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.routine_work.notepad;
+package org.routine_work.notepad.template;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -31,11 +31,14 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.InputType;
 import android.view.*;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import org.routine_work.notepad.NotepadActivity;
+import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.utils.Log;
@@ -46,15 +49,11 @@ import org.routine_work.utils.Log;
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
 public class NoteTemplateDetailActivity extends Activity
-	implements View.OnClickListener,
-	NotepadConstants
+	implements View.OnClickListener, NoteTemplateConstants
 {
 
 	private static final String SAVE_KEY_CURRENT_ACTION = "currentAction";
 	private static final String SAVE_KEY_CURRENT_NOTE_TEMAPLATE_URI = "currentNoteTemplateUri";
-	private static final int REQUEST_CODE_EDIT_TEMPLATE_NAME = 1;
-	private static final int REQUEST_CODE_EDIT_TEMPLATE_TITLE = 2;
-	private static final int REQUEST_CODE_EDIT_TEMPLATE_TEXT = 3;
 	private static final String LOG_TAG = "simple-notepad";
 	// views
 	private TextView titleTextView;
@@ -553,6 +552,7 @@ public class NoteTemplateDetailActivity extends Activity
 		Intent intent = new Intent(this, EditTextActivity.class);
 		intent.putExtra(Intent.EXTRA_TITLE, "Edit Template Text");
 		intent.putExtra(Intent.EXTRA_TEXT, noteTemplateContentTextView.getText().toString());
+		intent.putExtra(EditTextActivity.EXTRA_INPUT_TYPE, InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_FLAG_MULTI_LINE);
 		startActivityForResult(intent, REQUEST_CODE_EDIT_TEMPLATE_TEXT);
 	}
 }

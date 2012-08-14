@@ -21,17 +21,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.routine_work.notepad;
+package org.routine_work.notepad.template;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import org.routine_work.notepad.NotepadActivity;
+import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.utils.Log;
 
@@ -43,6 +46,7 @@ public class EditTextActivity extends Activity
 	implements View.OnClickListener
 {
 
+	public static final String EXTRA_INPUT_TYPE = EditTextActivity.class.getPackage().getName() + ".INPUT_TYPE";
 	private static final String LOG_TAG = "simple-notepad";
 	private EditText mainEditText;
 
@@ -81,6 +85,14 @@ public class EditTextActivity extends Activity
 		if (!TextUtils.isEmpty(text))
 		{
 			mainEditText.setText(text);
+		}
+
+		int defaultInputType = mainEditText.getInputType();
+		int inputType = intent.getIntExtra(EXTRA_INPUT_TYPE, defaultInputType);
+		Log.v(LOG_TAG, "EXTRA_INPUT_TYPE => " + inputType);
+		if (inputType != defaultInputType)
+		{
+			mainEditText.setInputType(inputType);
 		}
 
 		Log.v(LOG_TAG, "Bye");

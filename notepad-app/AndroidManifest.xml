@@ -87,7 +87,7 @@
 
 		<!-- Note Templates -->
 		<activity
-			android:name=".NoteTemplateListActivity"
+			android:name=".template.NoteTemplateListActivity"
 			android:launchMode="singleTop"
 			android:label="@string/note_template_list_title"
 		>
@@ -100,7 +100,7 @@
 		</activity>
 
 		<activity
-			android:name=".NoteTemplateDetailActivity"
+			android:name=".template.NoteTemplateDetailActivity"
 		>
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW" />
@@ -116,20 +116,21 @@
 			</intent-filter>
 		</activity>
 
+		<activity android:name=".template.EditTextActivity" />
+
 		<!-- Preferences -->
 		<activity android:name=".prefs.NotepadPreferenceActivity"
-			android:label="@string/preferences_title"
+				  android:label="@string/preferences_title"
 		/>
 
 		<activity android:name=".prefs.InitializePreferenceActivity" 
-			android:label="@string/initialize_preference_title"
-			android:theme="@android:style/Theme.Dialog"
+				  android:label="@string/initialize_preference_title"
+				  android:theme="@android:style/Theme.Dialog"
 		/>
 		<activity android:name=".prefs.AboutAppActivity" 
-			android:label="@string/about_app_title"
+				  android:label="@string/about_app_title"
 		/>
 
-		<activity android:name=".EditTextActivity" />
 
 		<!-- notes content provider -->
 		<provider
