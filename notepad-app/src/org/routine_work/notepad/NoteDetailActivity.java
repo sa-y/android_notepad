@@ -30,6 +30,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.TextUtils;
 import android.view.*;
 import android.view.View.OnFocusChangeListener;
 import android.widget.EditText;
@@ -460,7 +461,7 @@ public class NoteDetailActivity extends Activity
 			newAction = Intent.ACTION_EDIT;
 			setEditable(true);
 
-			if (extraTitle == null)
+			if (TextUtils.isEmpty(extraText))
 			{
 				noteTitleEditText.requestFocus();
 			}
