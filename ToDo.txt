@@ -6,8 +6,6 @@
 * テンプレート選択画面作成
 * テンプレートを元に新規ノートを作成する画面
 
-* テンプレートデータ初期化処理を作成
-
 * Theme.Dialog ベースのテーマを作成する
 ** Theme.Notepad.Dialog.Dark
 ** Theme.Notepad.Dialog.Light
@@ -97,6 +95,8 @@
 ! 0.1.5
 
 !! notepad-app
+
+#* テンプレートデータ初期化処理を作成
 
 #* ノート詳細画面の ACTION_EDIT 時のノート存在チェック処理のバグを修正
 #** 再現手順
