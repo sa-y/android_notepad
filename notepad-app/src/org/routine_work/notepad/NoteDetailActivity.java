@@ -690,10 +690,11 @@ public class NoteDetailActivity extends Activity
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
-		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//		intent.putExtra(Intent.EXTRA_TITLE, "New Note");
-//		intent.putExtra(Intent.EXTRA_TEXT, "This is a text of new note.");
+//		Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
+//		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
+
+		Intent intent = new Intent(this, AddNewNoteActivity.class);
 		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
 
 		Log.v(LOG_TAG, "Bye");

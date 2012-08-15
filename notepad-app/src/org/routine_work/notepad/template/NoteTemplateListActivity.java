@@ -57,6 +57,7 @@ public class NoteTemplateListActivity extends ListActivity
 
 	private static final String LOG_TAG = "simple-notepad";
 	// instances
+	private String currentAction;
 	private SimpleCursorAdapter listAdapter;
 	private Cursor cursor;
 
@@ -99,7 +100,18 @@ public class NoteTemplateListActivity extends ListActivity
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		startEditNoteTemplateActivityById(id);
+		if (Intent.ACTION_VIEW.equals(currentAction))
+		{
+			startEditNoteTemplateActivityById(id);
+		}
+		else if (Intent.ACTION_PICK.equals(currentAction))
+		{
+			Uri noteTemplateUri = ContentUris.withAppendedId(NoteStore.NoteTemplate.CONTENT_URI, id);
+			Intent resultIntent = new Intent();
+			resultIntent.setData(noteTemplateUri);
+			setResult(RESULT_OK, resultIntent);
+			finish();
+		}
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -110,8 +122,8 @@ public class NoteTemplateListActivity extends ListActivity
 		switch (v.getId())
 		{
 			case R.id.home_button:
+				setResult(RESULT_CANCELED);
 				finish();
-				NotepadActivity.goHomeActivity(this);
 				break;
 			case R.id.add_new_note_template_button:
 				startAddNewNoteTemplateActivity();
@@ -165,14 +177,33 @@ public class NoteTemplateListActivity extends ListActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.note_template_list_activity);
 
-		ImageButton addNewNoteTemplateImageButton = (ImageButton) findViewById(R.id.add_new_note_template_button);
-		addNewNoteTemplateImageButton.setOnClickListener(this);
-
 		initializeListData();
 
 		ListView listView = getListView();
 		listView.setOnItemClickListener(this);
-		registerForContextMenu(listView);
+
+		ImageButton homeButton = (ImageButton) findViewById(R.id.home_button);
+		homeButton.setOnClickListener(this);
+		ImageButton addNewNoteTemplateImageButton = (ImageButton) findViewById(R.id.add_new_note_template_button);
+
+		Intent intent = getIntent();
+		currentAction = intent.getAction();
+		if (currentAction == null || Intent.ACTION_EDIT.equals(currentAction))
+		{
+			currentAction = Intent.ACTION_VIEW;
+		}
+
+		if (Intent.ACTION_VIEW.equals(currentAction))
+		{
+			addNewNoteTemplateImageButton.setVisibility(View.VISIBLE);
+			addNewNoteTemplateImageButton.setOnClickListener(this);
+			registerForContextMenu(listView);
+		}
+		else if (Intent.ACTION_PICK.equals(currentAction))
+		{
+			addNewNoteTemplateImageButton.setVisibility(View.GONE);
+		}
+
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -195,7 +226,10 @@ public class NoteTemplateListActivity extends ListActivity
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode == RESULT_OK)
+		{
+			listAdapter.notifyDataSetChanged();
+		}
 	}
 
 	private void initializeListData()

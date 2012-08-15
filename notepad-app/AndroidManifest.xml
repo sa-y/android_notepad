@@ -51,6 +51,8 @@
 
 		<activity android:name=".DeleteNotesActivity" />
 
+		<activity android:name=".AddNewNoteActivity" />
+
 		<activity
 			android:name=".NoteDetailActivity"
 			android:launchMode="singleTop"
@@ -88,12 +90,12 @@
 		<!-- Note Templates -->
 		<activity
 			android:name=".template.NoteTemplateListActivity"
-			android:launchMode="singleTop"
 			android:label="@string/note_template_list_title"
 		>
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW" />
 				<action android:name="android.intent.action.EDIT" />
+				<action android:name="android.intent.action.PICK" />
 				<category android:name="android.intent.category.DEFAULT" />
 				<data android:mimeType="vnd.android.cursor.dir/vnd.routine_work.notetemplate" />
 			</intent-filter>
@@ -131,6 +133,8 @@
 				  android:label="@string/about_app_title"
 		/>
 
+		<!-- notes content provider -->
+		<service android:name=".template.NoteTemplateInitializer" />
 
 		<!-- notes content provider -->
 		<provider

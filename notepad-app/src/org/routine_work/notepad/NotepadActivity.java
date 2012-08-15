@@ -45,6 +45,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import org.routine_work.notepad.prefs.NotepadPreferenceActivity;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
+import org.routine_work.notepad.template.NoteTemplateInitializer;
 import org.routine_work.notepad.utils.NoteSearchQueryParser;
 import org.routine_work.notepad.utils.NoteUtils;
 import org.routine_work.utils.IMEUtils;
@@ -128,10 +129,14 @@ public class NotepadActivity extends ListActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.view_notes_activity);
 
-		int noteCount = NoteStore.getNoteCount(getContentResolver());
-		Log.d(LOG_TAG, "noteCount => " + noteCount);
 		int noteTemplateCount = NoteStore.getNoteTemplateCount(getContentResolver());
 		Log.d(LOG_TAG, "noteTemplateCount => " + noteTemplateCount);
+		if (noteTemplateCount == 0)
+		{
+			Log.d(LOG_TAG, "start NoteTemplateInitializer");
+			Intent noteTeplateInitializerIntent = new Intent(this, NoteTemplateInitializer.class);
+			startService(noteTeplateInitializerIntent);
+		}
 
 		searchEditText = (EditText) findViewById(R.id.search_edittext);
 		searchEditText.addTextChangedListener(new SearchEditTextWatcher());
@@ -164,7 +169,6 @@ public class NotepadActivity extends ListActivity
 			searchImageButton.setOnClickListener(this);
 			ImageButton cancelSearchImageButton = (ImageButton) findViewById(R.id.cancel_search_button);
 			cancelSearchImageButton.setOnClickListener(this);
-
 		}
 
 		Log.v(LOG_TAG, "Bye");
@@ -525,10 +529,11 @@ public class NotepadActivity extends ListActivity
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
-		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//		intent.putExtra(Intent.EXTRA_TITLE, "New Note");
-//		intent.putExtra(Intent.EXTRA_TEXT, "This is a text of new note.");
+//		Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
+//		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
+
+		Intent intent = new Intent(this, AddNewNoteActivity.class);
 		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
 
 		Log.v(LOG_TAG, "Bye");
