@@ -13,16 +13,22 @@
 		android:background="#6666"
 	/>
 
-	<TextView
-		style="?attr/editTextLikedTextViewStyle"
-		android:id="@+id/note_template_name_textview"
+	<FrameLayout
+		style="?attr/editTextLikedStyle"
+		android:id="@+id/note_template_name_container"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:layout_weight="0"
-		android:layout_margin="2dip"
-		android:inputType="text"
-		android:hint="@string/template_name"
-	/>
+	>
+		<TextView
+			android:id="@+id/note_template_name_textview"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="0"
+			android:layout_margin="2dip"
+			android:inputType="text"
+			android:hint="@string/template_name"
+		/>
+	</FrameLayout>
 
 	<TextView
 		android:layout_width="fill_parent"
@@ -40,16 +46,22 @@
 		android:layout_margin="2dip"
 		android:orientation="horizontal"
 	>
-		<TextView
-			style="?attr/editTextLikedTextViewStyle"
-			android:id="@+id/note_template_title_textview"
+		<FrameLayout
+			style="?attr/editTextLikedStyle"
+			android:id="@+id/note_template_title_container"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:layout_margin="2dip"
-			android:inputType="text"
-			android:hint="@string/title_template"
-		/>
+		>
+			<TextView
+				android:id="@+id/note_template_title_textview"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_margin="2dip"
+				android:inputType="text"
+				android:hint="@string/title_template"
+			/>
+		</FrameLayout>
 
 		<CheckBox
 			android:id="@+id/note_template_title_lock_checkbox"
@@ -77,17 +89,23 @@
 		android:layout_margin="2dip"
 		android:orientation="horizontal"
 	>
-		<TextView
-			style="?attr/editTextLikedTextViewStyle"
-			android:id="@+id/note_template_content_textview"
+		<FrameLayout
+			style="?attr/editTextLikedStyle"
+			android:id="@+id/note_template_content_container"
 			android:layout_width="wrap_content"
 			android:layout_height="fill_parent"
 			android:layout_weight="1"
-			android:layout_margin="2dip"
-			android:inputType="textMultiLine"
-			android:gravity="left|top"
-			android:hint="@string/text_template"
-		/>
+		>
+			<TextView
+				android:id="@+id/note_template_content_textview"
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent"
+				android:layout_margin="2dip"
+				android:inputType="textMultiLine"
+				android:gravity="left|top"
+				android:hint="@string/text_template"
+			/>
+		</FrameLayout>
 
 		<CheckBox
 			android:id="@+id/note_template_content_lock_checkbox"

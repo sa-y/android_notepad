@@ -83,13 +83,6 @@ public class NoteTemplateDetailActivity extends Activity
 		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 
-		// When software keyboard was displayed, the window is adjust resize.
-//		getWindow().setSoftInputMode(
-//			WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN
-//			| WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-		getWindow().setSoftInputMode(
-			WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED);
-
 		setContentView(R.layout.note_template_detail_activity);
 
 		titleTextView = (TextView) findViewById(R.id.title_textview);
@@ -100,11 +93,14 @@ public class NoteTemplateDetailActivity extends Activity
 		noteTemplateTitleLockedCheckBox = (CheckBox) findViewById(R.id.note_template_title_lock_checkbox);
 		noteTemplateContentLockedCheckBox = (CheckBox) findViewById(R.id.note_template_content_lock_checkbox);
 
-		homeImageButton.setOnClickListener(this);
+		ViewGroup noteTemplateNameContainer = (ViewGroup) findViewById(R.id.note_template_name_container);
+		ViewGroup noteTemplateTitleContainer = (ViewGroup) findViewById(R.id.note_template_title_container);
+		ViewGroup noteTemplateContentContainer = (ViewGroup) findViewById(R.id.note_template_content_container);
 
-		noteTemplateNameTextView.setOnClickListener(this);
-		noteTemplateTitleTextView.setOnClickListener(this);
-		noteTemplateContentTextView.setOnClickListener(this);
+		homeImageButton.setOnClickListener(this);
+		noteTemplateNameContainer.setOnClickListener(this);
+		noteTemplateTitleContainer.setOnClickListener(this);
+		noteTemplateContentContainer.setOnClickListener(this);
 
 		// process intent
 		initWithIntent(savedInstanceState, getIntent());
@@ -224,15 +220,15 @@ public class NoteTemplateDetailActivity extends Activity
 				finish();
 				NotepadActivity.goHomeActivity(this);
 				break;
-			case R.id.note_template_name_textview:
-				Log.d(LOG_TAG, "note_template_name_textview is clicked.");
+			case R.id.note_template_name_container:
+				Log.d(LOG_TAG, "note_template_name_container is clicked.");
 				startEditNameActivity();
 				break;
-			case R.id.note_template_title_textview:
+			case R.id.note_template_title_container:
 				Log.d(LOG_TAG, "note_template_title_textview is clicked.");
 				startEditTitleTemplateActivity();
 				break;
-			case R.id.note_template_content_textview:
+			case R.id.note_template_content_container:
 				Log.d(LOG_TAG, "note_template_content_textview is clicked.");
 				startEditTextTemplateActivity();
 				break;
