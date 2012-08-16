@@ -72,10 +72,14 @@ public class AddNewNoteActivity extends Activity
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-		if (requestCode == REQUEST_CODE_PICK_NOTE_TEMPLATE && resultCode == RESULT_OK)
+		if (requestCode == REQUEST_CODE_PICK_NOTE_TEMPLATE)
 		{
-			Uri noteTemplateUri = data.getData();
-			startNoteDetailActivityWithTemplate(noteTemplateUri);
+			if (resultCode == RESULT_OK)
+			{
+				Uri noteTemplateUri = data.getData();
+				startNoteDetailActivityWithTemplate(noteTemplateUri);
+			}
+			setResult(resultCode);
 			finish();
 		}
 	}
