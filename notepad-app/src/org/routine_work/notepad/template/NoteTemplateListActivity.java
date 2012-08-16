@@ -238,7 +238,7 @@ public class NoteTemplateListActivity extends ListActivity
 
 		ContentResolver cr = getContentResolver();
 		Cursor c = cr.query(NoteStore.NoteTemplate.CONTENT_URI, null, null, null,
-			NoteStore.NoteTemplate.Columns.NAME + " ASC");
+			NoteStore.NoteTemplate.Columns._ID + " ASC");
 		if (c != null && c.moveToFirst())
 		{
 			cursor = c;
