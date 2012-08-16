@@ -49,10 +49,10 @@ public class AddNewNoteActivity extends Activity
 	{
 		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.add_new_note_activity);
+//		setContentView(R.layout.add_new_note_activity);
 
 		int noteTemplateCount = NoteStore.getNoteTemplateCount(getContentResolver());
-		if (noteTemplateCount > 2)
+		if (noteTemplateCount >= 2)
 		{
 			Intent pickNoteTemplateIntent = new Intent(Intent.ACTION_PICK, NoteStore.NoteTemplate.CONTENT_URI);
 			startActivityForResult(pickNoteTemplateIntent, REQUEST_CODE_PICK_NOTE_TEMPLATE);
@@ -62,7 +62,7 @@ public class AddNewNoteActivity extends Activity
 			startNoteDetailActivityWithTemplate(NoteStore.NoteTemplate.CONTENT_URI);
 			finish();
 		}
-		else if (noteTemplateCount == 0)
+		else
 		{
 			startNoteDetailActivity();
 			finish();
