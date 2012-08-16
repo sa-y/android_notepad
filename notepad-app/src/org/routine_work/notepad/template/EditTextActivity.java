@@ -109,6 +109,7 @@ public class EditTextActivity extends Activity
 			mainEditText.setText(text);
 		}
 
+		mainEditText.requestFocus();
 
 		Log.v(LOG_TAG, "Bye");
 	}
