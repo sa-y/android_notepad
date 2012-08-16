@@ -12,17 +12,12 @@
 	>
 		<ImageButton
 			style="@style/actionbar_left_button" 
-			android:id="@+id/home_button"
-			android:src="?attr/ic_home"
+			android:id="@+id/cancel_button"
+			android:src="?attr/ic_clear"
 		/>
 		<TextView
 			style="@style/actionbar_title" 
 			android:id="@+id/title_textview"
-		/>
-		<ImageButton
-			style="@style/actionbar_right_button" 
-			android:id="@+id/cancel_button"
-			android:src="?attr/ic_clear"
 		/>
 		<ImageButton
 			style="@style/actionbar_right_button" 
@@ -37,11 +32,28 @@
 		style="@style/body"
 	>
 		<EditText
-			android:id="@+id/main_edittext"
+			android:id="@+id/singleLine_edittext"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="4dip"
+			android:layout_marginTop="8dip"
+			android:layout_marginRight="4dip"
+			android:layout_marginBottom="8dip"
+			android:inputType="text"
+			android:gravity="left"
+			android:visibility="visible"
+		/>
+		<EditText
+			android:id="@+id/multiLine_edittext"
 			android:layout_width="fill_parent"
 			android:layout_height="fill_parent"
-			android:inputType="text"
+			android:layout_marginLeft="4dip"
+			android:layout_marginTop="4dip"
+			android:layout_marginRight="4dip"
+			android:layout_marginBottom="4dip"
+			android:inputType="textMultiLine"
 			android:gravity="left|top"
+			android:visibility="gone"
 		/>
 	</FrameLayout>
 

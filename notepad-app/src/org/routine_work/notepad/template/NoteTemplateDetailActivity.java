@@ -230,11 +230,11 @@ public class NoteTemplateDetailActivity extends Activity
 				break;
 			case R.id.note_template_title_textview:
 				Log.d(LOG_TAG, "note_template_title_textview is clicked.");
-				startEditTitleActivity();
+				startEditTitleTemplateActivity();
 				break;
 			case R.id.note_template_content_textview:
 				Log.d(LOG_TAG, "note_template_content_textview is clicked.");
-				startEditTextActivity();
+				startEditTextTemplateActivity();
 				break;
 		}
 
@@ -534,25 +534,28 @@ public class NoteTemplateDetailActivity extends Activity
 	private void startEditNameActivity()
 	{
 		Intent intent = new Intent(this, EditTextActivity.class);
-		intent.putExtra(Intent.EXTRA_TITLE, "Edit Template Name");
+		String title = getString(R.string.template_name);
+		intent.putExtra(Intent.EXTRA_TITLE, title);
 		intent.putExtra(Intent.EXTRA_TEXT, noteTemplateNameTextView.getText().toString());
 		startActivityForResult(intent, REQUEST_CODE_EDIT_TEMPLATE_NAME);
 	}
 
-	private void startEditTitleActivity()
+	private void startEditTitleTemplateActivity()
 	{
 		Intent intent = new Intent(this, EditTextActivity.class);
-		intent.putExtra(Intent.EXTRA_TITLE, "Edit Template Title");
+		String title = getString(R.string.title_template);
+		intent.putExtra(Intent.EXTRA_TITLE, title);
 		intent.putExtra(Intent.EXTRA_TEXT, noteTemplateTitleTextView.getText().toString());
 		startActivityForResult(intent, REQUEST_CODE_EDIT_TEMPLATE_TITLE);
 	}
 
-	private void startEditTextActivity()
+	private void startEditTextTemplateActivity()
 	{
 		Intent intent = new Intent(this, EditTextActivity.class);
-		intent.putExtra(Intent.EXTRA_TITLE, "Edit Template Text");
+		String title = getString(R.string.text_template);
+		intent.putExtra(Intent.EXTRA_TITLE, title);
 		intent.putExtra(Intent.EXTRA_TEXT, noteTemplateContentTextView.getText().toString());
-		intent.putExtra(EditTextActivity.EXTRA_INPUT_TYPE, InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+		intent.putExtra(EditTextActivity.EXTRA_INPUT_TYPE, InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
 		startActivityForResult(intent, REQUEST_CODE_EDIT_TEMPLATE_TEXT);
 	}
 }

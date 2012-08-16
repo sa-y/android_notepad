@@ -33,7 +33,6 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.utils.Log;
@@ -62,22 +61,45 @@ public class EditTextActivity extends Activity
 			| WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 		setContentView(R.layout.edit_text_activity);
 
-		mainEditText = (EditText) findViewById(R.id.main_edittext);
-		ImageButton homeImageButton = (ImageButton) findViewById(R.id.home_button);
+		EditText singleLineEditText = (EditText) findViewById(R.id.singleLine_edittext);
+		EditText multiLineEditText = (EditText) findViewById(R.id.multiLine_edittext);
 		ImageButton cancelImageButton = (ImageButton) findViewById(R.id.cancel_button);
 		ImageButton okImageButton = (ImageButton) findViewById(R.id.ok_button);
 
-		homeImageButton.setOnClickListener(this);
 		cancelImageButton.setOnClickListener(this);
 		okImageButton.setOnClickListener(this);
 
 		Intent intent = getIntent();
+
+		int defaultInputType = singleLineEditText.getInputType();
+		int inputType = intent.getIntExtra(EXTRA_INPUT_TYPE, defaultInputType);
+		Log.v(LOG_TAG, "EXTRA_INPUT_TYPE => " + inputType);
+		if (((inputType & InputType.TYPE_TEXT_FLAG_MULTI_LINE) != 0)
+			|| ((inputType & InputType.TYPE_TEXT_FLAG_IME_MULTI_LINE) != 0))
+		{
+			mainEditText = multiLineEditText;
+			singleLineEditText.setVisibility(View.GONE);
+			multiLineEditText.setVisibility(View.VISIBLE);
+		}
+		else
+		{
+			mainEditText = singleLineEditText;
+			singleLineEditText.setVisibility(View.VISIBLE);
+			multiLineEditText.setVisibility(View.GONE);
+		}
+
+		if (inputType != mainEditText.getInputType())
+		{
+			mainEditText.setInputType(inputType);
+		}
+
 		String title = intent.getStringExtra(Intent.EXTRA_TITLE);
 		Log.v(LOG_TAG, "EXTRA_TITLE => " + title);
 		if (!TextUtils.isEmpty(title))
 		{
 			TextView titleTextView = (TextView) findViewById(R.id.title_textview);
 			titleTextView.setText(title);
+			mainEditText.setHint(title);
 		}
 
 		String text = intent.getStringExtra(Intent.EXTRA_TEXT);
@@ -87,13 +109,6 @@ public class EditTextActivity extends Activity
 			mainEditText.setText(text);
 		}
 
-		int defaultInputType = mainEditText.getInputType();
-		int inputType = intent.getIntExtra(EXTRA_INPUT_TYPE, defaultInputType);
-		Log.v(LOG_TAG, "EXTRA_INPUT_TYPE => " + inputType);
-		if (inputType != defaultInputType)
-		{
-			mainEditText.setInputType(inputType);
-		}
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -102,10 +117,6 @@ public class EditTextActivity extends Activity
 	{
 		switch (v.getId())
 		{
-			case R.id.home_button:
-				NotepadActivity.goHomeActivity(this);
-				finish();
-				break;
 			case R.id.ok_button:
 				Intent okData = new Intent();
 				okData.putExtra(Intent.EXTRA_TEXT, mainEditText.getText().toString());

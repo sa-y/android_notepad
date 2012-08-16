@@ -8,6 +8,7 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_weight="0"
+		android:paddingLeft="4dip"
 		android:text="@string/name"
 		android:background="#6666"
 	/>
@@ -27,6 +28,7 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_weight="0"
+		android:paddingLeft="4dip"
 		android:text="@string/title"
 		android:background="#6666"
 	/>
@@ -63,6 +65,7 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_weight="0"
+		android:paddingLeft="4dip"
 		android:text="@string/text"
 		android:background="#6666"
 	/>
