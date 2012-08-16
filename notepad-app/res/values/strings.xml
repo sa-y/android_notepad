@@ -4,6 +4,7 @@
 
 	<string name="quit">Quit</string>
 
+	<string name="note">Note</string>
 	<string name="no_note">No Note</string>
 
 	<string name="title">Title</string>
@@ -11,6 +12,7 @@
 	<string name="lock">Lock</string>
 	<string name="name">Name</string>
 
+	<string name="note_template">Note Template</string>
 	<string name="no_note_template">No Note Template</string>
 	<string name="template_name">Template Name</string>
 	<string name="title_template">Title Template</string>

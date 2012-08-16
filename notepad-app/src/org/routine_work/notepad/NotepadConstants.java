@@ -42,6 +42,7 @@ public interface NotepadConstants
 	String ACTION_QUIT = NotepadConstants.class.getPackage().getName() + ".QUIT";
 	String EXTRA_TITLE_LOCKED = NotepadConstants.class.getPackage().getName() + ".EXTRA_TITLE_LOCKED";
 	String EXTRA_CONTENT_LOCKED = NotepadConstants.class.getPackage().getName() + ".EXTRA_CONTENT_LOCKED";
+	String EXTRA_NOTE_TEMPLATE = NotepadConstants.class.getPackage().getName() + ".EXTRA_NOTE_TEMPLATE";
 	String[] NOTE_LIST_MAPPING_FROM =
 	{
 		NoteStore.Note.Columns.TITLE,

@@ -35,38 +35,60 @@ import android.text.format.DateFormat;
 import java.util.Date;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
+import org.routine_work.utils.Log;
 
 /**
  *
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
-public class AddNewNoteActivity extends Activity
-	implements NotepadConstants
+public class AddNewNoteActivity extends Activity implements NotepadConstants
 {
+
+	private static final String LOG_TAG = "simple-notepad";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
+		Log.v(LOG_TAG, "Hello");
 		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
-//		setContentView(R.layout.add_new_note_activity);
+		setContentView(R.layout.add_new_note_activity);
 
-		int noteTemplateCount = NoteStore.getNoteTemplateCount(getContentResolver());
-		if (noteTemplateCount >= 2)
+		// initialize noteTemplateUri
+		Uri noteTemplateUri = null;
+		Intent intent = getIntent();
+		if (Intent.ACTION_INSERT.equals(intent.getAction()))
 		{
-			Intent pickNoteTemplateIntent = new Intent(Intent.ACTION_PICK, NoteStore.NoteTemplate.CONTENT_URI);
-			startActivityForResult(pickNoteTemplateIntent, REQUEST_CODE_PICK_NOTE_TEMPLATE);
+			noteTemplateUri = intent.getData();
 		}
-		else if (noteTemplateCount == 1)
+		Log.d(LOG_TAG, "noteTemplateUri => " + noteTemplateUri);
+
+		// create note or select template
+		if (noteTemplateUri != null)
 		{
-			startNoteDetailActivityWithTemplate(NoteStore.NoteTemplate.CONTENT_URI);
+			startNoteDetailActivityWithTemplate(noteTemplateUri);
 			finish();
 		}
 		else
 		{
-			startNoteDetailActivity();
-			finish();
+			int noteTemplateCount = NoteStore.getNoteTemplateCount(getContentResolver());
+			if (noteTemplateCount >= 2)
+			{
+				Intent pickNoteTemplateIntent = new Intent(Intent.ACTION_PICK, NoteStore.NoteTemplate.CONTENT_URI);
+				startActivityForResult(pickNoteTemplateIntent, REQUEST_CODE_PICK_NOTE_TEMPLATE);
+			}
+			else if (noteTemplateCount == 1)
+			{
+				startNoteDetailActivityWithTemplate(NoteStore.NoteTemplate.CONTENT_URI);
+				finish();
+			}
+			else
+			{
+				startNoteDetailActivity();
+				finish();
+			}
 		}
+		Log.v(LOG_TAG, "Bye");
 	}
 
 	@Override
@@ -86,6 +108,7 @@ public class AddNewNoteActivity extends Activity
 
 	private void startNoteDetailActivityWithTemplate(Uri noteTemplateUri)
 	{
+		Log.v(LOG_TAG, "Hello");
 		Cursor cursor = getContentResolver().query(noteTemplateUri,
 			null, null, null, null);
 		try
@@ -135,18 +158,22 @@ public class AddNewNoteActivity extends Activity
 				cursor.close();
 			}
 		}
+		Log.v(LOG_TAG, "Bye");
 	}
 
 	private void startNoteDetailActivity()
 	{
+		Log.v(LOG_TAG, "Hello");
 		Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
+		Log.v(LOG_TAG, "Bye");
 	}
 
 	private Uri searchNoteByTitle(String title)
 	{
 		Uri result = null;
+		Log.v(LOG_TAG, "Hello");
 
 		if (!TextUtils.isEmpty(title))
 		{
@@ -176,6 +203,7 @@ public class AddNewNoteActivity extends Activity
 			}
 		}
 
+		Log.v(LOG_TAG, "Bye");
 		return result;
 	}
 }

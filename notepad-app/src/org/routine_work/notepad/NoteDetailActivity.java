@@ -461,7 +461,7 @@ public class NoteDetailActivity extends Activity
 			newAction = Intent.ACTION_EDIT;
 			setEditable(true);
 
-			if (TextUtils.isEmpty(extraText))
+			if (TextUtils.isEmpty(extraTitle))
 			{
 				noteTitleEditText.requestFocus();
 			}

@@ -38,7 +38,7 @@ import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.utils.Log;
 
-public class CreateNoteShortcutActivity extends Activity
+public class CreateNoteTemplateShortcutActivity extends Activity
 	implements View.OnClickListener, NotepadConstants
 {
 
@@ -49,7 +49,7 @@ public class CreateNoteShortcutActivity extends Activity
 		Log.setOutputLevel(Log.VERBOSE);
 		Log.setTraceMode(true);
 	}
-	private Uri noteUri;
+	private Uri noteTemplateUri;
 	// views
 	private EditText shortcutNameEditText;
 
@@ -74,7 +74,7 @@ public class CreateNoteShortcutActivity extends Activity
 		okButton.setOnClickListener(this);
 
 		// pick note
-		startPickNoteActivity();
+		startPickNoteTemplateActivity();
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -104,11 +104,11 @@ public class CreateNoteShortcutActivity extends Activity
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-		if (requestCode == REQUEST_CODE_PICK_NOTE)
+		if (requestCode == REQUEST_CODE_PICK_NOTE_TEMPLATE)
 		{
 			if (resultCode == RESULT_OK)
 			{
-				noteUri = data.getData();
+				noteTemplateUri = data.getData();
 				loadShortcutName();
 			}
 			else
@@ -122,24 +122,24 @@ public class CreateNoteShortcutActivity extends Activity
 	private void loadShortcutName()
 	{
 		Log.v(LOG_TAG, "Hello");
-		Log.v(LOG_TAG, "noteUri => " + noteUri);
-		if (noteUri != null)
+		Log.v(LOG_TAG, "noteTemplateUri => " + noteTemplateUri);
+		if (noteTemplateUri != null)
 		{
 			ContentResolver contentResolver = getContentResolver();
-			Cursor cursor = contentResolver.query(noteUri, null, null, null, null);
+			Cursor cursor = contentResolver.query(noteTemplateUri, null, null, null, null);
 			if (cursor != null)
 			{
 				try
 				{
 					if (cursor.moveToFirst())
 					{
-						int titleIndex = cursor.getColumnIndex(NoteStore.Note.Columns.TITLE);
-						String noteTitle = cursor.getString(titleIndex);
-						Log.d(LOG_TAG, "noteTitle => " + noteTitle);
+						int nameIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.NAME);
+						String templateName = cursor.getString(nameIndex);
+						Log.d(LOG_TAG, "templateName => " + templateName);
 
-						if (noteTitle != null)
+						if (templateName != null)
 						{
-							shortcutNameEditText.setText(noteTitle);
+							shortcutNameEditText.setText(templateName);
 						}
 					}
 				}
@@ -153,13 +153,12 @@ public class CreateNoteShortcutActivity extends Activity
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void startPickNoteActivity()
+	private void startPickNoteTemplateActivity()
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		Intent intent = new Intent(Intent.ACTION_PICK);
-		intent.setType(NoteStore.Note.NOTE_ITEM_CONTENT_TYPE);
-		startActivityForResult(intent, REQUEST_CODE_PICK_NOTE);
+		Intent intent = new Intent(Intent.ACTION_PICK, NoteStore.NoteTemplate.CONTENT_URI);
+		startActivityForResult(intent, REQUEST_CODE_PICK_NOTE_TEMPLATE);
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -168,17 +167,17 @@ public class CreateNoteShortcutActivity extends Activity
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		if (noteUri != null)
+		if (noteTemplateUri != null)
 		{
-			String title = shortcutNameEditText.getText().toString();
-			Intent editNoteIntent = new Intent(Intent.ACTION_EDIT, noteUri);
+			String shortcutName = shortcutNameEditText.getText().toString();
+			Intent addOrEditNoteWithTemplateIntent = new Intent(Intent.ACTION_INSERT, noteTemplateUri);
 
 			Intent.ShortcutIconResource shortcutIconResource = Intent.ShortcutIconResource.fromContext(this, R.drawable.ic_launcher_notepad);
 
 			Intent resultIntent = new Intent();
-			resultIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, editNoteIntent);
+			resultIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, addOrEditNoteWithTemplateIntent);
 			resultIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, shortcutIconResource);
-			resultIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, title);
+			resultIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, shortcutName);
 			setResult(Activity.RESULT_OK, resultIntent);
 			finish();
 		}

@@ -51,7 +51,15 @@
 
 		<activity android:name=".DeleteNotesActivity" />
 
-		<activity android:name=".AddNewNoteActivity" />
+		<activity
+			android:name=".AddNewNoteActivity"
+		>
+			<intent-filter>
+				<action android:name="android.intent.action.INSERT" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<data android:mimeType="vnd.android.cursor.item/vnd.routine_work.notetemplate" />
+			</intent-filter>
+		</activity>
 
 		<activity
 			android:name=".NoteDetailActivity"
@@ -114,7 +122,20 @@
 		<activity android:name=".template.EditTextActivity" />
 
 		<!-- Create Shortcut -->
-		<activity android:name=".shortcut.CreateNoteShortcutActivity" >
+		<activity 
+			android:name=".shortcut.CreateNoteShortcutActivity"
+			android:label="@string/note"
+		>
+			<intent-filter>
+				<action android:name="android.intent.action.CREATE_SHORTCUT" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+
+		<activity 
+			android:name=".shortcut.CreateNoteTemplateShortcutActivity"
+			android:label="@string/note_template"
+		>
 			<intent-filter>
 				<action android:name="android.intent.action.CREATE_SHORTCUT" />
 				<category android:name="android.intent.category.DEFAULT" />
