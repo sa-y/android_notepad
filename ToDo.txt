@@ -200,8 +200,9 @@
 
 !! notepad-app-level-11
 
-* テンプレートデータ初期化処理を作成
-** IntentService として実装
+#* ノートのテンプレートデータを初期化する処理を実装
+#** IntentService として実装
+#   -> NoteTemplateInitializer
 
 #* ノート詳細画面の ACTION_EDIT 時のノート存在チェック処理のバグを修正
 #** 再現手順
