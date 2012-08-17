@@ -42,6 +42,7 @@
 		<activity
 			android:name=".EditDailyNoteActivity"
 			android:label="@string/daily_note"
+			android:icon="@drawable/ic_launcher_notepad_add"
 		>
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
@@ -125,6 +126,7 @@
 		<activity 
 			android:name=".shortcut.CreateNoteShortcutActivity"
 			android:label="@string/note"
+			android:icon="@drawable/ic_launcher_notepad_edit"
 		>
 			<intent-filter>
 				<action android:name="android.intent.action.CREATE_SHORTCUT" />
@@ -135,6 +137,7 @@
 		<activity 
 			android:name=".shortcut.CreateNoteTemplateShortcutActivity"
 			android:label="@string/note_template"
+			android:icon="@drawable/ic_launcher_notepad_add"
 		>
 			<intent-filter>
 				<action android:name="android.intent.action.CREATE_SHORTCUT" />

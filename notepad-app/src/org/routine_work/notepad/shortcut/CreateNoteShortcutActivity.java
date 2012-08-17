@@ -173,7 +173,7 @@ public class CreateNoteShortcutActivity extends Activity
 			String title = shortcutNameEditText.getText().toString();
 			Intent editNoteIntent = new Intent(Intent.ACTION_EDIT, noteUri);
 
-			Intent.ShortcutIconResource shortcutIconResource = Intent.ShortcutIconResource.fromContext(this, R.drawable.ic_launcher_notepad);
+			Intent.ShortcutIconResource shortcutIconResource = Intent.ShortcutIconResource.fromContext(this, R.drawable.ic_launcher_notepad_edit);
 
 			Intent resultIntent = new Intent();
 			resultIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, editNoteIntent);
