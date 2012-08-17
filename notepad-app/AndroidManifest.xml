@@ -12,9 +12,10 @@
 		android:label="@string/app_name"
 		android:theme="@style/Theme.Notepad.Dark"
 		android:icon="@drawable/ic_launcher_notepad"
+		android:debuggable="true"
 	>
 
-		<!-- Notes -->
+		<!-- Activity : Notes -->
 		<activity
 			android:name=".NotepadActivity"
 			android:launchMode="singleTop"
@@ -55,6 +56,7 @@
 
 		<activity
 			android:name=".NoteDetailActivity"
+			android:label="@string/view_note_title"
 			android:launchMode="singleTop"
 		>
 			<intent-filter>
@@ -70,6 +72,7 @@
 				<category android:name="android.intent.category.DEFAULT" />
 				<data android:mimeType="vnd.android.cursor.dir/vnd.routine_work.note" />
 			</intent-filter>
+
 		</activity>
 
 		<activity
@@ -83,7 +86,7 @@
 			</intent-filter>
 		</activity>
 
-		<!-- Note Templates -->
+		<!-- Activity : Note Templates -->
 		<activity
 			android:name=".template.NoteTemplateListActivity"
 			android:label="@string/note_template_list_title"
@@ -116,7 +119,7 @@
 
 		<activity android:name=".template.EditTextActivity" />
 
-		<!-- Create Shortcut -->
+		<!-- Activity : Create Shortcut -->
 		<activity 
 			android:name=".shortcut.CreateNoteShortcutActivity"
 			android:icon="@drawable/ic_launcher_notepad_edit"
@@ -149,23 +152,27 @@
 			</intent-filter>
 		</activity>
 
-		<!-- Preferences -->
-		<activity android:name=".prefs.NotepadPreferenceActivity"
-				  android:label="@string/preferences_title"
+		<!-- Activity : Preferences -->
+		<activity
+			android:name=".prefs.NotepadPreferenceActivity"
+			android:label="@string/preferences_title"
 		/>
 
-		<activity android:name=".prefs.InitializePreferenceActivity" 
-				  android:label="@string/initialize_preference_title"
-				  android:theme="@android:style/Theme.Dialog"
-		/>
-		<activity android:name=".prefs.AboutAppActivity" 
-				  android:label="@string/about_app_title"
+		<activity
+			android:name=".prefs.InitializePreferenceActivity" 
+			android:label="@string/initialize_preference_title"
+			android:theme="@android:style/Theme.Dialog"
 		/>
 
-		<!-- notes content provider -->
+		<activity
+			android:name=".prefs.AboutAppActivity" 
+			android:label="@string/about_app_title"
+		/>
+
+		<!-- Service : data initialize service -->
 		<service android:name=".template.NoteTemplateInitializer" />
 
-		<!-- notes content provider -->
+		<!-- Provider : Notes & Templates Content Provider  -->
 		<provider
 			android:name=".provider.NoteProvider"
 			android:authorities="org.routine_work.notepad.noteprovider"

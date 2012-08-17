@@ -117,9 +117,6 @@ public class NotepadActivity extends ListActivity
 		context.startActivity(quitIntent);
 	}
 
-	/**
-	 * Called when the activity is first created.
-	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{

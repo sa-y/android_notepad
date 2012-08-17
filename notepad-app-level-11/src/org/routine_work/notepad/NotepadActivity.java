@@ -52,6 +52,7 @@ import org.routine_work.notepad.fragment.ViewNoteFragment;
 import org.routine_work.notepad.prefs.NotepadPreferenceActivity;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
+import org.routine_work.notepad.template.NoteTemplateInitializer;
 import org.routine_work.notepad.utils.NoteSearchQueryParser;
 import org.routine_work.utils.IMEUtils;
 import org.routine_work.utils.Log;
@@ -110,6 +111,15 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.notepad_activity);
 
+		int noteTemplateCount = NoteStore.getNoteTemplateCount(getContentResolver());
+		Log.d(LOG_TAG, "noteTemplateCount => " + noteTemplateCount);
+		if (noteTemplateCount == 0)
+		{
+			Log.d(LOG_TAG, "start NoteTemplateInitializer");
+			Intent noteTeplateInitializerIntent = new Intent(this, NoteTemplateInitializer.class);
+			startService(noteTeplateInitializerIntent);
+		}
+
 		Resources resources = getResources();
 		layoutSinglePaneValue = resources.getString(R.string.note_list_layout_single_value);
 		layoutWideTwoPaneValue = resources.getString(R.string.note_list_layout_wide_two_value);
@@ -122,7 +132,6 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		layoutTransition.setDuration(LayoutTransition.APPEARING, 300);
 		LinearLayout noteDetailContainer = (LinearLayout) findViewById(R.id.note_detail_container);
 		noteDetailContainer.setLayoutTransition(layoutTransition);
-
 
 		initializeWithIntent(getIntent());
 

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- notepad-app -->
 <resources>
 	<string name="app_name">Notepad</string>
 
@@ -6,7 +7,6 @@
 
 	<string name="note">Note</string>
 	<string name="no_note">No Note</string>
-
 	<string name="title">Title</string>
 	<string name="text">Text</string>
 	<string name="lock">Lock</string>
