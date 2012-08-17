@@ -42,6 +42,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
@@ -201,7 +202,16 @@ public class NoteTemplateListActivity extends ListActivity
 		}
 		else if (Intent.ACTION_PICK.equals(currentAction))
 		{
+			homeButton.setVisibility(View.GONE);
 			addNewNoteTemplateImageButton.setVisibility(View.GONE);
+
+			String title = intent.getStringExtra(Intent.EXTRA_TITLE);
+			if (title == null)
+			{
+				title = getString(R.string.select_note_template_title);
+			}
+			TextView titleTextView = (TextView) findViewById(R.id.title_textview);
+			titleTextView.setText(title);
 		}
 
 

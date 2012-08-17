@@ -130,7 +130,6 @@
 		<!-- Create Shortcut -->
 		<activity 
 			android:name=".shortcut.CreateNoteShortcutActivity"
-			android:label="@string/note"
 			android:icon="@drawable/ic_launcher_notepad_edit"
 		>
 			<intent-filter>
@@ -141,7 +140,7 @@
 
 		<activity 
 			android:name=".shortcut.CreateNoteTemplateShortcutActivity"
-			android:label="@string/note_template"
+			android:label="@string/new_from_template_title"
 			android:icon="@drawable/ic_launcher_notepad_add"
 		>
 			<intent-filter>

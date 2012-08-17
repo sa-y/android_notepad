@@ -13,6 +13,7 @@
 		/>
 		<TextView
 			style="@style/actionbar_title" 
+			android:id="@+id/title_textview"
 			android:text="@string/note_template_list_title"
 		/>
 		<ImageButton
