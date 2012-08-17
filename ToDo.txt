@@ -34,10 +34,6 @@
 ** テンプレートを選択して新規ノートを作成するショートカットを作成する機能
 ** AddNewNoteActivity を直接呼び出す
 
-* ランチャーアイコンを追加
-** ic_launcher_edit_note
-** ic_launcher_add_note
-
 * テンプレートから新規ノート作成のショートカット作成画面
 ** 特定のテンプレートから新規ノートを作成するショートカットを作成する機能
    -> CreateNoteTemplateShortcut
@@ -142,8 +138,8 @@
 #** AddNewNoteActivity を直接呼び出す
 
 #* ランチャーアイコンを作成
-#** ic_launcher_edit_note
-#** ic_launcher_add_note
+#** ic_launcher_notepad_edit
+#** ic_launcher_notepad_add
 
 #* テンプレートから新規ノート作成のショートカット作成画面
 #** 特定のテンプレートから新規ノートを作成するショートカットを作成する機能
@@ -213,6 +209,10 @@
 #*** NoteDetailActivity を修正
 
 !! notepad-app-level-11
+
+#* ランチャーアイコンを追加
+#** ic_launcher_notepad_edit
+#** ic_launcher_notepad_add
 
 #* Theme.Holo.Light ベースのテーマを追加
 #* 設定:テーマ選択
