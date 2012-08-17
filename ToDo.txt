@@ -3,13 +3,6 @@
 #############################
 !! notepad-app
 
-* ランチャーアイコンを作成
-** ic_launcher_edit_note
-** ic_launcher_add_note
-
-#* テンプレートから新規ノート作成のショートカット作成画面
-#** 特定のテンプレートから新規ノートを作成するショートカットを作成する機能
-#   -> CreateNoteTemplateShortcut
 
 * EditDailyActivity を削除
 
@@ -108,6 +101,14 @@
 ! 0.1.5
 
 !! notepad-app
+
+#* ランチャーアイコンを作成
+#** ic_launcher_edit_note
+#** ic_launcher_add_note
+
+#* テンプレートから新規ノート作成のショートカット作成画面
+#** 特定のテンプレートから新規ノートを作成するショートカットを作成する機能
+#   -> CreateNoteTemplateShortcut
 
 #* ショートカット作成アクティビティを別パッケージに分離
 
