@@ -214,10 +214,6 @@
 #** notepad-app-level-11 でも再現した
 #   -> 修正
 
-#* Uri タイプチェックユーティリティをリファクタリング
-#** 旧 : NoteDetailActivity#isNoteItemUri(Uri uri) : boolean 
-#** 新 : NoteStore.isNoteItemUri(Context context, Uri uri) : boolean 
-
 #* ランチャーアイコンを追加
 #** ic_launcher_notepad_edit
 #** ic_launcher_notepad_add
@@ -260,6 +256,10 @@
 #* ショートカット作成時に PickNoteActivity を開いた際にタイトルが表示されないバグ
 
 !! notepad-common
+
+#* Uri タイプチェックユーティリティをリファクタリング
+#** 旧 : NoteDetailActivity#isNoteItemUri(Uri uri) : boolean 
+#** 新 : NoteStore.isNoteItemUri(Context context, Uri uri) : boolean 
 
 #* Content Provider のノートテンプレートに名前のカラムを追加
 
