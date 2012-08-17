@@ -247,16 +247,19 @@ public class NoteDetailActivity extends Activity
 				Uri nextNoteUri = data;
 				Log.d(LOG_TAG, "Edit nextNoteUri => " + nextNoteUri);
 
-				if (NoteStore.exist(getContentResolver(), nextNoteUri))
+				if (NoteStore.isNoteItemUri(this, nextNoteUri))
 				{
-					editNoteFragment.setNoteUri(nextNoteUri);
-				}
-				else
-				{
-					Toast.makeText(this, R.string.note_not_exist, Toast.LENGTH_LONG).show();
-					NotepadActivity.goHomeActivity(this);
-					finish();
-					return;
+					if (NoteStore.exist(getContentResolver(), nextNoteUri))
+					{
+						editNoteFragment.setNoteUri(nextNoteUri);
+					}
+					else
+					{
+						Toast.makeText(this, R.string.note_not_exist, Toast.LENGTH_LONG).show();
+						NotepadActivity.goHomeActivity(this);
+						finish();
+						return;
+					}
 				}
 				setTitle(R.string.edit_note_title);
 			}
@@ -287,17 +290,21 @@ public class NoteDetailActivity extends Activity
 			}
 			Log.d(LOG_TAG, "Delete nextNoteUri => " + nextNoteUri);
 
-			if (NoteStore.exist(getContentResolver(), nextNoteUri))
+			if (NoteStore.isNoteItemUri(this, nextNoteUri) == false)
 			{
-				deleteNoteFragment.setNoteUri(nextNoteUri);
+				Toast.makeText(this, R.string.note_not_specified, Toast.LENGTH_LONG).show();
+				finish();
+				return;
 			}
-			else
+
+			if (NoteStore.exist(getContentResolver(), nextNoteUri) == false)
 			{
 				Toast.makeText(this, R.string.note_not_exist, Toast.LENGTH_LONG).show();
 				finish();
 				return;
 			}
 
+			deleteNoteFragment.setNoteUri(nextNoteUri);
 			setTitle(R.string.delete_note_title);
 		}
 		currentAction = nextAction;

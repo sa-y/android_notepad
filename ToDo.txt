@@ -49,12 +49,7 @@
 * テンプレートデータ初期化処理を作成
 ** IntentService として実装
 
-* ノート詳細画面の ACTION_EDIT 時のノート存在チェック処理のバグを修正
-** 再現手順
-*** ノートが存在しない状態
-*** ノート新規作成
-*** 編集せずに画面を回転
-*** 「The specified note does not exist.」と表示されてアクティビティが終了
+
 
 * フルスクリーンテキスト編集画面作成(EditTextActivity)
 
@@ -209,6 +204,19 @@
 #*** NoteDetailActivity を修正
 
 !! notepad-app-level-11
+
+#* ノート詳細画面の ACTION_EDIT 時のノート存在チェック処理のバグを修正
+#** 再現手順
+#*** ノートが存在しない状態
+#*** ノート新規作成
+#*** 編集せずに画面を回転
+#*** 「The specified note does not exist.」と表示されてアクティビティが終了
+#** notepad-app-level-11 でも再現した
+#   -> 修正
+
+#* Uri タイプチェックユーティリティをリファクタリング
+#** 旧 : NoteDetailActivity#isNoteItemUri(Uri uri) : boolean 
+#** 新 : NoteStore.isNoteItemUri(Context context, Uri uri) : boolean 
 
 #* ランチャーアイコンを追加
 #** ic_launcher_notepad_edit

@@ -473,7 +473,7 @@ public class NoteDetailActivity extends Activity
 		else if (Intent.ACTION_EDIT.equals(newAction))
 		{
 			Log.d(LOG_TAG, "ACTION_EDIT");
-			if (isNoteItemUri(newNoteUri))
+			if (NoteStore.isNoteItemUri(this, newNoteUri))
 			{
 				if (NoteStore.exist(getContentResolver(), newNoteUri))
 				{
@@ -499,14 +499,14 @@ public class NoteDetailActivity extends Activity
 		else if (Intent.ACTION_VIEW.equals(newAction))
 		{
 			Log.d(LOG_TAG, "ACTION_VIEW");
-			if (newNoteUri == null)
+			if (NoteStore.isNoteItemUri(this, newNoteUri) == false)
 			{
 				Toast.makeText(this, R.string.note_not_specified, Toast.LENGTH_LONG).show();
 				finish();
 				return;
 			}
-			else if (isNoteItemUri(newNoteUri)
-				&& (NoteStore.exist(getContentResolver(), newNoteUri) == false))
+
+			if (NoteStore.exist(getContentResolver(), newNoteUri) == false)
 			{
 				Toast.makeText(this, R.string.note_not_exist, Toast.LENGTH_LONG).show();
 				finish();
@@ -525,12 +525,13 @@ public class NoteDetailActivity extends Activity
 		}
 		else if (Intent.ACTION_DELETE.equals(newAction))
 		{
-			if (newNoteUri == null)
+			if (NoteStore.isNoteItemUri(this, newNoteUri) == false)
 			{
 				Toast.makeText(this, R.string.note_not_specified, Toast.LENGTH_LONG).show();
 				finish();
 				return;
 			}
+
 			if (NoteStore.exist(getContentResolver(), newNoteUri) == false)
 			{
 				Toast.makeText(this, R.string.note_not_exist, Toast.LENGTH_LONG).show();
@@ -650,7 +651,7 @@ public class NoteDetailActivity extends Activity
 			String noteContent = noteContentEditText.getText().toString();
 
 			ContentResolver contentResolver = getContentResolver();
-			if (isNoteItemUri(currentNoteUri))
+			if (NoteStore.isNoteItemUri(this, currentNoteUri))
 			{
 				// Update
 				int updatedCount = NoteStore.updateNote(contentResolver, currentNoteUri, noteTitle, noteContent);
@@ -677,7 +678,7 @@ public class NoteDetailActivity extends Activity
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		if (isNoteItemUri(currentNoteUri))
+		if (NoteStore.isNoteItemUri(this, currentNoteUri))
 		{
 			ContentResolver contentResolver = getContentResolver();
 			int deletedCount = contentResolver.delete(currentNoteUri, null, null);
@@ -705,7 +706,7 @@ public class NoteDetailActivity extends Activity
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		if (isNoteItemUri(currentNoteUri))
+		if (NoteStore.isNoteItemUri(this, currentNoteUri))
 		{
 			Intent intent = new Intent(Intent.ACTION_EDIT, currentNoteUri);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -720,7 +721,7 @@ public class NoteDetailActivity extends Activity
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		if (isNoteItemUri(currentNoteUri))
+		if (NoteStore.isNoteItemUri(this, currentNoteUri))
 		{
 			Intent intent = new Intent(Intent.ACTION_DELETE, currentNoteUri);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -729,27 +730,5 @@ public class NoteDetailActivity extends Activity
 		}
 
 		Log.v(LOG_TAG, "Bye");
-	}
-
-	private boolean isNoteItemUri(Uri uri)
-	{
-		boolean result = false;
-		Log.v(LOG_TAG, "Hello");
-		Log.d(LOG_TAG, "uri => " + uri);
-
-		if (uri != null)
-		{
-			ContentResolver contentResolver = getContentResolver();
-			String type = contentResolver.getType(uri);
-			Log.v(LOG_TAG, "uri.type => " + type);
-			if (NoteStore.Note.NOTE_ITEM_CONTENT_TYPE.equals(type))
-			{
-				result = true;
-			}
-		}
-
-		Log.d(LOG_TAG, "result => " + result);
-		Log.v(LOG_TAG, "Bye");
-		return result;
 	}
 }

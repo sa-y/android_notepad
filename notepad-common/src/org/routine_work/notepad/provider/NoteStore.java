@@ -107,6 +107,28 @@ public class NoteStore
 		return result;
 	}
 
+	public static boolean isNoteItemUri(Context context, Uri uri)
+	{
+		boolean result = false;
+		Log.v(LOG_TAG, "Hello");
+		Log.d(LOG_TAG, "uri => " + uri);
+
+		if (uri != null)
+		{
+			ContentResolver contentResolver = context.getContentResolver();
+			String type = contentResolver.getType(uri);
+			Log.v(LOG_TAG, "uri.type => " + type);
+			if (NoteStore.Note.NOTE_ITEM_CONTENT_TYPE.equals(type))
+			{
+				result = true;
+			}
+		}
+
+		Log.d(LOG_TAG, "result => " + result);
+		Log.v(LOG_TAG, "Bye");
+		return result;
+	}
+
 	public static Uri insertNote(ContentResolver cr, String title, String content)
 	{
 		Log.v(LOG_TAG, "Hello");
