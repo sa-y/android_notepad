@@ -4,6 +4,7 @@
 	<string name="app_name">Notepad</string>
 
 	<string name="quit">Quit</string>
+	<string name="no_data">No Data</string>
 
 	<string name="note">Note</string>
 	<string name="no_note">No Note</string>

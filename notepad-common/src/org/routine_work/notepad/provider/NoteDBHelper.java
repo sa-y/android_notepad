@@ -23,6 +23,8 @@
  */
 package org.routine_work.notepad.provider;
 
+import org.routine_work.notepad.model.NoteTemplate;
+import org.routine_work.notepad.model.Note;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;

@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.routine_work.notepad.provider;
+package org.routine_work.notepad.model;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -39,15 +39,15 @@ import java.io.Serializable;
 public class Note implements Serializable
 {
 
-	long id;
-	String title;
-	String content;
-	boolean titleLocked;
-	boolean contentLocked;
-	long added;
-	long modified;
+	public long id;
+	public String title;
+	public String content;
+	public boolean titleLocked;
+	public boolean contentLocked;
+	public long added;
+	public long modified;
 
-	static void writeNoteTo(Note note, File file) throws FileNotFoundException, IOException
+	public static void writeNoteTo(Note note, File file) throws FileNotFoundException, IOException
 	{
 		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
 		try
@@ -60,7 +60,7 @@ public class Note implements Serializable
 		}
 	}
 
-	static Note readNoteFrom(File file) throws FileNotFoundException, IOException, ClassNotFoundException
+	public static Note readNoteFrom(File file) throws FileNotFoundException, IOException, ClassNotFoundException
 	{
 		Note note = null;
 
