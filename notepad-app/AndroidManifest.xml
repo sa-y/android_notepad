@@ -154,7 +154,7 @@
 			</intent-filter>
 		</activity>
 
-		<activity android:name=".template.EditTextActivity" />
+		<activity android:name=".common.EditTextActivity" />
 
 		<!-- Activity : Create Shortcut -->
 		<activity 
