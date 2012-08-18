@@ -101,6 +101,9 @@ public class NoteTemplateDetailActivity extends Activity
 		noteTemplateNameContainer.setOnClickListener(this);
 		noteTemplateTitleContainer.setOnClickListener(this);
 		noteTemplateContentContainer.setOnClickListener(this);
+		noteTemplateNameTextView.setOnClickListener(this);
+		noteTemplateTitleTextView.setOnClickListener(this);
+		noteTemplateContentTextView.setOnClickListener(this);
 
 		// process intent
 		initWithIntent(savedInstanceState, getIntent());
@@ -221,15 +224,18 @@ public class NoteTemplateDetailActivity extends Activity
 				NotepadActivity.goHomeActivity(this);
 				break;
 			case R.id.note_template_name_container:
-				Log.d(LOG_TAG, "note_template_name_container is clicked.");
+			case R.id.note_template_name_textview:
+				Log.d(LOG_TAG, "note_template_name is clicked.");
 				startEditNameActivity();
 				break;
 			case R.id.note_template_title_container:
-				Log.d(LOG_TAG, "note_template_title_textview is clicked.");
+			case R.id.note_template_title_textview:
+				Log.d(LOG_TAG, "note_template_title is clicked.");
 				startEditTitleTemplateActivity();
 				break;
 			case R.id.note_template_content_container:
-				Log.d(LOG_TAG, "note_template_content_textview is clicked.");
+			case R.id.note_template_content_textview:
+				Log.d(LOG_TAG, "note_template_content is clicked.");
 				startEditTextTemplateActivity();
 				break;
 		}

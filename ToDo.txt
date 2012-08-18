@@ -121,6 +121,9 @@
 
 !! notepad-app
 
+#* テンプレート編集画面で TextView をクリックしても EditTextActivity が
+#起動しないバグを修正
+
 #* EditDailyActivity を削除
 
 #* 新規作成のショートカット作成画面
