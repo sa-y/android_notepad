@@ -17,7 +17,7 @@
 			android:paddingLeft="4dip"
 			android:text="@string/name"
 			android:background="#6666"
-	/>
+		/>
 
 		<FrameLayout
 			style="?attr/editTextLikedStyle"
@@ -85,7 +85,7 @@
 			android:paddingLeft="4dip"
 			android:text="@string/text"
 			android:background="#6666"
-	/>
+		/>
 
 		<LinearLayout
 			android:layout_width="fill_parent"
@@ -112,14 +112,6 @@
 				/>
 			</LinearLayout>
 
-			<CheckBox
-				android:id="@+id/note_template_content_lock_checkbox"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_weight="0"
-				android:layout_margin="2dip"
-				android:text="@string/lock"
-		/>
 		</LinearLayout>
 
 	</LinearLayout>

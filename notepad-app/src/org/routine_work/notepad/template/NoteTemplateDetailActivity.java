@@ -23,6 +23,7 @@
  */
 package org.routine_work.notepad.template;
 
+import org.routine_work.notepad.common.EditTextActivity;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -62,13 +63,11 @@ public class NoteTemplateDetailActivity extends Activity
 	private TextView noteTemplateTitleTextView;
 	private TextView noteTemplateContentTextView;
 	private CheckBox noteTemplateTitleLockedCheckBox;
-	private CheckBox noteTemplateContentLockedCheckBox;
 	// data
 	private String originalTemplateName = "";
 	private String originalTemplateTitle = "";
 	private String originalTemplateContent = "";
 	private boolean originalTemplateTitleLocked = false;
-	private boolean originalTemplateContentLocked = false;
 	private String currentAction;
 	private Uri currentNoteTemplateUri;
 
@@ -91,7 +90,6 @@ public class NoteTemplateDetailActivity extends Activity
 		noteTemplateTitleTextView = (TextView) findViewById(R.id.note_template_title_textview);
 		noteTemplateContentTextView = (TextView) findViewById(R.id.note_template_content_textview);
 		noteTemplateTitleLockedCheckBox = (CheckBox) findViewById(R.id.note_template_title_lock_checkbox);
-		noteTemplateContentLockedCheckBox = (CheckBox) findViewById(R.id.note_template_content_lock_checkbox);
 
 		ViewGroup noteTemplateNameContainer = (ViewGroup) findViewById(R.id.note_template_name_container);
 		ViewGroup noteTemplateTitleContainer = (ViewGroup) findViewById(R.id.note_template_title_container);
@@ -357,7 +355,6 @@ public class NoteTemplateDetailActivity extends Activity
 		originalTemplateTitle = noteTemplateTitleTextView.getText().toString();
 		originalTemplateContent = noteTemplateContentTextView.getText().toString();
 		originalTemplateTitleLocked = noteTemplateTitleLockedCheckBox.isChecked();
-		originalTemplateContentLocked = noteTemplateContentLockedCheckBox.isChecked();
 		Log.d(LOG_TAG, "isFinishing() => " + isFinishing());
 
 		Log.v(LOG_TAG, "Bye");
@@ -398,13 +395,11 @@ public class NoteTemplateDetailActivity extends Activity
 					noteTemplateTitleTextView.setText(templateTitle);
 					noteTemplateContentTextView.setText(templateContent);
 					noteTemplateTitleLockedCheckBox.setChecked(templateTitleLocked);
-					noteTemplateContentLockedCheckBox.setChecked(templateContentLocked);
 
 					originalTemplateName = noteTemplateNameTextView.getText().toString();
 					originalTemplateTitle = noteTemplateTitleTextView.getText().toString();
 					originalTemplateContent = noteTemplateContentTextView.getText().toString();
 					originalTemplateTitleLocked = noteTemplateTitleLockedCheckBox.isChecked();
-					originalTemplateContentLocked = noteTemplateContentLockedCheckBox.isChecked();
 				}
 			}
 		}
@@ -421,25 +416,21 @@ public class NoteTemplateDetailActivity extends Activity
 		String templateTitle = noteTemplateTitleTextView.getText().toString();
 		String templateContent = noteTemplateContentTextView.getText().toString();
 		boolean templateTitleLocked = noteTemplateTitleLockedCheckBox.isChecked();
-		boolean templateContentLocked = noteTemplateContentLockedCheckBox.isChecked();
 
 		Log.d(LOG_TAG, "templateName => " + templateName);
 		Log.d(LOG_TAG, "templateTitle => " + templateTitle);
 		Log.d(LOG_TAG, "templateContent => " + templateContent);
 		Log.d(LOG_TAG, "templateTitleLocked => " + templateTitleLocked);
-		Log.d(LOG_TAG, "templateContentLocked => " + templateContentLocked);
 
 		Log.d(LOG_TAG, "originalTemplateName => " + originalTemplateName);
 		Log.d(LOG_TAG, "originalTemplateTitle => " + originalTemplateTitle);
 		Log.d(LOG_TAG, "originalTemplateContent => " + originalTemplateContent);
 		Log.d(LOG_TAG, "originalTemplateTitleLocked => " + originalTemplateTitleLocked);
-		Log.d(LOG_TAG, "originalTemplateContentLocked => " + originalTemplateContentLocked);
 
 		if ((templateName.equals(originalTemplateName)
 			&& templateTitle.equals(originalTemplateTitle)
 			&& templateContent.equals(originalTemplateContent)
-			&& (templateTitleLocked == originalTemplateTitleLocked)
-			&& (templateContentLocked == originalTemplateContentLocked)) == false)
+			&& (templateTitleLocked == originalTemplateTitleLocked)) == false)
 		{
 			result = true;
 		}
@@ -476,14 +467,13 @@ public class NoteTemplateDetailActivity extends Activity
 			String templateTitle = noteTemplateTitleTextView.getText().toString();
 			String templateContent = noteTemplateContentTextView.getText().toString();
 			boolean templateTitleLocked = noteTemplateTitleLockedCheckBox.isChecked();
-			boolean templateContentLocked = noteTemplateContentLockedCheckBox.isChecked();
 
 			ContentValues values = new ContentValues();
 			values.put(NoteStore.NoteTemplate.Columns.NAME, templateName);
 			values.put(NoteStore.NoteTemplate.Columns.TITLE, templateTitle);
 			values.put(NoteStore.NoteTemplate.Columns.CONTENT, templateContent);
 			values.put(NoteStore.NoteTemplate.Columns.TITLE_LOCKED, templateTitleLocked);
-			values.put(NoteStore.NoteTemplate.Columns.CONTENT_LOCKED, templateContentLocked);
+			values.put(NoteStore.NoteTemplate.Columns.CONTENT_LOCKED, false);
 
 			ContentResolver contentResolver = getContentResolver();
 			if (isNoteTemplateItemUri(currentNoteTemplateUri))
@@ -502,7 +492,6 @@ public class NoteTemplateDetailActivity extends Activity
 			originalTemplateTitle = templateTitle;
 			originalTemplateContent = templateContent;
 			originalTemplateTitleLocked = templateTitleLocked;
-			originalTemplateContentLocked = templateContentLocked;
 			setResult(RESULT_OK);
 		}
 		else

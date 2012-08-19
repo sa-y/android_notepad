@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.routine_work.notepad.template;
+package org.routine_work.notepad.common;
 
 import android.app.Activity;
 import android.content.Intent;

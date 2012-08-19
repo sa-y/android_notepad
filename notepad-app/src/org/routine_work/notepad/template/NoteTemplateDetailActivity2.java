@@ -23,6 +23,7 @@
  */
 package org.routine_work.notepad.template;
 
+import org.routine_work.notepad.common.EditTextActivity;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
