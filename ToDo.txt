@@ -121,6 +121,10 @@
 
 !! notepad-app
 
+#* ListView の listSelector 変更
+#** 端末固有の色で表示されていたものを ActionBar の色に合わせるように修正
+#** theme に設定して全アクティビティに反映
+
 #* テンプレート編集画面で TextView をクリックしても EditTextActivity が
 #起動しないバグを修正
 
