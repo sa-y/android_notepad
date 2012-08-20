@@ -12,6 +12,8 @@
 	<string name="text">Text</string>
 	<string name="lock">Lock</string>
 	<string name="name">Name</string>
+	<string name="locked">Locked</string>
+	<string name="unlocked">Unlocked</string>
 
 	<string name="note_template">Note Template</string>
 	<string name="no_note_template">No Note Template</string>

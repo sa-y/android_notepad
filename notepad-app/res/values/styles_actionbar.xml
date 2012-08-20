@@ -53,6 +53,7 @@
 		<item name="android:shadowRadius" >2</item>
 		<item name="android:shadowDx" >1</item>
 		<item name="android:shadowDy" >1</item>
+		<item name="android:background" >@drawable/actionbar_button_bg</item>
 	</style>
 
 	<style name="actionbar_right_button" parent="actionbar_button" >

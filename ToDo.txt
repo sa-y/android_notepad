@@ -3,9 +3,9 @@
 #############################
 !! notepad-app
 
-* ノート編集画面にロック機能対応
-** ロック状態に応じて EditText の有効無効を設定
-** ロック状態を変更する機能
+* ロックボタン用アイコンの作成
+** drawable/ic_lock_dark
+** drawable/ic_lock_light
 
 * Theme.Dialog ベースのテーマを作成する
 ** Theme.Notepad.Dialog.Dark
@@ -120,6 +120,10 @@
 ! 0.1.5
 
 !! notepad-app
+
+#* ノート編集画面にタイトルロック機能対応
+#** ロック状態に応じて EditText の有効無効を設定
+#** ロック状態を変更する機能
 
 #* ListView の listSelector 変更
 #** 端末固有の色で表示されていたものを ActionBar の色に合わせるように修正
