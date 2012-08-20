@@ -38,6 +38,9 @@
 	>
 		<shape shape="rectangle" >
 			<solid android:color="#cf60" />
+			<!--
+			<stroke android:width="1px" android:color="#ff60" />
+			-->
 		</shape>
 	</item>
 	<item>

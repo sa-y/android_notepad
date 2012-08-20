@@ -23,7 +23,6 @@
  */
 package org.routine_work.notepad.template;
 
-import org.routine_work.notepad.common.EditTextActivity;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -40,6 +39,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
+import org.routine_work.notepad.common.EditTextActivity;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.utils.Log;
@@ -209,17 +209,14 @@ public class NoteTemplateDetailActivity2 extends Activity
 				finish();
 				NotepadActivity.goHomeActivity(this);
 				break;
-			case R.id.note_template_name_container:
 			case R.id.note_template_name_textview:
 				Log.d(LOG_TAG, "note_template_name is clicked.");
 				startEditNameActivity();
 				break;
-			case R.id.note_template_title_container:
 			case R.id.note_template_title_textview:
 				Log.d(LOG_TAG, "note_template_title is clicked.");
 				startEditTitleTemplateActivity();
 				break;
-			case R.id.note_template_content_container:
 			case R.id.note_template_content_textview:
 				Log.d(LOG_TAG, "note_template_content is clicked.");
 				startEditTextTemplateActivity();
