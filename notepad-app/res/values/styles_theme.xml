@@ -28,7 +28,10 @@
 		<item name="ic_home">@drawable/ic_home_dark</item>
 		<item name="ic_search">@drawable/ic_search_dark</item>
 		<item name="ic_ok">@drawable/ic_ok_dark</item>
+<!--
 		<item name="ic_lock">@drawable/ic_lock_dark</item>
+		<item name="ic_unlock">@drawable/ic_unlock_dark</item>
+-->
 	</style>
 
 	<!-- Light Theme -->
@@ -42,6 +45,9 @@
 		<item name="ic_home">@drawable/ic_home_light</item>
 		<item name="ic_search">@drawable/ic_search_light</item>
 		<item name="ic_ok">@drawable/ic_ok_light</item>
+<!--
 		<item name="ic_lock">@drawable/ic_lock_light</item>
+		<item name="ic_unlock">@drawable/ic_unlock_light</item>
+-->
 	</style>
 </resources>

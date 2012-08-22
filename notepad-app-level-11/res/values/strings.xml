@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- notepad-app-level-11 -->
 <resources>
-
 	<string name="app_name">Notepad</string>
+
 	<string name="quit">Quit</string>
+	<string name="save">Save</string>
+	<string name="no_data">No Data</string>
 
 	<string name="note">Note</string>
 	<string name="no_note">No Note</string>
@@ -38,15 +40,26 @@
 	<string name="delete_notes_title">Delete Notes</string>
 	<string name="select_note_title">Select Note</string>
 
+	<string name="note_template_list_title">Template List</string>
+	<string name="edit_note_template_title">Edit Template</string>
+	<string name="add_new_note_template_title">New Template</string>
+	<string name="select_note_template_title">Select Template</string>
+
+	<string name="new_from_template_title">New from Template</string>
+
 	<!-- menu item label -->
 	<string name="new_note">New</string>
 	<string name="edit_note">Edit</string>
 	<string name="delete_note">Delete</string>
-	<string name="delete_notes">Delete Notes</string>
 	<string name="share_note">Share</string>
-	<string name="save">Save</string>
-	<string name="search">Search</string>
+	<string name="delete_notes">Delete Notes</string>
+	<string name="search_note">Search</string>
+
+	<string name="templates">Templates</string>
+	<string name="edit_note_template">Edit</string>
+	<string name="delete_note_template">Delete</string>
 
 	<!-- create note shortcut -->
+	<string name="new_shortcut">New Shortcut</string>
 	<string name="shortcut_name">Shortcut Name</string>
 </resources>

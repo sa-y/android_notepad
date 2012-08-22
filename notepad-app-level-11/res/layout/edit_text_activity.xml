@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/body"
+>
+	<EditText
+		android:id="@+id/single_line_edittext"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="8dip"
+		android:inputType="text"
+		android:gravity="left"
+		android:visibility="visible"
+	/>
+	<EditText
+		android:id="@+id/multi_line_edittext"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:inputType="textMultiLine"
+		android:gravity="left|top"
+		android:visibility="gone"
+	/>
+</FrameLayout>

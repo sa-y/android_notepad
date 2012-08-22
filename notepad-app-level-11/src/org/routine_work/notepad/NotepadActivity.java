@@ -180,6 +180,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		menuInflater.inflate(R.menu.search_notes_option_menu, menu);
 		menuInflater.inflate(R.menu.add_note_option_menu, menu);
 		menuInflater.inflate(R.menu.delete_notes_option_menu, menu);
+		menuInflater.inflate(R.menu.templates_option_menu, menu);
 		menuInflater.inflate(R.menu.preferences_option_menu, menu);
 		menuInflater.inflate(R.menu.quit_option_menu, menu);
 
@@ -226,6 +227,9 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 				break;
 			case R.id.search_notes_menuitem:
 				onSearchRequested();
+				break;
+			case R.id.templates_menuitem:
+				startTemplateListActivity();
 				break;
 			case R.id.preferences_menuitem:
 				startPreferencesActivity();
@@ -616,6 +620,16 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		Log.v(LOG_TAG, "Bye");
 	}
 
+	private void startTemplateListActivity()
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		Intent intent = new Intent(Intent.ACTION_VIEW, NoteStore.NoteTemplate.CONTENT_URI);
+		startActivity(intent);
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
 	private void startPreferencesActivity()
 	{
 		Log.v(LOG_TAG, "Hello");
@@ -625,4 +639,5 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 
 		Log.v(LOG_TAG, "Bye");
 	}
+
 }

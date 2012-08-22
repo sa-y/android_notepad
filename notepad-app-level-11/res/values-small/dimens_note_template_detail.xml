@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<dimen name="note_template_detail_item_value_textSize">16sp</dimen>
+</resources>

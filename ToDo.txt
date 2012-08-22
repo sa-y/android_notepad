@@ -3,9 +3,17 @@
 #############################
 !! notepad-app
 
+* dimens/editText_textSize を削除
+
 * ロックボタン用アイコンの作成
 ** drawable/ic_lock_dark
 ** drawable/ic_lock_light
+** drawable/ic_unlock_dark
+** drawable/ic_unlock_light
+
+* ノート編集時のロックを ToggleButton から Button + ダイアログに変更
+** ToggleButton はキーボードでオンオフ操作できない？
+** ロック解除操作が簡単すぎるのはよくない？
 
 * Theme.Dialog ベースのテーマを作成する
 ** Theme.Notepad.Dialog.Dark
@@ -28,6 +36,14 @@
 #############################
 !! notepad-app-level-11
 
+* ノート編集画面にタイトルロック機能対応
+** ロック状態に応じて EditText の有効無効を設定
+** ロック状態を変更する機能
+
+* ListView の listSelector 変更
+** 端末固有の色で表示されていたものを ActionBar の色に合わせるように修正
+** theme に設定して全アクティビティに反映
+
 * EditDailyActivity を削除
 
 * 新規作成のショートカット作成画面
@@ -44,15 +60,10 @@
 * テンプレートを元に新規ノートを作成する画面
   -> AddNewNoteActivity
 
-* フルスクリーンテキスト編集画面作成(EditTextActivity)
 
-* テンプレート編集画面作成
-
-* テンプレート一覧画面作成
-** ソート順はID昇順
-** テンプレート選択(ACTION_PICK 対応)機能
 
 ############################################################
+
 
 * Theme.Dialog ベースのテーマを作成する
 ** Theme.Notepad.Dialog.Dark
@@ -210,6 +221,13 @@
 #*** NoteDetailActivity を修正
 
 !! notepad-app-level-11
+
+#* テンプレート編集画面作成 (NoteDetailActivity)
+#** フルスクリーンテキスト編集画面作成(EditTextActivity)
+
+#* テンプレート一覧画面作成
+#** ソート順はID昇順
+#** テンプレート選択(ACTION_PICK 対応)機能
 
 #* ノートのテンプレートデータを初期化する処理を実装
 #** IntentService として実装
