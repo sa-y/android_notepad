@@ -40,9 +40,6 @@
 ** ロック状態に応じて EditText の有効無効を設定
 ** ロック状態を変更する機能
 
-* ListView の listSelector 変更
-** 端末固有の色で表示されていたものを ActionBar の色に合わせるように修正
-** theme に設定して全アクティビティに反映
 
 * EditDailyActivity を削除
 
@@ -60,10 +57,7 @@
 * テンプレートを元に新規ノートを作成する画面
   -> AddNewNoteActivity
 
-
-
 ############################################################
-
 
 * Theme.Dialog ベースのテーマを作成する
 ** Theme.Notepad.Dialog.Dark
@@ -221,6 +215,11 @@
 #*** NoteDetailActivity を修正
 
 !! notepad-app-level-11
+
+#* ListView の listSelector 変更
+#** 端末固有の色で表示されていたものを ActionBar の色に合わせるように修正
+#   -> ActionBar を OS のものを使っているので不要
+#** theme に設定して全アクティビティに反映
 
 #* テンプレート編集画面作成 (NoteDetailActivity)
 #** フルスクリーンテキスト編集画面作成(EditTextActivity)
