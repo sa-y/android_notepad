@@ -13,7 +13,6 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_weight="1"
-		android:layout_margin="@dimen/note_list_item_content_layout_margin"
 	>
 		<include layout="@layout/note_list_item_content" />
 	</FrameLayout>

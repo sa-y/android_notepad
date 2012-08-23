@@ -39,6 +39,7 @@
 		android:id="@+id/note_content_textview"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
+		android:layout_margin="@dimen/note_list_item_content_layout_margin"
 		android:gravity="left"
 		android:singleLine="true"
 		android:ellipsize="end"

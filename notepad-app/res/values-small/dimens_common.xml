@@ -6,9 +6,9 @@
 	<dimen name="body_paddingTop">4dip</dimen>
 	<dimen name="body_paddingBottom">4dip</dimen>
 
-	<dimen name="list_item_paddingLeft">2dip</dimen>
-	<dimen name="list_item_paddingRight">2dip</dimen>
-	<dimen name="list_item_paddingTop">2dip</dimen>
-	<dimen name="list_item_paddingBottom">2dip</dimen>
+	<dimen name="list_item_paddingLeft">4dip</dimen>
+	<dimen name="list_item_paddingRight">4dip</dimen>
+	<dimen name="list_item_paddingTop">4dip</dimen>
+	<dimen name="list_item_paddingBottom">4dip</dimen>
 
 </resources>

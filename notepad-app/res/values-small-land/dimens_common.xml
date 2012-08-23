@@ -3,11 +3,12 @@
 	<!-- common -->
 	<dimen name="body_paddingLeft">6dip</dimen>
 	<dimen name="body_paddingRight">6dip</dimen>
-	<dimen name="body_paddingTop">6dip</dimen>
-	<dimen name="body_paddingBottom">6dip</dimen>
+	<dimen name="body_paddingTop">2dip</dimen>
+	<dimen name="body_paddingBottom">2dip</dimen>
 
 	<dimen name="list_item_paddingLeft">6dip</dimen>
 	<dimen name="list_item_paddingRight">6dip</dimen>
-	<dimen name="list_item_paddingTop">6dip</dimen>
-	<dimen name="list_item_paddingBottom">6dip</dimen>
+	<dimen name="list_item_paddingTop">2dip</dimen>
+	<dimen name="list_item_paddingBottom">2dip</dimen>
+
 </resources>
