@@ -50,7 +50,7 @@ public class NoteCursorAdapter extends SimpleCursorAdapter
 
 	public NoteCursorAdapter(Context context, Cursor c, boolean checkable)
 	{
-		super(context, R.layout.note_list_item_checkable, c, NOTE_LIST_MAPPING_FROM, NOTE_LIST_MAPPING_TO);
+		super(context, R.layout.note_list_item, c, NOTE_LIST_MAPPING_FROM, NOTE_LIST_MAPPING_TO);
 		this.checkable = checkable;
 		this.context = context;
 		setViewBinder(this);
