@@ -31,7 +31,7 @@
 			android:layout_margin="4dip"
 			android:paddingLeft="8dip"
 			android:hint="@string/template_name"
-			android:textSize="@dimen/editText_textSize"
+			android:textSize="@dimen/note_template_detail_item_value_textSize"
 			android:textColor="?android:attr/textColorPrimary"
 		/>
 	</LinearLayout>
@@ -59,7 +59,7 @@
 			android:layout_margin="4dip"
 			android:paddingLeft="8dip"
 			android:hint="@string/title_template"
-			android:textSize="@dimen/editText_textSize"
+			android:textSize="@dimen/note_template_detail_item_value_textSize"
 			android:textColor="?android:attr/textColorPrimary"
 		/>
 	</LinearLayout>
@@ -90,7 +90,7 @@
 			android:paddingLeft="8dip"
 			android:gravity="center_vertical|left" 
 			android:text="@string/title_lock"
-			android:textSize="@dimen/editText_textSize"
+			android:textSize="@dimen/note_template_detail_item_value_textSize"
 			android:checkMark="?android:attr/listChoiceIndicatorSingle"
 		/>
 	</LinearLayout>
@@ -119,7 +119,7 @@
 			android:gravity="left|top"
 			android:minLines="4"
 			android:hint="@string/text_template"
-			android:textSize="@dimen/editText_textSize"
+			android:textSize="@dimen/note_template_detail_item_value_textSize"
 			android:textColor="?android:attr/textColorPrimary"
 		/>
 	</LinearLayout>

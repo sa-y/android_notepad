@@ -23,7 +23,6 @@
  */
 package org.routine_work.notepad.template;
 
-import org.routine_work.notepad.common.EditTextActivity;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.ContentResolver;
@@ -47,6 +46,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
+import org.routine_work.notepad.common.EditTextActivity;
 import org.routine_work.notepad.model.NoteTemplate;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
@@ -580,7 +580,7 @@ public class NoteTemplateDetailActivity3 extends ListActivity
 
 			if (convertView == null)
 			{
-				itemView = inflater.inflate(R.layout.note_template_detail_list_item, null);
+				itemView = inflater.inflate(R.layout.note_template_detail_item, null);
 			}
 			else
 			{

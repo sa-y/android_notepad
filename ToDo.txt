@@ -3,8 +3,6 @@
 #############################
 !! notepad-app
 
-* dimens/editText_textSize を削除
-
 * ロックボタン用アイコンの作成
 ** drawable/ic_lock_dark
 ** drawable/ic_lock_light
@@ -125,6 +123,9 @@
 ! 0.1.5
 
 !! notepad-app
+
+#* dimens/editText_textSize を削除
+# dimens/note_template_detail_item_value_textSize を定義
 
 #* ノート一覧画面のリストアイテムのレイアウトを変更
 #** 日時をタイトルと同じ並びにする

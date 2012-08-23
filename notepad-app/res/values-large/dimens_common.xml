@@ -11,5 +11,4 @@
 	<dimen name="list_item_paddingTop">4dip</dimen>
 	<dimen name="list_item_paddingBottom">4dip</dimen>
 
-	<dimen name="editText_textSize">20sp</dimen>
 </resources>
