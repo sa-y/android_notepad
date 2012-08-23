@@ -154,6 +154,17 @@
 			</intent-filter>
 		</activity>
 
+		<activity 
+			android:name=".shortcut.CreateAddNewNoteShortcutActivity"
+			android:label="@string/add_new_note_title"
+			android:icon="@drawable/ic_launcher_notepad_add"
+		>
+			<intent-filter>
+				<action android:name="android.intent.action.CREATE_SHORTCUT" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+
 		<!-- Activity : Preferences -->
 		<activity
 			android:name=".prefs.NotepadPreferenceActivity"
