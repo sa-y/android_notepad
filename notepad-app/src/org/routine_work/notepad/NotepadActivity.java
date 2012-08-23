@@ -91,7 +91,7 @@ public class NotepadActivity extends ListActivity
 	};
 	// instances
 	private int actionMode = -1;
-	private SimpleCursorAdapter listAdapter;
+	private NoteCursorAdapter listAdapter;
 	private Cursor cursor;
 	private EditText searchEditText;
 
@@ -143,10 +143,7 @@ public class NotepadActivity extends ListActivity
 		setActionMode(ACTION_MODE_NORMAL);
 
 		// Init ListAdapter
-		listAdapter = new SimpleCursorAdapter(this,
-			R.layout.note_list_item, cursor,
-			NOTE_LIST_MAPPING_FROM, NOTE_LIST_MAPPING_TO);
-		listAdapter.setViewBinder(new NoteListItemViewBinder(this));
+		listAdapter = new NoteCursorAdapter(this, cursor);
 		setListAdapter(listAdapter);
 
 		// Init ListView

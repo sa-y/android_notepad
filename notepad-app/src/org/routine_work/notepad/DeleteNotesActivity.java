@@ -36,7 +36,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.utils.Log;
@@ -47,7 +46,7 @@ public class DeleteNotesActivity extends ListActivity
 
 	private static final String LOG_TAG = "simple-notepad";
 	// instances
-	private SimpleCursorAdapter listAdapter;
+	private NoteCursorAdapter listAdapter;
 	private Cursor cursor;
 
 	/**
@@ -161,10 +160,7 @@ public class DeleteNotesActivity extends ListActivity
 			cursor = c;
 		}
 
-		listAdapter = new SimpleCursorAdapter(this,
-			R.layout.note_list_item_checkable, cursor,
-			NOTE_LIST_MAPPING_FROM, NOTE_LIST_MAPPING_TO);
-		listAdapter.setViewBinder(new NoteListItemViewBinder(this));
+		listAdapter = new NoteCursorAdapter(this, cursor, true);
 		setListAdapter(listAdapter);
 
 		Log.v(LOG_TAG, "Bye");

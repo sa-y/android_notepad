@@ -25,6 +25,7 @@ package org.routine_work.notepad;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 import android.view.View;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -32,20 +33,52 @@ import org.routine_work.notepad.utils.TimeFormatUtils;
 
 /**
  *
- * @author sawai
+ * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
-public class NoteListItemViewBinder
-	implements SimpleCursorAdapter.ViewBinder
+public class NoteCursorAdapter extends SimpleCursorAdapter
+	implements NotepadConstants, SimpleCursorAdapter.ViewBinder
 {
 
 	private static final String LOG_TAG = "simple-notepad";
 	private Context context;
+	private boolean checkable = false;
 
-	public NoteListItemViewBinder(Context context)
+	public NoteCursorAdapter(Context context, Cursor c)
 	{
-		this.context = context;
+		this(context, c, false);
 	}
 
+	public NoteCursorAdapter(Context context, Cursor c, boolean checkable)
+	{
+		super(context, R.layout.note_list_item_checkable, c, NOTE_LIST_MAPPING_FROM, NOTE_LIST_MAPPING_TO);
+		this.checkable = checkable;
+		this.context = context;
+		setViewBinder(this);
+	}
+
+	@Override
+	public void bindView(View view, Context context, Cursor cursor)
+	{
+		Log.v(LOG_TAG, "Hello");
+		super.bindView(view, context, cursor);
+
+		View checkbox = view.findViewById(android.R.id.checkbox);
+		if (checkbox != null)
+		{
+			if (checkable)
+			{
+				checkbox.setVisibility(View.VISIBLE);
+			}
+			else
+			{
+				checkbox.setVisibility(View.GONE);
+			}
+		}
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	// SimpleCursorAdapter.ViewBinder
 	@Override
 	public boolean setViewValue(View view, Cursor cursor, int columnIndex)
 	{
@@ -64,5 +97,15 @@ public class NoteListItemViewBinder
 		}
 
 		return result;
+	}
+
+	public boolean isCheckable()
+	{
+		return checkable;
+	}
+
+	public void setCheckable(boolean checkable)
+	{
+		this.checkable = checkable;
 	}
 }

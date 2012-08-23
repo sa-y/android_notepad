@@ -34,7 +34,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
@@ -49,7 +48,7 @@ public class PickNoteActivity extends ListActivity
 
 	private static final String LOG_TAG = "simple-notepad";
 	// instances
-	private SimpleCursorAdapter listAdapter;
+	private NoteCursorAdapter listAdapter;
 	private Cursor cursor;
 
 	@Override
@@ -118,10 +117,7 @@ public class PickNoteActivity extends ListActivity
 			cursor = c;
 		}
 
-		listAdapter = new SimpleCursorAdapter(this,
-			R.layout.note_list_item, cursor,
-			NOTE_LIST_MAPPING_FROM, NOTE_LIST_MAPPING_TO);
-		listAdapter.setViewBinder(new NoteListItemViewBinder(this));
+		listAdapter = new NoteCursorAdapter(this, cursor);
 		setListAdapter(listAdapter);
 
 		Log.v(LOG_TAG, "Bye");
