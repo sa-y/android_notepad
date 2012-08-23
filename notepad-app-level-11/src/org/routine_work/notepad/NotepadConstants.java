@@ -33,11 +33,15 @@ public interface NotepadConstants
 {
 
 	int REQUEST_CODE_EDIT_NOTE = 102;
-	int REQUEST_CODE_ADD_NEW_NOTE = 103;
+	int REQUEST_CODE_ADD_NOTE = 103;
 	int REQUEST_CODE_DELETE_NOTE = 104;
 	int REQUEST_CODE_DELETE_NOTES = 105;
 	int REQUEST_CODE_PICK_NOTE = 106;
+	int REQUEST_CODE_PICK_NOTE_TEMPLATE = 107;
 	int NOTE_LOADER_ID = 0;
+	String EXTRA_TITLE_LOCKED = NotepadConstants.class.getPackage().getName() + ".EXTRA_TITLE_LOCKED";
+	String EXTRA_CONTENT_LOCKED = NotepadConstants.class.getPackage().getName() + ".EXTRA_CONTENT_LOCKED";
+	String EXTRA_NOTE_TEMPLATE = NotepadConstants.class.getPackage().getName() + ".EXTRA_NOTE_TEMPLATE";
 	String[] NOTE_LIST_MAPPING_FROM =
 	{
 		NoteStore.Note.Columns.TITLE,

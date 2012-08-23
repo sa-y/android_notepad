@@ -33,6 +33,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import org.routine_work.notepad.AddNewNoteActivity;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.utils.Log;
@@ -104,16 +105,7 @@ public class EditNoteFragment extends NoteDetailFragment
 		setEditable(true);
 //		noteContentEditText.setOnFocusChangeListener(this);
 
-		if (initialNoteTitle != null)
-		{
-			setNoteTitle(initialNoteTitle);
-			initialNoteTitle = null;
-		}
-		if (initialNoteContent != null)
-		{
-			setNoteContent(initialNoteContent);
-			initialNoteContent = null;
-		}
+		loadInitialData() ;
 
 		Log.v(LOG_TAG, "Bye");
 		return v;
@@ -232,6 +224,7 @@ public class EditNoteFragment extends NoteDetailFragment
 	{
 		Log.v(LOG_TAG, "Hello");
 
+		loadInitialData();
 		super.loadNote();
 		if (viewIsInflated)
 		{
@@ -290,10 +283,26 @@ public class EditNoteFragment extends NoteDetailFragment
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
-		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		startActivity(intent);
+//		Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
+//		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//		startActivity(intent);
+		Intent intent = new Intent(getActivity(), AddNewNoteActivity.class);
+		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
 
 		Log.v(LOG_TAG, "Bye");
+	}
+
+	private void loadInitialData()
+	{
+		if (initialNoteTitle != null)
+		{
+			setNoteTitle(initialNoteTitle);
+			initialNoteTitle = null;
+		}
+		if (initialNoteContent != null)
+		{
+			setNoteContent(initialNoteContent);
+			initialNoteContent = null;
+		}
 	}
 }

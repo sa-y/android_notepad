@@ -255,7 +255,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		Log.d(LOG_TAG, "resultCode => " + resultCode);
 
 
-		if ((requestCode == REQUEST_CODE_ADD_NEW_NOTE)
+		if ((requestCode == REQUEST_CODE_ADD_NOTE)
 			|| (requestCode == REQUEST_CODE_EDIT_NOTE))
 		{
 			reloadNoteList();
@@ -400,8 +400,10 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
-		startActivityForResult(intent, REQUEST_CODE_ADD_NEW_NOTE);
+//		Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
+//		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
+		Intent intent = new Intent(this, AddNewNoteActivity.class);
+		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
 
 		Log.v(LOG_TAG, "Bye");
 	}

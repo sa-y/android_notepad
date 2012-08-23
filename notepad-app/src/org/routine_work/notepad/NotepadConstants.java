@@ -55,12 +55,4 @@ public interface NotepadConstants
 		R.id.note_content_textview,
 		R.id.note_modified_textview,
 	};
-	String[] NOTE_TEMPLATE_LIST_MAPPING_FROM =
-	{
-		NoteStore.NoteTemplate.Columns.NAME,
-	};
-	int[] NOTE_TEMPLATE_LIST_MAPPING_TO =
-	{
-		android.R.id.text1,
-	};
 }

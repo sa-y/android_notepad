@@ -234,6 +234,8 @@ public class NoteDetailActivity extends Activity
 				editNoteFragment.setNoteContent(null);
 				String noteTitle = intent.getStringExtra(Intent.EXTRA_TITLE);
 				String noteText = intent.getStringExtra(Intent.EXTRA_TEXT);
+				Log.d(LOG_TAG, "noteTitle => " + noteTitle);
+				Log.d(LOG_TAG, "noteText => " + noteText);
 				editNoteFragment.setInitialNoteTitle(noteTitle);
 				editNoteFragment.setInitialNoteContent(noteText);
 				setTitle(R.string.add_new_note_title);

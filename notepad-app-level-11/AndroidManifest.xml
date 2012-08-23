@@ -55,6 +55,18 @@
 		</activity>
 
 		<activity
+			android:name=".AddNewNoteActivity"
+			android:label="@string/add_new_note_title"
+			android:icon="@drawable/ic_launcher_notepad_add"
+		>
+			<intent-filter>
+				<action android:name="android.intent.action.INSERT" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<data android:mimeType="vnd.android.cursor.item/vnd.routine_work.notetemplate" />
+			</intent-filter>
+		</activity>
+
+		<activity
 			android:name=".NoteDetailActivity" 
 			android:label="@string/view_note_title"
 			android:launchMode="singleTop"
