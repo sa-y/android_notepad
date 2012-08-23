@@ -145,7 +145,7 @@
 
 		<!-- Activity : Create Shortcut -->
 		<activity
-			android:name=".CreateNoteShortcutActivity"
+			android:name=".shortcut.CreateNoteShortcutActivity"
 			android:icon="@drawable/ic_launcher_notepad_edit"
 		>
 			<intent-filter>
