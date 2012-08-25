@@ -1,48 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical"
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
-	android:paddingTop="@dimen/body_paddingTop"
-	android:paddingBottom="@dimen/body_paddingBottom"
-	android:paddingRight="@dimen/body_paddingRight"
-	android:paddingLeft="@dimen/body_paddingLeft"
+	android:orientation="vertical"
 >
-	<View style="@style/hline" />
-
-    <TextView
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_weight="1"
-		android:padding="4dip"
-		android:gravity="center"
-		android:text="@string/initialize_preference_confirm_message"
-		android:textColor="?android:textColorPrimary"
-		android:textSize="18sp"
-	/>
-
-	<View style="@style/hline" />
-
-	<LinearLayout 
-		android:orientation="horizontal"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_weight="0"
+	<!-- action bar -->
+	<LinearLayout
+		style="@style/actionbar"
+		android:id="@+id/actionbar_container"
 	>
-		<Button
-			android:id="@+id/ok_button"
-			android:layout_width="0dip"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:text="@android:string/ok"
-		/>
-		<Button
-			android:id="@+id/cancel_button"
-			android:layout_width="0dip"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:text="@android:string/cancel"
+		<TextView
+			style="@style/actionbar_title" 
+			android:id="@+id/title_textview"
+			android:text="@string/initialize_preference_title"
 		/>
 	</LinearLayout>
-</LinearLayout>
 
+
+	<!-- body -->
+	<LinearLayout 
+		style="@style/body"
+		android:orientation="vertical"
+	>
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:padding="4dip"
+			android:text="@string/initialize_preference_confirm_message"
+			android:textColor="?android:textColorPrimary"
+			android:textSize="18sp"
+		/>
+
+		<View style="@style/hline" />
+
+		<LinearLayout 
+			android:orientation="horizontal"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="0"
+		>
+			<Button
+				android:id="@+id/ok_button"
+				android:layout_width="0dip"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:text="@android:string/ok"
+			/>
+			<Button
+				android:id="@+id/cancel_button"
+				android:layout_width="0dip"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:text="@android:string/cancel"
+			/>
+		</LinearLayout>
+	</LinearLayout>
+</LinearLayout>
