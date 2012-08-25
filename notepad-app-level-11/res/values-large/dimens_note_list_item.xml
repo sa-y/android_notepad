@@ -2,8 +2,11 @@
 <resources>
 	<!-- note_list_item -->
 	<dimen name="note_list_item_title_textSize">22dip</dimen>
-	<dimen name="note_list_item_content_textSize">16dip</dimen>
+
 	<dimen name="note_list_item_modified_textSize">18dip</dimen>
+
+	<dimen name="note_list_item_content_textSize">16dip</dimen>
 	<dimen name="note_list_item_content_layout_margin">3dip</dimen>
+
 	<dimen name="note_list_item_checked_layout_margin">3dip</dimen>
 </resources>

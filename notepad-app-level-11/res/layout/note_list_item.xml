@@ -10,10 +10,10 @@
 	  android:paddingBottom="@dimen/list_item_paddingBottom"
 >
 	<LinearLayout 
-		android:orientation="vertical"
-		android:layout_width="fill_parent"
+		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_weight="1"
+		android:orientation="vertical"
 	>
 		<LinearLayout 
 			android:layout_width="fill_parent"
@@ -54,7 +54,7 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_weight="0"
-		android:layout_marginLeft="4dip"
+		android:layout_marginLeft="@dimen/note_list_item_checked_layout_margin"
 		android:layout_gravity="center"
 		android:checkMark="?android:attr/listChoiceIndicatorMultiple"
 	/>

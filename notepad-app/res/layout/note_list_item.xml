@@ -21,41 +21,30 @@
 			android:orientation="horizontal"
 		>
 			<TextView
+				style="@style/note_list_item_title"
 				android:id="@+id/note_title_textview"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_weight="1"
-				android:gravity="left"
-				android:singleLine="true"
-				android:ellipsize="marquee"
 				android:text="&lt;NOTE_TITLE&gt;"
-				android:textSize="@dimen/note_list_item_title_textSize"
-				android:textColor="?android:attr/textColorPrimary"
 			/>
 
 			<TextView
+				style="@style/note_list_item_modified"
 				android:id="@+id/note_modified_textview"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_weight="0"
-				android:layout_gravity="right"
 				android:text="&lt;NOTE_MODIFIED&gt;"
-				android:textSize="@dimen/note_list_item_modified_textSize"
-				android:textColor="?android:attr/textColorSecondary"
 			/>
 		</LinearLayout>
 
 		<TextView
+			style="@style/note_list_item_content"
 			android:id="@+id/note_content_textview"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			android:layout_margin="@dimen/note_list_item_content_layout_margin"
-			android:gravity="left"
-			android:singleLine="true"
-			android:ellipsize="end"
-			android:text="&lt;NOTE_TITLE&gt;"
-			android:textSize="@dimen/note_list_item_content_textSize"
-			android:textColor="?android:attr/textColorSecondary"
+			android:text="&lt;NOTE_CONTENT&gt;"
 		/>
 
 	</LinearLayout>
@@ -64,9 +53,9 @@
 		android:id="@android:id/checkbox"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_gravity="right|center_vertical"
 		android:layout_weight="0"
 		android:layout_margin="@dimen/note_list_item_checked_layout_margin"
+		android:layout_gravity="center"
 		android:checkMark="?android:attr/listChoiceIndicatorMultiple"
 	/>
 </view>
