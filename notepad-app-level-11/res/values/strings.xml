@@ -35,7 +35,7 @@
 	<string name="note_list_title">Note List</string>
 	<string name="view_note_title">View Note</string>
 	<string name="edit_note_title">Edit Note</string>
-	<string name="add_new_note_title">Add New Note</string>
+	<string name="add_new_note_title">New Note</string>
 	<string name="delete_note_title">Delete Note</string>
 	<string name="delete_notes_title">Delete Notes</string>
 	<string name="select_note_title">Select Note</string>

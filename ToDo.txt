@@ -40,15 +40,6 @@
 
 * EditDailyActivity を削除
 
-* 新規作成のショートカット作成画面
-** テンプレートを選択して新規ノートを作成するショートカットを作成する機能
-** AddNewNoteActivity を直接呼び出す
-   -> CreateAddNewNoteShortcutActivity
-
-* テンプレートから新規ノート作成をするショートカット作成画面
-** 特定のテンプレートから新規ノートを作成するショートカットを作成する機能
-   -> CreateNoteTemplateShortcut
-
 ############################################################
 
 * Theme.Dialog ベースのテーマを作成する
@@ -200,6 +191,15 @@
 #*** NoteDetailActivity を修正
 
 !! notepad-app-level-11
+
+#* テンプレートから新規ノート作成をするショートカット作成画面
+#** 特定のテンプレートから新規ノートを作成するショートカットを作成する機能
+#   -> CreateNoteTemplateShortcut
+
+#* 新規作成のショートカット作成画面
+#** テンプレートを選択して新規ノートを作成するショートカットを作成する機能
+#** AddNewNoteActivity を直接呼び出す
+#   -> CreateAddNewNoteShortcutActivity
 
 #* ショートカット作成アクティビティを別パッケージに分離
 
