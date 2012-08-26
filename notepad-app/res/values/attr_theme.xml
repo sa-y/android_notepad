@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <declare-styleable name="Theme.MyTheme">
+    <declare-styleable name="Theme.Notepad">
         <attr name="ic_add" format="reference" />
         <attr name="ic_clear" format="reference" />
         <attr name="ic_delete" format="reference" />
@@ -9,5 +9,6 @@
         <attr name="ic_search" format="reference" />
         <attr name="ic_ok" format="reference" />
         <attr name="ic_lock" format="reference" />
+        <attr name="ic_unlock" format="reference" />
     </declare-styleable>
 </resources>
