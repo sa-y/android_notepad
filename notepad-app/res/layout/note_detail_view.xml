@@ -4,6 +4,7 @@
 	android:id="@+id/note_view_container"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
+	android:focusable="true"
 	android:visibility="gone"
 >
 	<LinearLayout
@@ -15,9 +16,9 @@
 			android:id="@+id/note_title_textview"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
+			android:padding="4dip"
 			android:singleLine="true"
 			android:lines="1"
-			android:inputType="text"
 			android:hint="@string/title"
 			android:textSize="18sp"
 		/>
@@ -29,11 +30,13 @@
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:minLines="2"
-			android:inputType="textMultiLine"
+			android:padding="4dip"
+			android:singleLine="false"
+			android:minLines="4"
 			android:gravity="left|top"
 			android:hint="@string/text"
 			android:textSize="18sp"
 		/>
+
 	</LinearLayout>
 </ScrollView>
