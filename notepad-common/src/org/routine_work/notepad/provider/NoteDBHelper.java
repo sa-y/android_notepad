@@ -23,8 +23,6 @@
  */
 package org.routine_work.notepad.provider;
 
-import org.routine_work.notepad.model.NoteTemplate;
-import org.routine_work.notepad.model.Note;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -33,6 +31,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import org.routine_work.notepad.model.Note;
+import org.routine_work.notepad.model.NoteTemplate;
 import org.routine_work.utils.Log;
 
 /**
@@ -213,13 +213,12 @@ class NoteDBHelper extends SQLiteOpenHelper
 			do
 			{
 				Note note = new Note();
-				note.id = cursor.getLong(idIndex);
-				note.title = cursor.getString(titleIndex);
-				note.content = cursor.getString(contentIndex);
-				note.titleLocked = false;
-				note.contentLocked = false;
-				note.added = cursor.getLong(dateAddedIndex);
-				note.modified = cursor.getLong(dateModifiedIndex);
+				note.setId(cursor.getLong(idIndex));
+				note.setTitle(cursor.getString(titleIndex));
+				note.setContent(cursor.getString(contentIndex));
+				note.setTitleLocked(false);
+				note.setAdded(cursor.getLong(dateAddedIndex));
+				note.setModified(cursor.getLong(dateModifiedIndex));
 
 				File noteFile = new File(backupDirectory, String.format("%08d", index++));
 				Log.d(LOG_TAG, "backup : noteFile => " + noteFile);
@@ -255,7 +254,6 @@ class NoteDBHelper extends SQLiteOpenHelper
 			int titleIndex = cursor.getColumnIndex(NoteStore.Note.Columns.TITLE);
 			int contentIndex = cursor.getColumnIndex(NoteStore.Note.Columns.CONTENT);
 			int titleLockedIndex = cursor.getColumnIndex(NoteStore.Note.Columns.TITLE_LOCKED);
-			int contentLockedIndex = cursor.getColumnIndex(NoteStore.Note.Columns.CONTENT_LOCKED);
 			int dateAddedIndex = cursor.getColumnIndex(NoteStore.Note.Columns.DATE_ADDED);
 			int dateModifiedIndex = cursor.getColumnIndex(NoteStore.Note.Columns.DATE_MODIFIED);
 
@@ -263,13 +261,12 @@ class NoteDBHelper extends SQLiteOpenHelper
 			do
 			{
 				Note note = new Note();
-				note.id = cursor.getLong(idIndex);
-				note.title = cursor.getString(titleIndex);
-				note.content = cursor.getString(contentIndex);
-				note.titleLocked = (cursor.getInt(titleLockedIndex) == 1);
-				note.contentLocked = (cursor.getInt(contentLockedIndex) == 1);
-				note.added = cursor.getLong(dateAddedIndex);
-				note.modified = cursor.getLong(dateModifiedIndex);
+				note.setId(cursor.getLong(idIndex));
+				note.setTitle(cursor.getString(titleIndex));
+				note.setContent(cursor.getString(contentIndex));
+				note.setTitleLocked(cursor.getInt(titleLockedIndex) == 1);
+				note.setAdded(cursor.getLong(dateAddedIndex));
+				note.setModified(cursor.getLong(dateModifiedIndex));
 
 				File noteFile = new File(backupDirectory, String.format("%08d", index++));
 				Log.d(LOG_TAG, "backup : noteFile => " + noteFile);
@@ -305,18 +302,16 @@ class NoteDBHelper extends SQLiteOpenHelper
 			int titleIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.TITLE);
 			int contentIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.CONTENT);
 			int titleLockedIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.TITLE_LOCKED);
-			int contentLockedIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.CONTENT_LOCKED);
 
 			int index = 0;
 			do
 			{
 				NoteTemplate noteTemplate = new NoteTemplate();
-				noteTemplate.id = cursor.getLong(idIndex);
-				noteTemplate.name = "";
-				noteTemplate.title = cursor.getString(titleIndex);
-				noteTemplate.content = cursor.getString(contentIndex);
-				noteTemplate.titleLocked = (cursor.getInt(titleLockedIndex) == 1);
-				noteTemplate.contentLocked = (cursor.getInt(contentLockedIndex) == 1);
+				noteTemplate.setId(cursor.getLong(idIndex));
+				noteTemplate.setName("");
+				noteTemplate.setTitle(cursor.getString(titleIndex));
+				noteTemplate.setContent(cursor.getString(contentIndex));
+				noteTemplate.setTitleLocked(cursor.getInt(titleLockedIndex) == 1);
 
 				File noteFile = new File(backupDirectory, String.format("%08d", index++));
 				Log.d(LOG_TAG, "backup : noteFile => " + noteFile);
@@ -353,18 +348,16 @@ class NoteDBHelper extends SQLiteOpenHelper
 			int titleIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.TITLE);
 			int contentIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.CONTENT);
 			int titleLockedIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.TITLE_LOCKED);
-			int contentLockedIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.CONTENT_LOCKED);
 
 			int index = 0;
 			do
 			{
 				NoteTemplate noteTemplate = new NoteTemplate();
-				noteTemplate.id = cursor.getLong(idIndex);
-				noteTemplate.name = cursor.getString(nameIndex);
-				noteTemplate.title = cursor.getString(titleIndex);
-				noteTemplate.content = cursor.getString(contentIndex);
-				noteTemplate.titleLocked = (cursor.getInt(titleLockedIndex) == 1);
-				noteTemplate.contentLocked = (cursor.getInt(contentLockedIndex) == 1);
+				noteTemplate.setId(cursor.getLong(idIndex));
+				noteTemplate.setName(cursor.getString(nameIndex));
+				noteTemplate.setTitle(cursor.getString(titleIndex));
+				noteTemplate.setContent(cursor.getString(contentIndex));
+				noteTemplate.setTitleLocked(cursor.getInt(titleLockedIndex) == 1);
 
 				File noteFile = new File(backupDirectory, String.format("%08d", index++));
 				Log.d(LOG_TAG, "backup : noteFile => " + noteFile);
@@ -401,13 +394,12 @@ class NoteDBHelper extends SQLiteOpenHelper
 				Log.d(LOG_TAG, "restore : noteFile => " + noteFile);
 				Note note = Note.readNoteFrom(noteFile);
 				ContentValues values = new ContentValues();
-				values.put(NoteStore.Note.Columns._ID, note.id);
-				values.put(NoteStore.Note.Columns.TITLE, note.title);
-				values.put(NoteStore.Note.Columns.CONTENT, note.content);
-				values.put(NoteStore.Note.Columns.TITLE_LOCKED, note.titleLocked);
-				values.put(NoteStore.Note.Columns.CONTENT_LOCKED, note.contentLocked);
-				values.put(NoteStore.Note.Columns.DATE_ADDED, note.added);
-				values.put(NoteStore.Note.Columns.DATE_MODIFIED, note.modified);
+				values.put(NoteStore.Note.Columns._ID, note.getId());
+				values.put(NoteStore.Note.Columns.TITLE, note.getTitle());
+				values.put(NoteStore.Note.Columns.CONTENT, note.getContent());
+				values.put(NoteStore.Note.Columns.TITLE_LOCKED, note.isTitleLocked());
+				values.put(NoteStore.Note.Columns.DATE_ADDED, note.getAdded());
+				values.put(NoteStore.Note.Columns.DATE_MODIFIED, note.getModified());
 				db.insert(Notes.TABLE_NAME, null, values);
 			}
 			catch (FileNotFoundException ex)
@@ -441,12 +433,11 @@ class NoteDBHelper extends SQLiteOpenHelper
 				Log.d(LOG_TAG, "restore : noteTemplateFile => " + noteTemplateFile);
 				NoteTemplate noteTemplate = NoteTemplate.readNoteFrom(noteTemplateFile);
 				ContentValues values = new ContentValues();
-				values.put(NoteStore.NoteTemplate.Columns._ID, noteTemplate.id);
-				values.put(NoteStore.NoteTemplate.Columns.NAME, noteTemplate.name);
-				values.put(NoteStore.NoteTemplate.Columns.TITLE, noteTemplate.title);
-				values.put(NoteStore.NoteTemplate.Columns.CONTENT, noteTemplate.content);
-				values.put(NoteStore.NoteTemplate.Columns.TITLE_LOCKED, noteTemplate.titleLocked);
-				values.put(NoteStore.NoteTemplate.Columns.CONTENT_LOCKED, noteTemplate.contentLocked);
+				values.put(NoteStore.NoteTemplate.Columns._ID, noteTemplate.getId());
+				values.put(NoteStore.NoteTemplate.Columns.NAME, noteTemplate.getName());
+				values.put(NoteStore.NoteTemplate.Columns.TITLE, noteTemplate.getTitle());
+				values.put(NoteStore.NoteTemplate.Columns.CONTENT, noteTemplate.getContent());
+				values.put(NoteStore.NoteTemplate.Columns.TITLE_LOCKED, noteTemplate.isTitleLocked());
 				db.insert(NoteTemplates.TABLE_NAME, null, values);
 			}
 			catch (FileNotFoundException ex)
@@ -472,10 +463,10 @@ class NoteDBHelper extends SQLiteOpenHelper
 		Log.v(LOG_TAG, "Hello");
 
 		File[] listFiles = backupDirectory.listFiles();
-		for (File noteFile : listFiles)
+		for (File backupFile : listFiles)
 		{
-			Log.d(LOG_TAG, "Delete : noteFile => " + noteFile);
-			noteFile.delete();
+			Log.d(LOG_TAG, "Delete : backupFile => " + backupFile);
+			backupFile.delete();
 		}
 
 		Log.v(LOG_TAG, "Bye");

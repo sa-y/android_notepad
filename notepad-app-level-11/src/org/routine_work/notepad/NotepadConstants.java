@@ -40,7 +40,6 @@ public interface NotepadConstants
 	int REQUEST_CODE_PICK_NOTE_TEMPLATE = 107;
 	int NOTE_LOADER_ID = 0;
 	String EXTRA_TITLE_LOCKED = NotepadConstants.class.getPackage().getName() + ".EXTRA_TITLE_LOCKED";
-	String EXTRA_CONTENT_LOCKED = NotepadConstants.class.getPackage().getName() + ".EXTRA_CONTENT_LOCKED";
 	String EXTRA_NOTE_TEMPLATE = NotepadConstants.class.getPackage().getName() + ".EXTRA_NOTE_TEMPLATE";
 	String[] NOTE_LIST_MAPPING_FROM =
 	{

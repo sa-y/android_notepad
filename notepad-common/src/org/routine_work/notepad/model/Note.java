@@ -39,13 +39,12 @@ import java.io.Serializable;
 public class Note implements Serializable
 {
 
-	public long id;
-	public String title;
-	public String content;
-	public boolean titleLocked;
-	public boolean contentLocked;
-	public long added;
-	public long modified;
+	private long id;
+	private String title;
+	private String content;
+	private boolean titleLocked;
+	private long added;
+	private long modified;
 
 	public static void writeNoteTo(Note note, File file) throws FileNotFoundException, IOException
 	{
@@ -75,5 +74,159 @@ public class Note implements Serializable
 		}
 
 		return note;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public long getId()
+	{
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(long id)
+	{
+		this.id = id;
+	}
+
+	/**
+	 * @return the title
+	 */
+	public String getTitle()
+	{
+		return title;
+	}
+
+	/**
+	 * @param title the title to set
+	 */
+	public void setTitle(String title)
+	{
+		this.title = title;
+	}
+
+	/**
+	 * @return the content
+	 */
+	public String getContent()
+	{
+		return content;
+	}
+
+	/**
+	 * @param content the content to set
+	 */
+	public void setContent(String content)
+	{
+		this.content = content;
+	}
+
+	/**
+	 * @return the titleLocked
+	 */
+	public boolean isTitleLocked()
+	{
+		return titleLocked;
+	}
+
+	/**
+	 * @param titleLocked the titleLocked to set
+	 */
+	public void setTitleLocked(boolean titleLocked)
+	{
+		this.titleLocked = titleLocked;
+	}
+
+	/**
+	 * @return the added
+	 */
+	public long getAdded()
+	{
+		return added;
+	}
+
+	/**
+	 * @param added the added to set
+	 */
+	public void setAdded(long added)
+	{
+		this.added = added;
+	}
+
+	/**
+	 * @return the modified
+	 */
+	public long getModified()
+	{
+		return modified;
+	}
+
+	/**
+	 * @param modified the modified to set
+	 */
+	public void setModified(long modified)
+	{
+		this.modified = modified;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		int hash = 5;
+		hash = 97 * hash + (int) (this.id ^ (this.id >>> 32));
+		hash = 97 * hash + (this.title != null ? this.title.hashCode() : 0);
+		hash = 97 * hash + (this.content != null ? this.content.hashCode() : 0);
+		hash = 97 * hash + (this.titleLocked ? 1 : 0);
+		hash = 97 * hash + (int) (this.added ^ (this.added >>> 32));
+		hash = 97 * hash + (int) (this.modified ^ (this.modified >>> 32));
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj == null)
+		{
+			return false;
+		}
+		if (getClass() != obj.getClass())
+		{
+			return false;
+		}
+		final Note other = (Note) obj;
+		if (this.id != other.id)
+		{
+			return false;
+		}
+		if ((this.title == null) ? (other.title != null) : !this.title.equals(other.title))
+		{
+			return false;
+		}
+		if ((this.content == null) ? (other.content != null) : !this.content.equals(other.content))
+		{
+			return false;
+		}
+		if (this.titleLocked != other.titleLocked)
+		{
+			return false;
+		}
+		if (this.added != other.added)
+		{
+			return false;
+		}
+		if (this.modified != other.modified)
+		{
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "Note{" + "id=" + id + ", title=" + title + ", content=" + content + ", titleLocked=" + titleLocked + ", added=" + added + ", modified=" + modified + '}';
 	}
 }

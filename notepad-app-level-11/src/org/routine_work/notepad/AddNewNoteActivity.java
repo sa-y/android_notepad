@@ -118,9 +118,7 @@ public class AddNewNoteActivity extends Activity implements NotepadConstants
 				int titleIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.TITLE);
 				int contentIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.CONTENT);
 				int titleLockedIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.TITLE_LOCKED);
-				int contentLockedIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.CONTENT_LOCKED);
 				boolean titleLocked = (cursor.getInt(titleLockedIndex) != 0);
-				boolean contentLocked = (cursor.getInt(contentLockedIndex) != 0);
 
 				Date now = new Date();
 				String dateText = DateFormat.getDateFormat(this).format(now);
@@ -146,7 +144,6 @@ public class AddNewNoteActivity extends Activity implements NotepadConstants
 					intent.putExtra(Intent.EXTRA_TITLE, title);
 					intent.putExtra(Intent.EXTRA_TEXT, content);
 					intent.putExtra(EXTRA_TITLE_LOCKED, titleLocked);
-					intent.putExtra(EXTRA_CONTENT_LOCKED, contentLocked);
 					startActivity(intent);
 				}
 			}

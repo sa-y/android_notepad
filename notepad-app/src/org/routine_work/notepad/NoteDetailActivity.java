@@ -727,7 +727,6 @@ public class NoteDetailActivity extends Activity
 				values.put(NoteStore.Note.Columns.TITLE, noteTitle);
 				values.put(NoteStore.Note.Columns.CONTENT, noteContent);
 				values.put(NoteStore.Note.Columns.TITLE_LOCKED, noteTitleLocked);
-				values.put(NoteStore.Note.Columns.CONTENT_LOCKED, false);
 				values.put(NoteStore.Note.Columns.DATE_ADDED, now);
 				values.put(NoteStore.Note.Columns.DATE_MODIFIED, now);
 

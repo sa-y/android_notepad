@@ -455,7 +455,6 @@ public class NoteTemplateDetailActivity2 extends Activity
 			values.put(NoteStore.NoteTemplate.Columns.TITLE, templateTitle);
 			values.put(NoteStore.NoteTemplate.Columns.CONTENT, templateContent);
 			values.put(NoteStore.NoteTemplate.Columns.TITLE_LOCKED, templateTitleLocked);
-			values.put(NoteStore.NoteTemplate.Columns.CONTENT_LOCKED, false);
 
 			ContentResolver contentResolver = getContentResolver();
 			if (isNoteTemplateItemUri(currentNoteTemplateUri))

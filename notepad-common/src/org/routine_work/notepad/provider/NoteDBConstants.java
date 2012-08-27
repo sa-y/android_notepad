@@ -34,7 +34,7 @@ interface NoteDBConstants
 {
 
 	String DATABASE_NAME = "NoteDB";
-	int DATABASE_VERSION = 8;
+	int DATABASE_VERSION = 10;
 
 	interface Notes
 	{
@@ -46,7 +46,6 @@ interface NoteDBConstants
 			+ ", " + Note.Columns.TITLE + " TEXT"
 			+ ", " + Note.Columns.CONTENT + " TEXT"
 			+ ", " + Note.Columns.TITLE_LOCKED + " BOOLEAN NOT NULL"
-			+ ", " + Note.Columns.CONTENT_LOCKED + " BOOLEAN NOT NULL"
 			+ ", " + Note.Columns.DATE_ADDED + " INTEGER NOT NULL"
 			+ ", " + Note.Columns.DATE_MODIFIED + " INTEGER NOT NULL"
 			+ ");";
@@ -77,7 +76,6 @@ interface NoteDBConstants
 			+ ", " + NoteTemplate.Columns.TITLE + " TEXT"
 			+ ", " + NoteTemplate.Columns.CONTENT + " TEXT"
 			+ ", " + NoteTemplate.Columns.TITLE_LOCKED + " BOOLEAN NOT NULL"
-			+ ", " + NoteTemplate.Columns.CONTENT_LOCKED + " BOOLEAN NOT NULL"
 			+ ");";
 		String CREATE_NAME_INDEX_SQL = "CREATE INDEX "
 			+ TABLE_NAME + "_" + NoteTemplate.Columns.NAME + "_index "

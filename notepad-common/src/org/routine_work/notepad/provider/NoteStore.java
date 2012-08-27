@@ -54,7 +54,6 @@ public class NoteStore
 			String TITLE = "title";
 			String CONTENT = "content";
 			String TITLE_LOCKED = "title_locked";
-			String CONTENT_LOCKED = "content_locked";
 		}
 		public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/notes");
 		public static final String NOTE_LIST_CONTENT_TYPE = "vnd.android.cursor.dir/vnd.routine_work.note";
@@ -71,7 +70,6 @@ public class NoteStore
 			String TITLE = "title";
 			String CONTENT = "content";
 			String TITLE_LOCKED = "title_locked";
-			String CONTENT_LOCKED = "content_locked";
 		}
 		Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/notetemplates");
 		String NOTE_TEMPLATE_LIST_CONTENT_TYPE = "vnd.android.cursor.dir/vnd.routine_work.notetemplate";
@@ -138,7 +136,6 @@ public class NoteStore
 		initialValues.put(Note.Columns.TITLE, title);
 		initialValues.put(Note.Columns.CONTENT, content);
 		initialValues.put(Note.Columns.TITLE_LOCKED, false);
-		initialValues.put(Note.Columns.CONTENT_LOCKED, false);
 		initialValues.put(Note.Columns.DATE_ADDED, now);
 		initialValues.put(Note.Columns.DATE_MODIFIED, now);
 

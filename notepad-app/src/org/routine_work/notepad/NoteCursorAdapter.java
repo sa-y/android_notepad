@@ -25,11 +25,11 @@ package org.routine_work.notepad;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 import android.view.View;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import org.routine_work.notepad.utils.TimeFormatUtils;
+import org.routine_work.utils.Log;
 
 /**
  *

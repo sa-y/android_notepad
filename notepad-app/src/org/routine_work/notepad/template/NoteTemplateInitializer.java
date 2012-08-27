@@ -62,19 +62,17 @@ public class NoteTemplateInitializer extends IntentService
 			Resources resources = getResources();
 			ContentValues values = new ContentValues();
 			String name, title, content;
-			boolean titleLocked, contentLocked;
+			boolean titleLocked;
 
 			// blank note template
 			name = resources.getString(R.string.template_blank_note_name);
 			title = resources.getString(R.string.template_blank_note_title);
 			content = resources.getString(R.string.template_blank_note_content);
 			titleLocked = resources.getBoolean(R.bool.template_blank_note_title_locked);
-			contentLocked = resources.getBoolean(R.bool.template_blank_note_content_locked);
 			values.put(NoteStore.NoteTemplate.Columns.NAME, name);
 			values.put(NoteStore.NoteTemplate.Columns.TITLE, title);
 			values.put(NoteStore.NoteTemplate.Columns.CONTENT, content);
 			values.put(NoteStore.NoteTemplate.Columns.TITLE_LOCKED, titleLocked);
-			values.put(NoteStore.NoteTemplate.Columns.CONTENT_LOCKED, contentLocked);
 			contentResolver.insert(NoteStore.NoteTemplate.CONTENT_URI, values);
 			// diary template
 
@@ -83,12 +81,10 @@ public class NoteTemplateInitializer extends IntentService
 			title = resources.getString(R.string.template_diary_note_title);
 			content = resources.getString(R.string.template_diary_note_content);
 			titleLocked = resources.getBoolean(R.bool.template_diary_note_title_locked);
-			contentLocked = resources.getBoolean(R.bool.template_diary_note_content_locked);
 			values.put(NoteStore.NoteTemplate.Columns.NAME, name);
 			values.put(NoteStore.NoteTemplate.Columns.TITLE, title);
 			values.put(NoteStore.NoteTemplate.Columns.CONTENT, content);
 			values.put(NoteStore.NoteTemplate.Columns.TITLE_LOCKED, titleLocked);
-			values.put(NoteStore.NoteTemplate.Columns.CONTENT_LOCKED, contentLocked);
 			contentResolver.insert(NoteStore.NoteTemplate.CONTENT_URI, values);
 
 			// quick note template
@@ -97,12 +93,10 @@ public class NoteTemplateInitializer extends IntentService
 			title = resources.getString(R.string.template_quick_note_title);
 			content = resources.getString(R.string.template_quick_note_content);
 			titleLocked = resources.getBoolean(R.bool.template_quick_note_title_locked);
-			contentLocked = resources.getBoolean(R.bool.template_quick_note_content_locked);
 			values.put(NoteStore.NoteTemplate.Columns.NAME, name);
 			values.put(NoteStore.NoteTemplate.Columns.TITLE, title);
 			values.put(NoteStore.NoteTemplate.Columns.CONTENT, content);
 			values.put(NoteStore.NoteTemplate.Columns.TITLE_LOCKED, titleLocked);
-			values.put(NoteStore.NoteTemplate.Columns.CONTENT_LOCKED, contentLocked);
 			contentResolver.insert(NoteStore.NoteTemplate.CONTENT_URI, values);
 		}
 		Log.v(LOG_TAG, "Bye");

@@ -139,7 +139,7 @@ public class NoteTemplateDetailActivity extends ListActivity
 				if (resultCode == RESULT_OK)
 				{
 					String name = data.getStringExtra(Intent.EXTRA_TEXT);
-					currentNoteTemplate.name = name;
+					currentNoteTemplate.setName(name);
 					noteTemplateDetailListAdapter.notifyDataSetChanged();
 				}
 				break;
@@ -147,7 +147,7 @@ public class NoteTemplateDetailActivity extends ListActivity
 				if (resultCode == RESULT_OK)
 				{
 					String title = data.getStringExtra(Intent.EXTRA_TEXT);
-					currentNoteTemplate.title = title;
+					currentNoteTemplate.setTitle(title);
 					noteTemplateDetailListAdapter.notifyDataSetChanged();
 				}
 				break;
@@ -155,7 +155,7 @@ public class NoteTemplateDetailActivity extends ListActivity
 				if (resultCode == RESULT_OK)
 				{
 					String content = data.getStringExtra(Intent.EXTRA_TEXT);
-					currentNoteTemplate.content = content;
+					currentNoteTemplate.setContent(content);
 					noteTemplateDetailListAdapter.notifyDataSetChanged();
 				}
 				break;
@@ -236,7 +236,7 @@ public class NoteTemplateDetailActivity extends ListActivity
 			case POSITION_TITLE_LOCKED:
 				CheckedTextView titleLockCheck = (CheckedTextView) view.findViewById(R.id.note_template_title_lock_checkbox);
 				titleLockCheck.toggle();
-				currentNoteTemplate.titleLocked = titleLockCheck.isChecked();
+				currentNoteTemplate.setTitleLocked(titleLockCheck.isChecked());
 				break;
 			case POSITION_CONTENT:
 				startEditTextTemplateActivity();
@@ -301,10 +301,10 @@ public class NoteTemplateDetailActivity extends ListActivity
 		if (Intent.ACTION_INSERT.equals(newAction))
 		{
 			currentNoteTemplateUri = NoteStore.NoteTemplate.CONTENT_URI;
-			currentNoteTemplate.name = "";
-			currentNoteTemplate.title = "";
-			currentNoteTemplate.content = "";
-			currentNoteTemplate.titleLocked = false;
+			currentNoteTemplate.setName("");
+			currentNoteTemplate.setTitle("");
+			currentNoteTemplate.setContent("");
+			currentNoteTemplate.setTitleLocked(false);
 
 			setTitle(R.string.add_new_note_template_title);
 
@@ -378,10 +378,10 @@ public class NoteTemplateDetailActivity extends ListActivity
 					Log.d(LOG_TAG, "templateContent => " + templateContent);
 					Log.d(LOG_TAG, "templateTitleLocked => " + templateTitleLocked);
 
-					currentNoteTemplate.name = templateName;
-					currentNoteTemplate.title = templateTitle;
-					currentNoteTemplate.titleLocked = templateTitleLocked;
-					currentNoteTemplate.content = templateContent;
+					currentNoteTemplate.setName(templateName);
+					currentNoteTemplate.setTitle(templateTitle);
+					currentNoteTemplate.setTitleLocked(templateTitleLocked);
+					currentNoteTemplate.setContent(templateContent);
 
 					originalNoteTemplate.copyFrom(currentNoteTemplate);
 				}
@@ -428,11 +428,10 @@ public class NoteTemplateDetailActivity extends ListActivity
 			Log.d(LOG_TAG, "note template is modified.");
 
 			ContentValues values = new ContentValues();
-			values.put(NoteStore.NoteTemplate.Columns.NAME, currentNoteTemplate.name);
-			values.put(NoteStore.NoteTemplate.Columns.TITLE, currentNoteTemplate.title);
-			values.put(NoteStore.NoteTemplate.Columns.CONTENT, currentNoteTemplate.content);
-			values.put(NoteStore.NoteTemplate.Columns.TITLE_LOCKED, currentNoteTemplate.titleLocked);
-			values.put(NoteStore.NoteTemplate.Columns.CONTENT_LOCKED, false);
+			values.put(NoteStore.NoteTemplate.Columns.NAME, currentNoteTemplate.getName());
+			values.put(NoteStore.NoteTemplate.Columns.TITLE, currentNoteTemplate.getTitle());
+			values.put(NoteStore.NoteTemplate.Columns.CONTENT, currentNoteTemplate.getContent());
+			values.put(NoteStore.NoteTemplate.Columns.TITLE_LOCKED, currentNoteTemplate.isTitleLocked());
 
 			ContentResolver contentResolver = getContentResolver();
 			if (isNoteTemplateItemUri(currentNoteTemplateUri))
@@ -483,7 +482,7 @@ public class NoteTemplateDetailActivity extends ListActivity
 		Intent intent = new Intent(this, EditTextActivity.class);
 		String title = getString(R.string.template_name);
 		intent.putExtra(Intent.EXTRA_TITLE, title);
-		intent.putExtra(Intent.EXTRA_TEXT, currentNoteTemplate.name);
+		intent.putExtra(Intent.EXTRA_TEXT, currentNoteTemplate.getName());
 		startActivityForResult(intent, REQUEST_CODE_EDIT_TEMPLATE_NAME);
 	}
 
@@ -492,7 +491,7 @@ public class NoteTemplateDetailActivity extends ListActivity
 		Intent intent = new Intent(this, EditTextActivity.class);
 		String title = getString(R.string.title_template);
 		intent.putExtra(Intent.EXTRA_TITLE, title);
-		intent.putExtra(Intent.EXTRA_TEXT, currentNoteTemplate.title);
+		intent.putExtra(Intent.EXTRA_TEXT, currentNoteTemplate.getTitle());
 		startActivityForResult(intent, REQUEST_CODE_EDIT_TEMPLATE_TITLE);
 	}
 
@@ -501,7 +500,7 @@ public class NoteTemplateDetailActivity extends ListActivity
 		Intent intent = new Intent(this, EditTextActivity.class);
 		String title = getString(R.string.text_template);
 		intent.putExtra(Intent.EXTRA_TITLE, title);
-		intent.putExtra(Intent.EXTRA_TEXT, currentNoteTemplate.content);
+		intent.putExtra(Intent.EXTRA_TEXT, currentNoteTemplate.getContent());
 		intent.putExtra(EditTextActivity.EXTRA_INPUT_TYPE, InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
 		startActivityForResult(intent, REQUEST_CODE_EDIT_TEMPLATE_TEXT);
 	}
@@ -528,16 +527,16 @@ public class NoteTemplateDetailActivity extends ListActivity
 			switch (position)
 			{
 				case POSITION_NAME:
-					result = currentNoteTemplate.name;
+					result = currentNoteTemplate.getName();
 					break;
 				case POSITION_TITLE:
-					result = currentNoteTemplate.title;
+					result = currentNoteTemplate.getTitle();
 					break;
 				case POSITION_TITLE_LOCKED:
-					result = Boolean.valueOf(currentNoteTemplate.titleLocked);
+					result = Boolean.valueOf(currentNoteTemplate.isTitleLocked());
 					break;
 				case POSITION_CONTENT:
-					result = currentNoteTemplate.content;
+					result = currentNoteTemplate.getContent();
 					break;
 			}
 			return result;
@@ -576,21 +575,21 @@ public class NoteTemplateDetailActivity extends ListActivity
 				case POSITION_NAME:
 					nameView.setVisibility(View.VISIBLE);
 					TextView nameTextView = (TextView) itemView.findViewById(R.id.note_template_name_textview);
-					nameTextView.setText(currentNoteTemplate.name);
+					nameTextView.setText(currentNoteTemplate.getName());
 					break;
 				case POSITION_TITLE:
 					TextView titleTextView = (TextView) itemView.findViewById(R.id.note_template_title_textview);
-					titleTextView.setText(currentNoteTemplate.title);
+					titleTextView.setText(currentNoteTemplate.getTitle());
 					titleView.setVisibility(View.VISIBLE);
 					break;
 				case POSITION_TITLE_LOCKED:
 					CheckedTextView titleLockCheck = (CheckedTextView) itemView.findViewById(R.id.note_template_title_lock_checkbox);
-					titleLockCheck.setChecked(currentNoteTemplate.titleLocked);
+					titleLockCheck.setChecked(currentNoteTemplate.isTitleLocked());
 					titleLockedView.setVisibility(View.VISIBLE);
 					break;
 				case POSITION_CONTENT:
 					TextView contentTextView = (TextView) itemView.findViewById(R.id.note_template_content_textview);
-					contentTextView.setText(currentNoteTemplate.content);
+					contentTextView.setText(currentNoteTemplate.getContent());
 					contentView.setVisibility(View.VISIBLE);
 					break;
 			}
@@ -605,8 +604,8 @@ public class NoteTemplateDetailActivity extends ListActivity
 			switch (buttonView.getId())
 			{
 				case R.id.note_template_title_lock_checkbox:
-					currentNoteTemplate.titleLocked = isChecked;
-					Log.d(LOG_TAG, "titleLocked => " + currentNoteTemplate.titleLocked);
+					currentNoteTemplate.setTitleLocked(isChecked);
+					Log.d(LOG_TAG, "titleLocked => " + currentNoteTemplate.isTitleLocked());
 					break;
 				default:
 					throw new AssertionError();

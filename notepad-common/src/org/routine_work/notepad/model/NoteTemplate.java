@@ -39,75 +39,11 @@ import java.io.Serializable;
 public class NoteTemplate implements Serializable
 {
 
-	public long id;
-	public String name;
-	public String title;
-	public String content;
-	public boolean titleLocked;
-	public boolean contentLocked;
-
-	public void copyFrom(NoteTemplate other)
-	{
-		this.id = other.id;
-		this.name = other.name;
-		this.title = other.title;
-		this.content = other.content;
-		this.titleLocked = other.titleLocked;
-		this.contentLocked = other.contentLocked;
-	}
-
-	@Override
-	public int hashCode()
-	{
-		int hash = 5;
-		hash = 73 * hash + (this.name != null ? this.name.hashCode() : 0);
-		hash = 73 * hash + (this.title != null ? this.title.hashCode() : 0);
-		hash = 73 * hash + (this.content != null ? this.content.hashCode() : 0);
-		hash = 73 * hash + (this.titleLocked ? 1 : 0);
-		hash = 73 * hash + (this.contentLocked ? 1 : 0);
-		return hash;
-	}
-
-	@Override
-	public boolean equals(Object obj)
-	{
-		if (obj == null)
-		{
-			return false;
-		}
-		if (getClass() != obj.getClass())
-		{
-			return false;
-		}
-		final NoteTemplate other = (NoteTemplate) obj;
-		if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name))
-		{
-			return false;
-		}
-		if ((this.title == null) ? (other.title != null) : !this.title.equals(other.title))
-		{
-			return false;
-		}
-		if ((this.content == null) ? (other.content != null) : !this.content.equals(other.content))
-		{
-			return false;
-		}
-		if (this.titleLocked != other.titleLocked)
-		{
-			return false;
-		}
-		if (this.contentLocked != other.contentLocked)
-		{
-			return false;
-		}
-		return true;
-	}
-
-	@Override
-	public String toString()
-	{
-		return "NoteTemplate{" + "id=" + id + ", name=" + name + ", title=" + title + ", content=" + content + ", titleLocked=" + titleLocked + ", contentLocked=" + contentLocked + '}';
-	}
+	private long id;
+	private String name;
+	private String title;
+	private String content;
+	private boolean titleLocked;
 
 	public static void writeNoteTo(NoteTemplate note, File file) throws FileNotFoundException, IOException
 	{
@@ -137,5 +73,147 @@ public class NoteTemplate implements Serializable
 		}
 
 		return note;
+	}
+
+	public void copyFrom(NoteTemplate other)
+	{
+		this.setId(other.getId());
+		this.setName(other.getName());
+		this.setTitle(other.getTitle());
+		this.setContent(other.getContent());
+		this.setTitleLocked(other.isTitleLocked());
+	}
+
+	@Override
+	public int hashCode()
+	{
+		int hash = 5;
+		hash = 53 * hash + (int) (this.id ^ (this.id >>> 32));
+		hash = 53 * hash + (this.name != null ? this.name.hashCode() : 0);
+		hash = 53 * hash + (this.title != null ? this.title.hashCode() : 0);
+		hash = 53 * hash + (this.content != null ? this.content.hashCode() : 0);
+		hash = 53 * hash + (this.titleLocked ? 1 : 0);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj == null)
+		{
+			return false;
+		}
+		if (getClass() != obj.getClass())
+		{
+			return false;
+		}
+		final NoteTemplate other = (NoteTemplate) obj;
+		if (this.id != other.id)
+		{
+			return false;
+		}
+		if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name))
+		{
+			return false;
+		}
+		if ((this.title == null) ? (other.title != null) : !this.title.equals(other.title))
+		{
+			return false;
+		}
+		if ((this.content == null) ? (other.content != null) : !this.content.equals(other.content))
+		{
+			return false;
+		}
+		if (this.titleLocked != other.titleLocked)
+		{
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "NoteTemplate{" + "id=" + id + ", name=" + name + ", title=" + title + ", content=" + content + ", titleLocked=" + titleLocked + '}';
+	}
+
+	/**
+	 * @return the id
+	 */
+	public long getId()
+	{
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(long id)
+	{
+		this.id = id;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName()
+	{
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+
+	/**
+	 * @return the title
+	 */
+	public String getTitle()
+	{
+		return title;
+	}
+
+	/**
+	 * @param title the title to set
+	 */
+	public void setTitle(String title)
+	{
+		this.title = title;
+	}
+
+	/**
+	 * @return the content
+	 */
+	public String getContent()
+	{
+		return content;
+	}
+
+	/**
+	 * @param content the content to set
+	 */
+	public void setContent(String content)
+	{
+		this.content = content;
+	}
+
+	/**
+	 * @return the titleLocked
+	 */
+	public boolean isTitleLocked()
+	{
+		return titleLocked;
+	}
+
+	/**
+	 * @param titleLocked the titleLocked to set
+	 */
+	public void setTitleLocked(boolean titleLocked)
+	{
+		this.titleLocked = titleLocked;
 	}
 }

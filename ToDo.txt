@@ -3,17 +3,11 @@
 #############################
 !! notepad-app
 
-* プリファレンス関連の画面も設定されたテーマを使うように修正
-
-* ロックボタン用アイコンの作成
-** drawable/ic_lock_dark
-** drawable/ic_lock_light
-** drawable/ic_unlock_dark
-** drawable/ic_unlock_light
-
 * ノート編集時のロックを ToggleButton から Button + ダイアログに変更
 ** ToggleButton はキーボードでオンオフ操作できない？
 ** ロック解除操作が簡単すぎるのはよくない？
+
+* ノート一覧画面の本文の表示行数を設定変更可能にする
 
 * OptionMenu から検索を開くとソフトウェアキーボードが開かないバグを修正
 ** 検索ボタンからだと正常にソフトウェアキーボードが開く
@@ -37,6 +31,7 @@
 ** ロック状態に応じて EditText の有効無効を設定
 ** ロック状態を変更する機能
 
+* ノート一覧画面の本文の表示行数を設定変更可能にする
 
 ############################################################
 
@@ -89,6 +84,14 @@
 ! 0.1.5
 
 !! notepad-app
+
+#* ロックボタン用アイコンの作成
+#** drawable/ic_lock_dark
+#** drawable/ic_lock_light
+#** drawable/ic_unlock_dark
+#** drawable/ic_unlock_light
+
+#* プリファレンス関連の画面も設定されたテーマを使うように修正
 
 #* dimens/editText_textSize を削除
 # dimens/note_template_detail_item_value_textSize を定義
@@ -271,6 +274,10 @@
 #* ショートカット作成時に PickNoteActivity を開いた際にタイトルが表示されないバグ
 
 !! notepad-common
+
+#* DB とコンテントプロバイダののリファクタリング
+#** Note と NoteTemplate の content_locked を削除
+#** Note と NoteTemplate のフィールドのカプセル化
 
 #* Uri タイプチェックユーティリティをリファクタリング
 #** 旧 : NoteDetailActivity#isNoteItemUri(Uri uri) : boolean 
