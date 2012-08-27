@@ -1,5 +1,11 @@
 ! LATEST
 
+* ノート表示画面とノート削除画面で本文スクロールできない問題
+** EditText にフォーカスが移らないため物理キーボードの操作でスクロールできない
+** Android 3.0 以降だとタッチでもスクロールできない
+** EditText を無効化して表示に使う方法は根本的にすじがよくない。
+** ScrollView + TextView にするか ListView にするか？
+
 #############################
 !! notepad-app
 
@@ -194,6 +200,11 @@
 #*** NoteDetailActivity を修正
 
 !! notepad-app-level-11
+
+#* NoteDetailActivity のフラグメントのタグを EDIT と DELETE 時で分離
+#** 廃止 NOTE_DETAIL_TAG 
+#** 追加 FT_NOTE_EDIT 
+#** 追加 FT_NOTE_DELETE 
 
 #* プリファレンス関連の画面も設定されたテーマを使うように修正
 

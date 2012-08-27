@@ -46,7 +46,8 @@ public class NoteDetailActivity extends Activity
 {
 
 	private static final String LOG_TAG = "simple-notepad";
-	private static final String NOTE_DETAIL_TAG = "NoteDetail";
+	private static final String FT_NOTE_EDIT = "FT_NOTE_EDIT";
+	private static final String FT_NOTE_DELETE = "FT_NOTE_DELETE";
 	private static final String SAVE_KEY_CURRENT_ACTION = "currentAction";
 	private String currentAction;
 
@@ -92,7 +93,7 @@ public class NoteDetailActivity extends Activity
 		super.onResume();
 
 		FragmentManager fm = getFragmentManager();
-		Fragment noteDetailFragment = fm.findFragmentByTag(NOTE_DETAIL_TAG);
+		Fragment noteDetailFragment = fm.findFragmentByTag(FT_NOTE_EDIT);
 		if (noteDetailFragment instanceof EditNoteFragment)
 		{
 			Log.d(LOG_TAG, "EditNoteFragment is already exist.");
@@ -109,7 +110,7 @@ public class NoteDetailActivity extends Activity
 		Log.v(LOG_TAG, "Hello");
 
 		FragmentManager fm = getFragmentManager();
-		Fragment noteDetailFragment = fm.findFragmentByTag(NOTE_DETAIL_TAG);
+		Fragment noteDetailFragment = fm.findFragmentByTag(FT_NOTE_EDIT);
 		if (noteDetailFragment instanceof EditNoteFragment)
 		{
 			Log.d(LOG_TAG, "EditNoteFragment is already exist.");
@@ -208,7 +209,7 @@ public class NoteDetailActivity extends Activity
 			|| Intent.ACTION_VIEW.equals(nextAction))
 		{
 			EditNoteFragment editNoteFragment;
-			Fragment noteDetailFragment = fm.findFragmentByTag(NOTE_DETAIL_TAG);
+			Fragment noteDetailFragment = fm.findFragmentByTag(FT_NOTE_EDIT);
 			Log.d(LOG_TAG, "noteDetailFragment=> " + noteDetailFragment);
 			if (noteDetailFragment instanceof EditNoteFragment)
 			{
@@ -220,7 +221,7 @@ public class NoteDetailActivity extends Activity
 				Log.d(LOG_TAG, "EditNoteFragment is created now.");
 				editNoteFragment = new EditNoteFragment();
 				FragmentTransaction ft = fm.beginTransaction();
-				ft.replace(R.id.note_detail_container, editNoteFragment, NOTE_DETAIL_TAG);
+				ft.replace(R.id.note_detail_container, editNoteFragment, FT_NOTE_EDIT);
 				ft.commit();
 			}
 			Log.d(LOG_TAG, "editNoteFragment => " + editNoteFragment);
@@ -269,7 +270,7 @@ public class NoteDetailActivity extends Activity
 		else if (Intent.ACTION_DELETE.equals(nextAction))
 		{
 			DeleteNoteFragment deleteNoteFragment;
-			Fragment noteDetailFragment = fm.findFragmentByTag(NOTE_DETAIL_TAG);
+			Fragment noteDetailFragment = fm.findFragmentByTag(FT_NOTE_DELETE);
 			Log.d(LOG_TAG, "noteDetailFragment => " + noteDetailFragment);
 			if (noteDetailFragment instanceof DeleteNoteFragment)
 			{
@@ -281,7 +282,7 @@ public class NoteDetailActivity extends Activity
 				Log.d(LOG_TAG, "DeleteNoteFragment is created now.");
 				deleteNoteFragment = new DeleteNoteFragment();
 				FragmentTransaction ft = fm.beginTransaction();
-				ft.replace(R.id.note_detail_container, deleteNoteFragment, NOTE_DETAIL_TAG);
+				ft.replace(R.id.note_detail_container, deleteNoteFragment, FT_NOTE_DELETE);
 				ft.commit();
 			}
 
