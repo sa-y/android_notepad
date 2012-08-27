@@ -76,6 +76,27 @@
 		</activity>
 
 		<activity
+			android:name=".NoteDetailActivity1"
+			android:label="NoteDetailActivity1 Test"
+			android:launchMode="singleTop"
+		>
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<action android:name="android.intent.action.EDIT" />
+				<action android:name="android.intent.action.DELETE" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<data android:mimeType="vnd.android.cursor.item/vnd.routine_work.note" />
+			</intent-filter>
+
+			<intent-filter>
+				<action android:name="android.intent.action.INSERT" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<data android:mimeType="vnd.android.cursor.dir/vnd.routine_work.note" />
+			</intent-filter>
+
+		</activity>
+
+		<activity
 			android:name=".PickNoteActivity"
 			android:label="@string/select_note_title"
 		>

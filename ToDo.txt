@@ -6,6 +6,7 @@
 ** EditText を無効化して表示に使う方法は根本的にすじがよくない。
 ** ScrollView + TextView にするか ListView にするか？
 
+
 #############################
 !! notepad-app
 
@@ -93,6 +94,10 @@
 ! 0.1.5
 
 !! notepad-app
+
+#* NoteDetailActivity1 をテスト実装
+#** 表示モードでは ScrollView + TextView で表示
+#** 編集モードは従来通り
 
 #* ノート編集画面のリファクタリング
 #** モデルクラス Note を利用するように修正
