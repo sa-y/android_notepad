@@ -41,6 +41,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+import org.routine_work.notepad.model.Note;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.utils.NoteUtils;
@@ -71,17 +72,13 @@ public class NoteDetailActivity extends Activity
 	private ToggleButton noteTitleLockedToggleButton;
 	private EditText noteContentEditText;
 	// data
-	private String originalNoteTitle = "";
-	private String originalNoteContent = "";
-	private boolean originalNoteTitleLocked = false;
 	private String currentAction;
 	private Uri currentNoteUri;
+	private Note currentNote = new Note();
+	private Note originalNote = new Note();
 
-	/**
-	 * Called when the activity is first created.
-	 */
 	@Override
-	public void onCreate(Bundle savedInstanceState)
+	protected void onCreate(Bundle savedInstanceState)
 	{
 		Log.v(LOG_TAG, "Hello");
 
@@ -163,11 +160,10 @@ public class NoteDetailActivity extends Activity
 		Log.d(LOG_TAG, "------------------------------------------------------------");
 		Log.d(LOG_TAG, "currentAction => " + currentAction);
 		Log.d(LOG_TAG, "currentNoteUri => " + currentNoteUri);
+		Log.d(LOG_TAG, "currentNote => " + currentNote);
+		Log.d(LOG_TAG, "originalNote => " + originalNote);
 		Log.d(LOG_TAG, "noteTitleEditText.text => " + noteTitleEditText.getText().toString());
 		Log.d(LOG_TAG, "noteContentEditText.text => " + noteContentEditText.getText().toString());
-		Log.d(LOG_TAG, "originalNoteTitle => " + originalNoteTitle);
-		Log.d(LOG_TAG, "originalNoteContent => " + originalNoteContent);
-		Log.d(LOG_TAG, "originalNoteTitleLocked => " + originalNoteTitleLocked);
 		Log.d(LOG_TAG, "------------------------------------------------------------");
 
 		Log.v(LOG_TAG, "Bye");
@@ -456,27 +452,27 @@ public class NoteDetailActivity extends Activity
 		{
 			Log.d(LOG_TAG, "ACTION_INSERT");
 			currentNoteUri = NoteStore.Note.CONTENT_URI;
-			noteTitleEditText.setText(null);
-			noteContentEditText.setText(null);
+			currentNote.setTitle(null);
+			currentNote.setContent(null);
 
 			// init default text
 			String extraTitle = intent.getStringExtra(Intent.EXTRA_TITLE);
 			Log.d(LOG_TAG, "EXTRA_TITLE => " + extraTitle);
 			if (extraTitle != null)
 			{
-				noteTitleEditText.setText(extraTitle);
+				currentNote.setTitle(extraTitle);
 			}
 
 			String extraText = intent.getStringExtra(Intent.EXTRA_TEXT);
 			Log.d(LOG_TAG, "EXTRA_TEXT => " + extraText);
 			if (extraText != null)
 			{
-				noteContentEditText.setText(extraText);
+				currentNote.setContent(extraText);
 			}
 
 			boolean extraTitleLocked = intent.getBooleanExtra(EXTRA_TITLE_LOCKED, false);
 			Log.d(LOG_TAG, "EXTRA_TITLE_LOCKED => " + extraTitleLocked);
-			noteTitleLockedToggleButton.setChecked(extraTitleLocked);
+			currentNote.setTitleLocked(extraTitleLocked);
 
 			titleTextView.setText(R.string.add_new_note_title);
 			addNewNoteImageButton.setVisibility(View.VISIBLE);
@@ -521,7 +517,7 @@ public class NoteDetailActivity extends Activity
 			noteTitleLockedToggleButton.setVisibility(View.VISIBLE);
 
 			setEditable(true);
-			if (noteTitleLockedToggleButton.isChecked())
+			if (currentNote.isTitleLocked())
 			{
 				setNoteTitleEditable(false);
 				noteContentEditText.requestFocus();
@@ -588,9 +584,9 @@ public class NoteDetailActivity extends Activity
 		}
 
 		currentAction = newAction;
-		originalNoteTitle = noteTitleEditText.getText().toString();
-		originalNoteContent = noteContentEditText.getText().toString();
-		originalNoteTitleLocked = noteTitleLockedToggleButton.isChecked();
+		bindNoteToViews();
+		originalNote.copyFrom(currentNote);
+
 		Log.d(LOG_TAG, "isFinishing() => " + isFinishing());
 
 		Log.v(LOG_TAG, "Bye");
@@ -633,20 +629,20 @@ public class NoteDetailActivity extends Activity
 					int titleIndex = cursor.getColumnIndex(NoteStore.Note.Columns.TITLE);
 					int contentIndex = cursor.getColumnIndex(NoteStore.Note.Columns.CONTENT);
 					int titleLockedIndex = cursor.getColumnIndex(NoteStore.Note.Columns.TITLE_LOCKED);
+
 					String noteTitle = cursor.getString(titleIndex);
 					String noteContent = cursor.getString(contentIndex);
 					boolean noteTitleLocked = (cursor.getInt(titleLockedIndex) != 0);
+
 					Log.d(LOG_TAG, "noteTitle => " + noteTitle);
 					Log.d(LOG_TAG, "noteContent => " + noteContent);
 					Log.d(LOG_TAG, "noteTitleLocked => " + noteTitleLocked);
 
-					noteTitleEditText.setText(noteTitle);
-					noteContentEditText.setText(noteContent);
-					noteTitleLockedToggleButton.setChecked(noteTitleLocked);
-
-					originalNoteTitle = noteTitleEditText.getText().toString();
-					originalNoteContent = noteContentEditText.getText().toString();
-					originalNoteTitleLocked = noteTitleLockedToggleButton.isChecked();
+					currentNote.setTitle(noteTitle);
+					currentNote.setContent(noteContent);
+					currentNote.setTitleLocked(noteTitleLocked);
+					bindNoteToViews();
+					originalNote.copyFrom(currentNote);
 				}
 			}
 		}
@@ -659,18 +655,11 @@ public class NoteDetailActivity extends Activity
 		boolean result = false;
 		Log.v(LOG_TAG, "Hello");
 
-		String noteTitle = noteTitleEditText.getText().toString();
-		String noteContent = noteContentEditText.getText().toString();
-		boolean noteTitleLocked = noteTitleLockedToggleButton.isChecked();
-		Log.d(LOG_TAG, "noteTitle => " + noteTitle);
-		Log.d(LOG_TAG, "noteContent => " + noteContent);
-		Log.d(LOG_TAG, "originalNoteTitle => " + originalNoteTitle);
-		Log.d(LOG_TAG, "originalNoteContent => " + originalNoteContent);
-		Log.d(LOG_TAG, "originalNoteTitleLocked => " + originalNoteTitleLocked);
+		restoreNoteFromViews();
+		Log.d(LOG_TAG, "currentNote => " + currentNote);
+		Log.d(LOG_TAG, "originalNote => " + originalNote);
 
-		if ((noteTitle.equals(originalNoteTitle)
-			&& noteContent.equals(originalNoteContent)
-			&& (noteTitleLocked == originalNoteTitleLocked)) == false)
+		if (currentNote.equals(originalNote) == false)
 		{
 			result = true;
 		}
@@ -703,9 +692,7 @@ public class NoteDetailActivity extends Activity
 		{
 			Log.d(LOG_TAG, "note is modified.");
 
-			String noteTitle = noteTitleEditText.getText().toString();
-			String noteContent = noteContentEditText.getText().toString();
-			boolean noteTitleLocked = noteTitleLockedToggleButton.isChecked();
+			restoreNoteFromViews();
 
 			long now = System.currentTimeMillis();
 			ContentValues values = new ContentValues();
@@ -713,9 +700,9 @@ public class NoteDetailActivity extends Activity
 			if (NoteStore.isNoteItemUri(this, currentNoteUri))
 			{
 				// Update
-				values.put(NoteStore.Note.Columns.TITLE, noteTitle);
-				values.put(NoteStore.Note.Columns.CONTENT, noteContent);
-				values.put(NoteStore.Note.Columns.TITLE_LOCKED, noteTitleLocked);
+				values.put(NoteStore.Note.Columns.TITLE, currentNote.getTitle());
+				values.put(NoteStore.Note.Columns.CONTENT, currentNote.getContent());
+				values.put(NoteStore.Note.Columns.TITLE_LOCKED, currentNote.isTitleLocked());
 				values.put(NoteStore.Note.Columns.DATE_MODIFIED, now);
 
 				int updatedCount = contentResolver.update(currentNoteUri, values, null, null);
@@ -724,18 +711,17 @@ public class NoteDetailActivity extends Activity
 			else
 			{
 				// Insert
-				values.put(NoteStore.Note.Columns.TITLE, noteTitle);
-				values.put(NoteStore.Note.Columns.CONTENT, noteContent);
-				values.put(NoteStore.Note.Columns.TITLE_LOCKED, noteTitleLocked);
+				values.put(NoteStore.Note.Columns.TITLE, currentNote.getTitle());
+				values.put(NoteStore.Note.Columns.CONTENT, currentNote.getContent());
+				values.put(NoteStore.Note.Columns.TITLE_LOCKED, currentNote.isTitleLocked());
 				values.put(NoteStore.Note.Columns.DATE_ADDED, now);
 				values.put(NoteStore.Note.Columns.DATE_MODIFIED, now);
 
 				currentNoteUri = contentResolver.insert(NoteStore.Note.CONTENT_URI, values);
 				Log.d(LOG_TAG, "currentNoteUri => " + currentNoteUri);
 			}
-			originalNoteTitle = noteTitle;
-			originalNoteContent = noteContent;
-			originalNoteTitleLocked = noteTitleLocked;
+
+			originalNote.copyFrom(currentNote);
 			setResult(RESULT_OK);
 		}
 		else
@@ -801,5 +787,37 @@ public class NoteDetailActivity extends Activity
 		}
 
 		Log.v(LOG_TAG, "Bye");
+	}
+
+	private void bindNoteToViews()
+	{
+		if (noteTitleEditText != null)
+		{
+			noteTitleEditText.setText(currentNote.getTitle());
+		}
+		if (noteContentEditText != null)
+		{
+			noteContentEditText.setText(currentNote.getContent());
+		}
+		if (noteTitleLockedToggleButton != null)
+		{
+			noteTitleLockedToggleButton.setChecked(currentNote.isTitleLocked());
+		}
+	}
+
+	private void restoreNoteFromViews()
+	{
+		if (noteTitleEditText != null)
+		{
+			currentNote.setTitle(noteTitleEditText.getText().toString());
+		}
+		if (noteContentEditText != null)
+		{
+			currentNote.setContent(noteContentEditText.getText().toString());
+		}
+		if (noteTitleLockedToggleButton != null)
+		{
+			currentNote.setTitleLocked(noteTitleLockedToggleButton.isChecked());
+		}
 	}
 }

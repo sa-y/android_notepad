@@ -229,4 +229,14 @@ public class Note implements Serializable
 	{
 		return "Note{" + "id=" + id + ", title=" + title + ", content=" + content + ", titleLocked=" + titleLocked + ", added=" + added + ", modified=" + modified + '}';
 	}
+
+	public void copyFrom(Note other)
+	{
+		this.setId(other.getId());
+		this.setTitle(other.getTitle());
+		this.setContent(other.getContent());
+		this.setTitleLocked(other.isTitleLocked());
+		this.setAdded(other.getAdded());
+		this.setModified(other.getModified());
+	}
 }
