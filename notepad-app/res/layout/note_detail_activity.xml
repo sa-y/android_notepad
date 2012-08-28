@@ -37,8 +37,12 @@
 		/>
 	</LinearLayout>
 
-
 	<!-- body -->
-	<include layout="@layout/note_detail" />
+	<FrameLayout
+		style="@style/body"
+	>
+		<include layout="@layout/note_detail_view" />
+		<include layout="@layout/note_detail_edit" />
+	</FrameLayout>
 
 </LinearLayout>

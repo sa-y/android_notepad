@@ -23,7 +23,7 @@
 			android:textSize="18sp"
 		/>
 
-		<View style="@style/hline" />
+		<View style="@style/note_detail_separator" />
 
 		<TextView
 			android:id="@+id/note_content_textview"

@@ -33,6 +33,7 @@
 
 	<!-- activity title -->
 	<string name="note_list_title">Note List</string>
+	<string name="note_detail_title">Note Detail</string>
 	<string name="view_note_title">View Note</string>
 	<string name="edit_note_title">Edit Note</string>
 	<string name="add_new_note_title">New Note</string>

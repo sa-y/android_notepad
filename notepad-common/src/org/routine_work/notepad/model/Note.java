@@ -39,12 +39,12 @@ import java.io.Serializable;
 public class Note implements Serializable
 {
 
-	private long id;
-	private String title;
-	private String content;
-	private boolean titleLocked;
-	private long added;
-	private long modified;
+	private long id = 0;
+	private String title = "";
+	private String content = "";
+	private boolean titleLocked = false;
+	private long added = 0;
+	private long modified = 0;
 
 	public static void writeNoteTo(Note note, File file) throws FileNotFoundException, IOException
 	{
