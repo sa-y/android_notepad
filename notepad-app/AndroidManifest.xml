@@ -101,26 +101,8 @@
 		</activity>
 
 		<activity
-			android:name=".template.NoteTemplateDetailActivity2"
-			android:label="Note Template Detail 2"
-		>
-			<intent-filter>
-				<action android:name="android.intent.action.VIEW" />
-				<action android:name="android.intent.action.EDIT" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<data android:mimeType="vnd.android.cursor.item/vnd.routine_work.notetemplate" />
-			</intent-filter>
-
-			<intent-filter>
-				<action android:name="android.intent.action.INSERT" />
-				<category android:name="android.intent.category.DEFAULT" />
-				<data android:mimeType="vnd.android.cursor.dir/vnd.routine_work.notetemplate" />
-			</intent-filter>
-		</activity>
-
-		<activity
-			android:name=".template.NoteTemplateDetailActivity3"
-			android:label="Note Template Detail 3"
+			android:name=".template.NoteTemplateDetailActivity"
+			android:label="@string/note_template_detail_title"
 		>
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW" />

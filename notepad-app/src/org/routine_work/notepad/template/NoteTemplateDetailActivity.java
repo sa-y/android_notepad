@@ -57,7 +57,7 @@ import org.routine_work.utils.Log;
  *
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
-public class NoteTemplateDetailActivity3 extends ListActivity
+public class NoteTemplateDetailActivity extends ListActivity
 	implements View.OnClickListener, OnItemClickListener, NoteTemplateConstants
 {
 
@@ -85,7 +85,7 @@ public class NoteTemplateDetailActivity3 extends ListActivity
 		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.note_template_detail_activity3);
+		setContentView(R.layout.note_template_detail_activity);
 
 		titleTextView = (TextView) findViewById(R.id.title_textview);
 		ImageButton homeImageButton = (ImageButton) findViewById(R.id.home_button);

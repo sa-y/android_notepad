@@ -23,6 +23,6 @@
 	</LinearLayout>
 
 	<!-- body -->
-	<include layout="@layout/note_template_detail2" />
+	<include layout="@layout/note_template_detail" />
 
 </LinearLayout>

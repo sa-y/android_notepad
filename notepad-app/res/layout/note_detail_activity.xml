@@ -39,7 +39,8 @@
 
 	<!-- body -->
 	<FrameLayout
-		style="@style/body"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
 	>
 		<include layout="@layout/note_detail_view" />
 		<include layout="@layout/note_detail_edit" />
