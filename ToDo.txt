@@ -9,7 +9,9 @@
 * 設定 : 編集画面で本文編集時のアクションバーの非表示の有効無効
 ** デフォルト値をスクリーンサイズ毎に定義
 *** small => on
-*** medium => on
+*** small-land => on
+*** medium => off
+*** medium-land => on
 *** large => off
 *** xlarge => off
 
@@ -105,7 +107,6 @@
 #** ToggleButton はキーボードでオンオフ操作できない
 #** ロック解除操作が簡単すぎるのはよくない
 #** ロック、アンロックメッセージを作成
-
 
 #* NoteDetailActivity1 をテスト実装
 #** 表示モードでは ScrollView + TextView で表示
