@@ -10,11 +10,16 @@
 	<string name="no_note">No Note</string>
 	<string name="title">Title</string>
 	<string name="text">Text</string>
+	<string name="name">Name</string>
+
 	<string name="lock">Lock</string>
 	<string name="unlock">Unlock</string>
-	<string name="name">Name</string>
 	<string name="locked">Locked</string>
 	<string name="unlocked">Unlocked</string>
+	<string name="lock_title">Lock Title</string>
+	<string name="unlock_title">Unlock Title</string>
+	<string name="lock_title_confirm">The editing of this title becomes impossible. Are you all right?</string>
+	<string name="unlock_title_confirm">This title will be editable. Are you all right?</string>
 
 	<string name="note_template">Note Template</string>
 	<string name="no_note_template">No Note Template</string>

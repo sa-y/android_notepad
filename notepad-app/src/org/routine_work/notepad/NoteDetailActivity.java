@@ -129,7 +129,6 @@ public class NoteDetailActivity extends Activity
 		noteContentEditText = (EditText) findViewById(R.id.note_content_edittext);
 
 		noteTitleEditText.setOnFocusChangeListener(this);
-		noteTitleEditText.setOnClickListener(this);
 		noteTitleLockImageButton.setOnClickListener(this);
 		noteTitleUnlockImageButton.setOnClickListener(this);
 		noteContentEditText.setOnFocusChangeListener(this);
@@ -370,10 +369,6 @@ public class NoteDetailActivity extends Activity
 			case R.id.note_title_unlock_button:
 				Log.d(LOG_TAG, "note_title_unlock_button is clicked.");
 				showDialog(DIALOG_ID_UNLOCK);
-				break;
-			case R.id.note_title_edittext:
-				Log.d(LOG_TAG, "note_title_edittext is clicked.");
-				noteContentEditText.clearFocus();
 				break;
 		}
 
@@ -963,8 +958,8 @@ public class NoteDetailActivity extends Activity
 		if (lockDialog == null)
 		{
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setTitle(R.string.lock);
-			builder.setMessage(R.string.lock);
+			builder.setTitle(R.string.lock_title);
+			builder.setMessage(R.string.lock_title_confirm);
 			builder.setPositiveButton(android.R.string.ok, this);
 			builder.setNegativeButton(android.R.string.cancel, this);
 			lockDialog = builder.create();
@@ -978,8 +973,8 @@ public class NoteDetailActivity extends Activity
 		if (unlockDialog == null)
 		{
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setTitle(R.string.unlock);
-			builder.setMessage(R.string.unlock);
+			builder.setTitle(R.string.unlock_title);
+			builder.setMessage(R.string.unlock_title_confirm);
 			builder.setPositiveButton(android.R.string.ok, this);
 			builder.setNegativeButton(android.R.string.cancel, this);
 			unlockDialog = builder.create();
