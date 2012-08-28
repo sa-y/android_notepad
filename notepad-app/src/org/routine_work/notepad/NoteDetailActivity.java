@@ -24,8 +24,11 @@
 package org.routine_work.notepad;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -34,13 +37,10 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.*;
 import android.view.View.OnFocusChangeListener;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 import org.routine_work.notepad.model.Note;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
@@ -55,13 +55,15 @@ import org.routine_work.utils.Log;
  */
 public class NoteDetailActivity extends Activity
 	implements View.OnClickListener, OnFocusChangeListener,
-	OnCheckedChangeListener, NotepadConstants
+	DialogInterface.OnClickListener, NotepadConstants
 {
 
+	private static final String LOG_TAG = "simple-notepad";
 	private static final String SAVE_KEY_CURRENT_NOTE_URI = "currentNoteUri";
 	private static final String SAVE_KEY_CURRENT_ACTION = "currentAction";
 	private static final String SAVE_KEY_CURRENT_NOTE = "currentNote";
-	private static final String LOG_TAG = "simple-notepad";
+	private static final int DIALOG_ID_LOCK = 0;
+	private static final int DIALOG_ID_UNLOCK = 1;
 	// ActionBar items
 	private ViewGroup actionBarContainer;
 	private TextView titleTextView;
@@ -72,12 +74,16 @@ public class NoteDetailActivity extends Activity
 	// Mode Edit
 	private ViewGroup noteEditContainer;
 	private EditText noteTitleEditText;
-	private ToggleButton noteTitleLockedToggleButton;
+	private ImageButton noteTitleLockImageButton;
+	private ImageButton noteTitleUnlockImageButton;
 	private EditText noteContentEditText;
 	// Mode View
 	private ViewGroup noteViewContainer;
 	private TextView noteTitleTextView;
 	private TextView noteContentTextView;
+	// Dialogs
+	private Dialog lockDialog;
+	private Dialog unlockDialog;
 	// data
 	private String currentAction;
 	private Uri currentNoteUri;
@@ -104,7 +110,7 @@ public class NoteDetailActivity extends Activity
 		// ActionBar
 		actionBarContainer = (ViewGroup) findViewById(R.id.actionbar_container);
 
-		// ActionBar Buttons
+		// ActionBar Items
 		titleTextView = (TextView) findViewById(R.id.title_textview);
 		homeImageButton = (ImageButton) findViewById(R.id.home_button);
 		addNewNoteImageButton = (ImageButton) findViewById(R.id.add_new_note_button);
@@ -118,10 +124,14 @@ public class NoteDetailActivity extends Activity
 		// Edit Mode
 		noteEditContainer = (ViewGroup) findViewById(R.id.note_edit_container);
 		noteTitleEditText = (EditText) findViewById(R.id.note_title_edittext);
-		noteTitleLockedToggleButton = (ToggleButton) findViewById(R.id.note_title_locked_togglebutton);
+		noteTitleLockImageButton = (ImageButton) findViewById(R.id.note_title_lock_button);
+		noteTitleUnlockImageButton = (ImageButton) findViewById(R.id.note_title_unlock_button);
 		noteContentEditText = (EditText) findViewById(R.id.note_content_edittext);
+
 		noteTitleEditText.setOnFocusChangeListener(this);
-		noteTitleLockedToggleButton.setOnCheckedChangeListener(this);
+		noteTitleEditText.setOnClickListener(this);
+		noteTitleLockImageButton.setOnClickListener(this);
+		noteTitleUnlockImageButton.setOnClickListener(this);
 		noteContentEditText.setOnFocusChangeListener(this);
 
 		// View Mode
@@ -205,6 +215,27 @@ public class NoteDetailActivity extends Activity
 		Log.v(LOG_TAG, "Hello");
 		super.onStop();
 		Log.v(LOG_TAG, "Bye");
+	}
+
+	@Override
+	protected Dialog onCreateDialog(int id)
+	{
+		Dialog dialog = null;
+		Log.v(LOG_TAG, "Hello");
+
+		switch (id)
+		{
+			case DIALOG_ID_LOCK:
+				dialog = getLockDialog();
+				break;
+			case DIALOG_ID_UNLOCK:
+				dialog = getUnlockDialog();
+				break;
+		}
+
+		Log.v(LOG_TAG, "dialog => " + dialog);
+		Log.v(LOG_TAG, "Bye");
+		return dialog;
 	}
 
 	@Override
@@ -332,8 +363,42 @@ public class NoteDetailActivity extends Activity
 				Log.d(LOG_TAG, "Edit Button is clicked.");
 				startEditNoteActivity();
 				break;
+			case R.id.note_title_lock_button:
+				Log.d(LOG_TAG, "note_title_lock_button is clicked.");
+				showDialog(DIALOG_ID_LOCK);
+				break;
+			case R.id.note_title_unlock_button:
+				Log.d(LOG_TAG, "note_title_unlock_button is clicked.");
+				showDialog(DIALOG_ID_UNLOCK);
+				break;
+			case R.id.note_title_edittext:
+				Log.d(LOG_TAG, "note_title_edittext is clicked.");
+				noteContentEditText.clearFocus();
+				break;
 		}
 
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	// DialogInterface.OnClickListener
+	@Override
+	public void onClick(DialogInterface dialog, int which)
+	{
+		Log.v(LOG_TAG, "Hello");
+		Log.d(LOG_TAG, "dialog => " + dialog);
+		Log.d(LOG_TAG, "which => " + which);
+
+		if (which == Dialog.BUTTON_POSITIVE)
+		{
+			if (dialog == getLockDialog())
+			{
+				setNoteTitleLocked(true);
+			}
+			else if (dialog == getUnlockDialog())
+			{
+				setNoteTitleLocked(false);
+			}
+		}
 		Log.v(LOG_TAG, "Bye");
 	}
 
@@ -370,13 +435,14 @@ public class NoteDetailActivity extends Activity
 			case R.id.note_title_edittext:
 				if (hasFocus)
 				{
+					Log.d(LOG_TAG, "note_title_edittext has focus.");
 					IMEUtils.showSoftKeyboardWindow(this, v);
 				}
 				break;
 			case R.id.note_content_edittext:
 				if (hasFocus)
 				{
-					Log.d(LOG_TAG, LOG_TAG);
+					Log.d(LOG_TAG, "note_content_edittext has focus.");
 					actionBarContainer.setVisibility(View.GONE);
 					IMEUtils.showSoftKeyboardWindow(this, v);
 				}
@@ -390,16 +456,14 @@ public class NoteDetailActivity extends Activity
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+	@Override
+	public void setTitle(int titleId)
 	{
-		Log.v(LOG_TAG, "Hello");
-		switch (buttonView.getId())
+		super.setTitle(titleId);
+		if (titleTextView != null)
 		{
-			case R.id.note_title_locked_togglebutton:
-				setNoteTitleEditable(!isChecked);
-				break;
+			titleTextView.setText(titleId);
 		}
-		Log.v(LOG_TAG, "Bye");
 	}
 
 	@Override
@@ -411,8 +475,8 @@ public class NoteDetailActivity extends Activity
 		if (requestCode == REQUEST_CODE_EDIT_NOTE)
 		{
 			loadNoteFromContentProvider();
-			bindNoteToViews();
 			originalNote.copyFrom(currentNote);
+			updateViews();
 		}
 
 		Log.v(LOG_TAG, "Bye");
@@ -433,7 +497,8 @@ public class NoteDetailActivity extends Activity
 		Log.d(LOG_TAG, "------------------------------------------------------------");
 
 		actionBarContainer.setVisibility(View.VISIBLE);
-		// load saved note uri
+
+		// load saved instance
 		String newAction = null;
 		Uri newNoteUri = null;
 		Log.d(LOG_TAG, "savedInstanceState => " + savedInstanceState);
@@ -513,7 +578,7 @@ public class NoteDetailActivity extends Activity
 			Log.d(LOG_TAG, "EXTRA_TITLE_LOCKED => " + extraTitleLocked);
 			currentNote.setTitleLocked(extraTitleLocked);
 
-			titleTextView.setText(R.string.add_new_note_title);
+			setTitle(R.string.add_new_note_title);
 			addNewNoteImageButton.setVisibility(View.VISIBLE);
 			editNoteImageButton.setVisibility(View.GONE);
 			deleteNoteImageButton.setVisibility(View.GONE);
@@ -555,23 +620,13 @@ public class NoteDetailActivity extends Activity
 				loadNoteFromViews();
 			}
 
-			titleTextView.setText(R.string.edit_note_title);
+			setTitle(R.string.edit_note_title);
 			addNewNoteImageButton.setVisibility(View.VISIBLE);
 			editNoteImageButton.setVisibility(View.GONE);
 			deleteNoteImageButton.setVisibility(View.GONE);
 
 			noteEditContainer.setVisibility(View.VISIBLE);
 			noteViewContainer.setVisibility(View.GONE);
-
-			if (currentNote.isTitleLocked())
-			{
-				setNoteTitleEditable(false);
-				noteContentEditText.requestFocus();
-			}
-			else
-			{
-				noteTitleEditText.requestFocus();
-			}
 		}
 		else if (Intent.ACTION_VIEW.equals(newAction))
 		{
@@ -593,7 +648,7 @@ public class NoteDetailActivity extends Activity
 			currentNoteUri = newNoteUri;
 			loadNoteFromContentProvider();
 
-			titleTextView.setText(R.string.view_note_title);
+			setTitle(R.string.view_note_title);
 			addNewNoteImageButton.setVisibility(View.GONE);
 			editNoteImageButton.setVisibility(View.VISIBLE);
 			deleteNoteImageButton.setVisibility(View.VISIBLE);
@@ -620,19 +675,18 @@ public class NoteDetailActivity extends Activity
 			currentNoteUri = newNoteUri;
 			loadNoteFromContentProvider();
 
-			titleTextView.setText(R.string.delete_note_title);
+			setTitle(R.string.delete_note_title);
 			addNewNoteImageButton.setVisibility(View.GONE);
 			editNoteImageButton.setVisibility(View.GONE);
 			deleteNoteImageButton.setVisibility(View.VISIBLE);
 
 			noteEditContainer.setVisibility(View.GONE);
 			noteViewContainer.setVisibility(View.VISIBLE);
-
 		}
 
 		currentAction = newAction;
-		bindNoteToViews();
 		originalNote.copyFrom(currentNote);
+		updateViews();
 
 		Log.d(LOG_TAG, "isFinishing() => " + isFinishing());
 		Log.d(LOG_TAG, "------------------------------------------------------------");
@@ -847,37 +901,44 @@ public class NoteDetailActivity extends Activity
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void bindNoteToViews()
+	private void updateViews()
 	{
+		Log.v(LOG_TAG, "Hello");
+		Log.v(LOG_TAG, "currentAction => " + currentAction);
 		if (Intent.ACTION_EDIT.equals(currentAction))
 		{
-			if (noteTitleEditText != null)
-			{
-				noteTitleEditText.setText(currentNote.getTitle());
-			}
-			if (noteContentEditText != null)
-			{
-				noteContentEditText.setText(currentNote.getContent());
-			}
-			if (noteTitleLockedToggleButton != null)
-			{
-				noteTitleLockedToggleButton.setChecked(currentNote.isTitleLocked());
-			}
-			noteEditContainer.setVisibility(View.VISIBLE);
-			noteViewContainer.setVisibility(View.GONE);
+			updateNoteEditTexts();
+			updateNoteTitleLockedViews();
+			updateNoteLockButtonsViews();
 		}
 		else
 		{
-			if (noteTitleTextView != null)
-			{
-				noteTitleTextView.setText(currentNote.getTitle());
-			}
-			if (noteContentTextView != null)
-			{
-				noteContentTextView.setText(currentNote.getContent());
-			}
-			noteEditContainer.setVisibility(View.GONE);
-			noteViewContainer.setVisibility(View.VISIBLE);
+			updateNoteTextViews();
+		}
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	private void updateNoteEditTexts()
+	{
+		if (noteTitleEditText != null)
+		{
+			noteTitleEditText.setText(currentNote.getTitle());
+		}
+		if (noteContentEditText != null)
+		{
+			noteContentEditText.setText(currentNote.getContent());
+		}
+	}
+
+	private void updateNoteTextViews()
+	{
+		if (noteTitleTextView != null)
+		{
+			noteTitleTextView.setText(currentNote.getTitle());
+		}
+		if (noteContentTextView != null)
+		{
+			noteContentTextView.setText(currentNote.getContent());
 		}
 	}
 
@@ -893,10 +954,72 @@ public class NoteDetailActivity extends Activity
 			{
 				currentNote.setContent(noteContentEditText.getText().toString());
 			}
-			if (noteTitleLockedToggleButton != null)
-			{
-				currentNote.setTitleLocked(noteTitleLockedToggleButton.isChecked());
-			}
+		}
+	}
+
+	// ToDo : update message and title
+	private Dialog getLockDialog()
+	{
+		if (lockDialog == null)
+		{
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle(R.string.lock);
+			builder.setMessage(R.string.lock);
+			builder.setPositiveButton(android.R.string.ok, this);
+			builder.setNegativeButton(android.R.string.cancel, this);
+			lockDialog = builder.create();
+		}
+		return lockDialog;
+	}
+
+	// ToDo : update message and title
+	private Dialog getUnlockDialog()
+	{
+		if (unlockDialog == null)
+		{
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle(R.string.unlock);
+			builder.setMessage(R.string.unlock);
+			builder.setPositiveButton(android.R.string.ok, this);
+			builder.setNegativeButton(android.R.string.cancel, this);
+			unlockDialog = builder.create();
+		}
+		return unlockDialog;
+	}
+
+	private void setNoteTitleLocked(boolean locked)
+	{
+		Log.d(LOG_TAG, "locked => " + locked);
+		currentNote.setTitleLocked(locked);
+		updateNoteTitleLockedViews();
+		updateNoteLockButtonsViews();
+	}
+
+	private void updateNoteTitleLockedViews()
+	{
+		if (currentNote.isTitleLocked())
+		{
+			setNoteTitleEditable(false);
+			noteContentEditText.requestFocus();
+		}
+		else
+		{
+			setNoteTitleEditable(true);
+			noteTitleEditText.requestFocus();
+		}
+	}
+
+	private void updateNoteLockButtonsViews()
+	{
+		if (currentNote.isTitleLocked())
+		{
+			noteTitleLockImageButton.setVisibility(View.GONE);
+			noteTitleUnlockImageButton.setVisibility(View.VISIBLE);
+		}
+		else
+		{
+			noteTitleLockImageButton.setVisibility(View.VISIBLE);
+			noteTitleUnlockImageButton.setVisibility(View.GONE);
 		}
 	}
 }

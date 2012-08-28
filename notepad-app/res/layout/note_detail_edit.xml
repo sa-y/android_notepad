@@ -7,30 +7,47 @@
 	android:layout_height="fill_parent"
 	android:orientation="vertical"
 >
-	<LinearLayout
+	<FrameLayout
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_weight="0"
-		android:orientation="horizontal"
 	>
 		<EditText
 			android:id="@+id/note_title_edittext"
-			android:layout_width="wrap_content"
+			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			android:layout_weight="1"
+			android:layout_weight="0"
+			android:layout_gravity="bottom"
+			android:paddingRight="44dip"
 			android:lines="1"
 			android:inputType="text"
 			android:hint="@string/title"
 		/>
-		<ToggleButton
-			android:id="@+id/note_title_locked_togglebutton"
+		<ImageButton
+			android:id="@+id/note_title_lock_button"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_weight="0"
-			android:textOn="@string/locked"
-			android:textOff="@string/unlocked"
+			android:layout_gravity="right|center_vertical"
+			android:layout_margin="4dip"
+			android:padding="4dip"
+			android:src="?attr/ic_unlock"
+			android:background="@drawable/actionbar_button_bg"
+			android:visibility="visible"
 		/>
-	</LinearLayout>
+		<ImageButton
+			android:id="@+id/note_title_unlock_button"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="0"
+			android:layout_gravity="right|center_vertical"
+			android:layout_margin="4dip"
+			android:padding="4dip"
+			android:src="?attr/ic_lock"
+			android:background="@drawable/actionbar_button_bg"
+			android:visibility="gone"
+		/>
+	</FrameLayout>
 
 	<EditText
 		android:id="@+id/note_content_edittext"
