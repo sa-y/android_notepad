@@ -1,28 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	style="@style/body"
+<ScrollView
+	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
-	android:orientation="vertical"
+	android:focusable="true"
 >
-	<EditText
+	<LinearLayout
+		style="@style/body"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:layout_weight="0"
-		android:id="@+id/note_title_edittext"
-		android:inputType="text"
-		android:hint="@string/title"
-	/>
+		android:orientation="vertical"
+	>
+		<TextView
+			android:id="@+id/note_title_textview"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:padding="4dip"
+			android:singleLine="true"
+			android:lines="1"
+			android:hint="@string/title"
+			android:textSize="18sp"
+		/>
 
-	<EditText
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_weight="1"
-		android:layout_marginTop="4dip"
-		android:layout_marginBottom="4dip"
-		android:id="@+id/note_content_edittext"
-		android:inputType="textMultiLine"
-		android:gravity="left|top"
-		android:hint="@string/text"
-	/>
-</LinearLayout>
+		<View style="@style/note_detail_separator" />
+
+		<TextView
+			android:id="@+id/note_content_textview"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:padding="4dip"
+			android:singleLine="false"
+			android:minLines="4"
+			android:gravity="left|top"
+			android:hint="@string/text"
+			android:textSize="18sp"
+		/>
+
+	</LinearLayout>
+</ScrollView>

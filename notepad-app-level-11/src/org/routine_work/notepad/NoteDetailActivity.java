@@ -242,6 +242,7 @@ public class NoteDetailActivity extends Activity
 				Log.d(LOG_TAG, "noteTitle => " + noteTitle);
 				Log.d(LOG_TAG, "noteContent => " + noteContent);
 				editNoteFragment.setNoteContents(noteTitle, noteContent);
+
 				setTitle(R.string.add_new_note_title);
 			}
 			else if (Intent.ACTION_EDIT.equals(nextAction)

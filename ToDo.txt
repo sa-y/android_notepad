@@ -1,10 +1,18 @@
 ! LATEST
 
-* ic_lock と ic_unlock のアイコンが区別しにくい
-** ic_unlock を修正する
+* フォーカスはどこに行くべきか
+Title, Content, Focus
+    O,       O, Title
+    X,       O, Title
+    O,       X, Content
+    X,       X, Title
 
 #############################
 !! notepad-app
+
+* ノートの編集開始時にフォーカスを修正する
+
+* view_notes_activity.xml を notepad_activity.xml に名前を変更
 
 * 設定 : 編集画面で本文編集時のアクションバーの非表示の有効無効
 ** デフォルト値をスクリーンサイズ毎に定義
@@ -37,6 +45,8 @@
 
 #############################
 !! notepad-app-level-11
+
+* ノートの編集開始時にフォーカスを修正する
 
 * NoteDetailActivity の実装変更
 #** EditNoteFragment を NoteDetailFragment から分離
@@ -73,6 +83,8 @@
 #############################
 !! notepad-common
 
+* ノートの複数削除をループではなく SQL 一つで行うようにする
+
 * TimeFormatUtils 修正
 ** 西暦部分のないフォーマットにできないか？
 
@@ -102,6 +114,8 @@
 ! 0.1.5
 
 !! notepad-app
+
+#* ic_lock と ic_unlock のアイコンが区別しにくいのを修正
 
 #* ノート編集時のロックを ToggleButton から Button + ダイアログに変更
 #** ToggleButton はキーボードでオンオフ操作できない
@@ -218,6 +232,8 @@
 #*** NoteDetailActivity を修正
 
 !! notepad-app-level-11
+
+#* ic_lock と ic_unlock のアイコンが区別しにくいのを修正
 
 #* NoteDetailActivity のフラグメントのタグを EDIT と DELETE 時で分離
 #** 廃止 NOTE_DETAIL_TAG 

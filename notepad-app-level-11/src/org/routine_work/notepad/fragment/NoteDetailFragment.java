@@ -35,7 +35,7 @@ import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.TextView;
 import org.routine_work.notepad.NotepadConstants;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.provider.NoteStore;
@@ -48,8 +48,8 @@ public class NoteDetailFragment extends Fragment
 
 	private static final String LOG_TAG = "simple-notepad";
 	private static final String SAVE_KEY_NOTE_URI = "noteUri";
-	protected EditText noteTitleEditText;
-	protected EditText noteContentEditText;
+	protected TextView noteTitleTextView;
+	protected TextView noteContentTextView;
 	protected boolean viewIsInflated = false;
 	protected Uri noteUri;
 	private NoteDetailEventCallback noteDetailEventCallback;
@@ -66,10 +66,10 @@ public class NoteDetailFragment extends Fragment
 		Log.v(LOG_TAG, "Hello");
 
 		Log.v(LOG_TAG, "noteTitle => " + noteTitle);
-		Log.v(LOG_TAG, "noteTitleEditText => " + noteTitleEditText);
-		if (noteTitleEditText != null)
+		Log.v(LOG_TAG, "noteTitleTextView => " + noteTitleTextView);
+		if (noteTitleTextView != null)
 		{
-			noteTitleEditText.setText(noteTitle);
+			noteTitleTextView.setText(noteTitle);
 		}
 
 		Log.v(LOG_TAG, "Bye");
@@ -80,10 +80,10 @@ public class NoteDetailFragment extends Fragment
 		Log.v(LOG_TAG, "Hello");
 
 		Log.v(LOG_TAG, "noteContent => " + noteContent);
-		Log.v(LOG_TAG, "noteContentEditText => " + noteContentEditText);
-		if (noteContentEditText != null)
+		Log.v(LOG_TAG, "noteContentTextView => " + noteContentTextView);
+		if (noteContentTextView != null)
 		{
-			noteContentEditText.setText(noteContent);
+			noteContentTextView.setText(noteContent);
 		}
 
 		Log.v(LOG_TAG, "Bye");
@@ -129,8 +129,8 @@ public class NoteDetailFragment extends Fragment
 		Log.v(LOG_TAG, "Hello");
 		View v = inflater.inflate(R.layout.note_detail_fragment, container, false);
 
-		noteTitleEditText = (EditText) v.findViewById(R.id.note_title_edittext);
-		noteContentEditText = (EditText) v.findViewById(R.id.note_content_edittext);
+		noteTitleTextView = (TextView) v.findViewById(R.id.note_title_textview);
+		noteContentTextView = (TextView) v.findViewById(R.id.note_content_textview);
 		viewIsInflated = true;
 
 		Log.v(LOG_TAG, "Bye");
@@ -205,27 +205,6 @@ public class NoteDetailFragment extends Fragment
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	public void setEditable(boolean editable)
-	{
-		Log.v(LOG_TAG, "Hello");
-
-		if (noteContentEditText != null)
-		{
-			noteTitleEditText.setEnabled(editable);
-			noteTitleEditText.setFocusable(editable);
-			noteTitleEditText.setFocusableInTouchMode(editable);
-		}
-
-		if (noteContentEditText != null)
-		{
-			noteContentEditText.setEnabled(editable);
-			noteContentEditText.setFocusable(editable);
-			noteContentEditText.setFocusableInTouchMode(editable);
-		}
-
-		Log.v(LOG_TAG, "Bye");
-	}
-
 	public void loadNote()
 	{
 		Log.v(LOG_TAG, "Hello");
@@ -259,19 +238,10 @@ public class NoteDetailFragment extends Fragment
 		Log.v(LOG_TAG, "Hello");
 		Log.d(LOG_TAG, "this.noteUri => " + this.noteUri);
 
-//		if (this.noteUri == null)
-//		{
-//			this.noteUri = NoteStore.CONTENT_URI;
-//		}
-
-		if (this.noteUri != null)
+		if (NoteUtils.isNoteItemUri(getActivity(), noteUri))
 		{
-			String type = getActivity().getContentResolver().getType(noteUri);
-			if (NoteStore.Note.NOTE_ITEM_CONTENT_TYPE.equals(type))
-			{
-				cursorLoader = new CursorLoader(getActivity(),
-					noteUri, null, null, null, null);
-			}
+			cursorLoader = new CursorLoader(getActivity(),
+				noteUri, null, null, null, null);
 		}
 
 		Log.v(LOG_TAG, "cursorLoader => " + cursorLoader);
@@ -295,8 +265,6 @@ public class NoteDetailFragment extends Fragment
 				Log.d(LOG_TAG, "noteContent => " + noteContent);
 				setNoteTitle(noteTitle);
 				setNoteContent(noteContent);
-//				noteTitleEditText.setText(noteTitle);
-//				noteContentEditText.setText(noteContent);
 			}
 		}
 
@@ -309,22 +277,8 @@ public class NoteDetailFragment extends Fragment
 
 		setNoteTitle(null);
 		setNoteContent(null);
-//		noteTitleEditText.setText(null);
-//		noteContentEditText.setText(null);
 
 		Log.v(LOG_TAG, "Bye");
 	}
 	// END ---------- LoaderManager.LoaderCallbacks<Cursor> ----------
-
-	protected void startShareNoteActivity()
-	{
-		Log.v(LOG_TAG, "Hello");
-
-		String noteTitle = noteTitleEditText.getText().toString();
-		String noteContent = noteContentEditText.getText().toString();
-		NoteUtils.shareNote(getActivity(), noteTitle, noteContent);
-
-		Log.v(LOG_TAG, "Bye");
-
-	}
 }

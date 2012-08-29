@@ -35,11 +35,15 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Parcelable;
+import android.os.SystemClock;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -125,15 +129,7 @@ public class EditNoteFragment extends Fragment
 		viewIsInflated = true;
 
 		updateNoteEditText();
-
-		if (currentNote.getTitle() != null)
-		{
-			noteContentEditText.requestFocus();
-		}
-		else
-		{
-			noteTitleEditText.requestFocus();
-		}
+		updateFocusedView();
 
 		Log.v(LOG_TAG, "Bye");
 		return v;
@@ -237,12 +233,14 @@ public class EditNoteFragment extends Fragment
 		switch (view.getId())
 		{
 			case R.id.note_title_edittext:
+				Log.v(LOG_TAG, "note_title_edittext : focused => " + focused);
 				if (focused)
 				{
 					IMEUtils.showSoftKeyboardWindow(getActivity(), view);
 				}
 				break;
 			case R.id.note_content_edittext:
+				Log.v(LOG_TAG, "note_content_edittext : focused => " + focused);
 				ActionBar actionBar = getActivity().getActionBar();
 				if (actionBar != null)
 				{
@@ -412,7 +410,9 @@ public class EditNoteFragment extends Fragment
 		currentNote.setTitle(noteTitle);
 		currentNote.setContent(noteContent);
 		originalNote.copyFrom(currentNote);
+
 		updateNoteEditText();
+		updateFocusedView();
 	}
 
 	private void updateNoteEditText()
@@ -422,6 +422,40 @@ public class EditNoteFragment extends Fragment
 			noteTitleEditText.setText(currentNote.getTitle());
 			noteContentEditText.setText(currentNote.getContent());
 		}
+	}
+
+	private void requestKeyboardFocus(final EditText editText)
+	{
+		new Handler().postDelayed(new Runnable()
+		{
+			public void run()
+			{
+				long now = SystemClock.uptimeMillis();
+				editText.dispatchTouchEvent(MotionEvent.obtain(now, now, MotionEvent.ACTION_DOWN, 0, 0, 0));
+				editText.dispatchTouchEvent(MotionEvent.obtain(now, now, MotionEvent.ACTION_UP, 0, 0, 0));
+			}
+		}, 200);
+	}
+
+	private void updateFocusedView()
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		if (viewIsInflated)
+		{
+			if ((TextUtils.isEmpty(currentNote.getTitle()) == false)
+				&& (TextUtils.isEmpty(currentNote.getContent()) == true))
+			{
+				Log.v(LOG_TAG, "noteContentEditText#requestFocus()");
+				requestKeyboardFocus(noteContentEditText);
+			}
+			else
+			{
+				Log.v(LOG_TAG, "noteTitleEditText#requestFocus()");
+				requestKeyboardFocus(noteTitleEditText);
+			}
+		}
+		Log.v(LOG_TAG, "Bye");
 	}
 
 	private void loadNoteFromViews()
@@ -460,10 +494,11 @@ public class EditNoteFragment extends Fragment
 		Intent intent = new Intent(getActivity(), AddNewNoteActivity.class);
 		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
 
-		Log.v(LOG_TAG, "Bye");
+		Log.v(LOG_TAG,
+			"Bye");
 	}
 
-	protected void startShareNoteActivity()
+	private void startShareNoteActivity()
 	{
 		Log.v(LOG_TAG, "Hello");
 

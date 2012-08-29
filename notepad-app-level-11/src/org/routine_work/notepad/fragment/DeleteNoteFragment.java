@@ -56,7 +56,6 @@ public class DeleteNoteFragment extends NoteDetailFragment implements NotepadCon
 		Log.v(LOG_TAG, "Hello");
 
 		v = super.onCreateView(inflater, container, savedInstanceState);
-		setEditable(false);
 
 		Log.v(LOG_TAG, "Bye");
 		return v;

@@ -75,7 +75,6 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 		Log.v(LOG_TAG, "Hello");
 
 		View view = super.onCreateView(inflater, container, savedInstanceState);
-		setEditable(false);
 
 		Log.v(LOG_TAG, "Bye");
 		return view;
@@ -144,6 +143,15 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 			noteControlCallback.startDeleteNote(noteUri);
 		}
 
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	private void startShareNoteActivity()
+	{
+		Log.v(LOG_TAG, "Hello");
+		String noteTitle = noteTitleTextView.getText().toString();
+		String noteContent = noteContentTextView.getText().toString();
+		NoteUtils.shareNote(getActivity(), noteTitle, noteContent);
 		Log.v(LOG_TAG, "Bye");
 	}
 }
