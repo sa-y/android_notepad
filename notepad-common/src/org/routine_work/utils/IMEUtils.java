@@ -24,8 +24,12 @@
 package org.routine_work.utils;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.SystemClock;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 /**
  *
@@ -44,5 +48,24 @@ public class IMEUtils
 	{
 		InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
 		inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+	}
+
+	public static void requestKeyboardFocus(EditText editText)
+	{
+		requestKeyboardFocus(editText, 200);
+	}
+
+	public static void requestKeyboardFocus(EditText editText, long delayInMillis)
+	{
+		final EditText targetEditText = editText;
+		new Handler().postDelayed(new Runnable()
+		{
+			public void run()
+			{
+				long now = SystemClock.uptimeMillis();
+				targetEditText.dispatchTouchEvent(MotionEvent.obtain(now, now, MotionEvent.ACTION_DOWN, 0, 0, 0));
+				targetEditText.dispatchTouchEvent(MotionEvent.obtain(now, now, MotionEvent.ACTION_UP, 0, 0, 0));
+			}
+		}, 200);
 	}
 }

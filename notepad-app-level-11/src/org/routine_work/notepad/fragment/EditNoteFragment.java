@@ -424,19 +424,6 @@ public class EditNoteFragment extends Fragment
 		}
 	}
 
-	private void requestKeyboardFocus(final EditText editText)
-	{
-		new Handler().postDelayed(new Runnable()
-		{
-			public void run()
-			{
-				long now = SystemClock.uptimeMillis();
-				editText.dispatchTouchEvent(MotionEvent.obtain(now, now, MotionEvent.ACTION_DOWN, 0, 0, 0));
-				editText.dispatchTouchEvent(MotionEvent.obtain(now, now, MotionEvent.ACTION_UP, 0, 0, 0));
-			}
-		}, 200);
-	}
-
 	private void updateFocusedView()
 	{
 		Log.v(LOG_TAG, "Hello");
@@ -447,12 +434,12 @@ public class EditNoteFragment extends Fragment
 				&& (TextUtils.isEmpty(currentNote.getContent()) == true))
 			{
 				Log.v(LOG_TAG, "noteContentEditText#requestFocus()");
-				requestKeyboardFocus(noteContentEditText);
+				IMEUtils.requestKeyboardFocus(noteContentEditText);
 			}
 			else
 			{
 				Log.v(LOG_TAG, "noteTitleEditText#requestFocus()");
-				requestKeyboardFocus(noteTitleEditText);
+				IMEUtils.requestKeyboardFocus(noteTitleEditText);
 			}
 		}
 		Log.v(LOG_TAG, "Bye");

@@ -48,10 +48,6 @@ Title, Content, Focus
 
 * ノートの編集開始時にフォーカスを修正する
 
-* NoteDetailActivity の実装変更
-#** EditNoteFragment を NoteDetailFragment から分離
-** NoteDetailFragment を ScrollView + TextView で表示するように修正
-
 * ノート編集画面のリファクタリング
 ** モデルクラス Note を利用するように修正
 
@@ -232,6 +228,10 @@ Title, Content, Focus
 #*** NoteDetailActivity を修正
 
 !! notepad-app-level-11
+
+#* NoteDetailActivity の実装変更
+#** EditNoteFragment を NoteDetailFragment から分離
+#** NoteDetailFragment を ScrollView + TextView で表示するように修正
 
 #* ic_lock と ic_unlock のアイコンが区別しにくいのを修正
 
