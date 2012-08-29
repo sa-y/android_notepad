@@ -12,10 +12,8 @@ Title, Content, Focus
 
 * ノートの編集開始時にフォーカスを修正する
 
-* view_notes_activity.xml を notepad_activity.xml に名前を変更
-
 * 設定 : 編集画面で本文編集時のアクションバーの非表示の有効無効
-** デフォルト値をスクリーンサイズ毎に定義
+** デフォルト値を画面サイズ別、画面の向き別に定義
 *** small => on
 *** small-land => on
 *** medium => off
@@ -46,16 +44,14 @@ Title, Content, Focus
 #############################
 !! notepad-app-level-11
 
-* ノートの編集開始時にフォーカスを修正する
-
-* ノート編集画面のリファクタリング
-** モデルクラス Note を利用するように修正
-
 * ノート編集画面にタイトルロック機能対応
 ** ロック状態に応じて EditText の有効無効を設定
 ** ロック状態を変更する機能
 
 ############################################################
+
+* 各種 ListView の layout_margin を修正
+** layout_margin をなくしてリスト項目の layout_margin で調整する
 
 * 設定:ノート一覧画面の本文の表示行数を設定変更可能にする
 
@@ -80,6 +76,14 @@ Title, Content, Focus
 !! notepad-common
 
 * ノートの複数削除をループではなく SQL 一つで行うようにする
+
+* NoteStore の未使用のユーティリティーメソッドを削除
+** NoteStore.insertNote() : Uri
+** NoteStore.updateNote() : int
+
+* isNoteItemUri() が2か所にあるのでどちらか削除
+** NoteStore.isNoteItemUri(Uri uri) : boolean
+** NoteUtils.isNoteItemUri(Uri uri) : boolean
 
 * TimeFormatUtils 修正
 ** 西暦部分のないフォーマットにできないか？
@@ -106,10 +110,16 @@ Title, Content, Focus
 ** 全部クエリーパラメータのほうが簡単？
 *** contents://org.routine_work.notepad.noteprovider/notes?ctime_s=<yyyymmddHHMMSS>&ctime_e=<yyyymmddHHMMSS>
 
+
+
+
+
 ############################################################
 ! 0.1.5
 
 !! notepad-app
+
+#* view_notes_activity.xml を notepad_activity.xml に名前を変更
 
 #* ic_lock と ic_unlock のアイコンが区別しにくいのを修正
 
@@ -228,6 +238,8 @@ Title, Content, Focus
 #*** NoteDetailActivity を修正
 
 !! notepad-app-level-11
+
+#* ノートの編集開始時のフォーカスを修正する
 
 #* NoteDetailActivity の実装変更
 #** EditNoteFragment を NoteDetailFragment から分離

@@ -124,7 +124,7 @@ public class NotepadActivity extends ListActivity
 
 		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.view_notes_activity);
+		setContentView(R.layout.notepad_activity);
 
 		int noteTemplateCount = NoteStore.getNoteTemplateCount(getContentResolver());
 		Log.d(LOG_TAG, "noteTemplateCount => " + noteTemplateCount);
