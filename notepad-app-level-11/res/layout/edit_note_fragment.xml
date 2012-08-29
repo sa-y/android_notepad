@@ -1,18 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
 	style="@style/body"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	android:orientation="vertical"
 >
-	<EditText
+	<FrameLayout
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_weight="0"
-		android:id="@+id/note_title_edittext"
-		android:inputType="text"
-		android:hint="@string/title"
-	/>
+	>
+		<EditText
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="0"
+			android:id="@+id/note_title_edittext"
+			android:inputType="text"
+			android:hint="@string/title"
+		/>
+		<ImageButton
+			android:id="@+id/note_title_lock_button"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="0"
+			android:layout_gravity="right|center_vertical"
+			android:layout_margin="4dip"
+			android:padding="4dip"
+			android:src="?attr/ic_unlock"
+			android:visibility="visible"
+		/>
+		<ImageButton
+			android:id="@+id/note_title_unlock_button"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="0"
+			android:layout_gravity="right|center_vertical"
+			android:layout_margin="4dip"
+			android:padding="4dip"
+			android:src="?attr/ic_lock"
+			android:visibility="gone"
+		/>
+	</FrameLayout>
 
 	<EditText
 		android:layout_width="fill_parent"

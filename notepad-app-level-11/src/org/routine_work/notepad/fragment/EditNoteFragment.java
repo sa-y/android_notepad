@@ -55,7 +55,9 @@ import org.routine_work.utils.Log;
 
 public class EditNoteFragment extends Fragment
 	implements LoaderManager.LoaderCallbacks<Cursor>,
-	View.OnFocusChangeListener, NotepadConstants
+	View.OnFocusChangeListener,
+	View.OnClickListener,
+	NotepadConstants
 {
 
 	private static final String LOG_TAG = "simple-notepad";
@@ -378,6 +380,24 @@ public class EditNoteFragment extends Fragment
 		Log.v(LOG_TAG, "Bye");
 	}
 	// END ---------- LoaderManager.LoaderCallbacks<Cursor> ----------
+
+	// BEGIN ---------- View.OnClickListener----------
+	public void onClick(View view)
+	{
+		switch (view.getId())
+		{
+			case R.id.note_title_lock_button:
+				Log.d(LOG_TAG, "note_title_lock_button is clicked");
+				break;
+			case R.id.note_title_unlock_button:
+				Log.d(LOG_TAG, "note_title_unlock_button is clicked");
+				break;
+			default:
+				throw new AssertionError();
+		}
+
+	}
+	// END ---------- View.OnClickListener----------
 
 	public Uri getNoteUri()
 	{

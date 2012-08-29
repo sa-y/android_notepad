@@ -48,10 +48,13 @@ Title, Content, Focus
 ** ロック状態に応じて EditText の有効無効を設定
 ** ロック状態を変更する機能
 
+
 ############################################################
 
 * 各種 ListView の layout_margin を修正
-** layout_margin をなくしてリスト項目の layout_margin で調整する
+** layout_margin を減らしてリスト項目の layout_margin で調整する
+** ListView 用のスタイルを用意
+*** styles_listview.xml 
 
 * 設定:ノート一覧画面の本文の表示行数を設定変更可能にする
 
