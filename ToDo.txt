@@ -39,8 +39,8 @@
 !! notepad-app-level-11
 
 * NoteDetailActivity の実装変更
-** 表示モードでは ScrollView + TextView で表示
-** 編集モードは従来通り
+#** EditNoteFragment を NoteDetailFragment から分離
+** NoteDetailFragment を ScrollView + TextView で表示するように修正
 
 * ノート編集画面のリファクタリング
 ** モデルクラス Note を利用するように修正
