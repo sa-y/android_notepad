@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- ActionBar Auto Hide-->
+	<bool name="actionbar_auto_hide_port_default_value" >false</bool>
+	<bool name="actionbar_auto_hide_land_default_value" >false</bool>
+
+</resources>

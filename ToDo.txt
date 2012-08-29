@@ -44,6 +44,7 @@ Title, Content, Focus
 #############################
 !! notepad-app-level-11
 
+
 * ノート編集画面にタイトルロック機能対応
 ** ロック状態に応じて EditText の有効無効を設定
 ** ロック状態を変更する機能
@@ -241,6 +242,15 @@ Title, Content, Focus
 #*** NoteDetailActivity を修正
 
 !! notepad-app-level-11
+
+#* 設定 : 編集画面で本文編集時のアクションバーの非表示の有効無効
+#** デフォルト値を画面サイズ別、画面の向き別に定義
+#*** small => on
+#*** small-land => on
+#*** medium => off
+#*** medium-land => on
+#*** large => off
+#*** xlarge => off
 
 #* ノートの編集開始時のフォーカスを修正する
 
