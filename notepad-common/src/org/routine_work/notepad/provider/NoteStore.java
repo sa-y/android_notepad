@@ -116,10 +116,7 @@ public class NoteStore
 			ContentResolver contentResolver = context.getContentResolver();
 			String type = contentResolver.getType(uri);
 			Log.v(LOG_TAG, "uri.type => " + type);
-			if (NoteStore.Note.NOTE_ITEM_CONTENT_TYPE.equals(type))
-			{
-				result = true;
-			}
+			result = NoteStore.Note.NOTE_ITEM_CONTENT_TYPE.equals(type);
 		}
 
 		Log.d(LOG_TAG, "result => " + result);

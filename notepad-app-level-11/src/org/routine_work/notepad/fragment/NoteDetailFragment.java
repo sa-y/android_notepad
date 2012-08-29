@@ -46,13 +46,6 @@ public class NoteDetailFragment extends Fragment
 	implements NotepadConstants, LoaderManager.LoaderCallbacks<Cursor>
 {
 
-	public interface NoteDetailEventCallback
-	{
-
-		public void onNoteDetailStarted();
-
-		public void onNoteDetailStopped();
-	}
 	private static final String LOG_TAG = "simple-notepad";
 	private static final String SAVE_KEY_NOTE_URI = "noteUri";
 	protected EditText noteTitleEditText;

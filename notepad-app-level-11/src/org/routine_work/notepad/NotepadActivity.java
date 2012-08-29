@@ -46,7 +46,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import org.routine_work.notepad.fragment.NoteControlCallback;
-import org.routine_work.notepad.fragment.NoteDetailFragment;
+import org.routine_work.notepad.fragment.NoteDetailEventCallback;
 import org.routine_work.notepad.fragment.NoteListFragment;
 import org.routine_work.notepad.fragment.ViewNoteFragment;
 import org.routine_work.notepad.prefs.NotepadPreferenceActivity;
@@ -58,7 +58,7 @@ import org.routine_work.utils.IMEUtils;
 import org.routine_work.utils.Log;
 
 public class NotepadActivity extends Activity implements NotepadConstants,
-	NoteControlCallback, NoteDetailFragment.NoteDetailEventCallback,
+	NoteControlCallback, NoteDetailEventCallback,
 	SearchView.OnCloseListener, SearchView.OnQueryTextListener
 {
 

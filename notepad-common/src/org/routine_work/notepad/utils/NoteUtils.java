@@ -83,12 +83,16 @@ public class NoteUtils
 
 	public static boolean isNoteItemUri(Context context, Uri uri)
 	{
+		boolean result = false;
 		Log.v(LOG_TAG, "Hello");
 
-		ContentResolver contentResolver = context.getContentResolver();
-		String type = contentResolver.getType(uri);
-		Log.d(LOG_TAG, "noteUri => " + uri + ", type => " + type);
-		boolean result = NoteStore.Note.NOTE_ITEM_CONTENT_TYPE.equals(type);
+		if (uri != null)
+		{
+			ContentResolver contentResolver = context.getContentResolver();
+			String type = contentResolver.getType(uri);
+			Log.d(LOG_TAG, "noteUri => " + uri + ", type => " + type);
+			result = NoteStore.Note.NOTE_ITEM_CONTENT_TYPE.equals(type);
+		}
 
 		Log.v(LOG_TAG, "Bye");
 		return result;

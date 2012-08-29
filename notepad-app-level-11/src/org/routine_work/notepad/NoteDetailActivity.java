@@ -65,12 +65,17 @@ public class NoteDetailActivity extends Activity
 //			WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
 //			|WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 		getWindow().setSoftInputMode(
-			WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+			WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
+			| WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
-		Log.v(LOG_TAG, "Hi!");
+		Log.v(LOG_TAG,
+			"Hi!");
 		Intent intent = getIntent();
+
 		initWithIntent(intent, savedInstanceState);
-		Log.v(LOG_TAG, "Bye");
+
+		Log.v(LOG_TAG,
+			"Bye");
 	}
 
 	@Override
@@ -98,7 +103,7 @@ public class NoteDetailActivity extends Activity
 		{
 			Log.d(LOG_TAG, "EditNoteFragment is already exist.");
 			EditNoteFragment editNoteFragment = (EditNoteFragment) noteDetailFragment;
-			editNoteFragment.loadNote();
+			editNoteFragment.loadNoteFromContentProvider();
 		}
 
 		Log.v(LOG_TAG, "Bye");
@@ -231,17 +236,13 @@ public class NoteDetailActivity extends Activity
 			{
 				Log.d(LOG_TAG, "Insert note.");
 				editNoteFragment.setNoteUri(NoteStore.Note.CONTENT_URI);
-				editNoteFragment.setNoteTitle(null);
-				editNoteFragment.setNoteContent(null);
-				String noteTitle = intent.getStringExtra(Intent.EXTRA_TITLE);
-				String noteText = intent.getStringExtra(Intent.EXTRA_TEXT);
-				Log.d(LOG_TAG, "noteTitle => " + noteTitle);
-				Log.d(LOG_TAG, "noteText => " + noteText);
-				editNoteFragment.setInitialNoteTitle(noteTitle);
-				editNoteFragment.setInitialNoteContent(noteText);
-				setTitle(R.string.add_new_note_title);
 
-				nextAction = Intent.ACTION_EDIT;
+				String noteTitle = intent.getStringExtra(Intent.EXTRA_TITLE);
+				String noteContent = intent.getStringExtra(Intent.EXTRA_TEXT);
+				Log.d(LOG_TAG, "noteTitle => " + noteTitle);
+				Log.d(LOG_TAG, "noteContent => " + noteContent);
+				editNoteFragment.setNoteContents(noteTitle, noteContent);
+				setTitle(R.string.add_new_note_title);
 			}
 			else if (Intent.ACTION_EDIT.equals(nextAction)
 				|| Intent.ACTION_VIEW.equals(nextAction))
@@ -266,6 +267,8 @@ public class NoteDetailActivity extends Activity
 				}
 				setTitle(R.string.edit_note_title);
 			}
+
+			nextAction = Intent.ACTION_EDIT;
 		}
 		else if (Intent.ACTION_DELETE.equals(nextAction))
 		{
