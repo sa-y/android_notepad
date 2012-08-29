@@ -21,6 +21,16 @@
 	<string name="single_pane">Single Pane</string>
 	<string name="wide_two_pane">Two Pane</string>
 
+	<!-- ActionBar Category -->
+	<string name="actionbar_category_title">Action Bar</string>
+	<!-- ActionBar : Auto Hide -->
+	<string name="actionbar_auto_hide_port">Action Bar Auto Hide(Portrait)</string>
+	<string name="actionbar_auto_hide_port_title">Action Bar Auto Hide(Portrait)</string>
+	<string name="actionbar_auto_hide_land">Action Bar Auto Hide(Landscape)</string>
+	<string name="actionbar_auto_hide_land_title">Action Bar Auto Hide(Landscape)</string>
+	<string name="actionbar_auto_hide_summary_on">The Action Bar is hidden during editing note automatically.</string>
+	<string name="actionbar_auto_hide_summary_off">The Action Bar is always displayed during note editing.</string>
+
 	<!-- Etc Category -->
 	<string name="etc">Etc</string>
 	<!-- Initialize Preferences -->

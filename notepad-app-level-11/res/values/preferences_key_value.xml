@@ -34,4 +34,8 @@
 		<item>@string/note_list_layout_wide_two_value</item>
 	</string-array>
 
+	<!-- ActionBar -->
+	<string name="actionbar_auto_hide_port_key" >actionbar_auto_hide_port</string>
+	<string name="actionbar_auto_hide_land_key" >actionbar_auto_hide_land</string>
+
 </resources>

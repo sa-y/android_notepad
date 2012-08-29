@@ -116,6 +116,56 @@ public class NotepadPreferenceUtils
 		return value;
 	}
 
+	public static boolean getActionBarAutoHide(Context context)
+	{
+		boolean actionBarAutoHide;
+		Log.v(LOG_TAG, "Hello");
+
+		Resources resources = context.getResources();
+		Configuration configuration = resources.getConfiguration();
+		switch (configuration.orientation)
+		{
+			case Configuration.ORIENTATION_LANDSCAPE:
+				actionBarAutoHide = getActionBarAutoHideLand(context);
+				break;
+			default:
+				actionBarAutoHide = getActionBarAutoHidePort(context);
+				break;
+		}
+
+		Log.v(LOG_TAG, "actionBarAutoHide => " + actionBarAutoHide);
+		Log.v(LOG_TAG, "Bye");
+		return actionBarAutoHide;
+	}
+
+	public static boolean getActionBarAutoHidePort(Context context)
+	{
+		String preferenceName = context.getPackageName() + "_preferences";
+		SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
+		Resources resources = context.getResources();
+
+		String key = resources.getString(R.string.actionbar_auto_hide_port_key);
+		boolean defaultValue = resources.getBoolean(R.bool.actionbar_auto_hide_port_default_value);
+		boolean value = sharedPreferences.getBoolean(key, defaultValue);
+
+		Log.v(LOG_TAG, "value => " + value);
+		return value;
+	}
+
+	public static boolean getActionBarAutoHideLand(Context context)
+	{
+		String preferenceName = context.getPackageName() + "_preferences";
+		SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
+		Resources resources = context.getResources();
+
+		String key = resources.getString(R.string.actionbar_auto_hide_land_key);
+		boolean defaultValue = resources.getBoolean(R.bool.actionbar_auto_hide_land_default_value);
+		boolean value = sharedPreferences.getBoolean(key, defaultValue);
+
+		Log.v(LOG_TAG, "value => " + value);
+		return value;
+	}
+
 	public static void reset(Context context)
 	{
 		String preferenceName = context.getPackageName() + "_preferences";

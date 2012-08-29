@@ -48,6 +48,7 @@ import org.routine_work.notepad.AddNewNoteActivity;
 import org.routine_work.notepad.NotepadConstants;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.model.Note;
+import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.utils.NoteUtils;
 import org.routine_work.utils.IMEUtils;
@@ -66,6 +67,7 @@ public class EditNoteFragment extends Fragment
 	protected EditText noteTitleEditText;
 	protected EditText noteContentEditText;
 	protected boolean viewIsInflated = false;
+	protected boolean actionBarAutoHide;
 	// callback listener
 	private NoteDetailEventCallback noteDetailEventCallback;
 	// model data
@@ -95,7 +97,10 @@ public class EditNoteFragment extends Fragment
 				setNoteUri((Uri) uri);
 			}
 		}
+
 		setHasOptionsMenu(true);
+		actionBarAutoHide = NotepadPreferenceUtils.getActionBarAutoHide(getActivity());
+		Log.d(LOG_TAG, "actionBarAutoHide => " + actionBarAutoHide);
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -240,17 +245,24 @@ public class EditNoteFragment extends Fragment
 				break;
 			case R.id.note_content_edittext:
 				Log.v(LOG_TAG, "note_content_edittext : focused => " + focused);
-				ActionBar actionBar = getActivity().getActionBar();
-				if (actionBar != null)
+				if (focused)
 				{
-					if (focused)
+					IMEUtils.showSoftKeyboardWindow(getActivity(), view);
+				}
+
+				if (actionBarAutoHide)
+				{
+					ActionBar actionBar = getActivity().getActionBar();
+					if (actionBar != null)
 					{
-						IMEUtils.showSoftKeyboardWindow(getActivity(), view);
-						actionBar.hide();
-					}
-					else
-					{
-						actionBar.show();
+						if (focused)
+						{
+							actionBar.hide();
+						}
+						else
+						{
+							actionBar.show();
+						}
 					}
 				}
 
