@@ -57,7 +57,6 @@ public class NoteDetailActivity extends Activity
 	implements View.OnClickListener, OnFocusChangeListener,
 	DialogInterface.OnClickListener, NotepadConstants
 {
-
 	private static final String LOG_TAG = "simple-notepad";
 	private static final String SAVE_KEY_CURRENT_NOTE_URI = "currentNoteUri";
 	private static final String SAVE_KEY_CURRENT_ACTION = "currentAction";
@@ -89,6 +88,8 @@ public class NoteDetailActivity extends Activity
 	private Uri currentNoteUri;
 	private final Note currentNote = new Note();
 	private final Note originalNote = new Note();
+	// configuration
+	private boolean actionBarAutoHide;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -106,6 +107,10 @@ public class NoteDetailActivity extends Activity
 			WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
 		setContentView(R.layout.note_detail_activity);
+
+		// configuration
+		actionBarAutoHide = NotepadPreferenceUtils.getActionBarAutoHide(this);
+		Log.d(LOG_TAG, "actionBarAutoHide => " + actionBarAutoHide);
 
 		// ActionBar
 		actionBarContainer = (ViewGroup) findViewById(R.id.actionbar_container);
@@ -438,12 +443,18 @@ public class NoteDetailActivity extends Activity
 				if (hasFocus)
 				{
 					Log.d(LOG_TAG, "note_content_edittext has focus.");
-					actionBarContainer.setVisibility(View.GONE);
 					IMEUtils.showSoftKeyboardWindow(this, v);
 				}
-				else
+				if (actionBarAutoHide)
 				{
-					actionBarContainer.setVisibility(View.VISIBLE);
+					if (hasFocus)
+					{
+						actionBarContainer.setVisibility(View.GONE);
+					}
+					else
+					{
+						actionBarContainer.setVisibility(View.VISIBLE);
+					}
 				}
 				break;
 		}

@@ -26,6 +26,8 @@ package org.routine_work.notepad.prefs;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import org.routine_work.notepad.R;
 import org.routine_work.utils.Log;
 
@@ -35,7 +37,6 @@ import org.routine_work.utils.Log;
  */
 public class NotepadPreferenceUtils
 {
-
 	private static final String LOG_TAG = "simple-notepad";
 
 	public static int getTheme(Context context)
@@ -60,6 +61,39 @@ public class NotepadPreferenceUtils
 		}
 
 		return themeId;
+	}
+
+	public static boolean getActionBarAutoHide(Context context)
+	{
+		boolean actionBarAutoHide;
+		int keyId;
+		int defaultValueId;
+		Log.v(LOG_TAG, "Hello");
+
+		Resources resources = context.getResources();
+		Configuration configuration = resources.getConfiguration();
+		switch (configuration.orientation)
+		{
+			case Configuration.ORIENTATION_LANDSCAPE:
+				keyId = R.string.actionbar_auto_hide_land_key;
+				defaultValueId = R.bool.actionbar_auto_hide_land_default_value;
+				break;
+			default:
+				keyId = R.string.actionbar_auto_hide_port_key;
+				defaultValueId = R.bool.actionbar_auto_hide_port_default_value;
+				break;
+		}
+
+		String preferenceName = context.getPackageName() + "_preferences";
+		SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
+
+		String key = resources.getString(keyId);
+		boolean defaultValue = resources.getBoolean(defaultValueId);
+		actionBarAutoHide = sharedPreferences.getBoolean(key, defaultValue);
+
+		Log.v(LOG_TAG, "actionBarAutoHide => " + actionBarAutoHide);
+		Log.v(LOG_TAG, "Bye");
+		return actionBarAutoHide;
 	}
 
 	public static void reset(Context context)

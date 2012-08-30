@@ -7,19 +7,20 @@ Title, Content, Focus
     O,       X, Content
     X,       X, Title
 
+* 編集が麺でのアクションバーの自動非表示設定のデフォルト
+** small-port  => on
+** small-land  => on
+** medium-port => off
+** medium-land => on
+** large-port  => off
+** large-land  => off
+** xlarge-port => off
+** xlarge-land => off
+
 #############################
 !! notepad-app
 
 * ノートの編集開始時にフォーカスを修正する
-
-* 設定 : 編集画面で本文編集時のアクションバーの非表示の有効無効
-** デフォルト値を画面サイズ別、画面の向き別に定義
-*** small => on
-*** small-land => on
-*** medium => off
-*** medium-land => on
-*** large => off
-*** xlarge => off
 
 * テンプレートの書式を変更
 ** '#{date}' '#{time}' など？
@@ -122,6 +123,8 @@ Title, Content, Focus
 ! 0.1.5
 
 !! notepad-app
+
+#* 設定 : 編集画面で本文編集時のアクションバーの非表示の有効無効
 
 #* view_notes_activity.xml を notepad_activity.xml に名前を変更
 

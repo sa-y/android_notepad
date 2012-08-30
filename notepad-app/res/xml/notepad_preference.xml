@@ -25,6 +25,23 @@
 		/>
 	</PreferenceCategory>
 
+	<PreferenceCategory android:title="@string/actionbar_category_title" >
+		<CheckBoxPreference
+			android:key="@string/actionbar_auto_hide_port_key"
+			android:defaultValue="@bool/actionbar_auto_hide_port_default_value"
+			android:title="@string/actionbar_auto_hide_port_title"
+			android:summaryOn="@string/actionbar_auto_hide_summary_on"
+			android:summaryOff="@string/actionbar_auto_hide_summary_off"
+		/>
+		<CheckBoxPreference
+			android:key="@string/actionbar_auto_hide_land_key"
+			android:defaultValue="@bool/actionbar_auto_hide_land_default_value"
+			android:title="@string/actionbar_auto_hide_land_title"
+			android:summaryOn="@string/actionbar_auto_hide_summary_on"
+			android:summaryOff="@string/actionbar_auto_hide_summary_off"
+		/>
+	</PreferenceCategory>
+
 	<PreferenceCategory android:title="@string/etc" >
 		<PreferenceScreen
 			android:title="@string/initialize_preference_title"

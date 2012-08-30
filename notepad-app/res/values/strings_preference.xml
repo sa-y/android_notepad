@@ -11,6 +11,14 @@
 	<string name="dark_theme">Dark Theme</string>
 	<string name="light_theme">Light Theme</string>
 
+	<!-- ActionBar Category -->
+	<string name="actionbar_category_title">Action Bar</string>
+	<!-- ActionBar : Auto Hide -->
+	<string name="actionbar_auto_hide_port_title">Auto Hide in Portrait</string>
+	<string name="actionbar_auto_hide_land_title">Auto Hide in Landscape</string>
+	<string name="actionbar_auto_hide_summary_on">The Action Bar is hidden during editing note automatically.</string>
+	<string name="actionbar_auto_hide_summary_off">The Action Bar is always displayed during note editing.</string>
+
 	<!-- Etc Category -->
 	<string name="etc">Etc</string>
 	<!-- Initialize Preferences -->
