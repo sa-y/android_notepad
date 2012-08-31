@@ -677,7 +677,8 @@ public class NotepadActivity extends ListActivity
 		if (actionMode != ACTION_MODE_SEARCH)
 		{
 			setActionMode(ACTION_MODE_SEARCH);
-			searchEditText.requestFocus();
+			IMEUtils.requestKeyboardFocus(searchEditText);
+//			searchEditText.requestFocus();
 		}
 	}
 
