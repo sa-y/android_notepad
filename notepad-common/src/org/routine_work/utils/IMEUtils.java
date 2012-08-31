@@ -62,9 +62,6 @@ public class IMEUtils
 		{
 			public void run()
 			{
-//				long now = SystemClock.uptimeMillis();
-//				targetEditText.dispatchTouchEvent(MotionEvent.obtain(now, now, MotionEvent.ACTION_DOWN, 0.0f, 0.0f, 0));
-//				targetEditText.dispatchTouchEvent(MotionEvent.obtain(now, now, MotionEvent.ACTION_UP, 0.0f, 0.0f, 0));
 				targetEditText.requestFocus();
 			}
 		}, delayInMillis);

@@ -44,7 +44,6 @@ import org.routine_work.utils.Log;
 public class NoteDetailActivity extends Activity
 	implements NotepadConstants
 {
-
 	private static final String LOG_TAG = "simple-notepad";
 	private static final String FT_NOTE_EDIT = "FT_NOTE_EDIT";
 	private static final String FT_NOTE_DELETE = "FT_NOTE_DELETE";
@@ -239,9 +238,11 @@ public class NoteDetailActivity extends Activity
 
 				String noteTitle = intent.getStringExtra(Intent.EXTRA_TITLE);
 				String noteContent = intent.getStringExtra(Intent.EXTRA_TEXT);
+				boolean noteTitleLocked = intent.getBooleanExtra(EXTRA_TITLE_LOCKED, false);
 				Log.d(LOG_TAG, "noteTitle => " + noteTitle);
 				Log.d(LOG_TAG, "noteContent => " + noteContent);
-				editNoteFragment.setNoteContents(noteTitle, noteContent);
+				Log.d(LOG_TAG, "noteTitleLocked => " + noteTitleLocked);
+				editNoteFragment.setNoteContents(noteTitle, noteContent, noteTitleLocked);
 
 				setTitle(R.string.add_new_note_title);
 			}
