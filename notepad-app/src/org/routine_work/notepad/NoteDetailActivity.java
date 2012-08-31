@@ -57,6 +57,7 @@ public class NoteDetailActivity extends Activity
 	implements View.OnClickListener, OnFocusChangeListener,
 	DialogInterface.OnClickListener, NotepadConstants
 {
+
 	private static final String LOG_TAG = "simple-notepad";
 	private static final String SAVE_KEY_CURRENT_NOTE_URI = "currentNoteUri";
 	private static final String SAVE_KEY_CURRENT_ACTION = "currentAction";
@@ -503,6 +504,7 @@ public class NoteDetailActivity extends Activity
 		Log.d(LOG_TAG, "------------------------------------------------------------");
 
 		actionBarContainer.setVisibility(View.VISIBLE);
+		homeImageButton.requestFocus();
 
 		// load saved instance
 		String newAction = null;
@@ -585,6 +587,8 @@ public class NoteDetailActivity extends Activity
 			currentNote.setTitleLocked(extraTitleLocked);
 
 			setTitle(R.string.add_new_note_title);
+			updateFocusedEditText();
+
 			addNewNoteImageButton.setVisibility(View.VISIBLE);
 			editNoteImageButton.setVisibility(View.GONE);
 			deleteNoteImageButton.setVisibility(View.GONE);
@@ -593,15 +597,6 @@ public class NoteDetailActivity extends Activity
 			noteViewContainer.setVisibility(View.GONE);
 
 			newAction = Intent.ACTION_EDIT;
-
-			if (TextUtils.isEmpty(extraTitle))
-			{
-				noteTitleEditText.requestFocus();
-			}
-			else
-			{
-				noteContentEditText.requestFocus();
-			}
 		}
 		else if (Intent.ACTION_EDIT.equals(newAction))
 		{
@@ -627,12 +622,15 @@ public class NoteDetailActivity extends Activity
 			}
 
 			setTitle(R.string.edit_note_title);
+			updateFocusedEditText();
+
 			addNewNoteImageButton.setVisibility(View.VISIBLE);
 			editNoteImageButton.setVisibility(View.GONE);
 			deleteNoteImageButton.setVisibility(View.GONE);
 
 			noteEditContainer.setVisibility(View.VISIBLE);
 			noteViewContainer.setVisibility(View.GONE);
+
 		}
 		else if (Intent.ACTION_VIEW.equals(newAction))
 		{
@@ -1027,5 +1025,23 @@ public class NoteDetailActivity extends Activity
 			noteTitleLockImageButton.setVisibility(View.VISIBLE);
 			noteTitleUnlockImageButton.setVisibility(View.GONE);
 		}
+	}
+
+	private void updateFocusedEditText()
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		if ((TextUtils.isEmpty(currentNote.getTitle()) == false)
+			&& (TextUtils.isEmpty(currentNote.getContent()) == true))
+		{
+			Log.v(LOG_TAG, "noteContentEditText#requestFocus()");
+			IMEUtils.requestKeyboardFocusByClick(noteContentEditText);
+		}
+		else
+		{
+			Log.v(LOG_TAG, "noteTitleEditText#requestFocus()");
+			IMEUtils.requestKeyboardFocusByClick(noteTitleEditText);
+		}
+		Log.v(LOG_TAG, "Bye");
 	}
 }
