@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- common -->
+	<dimen name="body_paddingLeft">16dip</dimen>
+	<dimen name="body_paddingRight">16dip</dimen>
+	<dimen name="body_paddingTop">8dip</dimen>
+	<dimen name="body_paddingBottom">8dip</dimen>
+
+	<dimen name="list_item_paddingLeft">8dip</dimen>
+	<dimen name="list_item_paddingRight">8dip</dimen>
+	<dimen name="list_item_paddingTop">4dip</dimen>
+	<dimen name="list_item_paddingBottom">4dip</dimen>
+</resources>
