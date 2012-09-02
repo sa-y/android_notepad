@@ -302,7 +302,7 @@ public class EditNoteFragment extends Fragment
 			ContentResolver contentResolver = getActivity().getContentResolver();
 			ContentValues values = new ContentValues();
 			long now = System.currentTimeMillis();
-			if (NoteUtils.isNoteItemUri(getActivity(), noteUri))
+			if (NoteStore.isNoteItemUri(getActivity(), noteUri))
 			{
 				// Update
 				values.put(NoteStore.Note.Columns.TITLE, currentNote.getTitle());
@@ -344,7 +344,7 @@ public class EditNoteFragment extends Fragment
 		Log.d(LOG_TAG, "loader => " + loader);
 
 		Log.d(LOG_TAG, "noteUri => " + noteUri);
-		if (NoteUtils.isNoteItemUri(getActivity(), noteUri))
+		if (NoteStore.isNoteItemUri(getActivity(), noteUri))
 		{
 			loaderManager.restartLoader(NOTE_LOADER_ID, null, this);
 			Log.d(LOG_TAG, "restartLoader()");
@@ -366,7 +366,7 @@ public class EditNoteFragment extends Fragment
 		Log.v(LOG_TAG, "Hello");
 		Log.d(LOG_TAG, "noteUri => " + noteUri);
 
-		if (NoteUtils.isNoteItemUri(getActivity(), noteUri))
+		if (NoteStore.isNoteItemUri(getActivity(), noteUri))
 		{
 			cursorLoader = new CursorLoader(getActivity(), noteUri,
 				null, null, null, null);

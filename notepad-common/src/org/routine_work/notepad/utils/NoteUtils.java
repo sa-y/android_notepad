@@ -38,7 +38,7 @@ public class NoteUtils
 		Log.v(LOG_TAG, "Hello");
 		Log.d(LOG_TAG, "noteUri => " + noteUri);
 
-		if (isNoteItemUri(context, noteUri))
+		if (NoteStore.isNoteItemUri(context, noteUri))
 		{
 			ContentResolver contentResolver = context.getContentResolver();
 			Cursor cursor = contentResolver.query(noteUri, null, null, null, null);
@@ -79,22 +79,5 @@ public class NoteUtils
 		context.startActivity(shareIntent);
 
 		Log.v(LOG_TAG, "Bye");
-	}
-
-	public static boolean isNoteItemUri(Context context, Uri uri)
-	{
-		boolean result = false;
-		Log.v(LOG_TAG, "Hello");
-
-		if (uri != null)
-		{
-			ContentResolver contentResolver = context.getContentResolver();
-			String type = contentResolver.getType(uri);
-			Log.d(LOG_TAG, "noteUri => " + uri + ", type => " + type);
-			result = NoteStore.Note.NOTE_ITEM_CONTENT_TYPE.equals(type);
-		}
-
-		Log.v(LOG_TAG, "Bye");
-		return result;
 	}
 }

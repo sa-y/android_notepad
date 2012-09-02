@@ -39,7 +39,6 @@ import android.widget.TextView;
 import org.routine_work.notepad.NotepadConstants;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.provider.NoteStore;
-import org.routine_work.notepad.utils.NoteUtils;
 import org.routine_work.utils.Log;
 
 public class NoteDetailFragment extends Fragment
@@ -238,7 +237,7 @@ public class NoteDetailFragment extends Fragment
 		Log.v(LOG_TAG, "Hello");
 		Log.d(LOG_TAG, "this.noteUri => " + this.noteUri);
 
-		if (NoteUtils.isNoteItemUri(getActivity(), noteUri))
+		if (NoteStore.isNoteItemUri(getActivity(), noteUri))
 		{
 			cursorLoader = new CursorLoader(getActivity(),
 				noteUri, null, null, null, null);

@@ -28,6 +28,7 @@ import android.os.Bundle;
 import android.view.*;
 import org.routine_work.notepad.NotepadConstants;
 import org.routine_work.notepad.R;
+import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.utils.NoteUtils;
 import org.routine_work.utils.Log;
 
@@ -125,7 +126,7 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 		Log.v(LOG_TAG, "Hello");
 
 		if (noteControlCallback != null
-			&& NoteUtils.isNoteItemUri(getActivity(), noteUri))
+			&& NoteStore.isNoteItemUri(getActivity(), noteUri))
 		{
 			noteControlCallback.startEditNote(noteUri);
 		}
@@ -138,7 +139,7 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 		Log.v(LOG_TAG, "Hello");
 
 		if (noteControlCallback != null
-			&& NoteUtils.isNoteItemUri(getActivity(), noteUri))
+			&& NoteStore.isNoteItemUri(getActivity(), noteUri))
 		{
 			noteControlCallback.startDeleteNote(noteUri);
 		}
