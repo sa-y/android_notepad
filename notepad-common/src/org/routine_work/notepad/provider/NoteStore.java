@@ -29,6 +29,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.provider.BaseColumns;
+import java.util.Collection;
 import org.routine_work.utils.Log;
 
 /**
@@ -195,6 +196,58 @@ public class NoteStore
 		Log.v(LOG_TAG, "noteTemplateCount => " + noteTemplateCount);
 		Log.v(LOG_TAG, "Bye");
 		return noteTemplateCount;
+	}
+
+	public static int deleteNotes(ContentResolver cr, Collection<Long> idCollection)
+	{
+		int deletedCount = 0;
+		Log.v(LOG_TAG, "Hello");
+
+		if (idCollection != null && idCollection.size() > 0)
+		{
+			StringBuilder where = new StringBuilder();
+			where.append(NoteStore.Note.Columns._ID);
+			where.append(" in (");
+			for (long id : idCollection)
+			{
+				where.append(id);
+				where.append(", ");
+			}
+			where.delete(where.length() - 2, where.length());
+			where.append(")");
+
+			Log.d(LOG_TAG, "where => " + where);
+			deletedCount = cr.delete(NoteStore.Note.CONTENT_URI, where.toString(), null);
+		}
+
+		Log.v(LOG_TAG, "Bye");
+		return deletedCount;
+	}
+
+	public static int deleteNotes(ContentResolver cr, long[] ids)
+	{
+		int deletedCount = 0;
+		Log.v(LOG_TAG, "Hello");
+
+		if (ids != null && ids.length > 0)
+		{
+			StringBuilder where = new StringBuilder();
+			where.append(NoteStore.Note.Columns._ID);
+			where.append(" in (");
+			for (int i = ids.length - 1; i >= 0; i--)
+			{
+				where.append(ids[i]);
+				where.append(", ");
+			}
+			where.delete(where.length() - 2, where.length());
+			where.append(")");
+
+			Log.d(LOG_TAG, "where => " + where);
+			deletedCount = cr.delete(NoteStore.Note.CONTENT_URI, where.toString(), null);
+		}
+
+		Log.v(LOG_TAG, "Bye");
+		return deletedCount;
 	}
 
 	public static void reindex(Context context)

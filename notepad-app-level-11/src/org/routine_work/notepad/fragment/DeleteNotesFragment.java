@@ -167,9 +167,10 @@ public class DeleteNotesFragment extends ListFragment
 	{
 		Log.v(LOG_TAG, "Hello");
 
+		long[] checkItemIds = getListView().getCheckItemIds();
 		ContentResolver cr = getActivity().getContentResolver();
-		ListView listView = getListView();
-		long[] checkItemIds = listView.getCheckItemIds();
+		NoteStore.deleteNotes(cr, checkItemIds);
+		/*
 		for (int i = checkItemIds.length - 1; i >= 0; i--)
 		{
 			long id = checkItemIds[i];
@@ -177,6 +178,7 @@ public class DeleteNotesFragment extends ListFragment
 			Uri noteUri = ContentUris.withAppendedId(NoteStore.Note.CONTENT_URI, id);
 			cr.delete(noteUri, null, null);
 		}
+		*/
 
 		Log.v(LOG_TAG, "Bye");
 	}

@@ -25,9 +25,7 @@ package org.routine_work.notepad;
 
 import android.app.ListActivity;
 import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
 import android.view.Menu;
@@ -36,6 +34,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import java.util.ArrayList;
+import java.util.List;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.utils.Log;
@@ -170,6 +170,7 @@ public class DeleteNotesActivity extends ListActivity
 	{
 		Log.v(LOG_TAG, "Hello");
 
+		List<Long> checkedIdList = new ArrayList<Long>();
 		ContentResolver cr = getContentResolver();
 		ListView listView = getListView();
 		SparseBooleanArray checkedItemPositions = listView.getCheckedItemPositions();
@@ -180,10 +181,10 @@ public class DeleteNotesActivity extends ListActivity
 				int checkedPosition = checkedItemPositions.keyAt(i);
 				long id = listView.getItemIdAtPosition(checkedPosition);
 				Log.d(LOG_TAG, "delete note. i => " + i + ", checkedPosition => " + checkedPosition + ", id => " + id);
-				Uri noteUri = ContentUris.withAppendedId(NoteStore.Note.CONTENT_URI, id);
-				cr.delete(noteUri, null, null);
+				checkedIdList.add(id);
 			}
 		}
+		NoteStore.deleteNotes(cr, checkedIdList);
 
 		Log.v(LOG_TAG, "Bye");
 	}
