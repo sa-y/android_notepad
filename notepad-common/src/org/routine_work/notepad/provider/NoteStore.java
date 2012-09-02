@@ -24,7 +24,6 @@
 package org.routine_work.notepad.provider;
 
 import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -122,42 +121,6 @@ public class NoteStore
 		Log.d(LOG_TAG, "result => " + result);
 		Log.v(LOG_TAG, "Bye");
 		return result;
-	}
-
-	public static Uri insertNote(ContentResolver cr, String title, String content)
-	{
-		Log.v(LOG_TAG, "Hello");
-
-		long now = System.currentTimeMillis();
-		ContentValues initialValues = new ContentValues();
-		initialValues.put(Note.Columns.TITLE, title);
-		initialValues.put(Note.Columns.CONTENT, content);
-		initialValues.put(Note.Columns.TITLE_LOCKED, false);
-		initialValues.put(Note.Columns.DATE_ADDED, now);
-		initialValues.put(Note.Columns.DATE_MODIFIED, now);
-
-		Uri newUri = cr.insert(Note.CONTENT_URI, initialValues);
-		Log.d(LOG_TAG, "newUri => " + newUri);
-
-		Log.v(LOG_TAG, "Bye");
-		return newUri;
-	}
-
-	public static int updateNote(ContentResolver cr, Uri uri, String title, String content)
-	{
-		Log.v(LOG_TAG, "Hello");
-
-		long now = System.currentTimeMillis();
-		ContentValues values = new ContentValues();
-		values.put(Note.Columns.TITLE, title);
-		values.put(Note.Columns.CONTENT, content);
-		values.put(Note.Columns.DATE_MODIFIED, now);
-
-		int updatedCount = cr.update(uri, values, null, null);
-		Log.d(LOG_TAG, "updatedCount => " + updatedCount);
-
-		Log.v(LOG_TAG, "Bye");
-		return updatedCount;
 	}
 
 	/**

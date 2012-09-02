@@ -70,10 +70,6 @@ Title, Content, Focus
 
 * ノートの複数削除をループではなく SQL 一つで行うようにする
 
-* NoteStore の未使用のユーティリティーメソッドを削除
-** NoteStore.insertNote() : Uri
-** NoteStore.updateNote() : int
-
 * isNoteItemUri() が2か所にあるのでどちらか削除
 ** NoteStore.isNoteItemUri(Uri uri) : boolean
 ** NoteUtils.isNoteItemUri(Uri uri) : boolean
@@ -113,6 +109,11 @@ Title, Content, Focus
 !! notepad-app-level-11
 
 !! notepad-common
+
+#* NoteStore の未使用のユーティリティーメソッドを削除
+#** NoteStore.insertNote() : Uri
+#** NoteStore.updateNote() : int
+
 
 ############################################################
 ! 0.1.5
