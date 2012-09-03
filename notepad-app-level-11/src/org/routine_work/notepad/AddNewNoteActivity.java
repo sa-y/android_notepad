@@ -24,17 +24,12 @@
 package org.routine_work.notepad;
 
 import android.app.Activity;
-import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.text.format.DateFormat;
-import java.util.Date;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
+import org.routine_work.notepad.utils.NoteUtils;
 import org.routine_work.notepad.utils.NotepadConstants;
 import org.routine_work.utils.Log;
 
@@ -67,7 +62,7 @@ public class AddNewNoteActivity extends Activity implements NotepadConstants
 		// create note or select template
 		if (noteTemplateUri != null)
 		{
-			startNoteDetailActivityWithTemplate(noteTemplateUri);
+			NoteUtils.startNoteDetailActivityWithTemplate(this, noteTemplateUri);
 			finish();
 		}
 		else
@@ -80,7 +75,8 @@ public class AddNewNoteActivity extends Activity implements NotepadConstants
 			}
 			else if (noteTemplateCount == 1)
 			{
-				startNoteDetailActivityWithTemplate(NoteStore.NoteTemplate.CONTENT_URI);
+				NoteUtils.startNoteDetailActivityWithTemplate(this,
+					NoteStore.NoteTemplate.CONTENT_URI);
 				finish();
 			}
 			else
@@ -100,63 +96,11 @@ public class AddNewNoteActivity extends Activity implements NotepadConstants
 			if (resultCode == RESULT_OK)
 			{
 				Uri noteTemplateUri = data.getData();
-				startNoteDetailActivityWithTemplate(noteTemplateUri);
+				NoteUtils.startNoteDetailActivityWithTemplate(this, noteTemplateUri);
 			}
 			setResult(resultCode);
 			finish();
 		}
-	}
-
-	private void startNoteDetailActivityWithTemplate(Uri noteTemplateUri)
-	{
-		Log.v(LOG_TAG, "Hello");
-		Cursor cursor = getContentResolver().query(noteTemplateUri,
-			null, null, null, null);
-		try
-		{
-			if (cursor != null && cursor.moveToFirst())
-			{
-				int titleIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.TITLE);
-				int contentIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.CONTENT);
-				int titleLockedIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.TITLE_LOCKED);
-				boolean titleLocked = (cursor.getInt(titleLockedIndex) != 0);
-
-				Date now = new Date();
-				String dateText = DateFormat.getDateFormat(this).format(now);
-				String timeText = DateFormat.getTimeFormat(this).format(now);
-				String titleTemplate = cursor.getString(titleIndex);
-				String contentTemplate = cursor.getString(contentIndex);
-				String title = String.format(titleTemplate, dateText, timeText);
-				String content = String.format(contentTemplate, dateText, timeText);
-
-				Uri noteUri = searchNoteByTitle(title);
-				if (noteUri != null)
-				{
-					// if note is already exist
-					Intent intent = new Intent(Intent.ACTION_EDIT, noteUri);
-					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-					startActivity(intent);
-				}
-				else
-				{
-					// if not found,  insert new note
-					Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
-					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-					intent.putExtra(Intent.EXTRA_TITLE, title);
-					intent.putExtra(Intent.EXTRA_TEXT, content);
-					intent.putExtra(EXTRA_TITLE_LOCKED, titleLocked);
-					startActivity(intent);
-				}
-			}
-		}
-		finally
-		{
-			if (cursor != null)
-			{
-				cursor.close();
-			}
-		}
-		Log.v(LOG_TAG, "Bye");
 	}
 
 	private void startNoteDetailActivity()
@@ -166,42 +110,5 @@ public class AddNewNoteActivity extends Activity implements NotepadConstants
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
 		Log.v(LOG_TAG, "Bye");
-	}
-
-	private Uri searchNoteByTitle(String title)
-	{
-		Uri result = null;
-		Log.v(LOG_TAG, "Hello");
-
-		if (!TextUtils.isEmpty(title))
-		{
-			ContentResolver contentResolver = getContentResolver();
-			String selection = NoteStore.Note.Columns.TITLE + " = ? ";
-			String[] selectionArgs = new String[]
-			{
-				title
-			};
-			Cursor cursor = contentResolver.query(NoteStore.Note.CONTENT_URI, null,
-				selection, selectionArgs, null);
-			if (cursor != null)
-			{
-				try
-				{
-					if (cursor.moveToFirst())
-					{
-						int idColumnIndex = cursor.getColumnIndex(NoteStore.Note.Columns._ID);
-						long noteId = cursor.getLong(idColumnIndex);
-						result = ContentUris.withAppendedId(NoteStore.Note.CONTENT_URI, noteId);
-					}
-				}
-				finally
-				{
-					cursor.close();
-				}
-			}
-		}
-
-		Log.v(LOG_TAG, "Bye");
-		return result;
 	}
 }

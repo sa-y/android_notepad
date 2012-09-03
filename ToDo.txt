@@ -20,7 +20,6 @@ Title, Content, Focus
 #############################
 !! notepad-app
 
-
 * Dialog 用のテーマを作成
 ** Theme.Notepad.Dialog.Dark 
 ** Theme.Notepad.Dialog.Light 
@@ -43,6 +42,15 @@ Title, Content, Focus
 
 #############################
 !! notepad-app-level-11
+
+* 新規ノート作成時にテンプレートを選ぶ処理を変更
+** 現在は NoteTemplateListActivity に ACTION_PICK を送って選択している
+** 元のアクティビティで完結したい
+** 実現方法 
+*** Dialog + ListView
+*** PopupMenu 
+*** ActionProvider
+*** ListPopupWindow 
 
 * Dialog 用のテーマを作成
 ** Theme.Notepad.Dialog.Dark 
@@ -106,6 +114,10 @@ Title, Content, Focus
 ! 0.1.6
 
 !! notepad-app
+
+#* AddNewNoteActivity をリファクタリング
+#** NoteUtils のメソッドを呼ぶように修正
+#** 不要になったメソッドの削除
 
 #* 新規ノート作成時にテンプレートを選ぶ処理を変更
 #** 現在は NoteTemplateListActivity に ACTION_PICK を送って選択している

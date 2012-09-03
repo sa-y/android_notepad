@@ -226,9 +226,9 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 			case R.id.delete_notes_menuitem:
 				startDeleteNotes();
 				break;
-			case R.id.search_notes_menuitem:
-				onSearchRequested();
-				break;
+//			case R.id.search_notes_menuitem:
+//				onSearchRequested();
+//				break;
 			case R.id.templates_menuitem:
 				startTemplateListActivity();
 				break;
