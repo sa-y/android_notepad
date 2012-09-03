@@ -21,8 +21,8 @@ Title, Content, Focus
 !! notepad-app
 
 * Dialog 用のテーマを作成
-** Theme.Notepad.Dialog.Dark 
-** Theme.Notepad.Dialog.Light 
+** Theme.Notepad.Dark.Dialog
+** Theme.Notepad.Light.Dialog
 
 * テンプレートの書式を変更
 ** '#{date}' '#{time}' など？
@@ -43,10 +43,9 @@ Title, Content, Focus
 #############################
 !! notepad-app-level-11
 
-
 * Dialog 用のテーマを作成
-** Theme.Notepad.Dialog.Dark 
-** Theme.Notepad.Dialog.Light 
+** Theme.Notepad.Dark.Dialog
+** Theme.Notepad.Light.Dialog
 
 * 各種 ListView の layout_margin を修正
 ** layout_margin を減らしてリスト項目の layout_margin で調整する
