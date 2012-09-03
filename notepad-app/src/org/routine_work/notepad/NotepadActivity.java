@@ -62,6 +62,7 @@ public class NotepadActivity extends ListActivity
 {
 
 	private static final String LOG_TAG = "simple-notepad";
+	private static final String ACTION_QUIT = NotepadConstants.class.getPackage().getName() + ".QUIT";
 	private static final int ACTION_MODE_NORMAL = 0;
 	private static final int ACTION_MODE_SEARCH = 1;
 	private static final int[][][] ACTION_ITEM_VISIBILITY =

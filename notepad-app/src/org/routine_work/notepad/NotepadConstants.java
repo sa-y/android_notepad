@@ -23,8 +23,6 @@
  */
 package org.routine_work.notepad;
 
-import org.routine_work.notepad.provider.NoteStore;
-
 /**
  *
  * @author sawai
@@ -39,19 +37,5 @@ public interface NotepadConstants
 	int REQUEST_CODE_DELETE_NOTES = 105;
 	int REQUEST_CODE_PICK_NOTE = 106;
 	int REQUEST_CODE_PICK_NOTE_TEMPLATE = 107;
-	String ACTION_QUIT = NotepadConstants.class.getPackage().getName() + ".QUIT";
 	String EXTRA_TITLE_LOCKED = NotepadConstants.class.getPackage().getName() + ".EXTRA_TITLE_LOCKED";
-	String EXTRA_NOTE_TEMPLATE = NotepadConstants.class.getPackage().getName() + ".EXTRA_NOTE_TEMPLATE";
-	String[] NOTE_LIST_MAPPING_FROM =
-	{
-		NoteStore.Note.Columns.TITLE,
-		NoteStore.Note.Columns.CONTENT,
-		NoteStore.Note.Columns.DATE_MODIFIED,
-	};
-	int[] NOTE_LIST_MAPPING_TO =
-	{
-		R.id.note_title_textview,
-		R.id.note_content_textview,
-		R.id.note_modified_textview,
-	};
 }

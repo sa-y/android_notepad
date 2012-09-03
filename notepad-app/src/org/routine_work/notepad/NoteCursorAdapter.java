@@ -28,6 +28,7 @@ import android.database.Cursor;
 import android.view.View;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.utils.TimeFormatUtils;
 import org.routine_work.utils.Log;
 
@@ -36,10 +37,22 @@ import org.routine_work.utils.Log;
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
 public class NoteCursorAdapter extends SimpleCursorAdapter
-	implements NotepadConstants, SimpleCursorAdapter.ViewBinder
+	implements SimpleCursorAdapter.ViewBinder
 {
 
 	private static final String LOG_TAG = "simple-notepad";
+	private static final String[] NOTE_LIST_MAPPING_FROM =
+	{
+		NoteStore.Note.Columns.TITLE,
+		NoteStore.Note.Columns.CONTENT,
+		NoteStore.Note.Columns.DATE_MODIFIED,
+	};
+	private static final int[] NOTE_LIST_MAPPING_TO =
+	{
+		R.id.note_title_textview,
+		R.id.note_content_textview,
+		R.id.note_modified_textview,
+	};
 	private Context context;
 	private boolean checkable = false;
 

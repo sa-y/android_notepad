@@ -20,6 +20,11 @@ Title, Content, Focus
 #############################
 !! notepad-app
 
+* 新規ノート作成時にテンプレートを選ぶ処理を変更
+** 現在は NoteTemplateListActivity に ACTION_PICK を送って選択している
+** 元のアクティビティで完結したい
+** Dialog にする？
+
 * テンプレートの書式を変更
 ** '#{date}' '#{time}' など？
 

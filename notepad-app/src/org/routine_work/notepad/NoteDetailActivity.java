@@ -44,6 +44,7 @@ import android.widget.Toast;
 import org.routine_work.notepad.model.Note;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
+import org.routine_work.notepad.template.NoteTemplatePickerDialog;
 import org.routine_work.notepad.utils.NoteUtils;
 import org.routine_work.utils.IMEUtils;
 import org.routine_work.utils.Log;
@@ -55,7 +56,8 @@ import org.routine_work.utils.Log;
  */
 public class NoteDetailActivity extends Activity
 	implements View.OnClickListener, OnFocusChangeListener,
-	DialogInterface.OnClickListener, NotepadConstants
+	DialogInterface.OnClickListener,
+	NotepadConstants
 {
 
 	private static final String LOG_TAG = "simple-notepad";
@@ -64,6 +66,7 @@ public class NoteDetailActivity extends Activity
 	private static final String SAVE_KEY_CURRENT_NOTE = "currentNote";
 	private static final int DIALOG_ID_LOCK = 0;
 	private static final int DIALOG_ID_UNLOCK = 1;
+	private static final int DIALOG_ID_NOTE_TEMPLATE_PICKER = 2;
 	// ActionBar items
 	private ViewGroup actionBarContainer;
 	private TextView titleTextView;
@@ -84,6 +87,7 @@ public class NoteDetailActivity extends Activity
 	// Dialogs
 	private Dialog lockDialog;
 	private Dialog unlockDialog;
+	private NoteTemplatePickerDialog noteTemplatePickerDialog;
 	// data
 	private String currentAction;
 	private Uri currentNoteUri;
@@ -235,6 +239,9 @@ public class NoteDetailActivity extends Activity
 				break;
 			case DIALOG_ID_UNLOCK:
 				dialog = getUnlockDialog();
+				break;
+			case DIALOG_ID_NOTE_TEMPLATE_PICKER:
+				dialog = getNoteTemplatePickerDialog();
 				break;
 		}
 
@@ -872,6 +879,11 @@ public class NoteDetailActivity extends Activity
 		Intent intent = new Intent(this, AddNewNoteActivity.class);
 		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
 
+//		if (NoteStore.getNoteTemplateCount(getContentResolver()) > 0)
+//		{
+//			showDialog(DIALOG_ID_NOTE_TEMPLATE_PICKER);
+//		}
+
 		Log.v(LOG_TAG, "Bye");
 	}
 
@@ -989,6 +1001,15 @@ public class NoteDetailActivity extends Activity
 			unlockDialog = builder.create();
 		}
 		return unlockDialog;
+	}
+
+	private Dialog getNoteTemplatePickerDialog()
+	{
+		if (noteTemplatePickerDialog == null)
+		{
+			noteTemplatePickerDialog = new NoteTemplatePickerDialog(this);
+		}
+		return noteTemplatePickerDialog;
 	}
 
 	private void setNoteTitleLocked(boolean locked)

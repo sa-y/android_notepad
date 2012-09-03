@@ -32,6 +32,7 @@ import org.routine_work.notepad.provider.NoteStore;
 public interface NotepadConstants
 {
 
+	int REQUEST_CODE_VIEW_NOTE = 101;
 	int REQUEST_CODE_EDIT_NOTE = 102;
 	int REQUEST_CODE_ADD_NOTE = 103;
 	int REQUEST_CODE_DELETE_NOTE = 104;
