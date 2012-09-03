@@ -42,16 +42,4 @@ public interface NotepadConstants
 	int NOTE_LOADER_ID = 0;
 	String EXTRA_TITLE_LOCKED = NotepadConstants.class.getPackage().getName() + ".EXTRA_TITLE_LOCKED";
 	String EXTRA_NOTE_TEMPLATE = NotepadConstants.class.getPackage().getName() + ".EXTRA_NOTE_TEMPLATE";
-	String[] NOTE_LIST_MAPPING_FROM =
-	{
-		NoteStore.Note.Columns.TITLE,
-		NoteStore.Note.Columns.CONTENT,
-		NoteStore.Note.Columns.DATE_MODIFIED,
-	};
-	int[] NOTE_LIST_MAPPING_TO =
-	{
-		R.id.note_title_textview,
-		R.id.note_content_textview,
-		R.id.note_modified_textview,
-	};
 }

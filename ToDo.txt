@@ -108,6 +108,10 @@ Title, Content, Focus
 
 #* NoteListItemViewBinder を NoteCursorAdapter に変更
 
+* NotepadConstants から未使用の定数を削除
+** NOTE_LIST_MAPPING_FROM
+** NOTE_LIST_MAPPING_TO
+
 !! notepad-common
 
 #* ノートの複数削除をループではなく SQL 一つで行うようにする
