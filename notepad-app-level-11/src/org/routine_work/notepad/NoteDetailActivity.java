@@ -65,9 +65,11 @@ public class NoteDetailActivity extends Activity
 //		getWindow().setSoftInputMode(
 //			WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
 //			|WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+//		getWindow().setSoftInputMode(
+//			WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
+//			| WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 		getWindow().setSoftInputMode(
-			WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
-			| WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+			WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
 		Log.v(LOG_TAG,
 			"Hi!");

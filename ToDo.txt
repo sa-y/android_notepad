@@ -43,14 +43,6 @@ Title, Content, Focus
 #############################
 !! notepad-app-level-11
 
-* 新規ノート作成時にテンプレートを選ぶ処理を変更
-** 現在は NoteTemplateListActivity に ACTION_PICK を送って選択している
-** 元のアクティビティで完結したい
-** 実現方法 
-*** Dialog + ListView
-*** PopupMenu 
-*** ActionProvider
-*** ListPopupWindow 
 
 * Dialog 用のテーマを作成
 ** Theme.Notepad.Dialog.Dark 
@@ -126,6 +118,16 @@ Title, Content, Focus
 
 
 !! notepad-app-level-11
+
+#* 新規ノート作成時にテンプレートを選ぶ処理を変更
+#** 現在は NoteTemplateListActivity に ACTION_PICK を送って選択している
+#** 元のアクティビティで完結したい
+#** 実現方法 
+#*** Dialog + ListView
+#*** PopupMenu 
+#*** ActionProvider (Android 4.0 以降)
+#*** ListPopupWindow 
+#** とりあえず Dialog + ListView で実装
 
 #* NotepadConstants から未使用の定数を削除
 #** NOTE_LIST_MAPPING_FROM

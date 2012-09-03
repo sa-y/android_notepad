@@ -50,6 +50,24 @@ public class IMEUtils
 		inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
 	}
 
+	public static void requestSoftKeyboardWindow(Context context, View view)
+	{
+		requestSoftKeyboardWindow(context, view, 200);
+	}
+
+	public static void requestSoftKeyboardWindow(Context context, View view, long delayInMillis)
+	{
+		final Context targetContext = context;
+		final View targetView = view;
+		new Handler().postDelayed(new Runnable()
+		{
+			public void run()
+			{
+				showSoftKeyboardWindow(targetContext, targetView);
+			}
+		}, delayInMillis);
+	}
+
 	public static void requestKeyboardFocus(EditText editText)
 	{
 		requestKeyboardFocus(editText, 200);

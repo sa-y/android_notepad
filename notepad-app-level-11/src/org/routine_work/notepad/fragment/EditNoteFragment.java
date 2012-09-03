@@ -34,7 +34,6 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
@@ -49,11 +48,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import org.routine_work.notepad.AddNewNoteActivity;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.model.Note;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
+import org.routine_work.notepad.template.NoteTemplatePickerDialogFragment;
 import org.routine_work.notepad.utils.NoteUtils;
 import org.routine_work.notepad.utils.NotepadConstants;
 import org.routine_work.utils.IMEUtils;
@@ -65,10 +64,12 @@ public class EditNoteFragment extends Fragment
 	View.OnClickListener,
 	NotepadConstants
 {
+
 	private static final String LOG_TAG = "simple-notepad";
 	private static final String SAVE_KEY_NOTE_URI = "noteUri";
 	private static final String FT_TITLE_LOCK = "FT_TITLE_LOCK";
 	private static final String FT_TITLE_UNLOCK = "FT_TITLE_UNLOCK";
+	private static final String FT_NOTE_TEMPLATE_PICKER = "FT_NOTE_TEMPLATE_PICKER";
 	// views
 	private EditText noteTitleEditText;
 	private EditText noteContentEditText;
@@ -405,7 +406,7 @@ public class EditNoteFragment extends Fragment
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		setNoteContents("", "", false);
+//		setNoteContents("", "", false);
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -424,7 +425,7 @@ public class EditNoteFragment extends Fragment
 			case R.id.note_title_unlock_button:
 				Log.d(LOG_TAG, "note_title_unlock_button is clicked");
 				UnlockTitleDialogFragment unlockTitleDialogFragment = new UnlockTitleDialogFragment();
-				unlockTitleDialogFragment.show(getFragmentManager(), FT_TITLE_LOCK);
+				unlockTitleDialogFragment.show(getFragmentManager(), FT_TITLE_UNLOCK);
 				break;
 			default:
 				throw new AssertionError();
@@ -450,6 +451,10 @@ public class EditNoteFragment extends Fragment
 
 	public void setNoteContents(String noteTitle, String noteContent, boolean noteTitleLocked)
 	{
+		Log.v(LOG_TAG, "Hello");
+		Log.d(LOG_TAG, "noteTitle => " + noteTitle);
+		Log.d(LOG_TAG, "noteContent => " + noteContent);
+		Log.d(LOG_TAG, "noteTitleLocked => " + noteTitleLocked);
 		if (noteTitle == null)
 		{
 			noteTitle = "";
@@ -488,12 +493,12 @@ public class EditNoteFragment extends Fragment
 				&& (TextUtils.isEmpty(currentNote.getContent()) == true))
 			{
 				Log.v(LOG_TAG, "noteContentEditText#requestFocus()");
-				IMEUtils.requestKeyboardFocus(noteContentEditText);
+				IMEUtils.requestSoftKeyboardWindow(getActivity(), noteContentEditText);
 			}
 			else
 			{
 				Log.v(LOG_TAG, "noteTitleEditText#requestFocus()");
-				IMEUtils.requestKeyboardFocus(noteTitleEditText);
+				IMEUtils.requestSoftKeyboardWindow(getActivity(), noteTitleEditText);
 			}
 		}
 		Log.v(LOG_TAG, "Bye");
@@ -532,11 +537,14 @@ public class EditNoteFragment extends Fragment
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		Intent intent = new Intent(getActivity(), AddNewNoteActivity.class);
-		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
+//		Intent intent = new Intent(getActivity(), AddNewNoteActivity.class);
+//		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
 
-		Log.v(LOG_TAG,
-			"Bye");
+		saveNote();
+		NoteTemplatePickerDialogFragment dialogFragment = new NoteTemplatePickerDialogFragment();
+		dialogFragment.show(getFragmentManager(), FT_NOTE_TEMPLATE_PICKER);
+
+		Log.v(LOG_TAG, "Bye");
 	}
 
 	private void startShareNoteActivity()
@@ -569,7 +577,8 @@ public class EditNoteFragment extends Fragment
 				noteTitleEditText.setEnabled(false);
 				noteTitleEditText.setFocusable(false);
 				noteTitleEditText.setFocusableInTouchMode(false);
-				IMEUtils.requestKeyboardFocus(noteContentEditText);
+//				IMEUtils.requestKeyboardFocus(noteContentEditText);
+				noteContentEditText.requestFocus();
 			}
 			else
 			{
@@ -577,7 +586,8 @@ public class EditNoteFragment extends Fragment
 				noteTitleEditText.setFocusable(true);
 				noteTitleEditText.setFocusableInTouchMode(true);
 				noteTitleEditText.requestFocus();
-				IMEUtils.requestKeyboardFocus(noteTitleEditText);
+//				IMEUtils.requestKeyboardFocus(noteTitleEditText);
+				noteTitleEditText.requestFocus();
 			}
 		}
 	}
@@ -602,6 +612,7 @@ public class EditNoteFragment extends Fragment
 	class LockTitleDialogFragment extends DialogFragment
 		implements DialogInterface.OnClickListener
 	{
+
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState)
 		{
@@ -626,6 +637,7 @@ public class EditNoteFragment extends Fragment
 	class UnlockTitleDialogFragment extends DialogFragment
 		implements DialogInterface.OnClickListener
 	{
+
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState)
 		{

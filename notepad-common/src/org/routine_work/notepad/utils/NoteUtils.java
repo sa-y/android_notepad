@@ -113,8 +113,10 @@ public class NoteUtils implements NotepadConstants
 				String content = String.format(contentTemplate, dateText, timeText);
 
 				Uri noteUri = searchNoteByTitle(context, title);
+				Log.d(LOG_TAG, "noteUri => " + noteUri);
 				if (noteUri != null)
 				{
+					Log.d(LOG_TAG, "note is already exist.");
 					// if note is already exist
 					Intent intent = new Intent(Intent.ACTION_EDIT, noteUri);
 					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -122,6 +124,7 @@ public class NoteUtils implements NotepadConstants
 				}
 				else
 				{
+					Log.d(LOG_TAG, "note is not found.");
 					// if not found, insert new note
 					Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
 					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -146,6 +149,7 @@ public class NoteUtils implements NotepadConstants
 	{
 		Uri result = null;
 		Log.v(LOG_TAG, "Hello");
+		Log.d(LOG_TAG, "title => " + title);
 
 		if (!TextUtils.isEmpty(title))
 		{

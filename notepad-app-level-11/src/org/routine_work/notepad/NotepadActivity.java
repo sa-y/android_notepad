@@ -53,6 +53,7 @@ import org.routine_work.notepad.prefs.NotepadPreferenceActivity;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.template.NoteTemplateInitializer;
+import org.routine_work.notepad.template.NoteTemplatePickerDialogFragment;
 import org.routine_work.notepad.utils.NoteSearchQueryParser;
 import org.routine_work.notepad.utils.NotepadConstants;
 import org.routine_work.utils.IMEUtils;
@@ -64,7 +65,8 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 {
 
 	public static final String ACTION_QUIT = NotepadActivity.class.getPackage().getName() + ".ACTION_QUIT";
-	public static final String NOTE_DETAIL_TAG = "NoteDetail";
+	private static final String FT_NOTE_DETAIL = "FT_NOTE_DETAIL";
+	private static final String FT_NOTE_TEMPLATE_PICKER = "FT_NOTE_TEMPLATE_PICKER";
 	private static final String LOG_TAG = "simple-notepad";
 	private String layoutSinglePaneValue;
 	private String layoutWideTwoPaneValue;
@@ -403,9 +405,12 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 
 //		Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
 //		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
-		Intent intent = new Intent(this, AddNewNoteActivity.class);
-		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
 
+//		Intent intent = new Intent(this, AddNewNoteActivity.class);
+//		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
+
+		NoteTemplatePickerDialogFragment dialogFragment = new NoteTemplatePickerDialogFragment();
+		dialogFragment.show(getFragmentManager(), FT_NOTE_TEMPLATE_PICKER);
 		Log.v(LOG_TAG, "Bye");
 	}
 
@@ -578,7 +583,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		if (noteUri != null)
 		{
 			FragmentManager fm = getFragmentManager();
-			ViewNoteFragment viewNoteFragment = (ViewNoteFragment) fm.findFragmentByTag(NOTE_DETAIL_TAG);
+			ViewNoteFragment viewNoteFragment = (ViewNoteFragment) fm.findFragmentByTag(FT_NOTE_DETAIL);
 			Log.d(LOG_TAG, "viewFragment => " + viewNoteFragment);
 			if (viewNoteFragment == null)
 			{
@@ -587,7 +592,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 
 				// add the Fragment to the container
 				FragmentTransaction ft = fm.beginTransaction();
-				ft.add(R.id.note_detail_container, viewNoteFragment, NOTE_DETAIL_TAG);
+				ft.add(R.id.note_detail_container, viewNoteFragment, FT_NOTE_DETAIL);
 				ft.addToBackStack(null);
 				ft.commit();
 
@@ -610,7 +615,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		Log.v(LOG_TAG, "Hello");
 
 		FragmentManager fm = getFragmentManager();
-		Fragment noteDetailFragment = fm.findFragmentByTag(NOTE_DETAIL_TAG);
+		Fragment noteDetailFragment = fm.findFragmentByTag(FT_NOTE_DETAIL);
 		Log.d(LOG_TAG, "noteDetailFragment => " + noteDetailFragment);
 		if (noteDetailFragment instanceof ViewNoteFragment)
 		{
@@ -642,5 +647,4 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 
 		Log.v(LOG_TAG, "Bye");
 	}
-
 }
