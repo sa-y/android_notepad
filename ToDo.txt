@@ -106,6 +106,8 @@ Title, Content, Focus
 
 !! notepad-app-level-11
 
+#* NoteListItemViewBinder を NoteCursorAdapter に変更
+
 !! notepad-common
 
 #* ノートの複数削除をループではなく SQL 一つで行うようにする

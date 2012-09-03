@@ -26,47 +26,81 @@ package org.routine_work.notepad.fragment;
 import android.content.Context;
 import android.database.Cursor;
 import android.view.View;
-import android.widget.CheckedTextView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import org.routine_work.notepad.R;
+import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.utils.TimeFormatUtils;
 import org.routine_work.utils.Log;
-import org.routine_work.widget.CheckableLinearLayout;
 
 /**
  *
- * @author sawai
+ * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
-public class NoteListItemViewBinder
+public class NoteCursorAdapter extends SimpleCursorAdapter
 	implements SimpleCursorAdapter.ViewBinder
 {
 
 	private static final String LOG_TAG = "simple-notepad";
+	private static final String[] NOTE_LIST_MAPPING_FROM =
+	{
+		NoteStore.Note.Columns.TITLE,
+		NoteStore.Note.Columns.CONTENT,
+		NoteStore.Note.Columns.DATE_MODIFIED,
+	};
+	private static final int[] NOTE_LIST_MAPPING_TO =
+	{
+		R.id.note_title_textview,
+		R.id.note_content_textview,
+		R.id.note_modified_textview,
+	};
 	private Context context;
-	private boolean checkboxVisible = false;
+	private boolean checkable = false;
 
-	public NoteListItemViewBinder(Context context)
+	public NoteCursorAdapter(Context context, Cursor c)
 	{
+		this(context, c, false);
+	}
+
+	public NoteCursorAdapter(Context context, Cursor c, boolean checkable)
+	{
+		super(context, R.layout.note_list_item, c,
+			NOTE_LIST_MAPPING_FROM, NOTE_LIST_MAPPING_TO);
+		this.checkable = checkable;
 		this.context = context;
+		setViewBinder(this);
 	}
 
-	public boolean isCheckboxVisible()
+	@Override
+	public void bindView(View view, Context context, Cursor cursor)
 	{
-		return checkboxVisible;
+		Log.v(LOG_TAG, "Hello");
+		super.bindView(view, context, cursor);
+
+		View checkbox = view.findViewById(android.R.id.checkbox);
+		if (checkbox != null)
+		{
+			if (checkable)
+			{
+				checkbox.setVisibility(View.VISIBLE);
+			}
+			else
+			{
+				checkbox.setVisibility(View.GONE);
+			}
+		}
+
+		Log.v(LOG_TAG, "Bye");
 	}
 
-	public void setCheckboxVisible(boolean checkboxVisible)
-	{
-		this.checkboxVisible = checkboxVisible;
-	}
-
+	// SimpleCursorAdapter.ViewBinder
 	@Override
 	public boolean setViewValue(View view, Cursor cursor, int columnIndex)
 	{
 		boolean result = false;
 
-		switch (view.getId())
+		int viewId = view.getId();
+		switch (viewId)
 		{
 			case R.id.note_modified_textview:
 				long modifiedTime = cursor.getLong(columnIndex);
@@ -74,7 +108,6 @@ public class NoteListItemViewBinder
 				TextView modifiedTextView = (TextView) view;
 				modifiedTextView.setText(modifiedText);
 				result = true;
-				updateCheckedTextViewVisibility(view);
 				break;
 			case R.id.note_content_textview:
 				String contentText = cursor.getString(columnIndex);
@@ -88,44 +121,13 @@ public class NoteListItemViewBinder
 		return result;
 	}
 
-	private void updateCheckedTextViewVisibility(View view)
+	public boolean isCheckable()
 	{
-		CheckableLinearLayout listItemView = findCheckableLinearLayout(view);
-//		Log.d(LOG_TAG, "listItemView => " + listItemView);
-		if (listItemView != null)
-		{
-			View foundView = listItemView.findViewById(android.R.id.checkbox);
-			if (foundView instanceof CheckedTextView)
-			{
-				CheckedTextView checkedTextView = (CheckedTextView) foundView;
-				if (isCheckboxVisible())
-				{
-					checkedTextView.setVisibility(View.VISIBLE);
-				}
-				else
-				{
-					checkedTextView.setVisibility(View.GONE);
-				}
-			}
-		}
-
+		return checkable;
 	}
 
-	private CheckableLinearLayout findCheckableLinearLayout(View view)
+	public void setCheckable(boolean checkable)
 	{
-		CheckableLinearLayout result = null;
-		View target = view;
-
-		while ((target instanceof CheckableLinearLayout) == false)
-		{
-			target = (View) target.getParent();
-		}
-
-		if (target != null)
-		{
-			result = (CheckableLinearLayout) target;
-		}
-
-		return result;
+		this.checkable = checkable;
 	}
 }

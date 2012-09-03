@@ -37,8 +37,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
-import org.routine_work.notepad.fragment.NoteListItemViewBinder;
+import org.routine_work.notepad.fragment.NoteCursorAdapter;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.utils.Log;
@@ -52,7 +51,7 @@ public class PickNoteActivity extends ListActivity
 	// class variables
 	private static final String LOG_TAG = "simple-notepad";
 	// instance variables
-	private SimpleCursorAdapter listAdapter;
+	private NoteCursorAdapter listAdapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -70,10 +69,11 @@ public class PickNoteActivity extends ListActivity
 			setTitle(title);
 		}
 
-		listAdapter = new SimpleCursorAdapter(this,
-			R.layout.note_list_item, null,
-			NOTE_LIST_MAPPING_FROM, NOTE_LIST_MAPPING_TO);
-		listAdapter.setViewBinder(new NoteListItemViewBinder(this));
+//		listAdapter = new SimpleCursorAdapter(this,
+//			R.layout.note_list_item, null,
+//			NOTE_LIST_MAPPING_FROM, NOTE_LIST_MAPPING_TO);
+//		listAdapter.setViewBinder(new NoteListItemViewBinder(this));
+		listAdapter = new NoteCursorAdapter(this, null);
 		setListAdapter(listAdapter);
 
 		LoaderManager loaderManager = getLoaderManager();

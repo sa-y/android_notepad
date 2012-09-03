@@ -52,7 +52,7 @@ public class DeleteNotesFragment extends ListFragment
 {
 
 	private static final String LOG_TAG = "simple-notepad";
-	private SimpleCursorAdapter listAdapter;
+	private NoteCursorAdapter listAdapter;
 
 	public DeleteNotesFragment()
 	{
@@ -80,12 +80,13 @@ public class DeleteNotesFragment extends ListFragment
 		super.onActivityCreated(savedInstanceState);
 
 		// Init list adapter
-		NoteListItemViewBinder noteListItemViewBinder = new NoteListItemViewBinder(getActivity());
-		noteListItemViewBinder.setCheckboxVisible(true);
-		listAdapter = new SimpleCursorAdapter(getActivity(),
-			R.layout.note_list_item, null,
-			NOTE_LIST_MAPPING_FROM, NOTE_LIST_MAPPING_TO);
-		listAdapter.setViewBinder(noteListItemViewBinder);
+//		NoteListItemViewBinder noteListItemViewBinder = new NoteListItemViewBinder(getActivity());
+//		noteListItemViewBinder.setCheckboxVisible(true);
+//		listAdapter = new SimpleCursorAdapter(getActivity(),
+//			R.layout.note_list_item, null,
+//			NOTE_LIST_MAPPING_FROM, NOTE_LIST_MAPPING_TO);
+//		listAdapter.setViewBinder(noteListItemViewBinder);
+		listAdapter = new NoteCursorAdapter(getActivity(), null, true);
 		setListAdapter(listAdapter);
 
 		// Init LoaderManager

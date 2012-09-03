@@ -107,6 +107,13 @@ public class NoteCursorAdapter extends SimpleCursorAdapter
 				modifiedTextView.setText(modifiedText);
 				result = true;
 				break;
+			case R.id.note_content_textview:
+				String contentText = cursor.getString(columnIndex);
+				contentText = contentText.replace('\n', ' ');
+				TextView contentTextView = (TextView) view;
+				contentTextView.setText(contentText);
+				result = true;
+				break;
 		}
 
 		return result;

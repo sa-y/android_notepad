@@ -45,7 +45,6 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import org.routine_work.notepad.NotepadConstants;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.provider.NoteStore;
@@ -60,10 +59,9 @@ public class NoteListFragment extends ListFragment
 
 	private static final String LOG_TAG = "simple-notepad";
 	private boolean narrowLayout = false;
-	private SimpleCursorAdapter listAdapter;
+	private NoteCursorAdapter listAdapter;
 	private Uri contentUri;
 	private NoteControlCallback noteControlCallback;
-	private NoteListItemViewBinder noteListItemViewBinder;
 
 	public NoteListFragment()
 	{
@@ -117,11 +115,7 @@ public class NoteListFragment extends ListFragment
 		Log.v(LOG_TAG, "Hello");
 		super.onActivityCreated(savedInstanceState);
 
-		noteListItemViewBinder = new NoteListItemViewBinder(getActivity());
-		int listItemLayoutId = R.layout.note_list_item;
-		listAdapter = new SimpleCursorAdapter(getActivity(),
-			listItemLayoutId, null, NOTE_LIST_MAPPING_FROM, NOTE_LIST_MAPPING_TO);
-		listAdapter.setViewBinder(noteListItemViewBinder);
+		listAdapter = new NoteCursorAdapter(getActivity(), null, false);
 		setListAdapter(listAdapter);
 
 		LoaderManager loaderManager = getLoaderManager();
@@ -251,7 +245,7 @@ public class NoteListFragment extends ListFragment
 	{
 		boolean result = false;
 		Log.v(LOG_TAG, "Hello");
-		noteListItemViewBinder.setCheckboxVisible(true);
+		listAdapter.setCheckable(true);
 		Log.v(LOG_TAG, "Bye");
 		return result;
 	}
@@ -279,7 +273,7 @@ public class NoteListFragment extends ListFragment
 	public void onDestroyActionMode(ActionMode actionMode)
 	{
 		Log.v(LOG_TAG, "Hello");
-		noteListItemViewBinder.setCheckboxVisible(false);
+		listAdapter.setCheckable(false);
 		Log.v(LOG_TAG, "Bye");
 	}
 	// END ---------- AbsListView.MultiChoiceModeListener
