@@ -37,6 +37,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
+import org.routine_work.notepad.utils.NotepadConstants;
 import org.routine_work.utils.Log;
 
 /**

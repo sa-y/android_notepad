@@ -27,11 +27,9 @@ import android.app.Activity;
 import android.app.ListFragment;
 import android.app.LoaderManager;
 import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -40,10 +38,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
-import org.routine_work.notepad.NotepadConstants;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.provider.NoteStore;
+import org.routine_work.notepad.utils.NotepadConstants;
 import org.routine_work.utils.Log;
 
 public class DeleteNotesFragment extends ListFragment

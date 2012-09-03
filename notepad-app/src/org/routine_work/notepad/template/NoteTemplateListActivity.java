@@ -47,6 +47,7 @@ import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
+import org.routine_work.notepad.utils.NoteTemplateConstants;
 import org.routine_work.utils.Log;
 
 /**

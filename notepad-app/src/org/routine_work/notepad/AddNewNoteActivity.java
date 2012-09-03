@@ -35,6 +35,7 @@ import android.text.format.DateFormat;
 import java.util.Date;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
+import org.routine_work.notepad.utils.NotepadConstants;
 import org.routine_work.utils.Log;
 
 /**

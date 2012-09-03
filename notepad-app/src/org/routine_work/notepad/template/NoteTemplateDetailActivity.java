@@ -50,6 +50,7 @@ import org.routine_work.notepad.common.EditTextActivity;
 import org.routine_work.notepad.model.NoteTemplate;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
+import org.routine_work.notepad.utils.NoteTemplateConstants;
 import org.routine_work.utils.Log;
 
 /**

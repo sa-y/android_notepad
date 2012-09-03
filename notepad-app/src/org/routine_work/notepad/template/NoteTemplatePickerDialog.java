@@ -36,6 +36,7 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.provider.NoteStore;
+import org.routine_work.notepad.utils.NoteTemplateConstants;
 
 /**
  *

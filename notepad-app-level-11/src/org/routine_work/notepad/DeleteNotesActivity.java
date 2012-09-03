@@ -29,6 +29,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
+import org.routine_work.notepad.utils.NotepadConstants;
 import org.routine_work.utils.Log;
 
 public class DeleteNotesActivity extends Activity implements NotepadConstants

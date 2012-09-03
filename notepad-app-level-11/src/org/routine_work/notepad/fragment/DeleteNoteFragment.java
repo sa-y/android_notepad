@@ -27,9 +27,9 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.os.Bundle;
 import android.view.*;
-import org.routine_work.notepad.NotepadConstants;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.provider.NoteStore;
+import org.routine_work.notepad.utils.NotepadConstants;
 import org.routine_work.utils.Log;
 
 public class DeleteNoteFragment extends NoteDetailFragment implements NotepadConstants

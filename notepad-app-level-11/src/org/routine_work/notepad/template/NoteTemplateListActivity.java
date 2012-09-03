@@ -23,6 +23,7 @@
  */
 package org.routine_work.notepad.template;
 
+import org.routine_work.notepad.utils.NoteTemplateConstants;
 import android.app.ListActivity;
 import android.app.LoaderManager;
 import android.content.ContentResolver;

@@ -48,6 +48,7 @@ import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.template.NoteTemplateInitializer;
 import org.routine_work.notepad.utils.NoteSearchQueryParser;
 import org.routine_work.notepad.utils.NoteUtils;
+import org.routine_work.notepad.utils.NotepadConstants;
 import org.routine_work.utils.IMEUtils;
 import org.routine_work.utils.Log;
 

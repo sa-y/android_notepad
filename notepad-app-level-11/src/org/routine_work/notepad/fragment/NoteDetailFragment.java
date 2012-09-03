@@ -36,9 +36,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import org.routine_work.notepad.NotepadConstants;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.provider.NoteStore;
+import org.routine_work.notepad.utils.NotepadConstants;
 import org.routine_work.utils.Log;
 
 public class NoteDetailFragment extends Fragment

@@ -21,28 +21,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.routine_work.notepad.template;
-
-import org.routine_work.notepad.provider.NoteStore;
+package org.routine_work.notepad.utils;
 
 /**
  *
  * @author sawai
  */
-public interface NoteTemplateConstants
+public interface NotepadConstants
 {
 
-	int REQUEST_CODE_ADD_NOTE_TEMPLATE = 201;
-	int REQUEST_CODE_EDIT_NOTE_TEMPLATE = 208;
-	int REQUEST_CODE_EDIT_TEMPLATE_NAME = 301;
-	int REQUEST_CODE_EDIT_TEMPLATE_TITLE = 302;
-	int REQUEST_CODE_EDIT_TEMPLATE_TEXT = 303;
-	String[] NOTE_TEMPLATE_LIST_MAPPING_FROM =
-	{
-		NoteStore.NoteTemplate.Columns.NAME,
-	};
-	int[] NOTE_TEMPLATE_LIST_MAPPING_TO =
-	{
-		android.R.id.text1,
-	};
+	int REQUEST_CODE_VIEW_NOTE = 101;
+	int REQUEST_CODE_EDIT_NOTE = 102;
+	int REQUEST_CODE_ADD_NOTE = 103;
+	int REQUEST_CODE_DELETE_NOTE = 104;
+	int REQUEST_CODE_DELETE_NOTES = 105;
+	int REQUEST_CODE_PICK_NOTE = 106;
+	int REQUEST_CODE_PICK_NOTE_TEMPLATE = 107;
+	int NOTE_LOADER_ID = 0;
+	String EXTRA_TITLE_LOCKED = NotepadConstants.class.getPackage().getName() + ".EXTRA_TITLE_LOCKED";
+	String EXTRA_NOTE_TEMPLATE = NotepadConstants.class.getPackage().getName() + ".EXTRA_NOTE_TEMPLATE";
 }

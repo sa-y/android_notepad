@@ -39,11 +39,13 @@ import org.routine_work.notepad.fragment.DeleteNoteFragment;
 import org.routine_work.notepad.fragment.EditNoteFragment;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
+import org.routine_work.notepad.utils.NotepadConstants;
 import org.routine_work.utils.Log;
 
 public class NoteDetailActivity extends Activity
 	implements NotepadConstants
 {
+
 	private static final String LOG_TAG = "simple-notepad";
 	private static final String FT_NOTE_EDIT = "FT_NOTE_EDIT";
 	private static final String FT_NOTE_DELETE = "FT_NOTE_DELETE";

@@ -50,12 +50,12 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import org.routine_work.notepad.AddNewNoteActivity;
-import org.routine_work.notepad.NotepadConstants;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.model.Note;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.utils.NoteUtils;
+import org.routine_work.notepad.utils.NotepadConstants;
 import org.routine_work.utils.IMEUtils;
 import org.routine_work.utils.Log;
 
