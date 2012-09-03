@@ -20,10 +20,10 @@ Title, Content, Focus
 #############################
 !! notepad-app
 
-* 新規ノート作成時にテンプレートを選ぶ処理を変更
-** 現在は NoteTemplateListActivity に ACTION_PICK を送って選択している
-** 元のアクティビティで完結したい
-** Dialog にする？
+
+* Dialog 用のテーマを作成
+** Theme.Notepad.Dialog.Dark 
+** Theme.Notepad.Dialog.Light 
 
 * テンプレートの書式を変更
 ** '#{date}' '#{time}' など？
@@ -44,6 +44,9 @@ Title, Content, Focus
 #############################
 !! notepad-app-level-11
 
+* Dialog 用のテーマを作成
+** Theme.Notepad.Dialog.Dark 
+** Theme.Notepad.Dialog.Light 
 
 * 各種 ListView の layout_margin を修正
 ** layout_margin を減らしてリスト項目の layout_margin で調整する
@@ -104,15 +107,26 @@ Title, Content, Focus
 
 !! notepad-app
 
+#* 新規ノート作成時にテンプレートを選ぶ処理を変更
+#** 現在は NoteTemplateListActivity に ACTION_PICK を送って選択している
+#** 元のアクティビティで完結したい
+#   -> NoteTemplatePickerDialog を実装
+
+
 !! notepad-app-level-11
+
+#* NotepadConstants から未使用の定数を削除
+#** NOTE_LIST_MAPPING_FROM
+#** NOTE_LIST_MAPPING_TO
 
 #* NoteListItemViewBinder を NoteCursorAdapter に変更
 
-* NotepadConstants から未使用の定数を削除
-** NOTE_LIST_MAPPING_FROM
-** NOTE_LIST_MAPPING_TO
 
 !! notepad-common
+
+#* 定数定義用インターフェースを notepad-comon に移動
+#** NotepadConstants
+#** NoteTemplateConstants
 
 #* ノートの複数削除をループではなく SQL 一つで行うようにする
 

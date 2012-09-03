@@ -23,6 +23,7 @@
  */
 package org.routine_work.notepad;
 
+import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.SearchManager;
 import android.content.ContentResolver;
@@ -46,6 +47,7 @@ import org.routine_work.notepad.prefs.NotepadPreferenceActivity;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.template.NoteTemplateInitializer;
+import org.routine_work.notepad.template.NoteTemplatePickerDialog;
 import org.routine_work.notepad.utils.NoteSearchQueryParser;
 import org.routine_work.notepad.utils.NoteUtils;
 import org.routine_work.notepad.utils.NotepadConstants;
@@ -66,6 +68,7 @@ public class NotepadActivity extends ListActivity
 	private static final String ACTION_QUIT = NotepadConstants.class.getPackage().getName() + ".QUIT";
 	private static final int ACTION_MODE_NORMAL = 0;
 	private static final int ACTION_MODE_SEARCH = 1;
+	private static final int DIALOG_ID_NOTE_TEMPLATE_PICKER = 0;
 	private static final int[][][] ACTION_ITEM_VISIBILITY =
 	{
 		{ // ACTION_MODE_NORMAL
@@ -96,6 +99,7 @@ public class NotepadActivity extends ListActivity
 	private NoteCursorAdapter listAdapter;
 	private Cursor cursor;
 	private EditText searchEditText;
+	private NoteTemplatePickerDialog noteTemplatePickerDialog;
 
 	static
 	{
@@ -417,6 +421,25 @@ public class NotepadActivity extends ListActivity
 		return result;
 	}
 
+	@Override
+	protected Dialog onCreateDialog(int id)
+	{
+		Dialog dialog = null;
+		Log.v(LOG_TAG, "Hello");
+
+		switch (id)
+		{
+			case DIALOG_ID_NOTE_TEMPLATE_PICKER:
+//				dialog = getNoteTemplatePickerDialog();
+				dialog = new NoteTemplatePickerDialog(this);
+				break;
+		}
+
+		Log.v(LOG_TAG, "dialog => " + dialog);
+		Log.v(LOG_TAG, "Bye");
+		return dialog;
+	}
+
 	// TextView.OnEditorActionListener
 	public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
 	{
@@ -529,8 +552,10 @@ public class NotepadActivity extends ListActivity
 //		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
 
-		Intent intent = new Intent(this, AddNewNoteActivity.class);
-		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
+//		Intent intent = new Intent(this, AddNewNoteActivity.class);
+//		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
+
+		showDialog(DIALOG_ID_NOTE_TEMPLATE_PICKER);
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -682,6 +707,15 @@ public class NotepadActivity extends ListActivity
 			IMEUtils.requestKeyboardFocus(searchEditText);
 //			searchEditText.requestFocus();
 		}
+	}
+
+	private Dialog getNoteTemplatePickerDialog()
+	{
+		if (noteTemplatePickerDialog == null)
+		{
+			noteTemplatePickerDialog = new NoteTemplatePickerDialog(this);
+		}
+		return noteTemplatePickerDialog;
 	}
 
 	class SearchEditTextWatcher implements TextWatcher

@@ -28,7 +28,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -37,13 +36,16 @@ import android.widget.SimpleCursorAdapter;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.utils.NoteTemplateConstants;
+import org.routine_work.notepad.utils.NoteUtils;
+import org.routine_work.utils.Log;
 
 /**
  *
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
 public class NoteTemplatePickerDialog extends Dialog
-	implements NoteTemplateConstants
+	implements OnItemClickListener,
+	NoteTemplateConstants
 {
 
 	private static final String LOG_TAG = "simple-notepad";
@@ -58,11 +60,6 @@ public class NoteTemplatePickerDialog extends Dialog
 		super(context);
 	}
 
-	public NoteTemplatePickerDialog(Context context, int theme)
-	{
-		super(context, theme);
-	}
-
 	public OnItemClickListener getOnItemClickListener()
 	{
 		return onItemClickListener;
@@ -70,13 +67,24 @@ public class NoteTemplatePickerDialog extends Dialog
 
 	public void setOnItemClickListener(OnItemClickListener itemClickListener)
 	{
-		Log.d(LOG_TAG, "Hello");
+		Log.v(LOG_TAG, "Hello");
 		this.onItemClickListener = itemClickListener;
 		if (listView != null)
 		{
 			listView.setOnItemClickListener(itemClickListener);
 		}
-		Log.d(LOG_TAG, "Bye");
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+	{
+		Log.v(LOG_TAG, "Hello");
+		if (parent == listView)
+		{
+			NoteUtils.startNoteDetailActivityWithTemplate(getContext(), id);
+			dismiss();
+		}
+		Log.v(LOG_TAG, "Bye");
 	}
 
 	@Override
@@ -91,7 +99,14 @@ public class NoteTemplatePickerDialog extends Dialog
 		listView = (ListView) findViewById(android.R.id.list);
 		emptyView = findViewById(android.R.id.empty);
 
-		listView.setOnItemClickListener(onItemClickListener);
+		if (onItemClickListener != null)
+		{
+			listView.setOnItemClickListener(onItemClickListener);
+		}
+		else
+		{
+			listView.setOnItemClickListener(this);
+		}
 
 		// init List Adapter
 		listAdapter = new SimpleCursorAdapter(getContext(),

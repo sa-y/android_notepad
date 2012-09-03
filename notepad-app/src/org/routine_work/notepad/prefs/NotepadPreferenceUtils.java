@@ -37,6 +37,7 @@ import org.routine_work.utils.Log;
  */
 public class NotepadPreferenceUtils
 {
+
 	private static final String LOG_TAG = "simple-notepad";
 
 	public static int getTheme(Context context)

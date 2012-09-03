@@ -877,13 +877,13 @@ public class NoteDetailActivity extends Activity
 //		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
 
-		Intent intent = new Intent(this, AddNewNoteActivity.class);
-		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
+//		Intent intent = new Intent(this, AddNewNoteActivity.class);
+//		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
 
-//		if (NoteStore.getNoteTemplateCount(getContentResolver()) > 0)
-//		{
-//			showDialog(DIALOG_ID_NOTE_TEMPLATE_PICKER);
-//		}
+		if (NoteStore.getNoteTemplateCount(getContentResolver()) > 0)
+		{
+			showDialog(DIALOG_ID_NOTE_TEMPLATE_PICKER);
+		}
 
 		Log.v(LOG_TAG, "Bye");
 	}

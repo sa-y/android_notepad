@@ -46,4 +46,24 @@
 		<item name="ic_lock">@drawable/ic_lock_light</item>
 		<item name="ic_unlock">@drawable/ic_unlock_light</item>
 	</style>
+
+	<!-- Dark Theme Dialog -->
+	<!-- 
+	<style name="Theme.Notepad.Dark.Dialog" parent="@style/Theme.Notepad.Dark" >
+		<item name="android:windowFrame">@drawable/dialog_window_frame</item>
+		<item name="android:windowContentOverlay">@null</item>
+		<item name="android:windowNoTitle">false</item>
+		<item name="android:windowIsFloating">true</item>
+	</style>
+	-->
+
+	<!-- Light Theme Dialog -->
+	<!--
+	<style name="Theme.Notepad.Light.Dialog" parent="@style/Theme.Notepad.Light" >
+		<item name="android:windowFrame">@drawable/dialog_window_frame</item>
+		<item name="android:windowContentOverlay">@null</item>
+		<item name="android:windowNoTitle">false</item>
+		<item name="android:windowIsFloating">true</item>
+	</style>
+	-->
 </resources>

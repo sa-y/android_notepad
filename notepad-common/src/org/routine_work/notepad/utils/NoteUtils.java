@@ -20,7 +20,7 @@ import org.routine_work.utils.Log;
  *
  * @author sawai
  */
-public class NoteUtils
+public class NoteUtils implements NotepadConstants
 {
 
 	private static final String LOG_TAG = "simple-notepad";
@@ -84,7 +84,13 @@ public class NoteUtils
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private static void startNoteDetailActivityWithTemplate(Context context, Uri noteTemplateUri)
+	public static void startNoteDetailActivityWithTemplate(Context context, long noteTemplateId)
+	{
+		Uri noteTemplateUri = ContentUris.withAppendedId(NoteStore.NoteTemplate.CONTENT_URI, noteTemplateId);
+		NoteUtils.startNoteDetailActivityWithTemplate(context, noteTemplateUri);
+	}
+
+	public static void startNoteDetailActivityWithTemplate(Context context, Uri noteTemplateUri)
 	{
 		Log.v(LOG_TAG, "Hello");
 		Cursor cursor = context.getContentResolver().query(noteTemplateUri,
@@ -119,9 +125,9 @@ public class NoteUtils
 					// if not found, insert new note
 					Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
 					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-					intent.putExtra(Intent.EXTRA_TITLE, title);
-					intent.putExtra(Intent.EXTRA_TEXT, content);
-//					intent.putExtra(EXTRA_TITLE_LOCKED, titleLocked);
+					intent.putExtra(EXTRA_TITLE, title);
+					intent.putExtra(EXTRA_TEXT, content);
+					intent.putExtra(EXTRA_TITLE_LOCKED, titleLocked);
 					context.startActivity(intent);
 				}
 			}
@@ -136,7 +142,7 @@ public class NoteUtils
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	public static  Uri searchNoteByTitle(Context context, String title)
+	public static Uri searchNoteByTitle(Context context, String title)
 	{
 		Uri result = null;
 		Log.v(LOG_TAG, "Hello");
