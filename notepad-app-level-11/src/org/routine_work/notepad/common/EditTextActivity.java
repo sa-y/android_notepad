@@ -34,6 +34,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.utils.Log;
@@ -123,6 +124,10 @@ public class EditTextActivity extends Activity
 		boolean result = true;
 		switch (item.getItemId())
 		{
+			case android.R.id.home:
+				NotepadActivity.goHomeActivity(this);
+				finish();
+				break;
 			case R.id.save_menuitem:
 				String text = mainEditText.getText().toString();
 				Intent resultIntent = new Intent();

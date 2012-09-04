@@ -23,7 +23,6 @@
  */
 package org.routine_work.notepad.template;
 
-import org.routine_work.notepad.utils.NoteTemplateConstants;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.ContentResolver;
@@ -50,6 +49,7 @@ import org.routine_work.notepad.common.EditTextActivity;
 import org.routine_work.notepad.model.NoteTemplate;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
+import org.routine_work.notepad.utils.NoteTemplateConstants;
 import org.routine_work.utils.Log;
 
 /**
@@ -58,7 +58,7 @@ import org.routine_work.utils.Log;
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
 public class NoteTemplateDetailActivity extends ListActivity
-	implements  OnItemClickListener, NoteTemplateConstants
+	implements OnItemClickListener, NoteTemplateConstants
 {
 
 	private static final String SAVE_KEY_CURRENT_ACTION = "currentAction";
@@ -186,6 +186,11 @@ public class NoteTemplateDetailActivity extends ListActivity
 		int itemId = item.getItemId();
 		switch (itemId)
 		{
+			case android.R.id.home:
+				Log.d(LOG_TAG, "home selected.");
+				NotepadActivity.goHomeActivity(this);
+				finish();
+				break;
 			case R.id.quit_menuitem:
 				Log.d(LOG_TAG, "quit_menuitem selected.");
 				NotepadActivity.quitApplication(this);

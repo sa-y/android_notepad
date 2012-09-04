@@ -23,7 +23,6 @@
  */
 package org.routine_work.notepad.template;
 
-import org.routine_work.notepad.utils.NoteTemplateConstants;
 import android.app.ListActivity;
 import android.app.LoaderManager;
 import android.content.ContentResolver;
@@ -48,6 +47,7 @@ import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
+import org.routine_work.notepad.utils.NoteTemplateConstants;
 import org.routine_work.utils.Log;
 
 /**
@@ -86,6 +86,11 @@ public class NoteTemplateListActivity extends ListActivity
 		int itemId = item.getItemId();
 		switch (itemId)
 		{
+			case android.R.id.home:
+				Log.d(LOG_TAG, "home selected.");
+				NotepadActivity.goHomeActivity(this);
+				finish();
+				break;
 			case R.id.quit_menuitem:
 				Log.d(LOG_TAG, "quit_menuitem selected.");
 				NotepadActivity.quitApplication(this);

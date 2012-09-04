@@ -115,6 +115,9 @@ Title, Content, Focus
 #############################
 !! notepad-app-level-11
 
+#* テンプレート一覧、編集画面のホームボタンの処理を実装
+#** ホームボタンを押した際に NotepadActivity に戻る様に実装
+
 #* 新規ノート作成時にテンプレートを選ぶ処理を変更
 #** 現在は NoteTemplateListActivity に ACTION_PICK を送って選択している
 #** 元のアクティビティで完結したい
