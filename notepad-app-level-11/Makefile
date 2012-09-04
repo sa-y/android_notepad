@@ -1,3 +1,4 @@
+RELEASE_PROFILE=android-release
 
 all : package
 
@@ -13,7 +14,7 @@ package :
 	mvn $@
 
 release : 	
-	mvn clean -Prelease package 
+	mvn clean && mvn -P$(RELEASE_PROFILE) package 
 
 install :
 	mvn $@
@@ -31,7 +32,8 @@ redeploy :
 	mvn clean package android:deploy
 
 #################### document
-site : mvn $@
+site :
+	mvn $@
 
 #################### emulator
 
