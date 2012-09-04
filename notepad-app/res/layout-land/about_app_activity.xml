@@ -8,33 +8,33 @@
 	android:paddingLeft="@dimen/about_app_paddingLeft"
 >
 	<LinearLayout
-		android:orientation="vertical"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_vertical"
+		android:orientation="horizontal"
+		android:layout_width="wrap_content"
+		android:layout_height="fill_parent"
+		android:layout_gravity="center_horizontal"
 	>
 		<!-- app icon -->
 		<FrameLayout
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:layout_height="fill_parent"
 			android:layout_weight="0"
-			android:layout_gravity="center_horizontal"
+			android:layout_gravity="center_vertical"
 			android:padding="@dimen/about_app_icon_frame_padding"
 		>
 			<include layout="@layout/about_app_icon" />
 		</FrameLayout>
 
 		<!-- separator line -->
-		<View style="@style/hline"
+		<View style="@style/vline"
 			android:layout_margin="10dip"
 		/>
 
 		<!-- app infomation -->
 		<FrameLayout
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:layout_height="fill_parent"
 			android:layout_weight="0"
-			android:layout_gravity="center_horizontal"
+			android:layout_gravity="center_vertical"
 			android:padding="@dimen/about_app_info_frame_padding"
 		>
 			<include layout="@layout/about_app_info" />
