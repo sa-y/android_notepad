@@ -34,6 +34,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import org.routine_work.notepad.R;
+import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.utils.NoteTemplateConstants;
 import org.routine_work.notepad.utils.NoteUtils;
@@ -57,7 +58,8 @@ public class NoteTemplatePickerDialog extends Dialog
 
 	public NoteTemplatePickerDialog(Context context)
 	{
-		super(context);
+		super(context, NotepadPreferenceUtils.getDialogTheme(context));
+//		super(context);
 	}
 
 	public OnItemClickListener getOnItemClickListener()

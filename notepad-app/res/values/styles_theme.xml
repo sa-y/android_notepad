@@ -47,23 +47,36 @@
 		<item name="ic_unlock">@drawable/ic_unlock_light</item>
 	</style>
 
-	<!-- Dark Theme Dialog -->
-	<!-- 
-	<style name="Theme.Notepad.Dark.Dialog" parent="@style/Theme.Notepad.Dark" >
-		<item name="android:windowFrame">@drawable/dialog_window_frame</item>
-		<item name="android:windowContentOverlay">@null</item>
-		<item name="android:windowNoTitle">false</item>
-		<item name="android:windowIsFloating">true</item>
+	<!-- Dialog Theme -->
+	<style name="DialogWindowTitle" >
+		<item name="android:maxLines">1</item>
+		<item name="android:scrollHorizontally">true</item>
+		<item name="android:background">@drawable/dialog_title_bg</item>
+		<item name="android:gravity">center_vertical</item>
+		<item name="android:textAppearance">?android:textAppearance</item>
+		<item name="android:textSize">20sp</item>
+		<item name="android:textColor">#FF00C99B</item>
+		<item name="android:textStyle">bold</item>
+		<item name="android:paddingLeft">8dip</item>
 	</style>
-	-->
 
-	<!-- Light Theme Dialog -->
-	<!--
-	<style name="Theme.Notepad.Light.Dialog" parent="@style/Theme.Notepad.Light" >
-		<item name="android:windowFrame">@drawable/dialog_window_frame</item>
+	<!-- Dark Dialog -->
+	<style name="Theme.Notepad.Dark.Dialog" >
+		<item name="android:windowFrame">@null</item>
+		<item name="android:windowBackground">@drawable/dialog_bg_holo_dark</item>
+		<item name="android:windowIsFloating">true</item>
 		<item name="android:windowContentOverlay">@null</item>
 		<item name="android:windowNoTitle">false</item>
-		<item name="android:windowIsFloating">true</item>
+		<item name="android:windowTitleStyle">@style/DialogWindowTitle</item>
 	</style>
-	-->
+
+	<!-- Light Dialog -->
+	<style name="Theme.Notepad.Light.Dialog" >
+		<item name="android:windowFrame">@null</item>
+		<item name="android:windowBackground">@drawable/dialog_bg_holo_light</item>
+		<item name="android:windowIsFloating">true</item>
+		<item name="android:windowContentOverlay">@null</item>
+		<item name="android:windowNoTitle">false</item>
+		<item name="android:windowTitleStyle">@style/DialogWindowTitle</item>
+	</style>
 </resources>

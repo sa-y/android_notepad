@@ -20,10 +20,6 @@ Title, Content, Focus
 #############################
 !! notepad-app
 
-* Dialog 用のテーマを作成
-** Theme.Notepad.Dark.Dialog
-** Theme.Notepad.Light.Dialog
-
 * テンプレートの書式を変更
 ** '#{date}' '#{time}' など？
 
@@ -42,10 +38,6 @@ Title, Content, Focus
 
 #############################
 !! notepad-app-level-11
-
-* Dialog 用のテーマを作成
-** Theme.Notepad.Dark.Dialog
-** Theme.Notepad.Light.Dialog
 
 * 各種 ListView の layout_margin を修正
 ** layout_margin を減らしてリスト項目の layout_margin で調整する
@@ -106,6 +98,10 @@ Title, Content, Focus
 
 !! notepad-app
 
+#* Dialog 用のテーマを作成
+#** Theme.Notepad.Dark.Dialog
+#** Theme.Notepad.Light.Dialog
+
 #* AddNewNoteActivity をリファクタリング
 #** NoteUtils のメソッドを呼ぶように修正
 #** 不要になったメソッドの削除
@@ -116,6 +112,7 @@ Title, Content, Focus
 #   -> NoteTemplatePickerDialog を実装
 
 
+#############################
 !! notepad-app-level-11
 
 #* 新規ノート作成時にテンプレートを選ぶ処理を変更
@@ -135,6 +132,7 @@ Title, Content, Focus
 #* NoteListItemViewBinder を NoteCursorAdapter に変更
 
 
+#############################
 !! notepad-common
 
 #* 定数定義用インターフェースを notepad-comon に移動

@@ -64,6 +64,30 @@ public class NotepadPreferenceUtils
 		return themeId;
 	}
 
+	public static int getDialogTheme(Context context)
+	{
+		int themeId = R.style.Theme_Notepad_Dark_Dialog;
+
+		String preferenceName = context.getPackageName() + "_preferences";
+		SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
+		String key = context.getString(R.string.notepad_theme_key);
+		String defaultValue = context.getString(R.string.notepad_theme_default_value);
+		String themeValue = sharedPreferences.getString(key, defaultValue);
+
+		final String themeDark = context.getString(R.string.notepad_theme_dark_value);
+		final String themeLight = context.getString(R.string.notepad_theme_light_value);
+		if (themeDark.equals(themeValue))
+		{
+			themeId = R.style.Theme_Notepad_Dark_Dialog;
+		}
+		else if (themeLight.equals(themeValue))
+		{
+			themeId = R.style.Theme_Notepad_Light_Dialog;
+		}
+
+		return themeId;
+	}
+
 	public static boolean getActionBarAutoHide(Context context)
 	{
 		boolean actionBarAutoHide;
