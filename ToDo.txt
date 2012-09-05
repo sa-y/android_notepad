@@ -58,9 +58,6 @@ Title, Content, Focus
 #############################
 !! notepad-common
 
-* テンプレートの書式を変更
-** '#{date}' '#{time}' など？
-
 * TimeFormatUtils 修正
 ** 西暦部分のないフォーマットにできないか？
 
@@ -134,6 +131,11 @@ Title, Content, Focus
 
 #############################
 !! notepad-common
+
+#* テンプレートの書式を変更
+#** 変数名を変更、変数名の大文字小文字は無視する
+#*** #{date} : 日付
+#*** #{time} : 時間
 
 #* 定数定義用インターフェースを notepad-comon に移動
 #** NotepadConstants

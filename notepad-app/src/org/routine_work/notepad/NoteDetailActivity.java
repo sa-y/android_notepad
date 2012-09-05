@@ -940,8 +940,16 @@ public class NoteDetailActivity extends Activity
 //		Intent intent = new Intent(this, AddNewNoteActivity.class);
 //		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
 
-		if (NoteStore.getNoteTemplateCount(getContentResolver()) > 0)
+		if (NoteStore.getNoteTemplateCount(getContentResolver()) == 0)
 		{
+			// Add Blank Note
+			Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
+		}
+		else
+		{
+			// Select Note Template
 			showDialog(DIALOG_ID_NOTE_TEMPLATE_PICKER);
 		}
 

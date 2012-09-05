@@ -34,6 +34,7 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
@@ -541,8 +542,17 @@ public class EditNoteFragment extends Fragment
 //		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
 
 		saveNote();
-		NoteTemplatePickerDialogFragment dialogFragment = new NoteTemplatePickerDialogFragment();
-		dialogFragment.show(getFragmentManager(), FT_NOTE_TEMPLATE_PICKER);
+		if (NoteStore.getNoteTemplateCount(getActivity().getContentResolver()) == 0)
+		{
+			Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
+		}
+		else
+		{
+			NoteTemplatePickerDialogFragment dialogFragment = new NoteTemplatePickerDialogFragment();
+			dialogFragment.show(getFragmentManager(), FT_NOTE_TEMPLATE_PICKER);
+		}
 
 		Log.v(LOG_TAG, "Bye");
 	}

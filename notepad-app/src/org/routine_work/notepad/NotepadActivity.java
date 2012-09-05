@@ -555,7 +555,18 @@ public class NotepadActivity extends ListActivity
 //		Intent intent = new Intent(this, AddNewNoteActivity.class);
 //		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
 
-		showDialog(DIALOG_ID_NOTE_TEMPLATE_PICKER);
+		if (NoteStore.getNoteTemplateCount(getContentResolver()) == 0)
+		{
+			// Add Blank Note
+			Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
+		}
+		else
+		{
+			// Select Note Template
+			showDialog(DIALOG_ID_NOTE_TEMPLATE_PICKER);
+		}
 
 		Log.v(LOG_TAG, "Bye");
 	}

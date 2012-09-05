@@ -403,14 +403,21 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 	{
 		Log.v(LOG_TAG, "Hello");
 
-//		Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
-//		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
-
 //		Intent intent = new Intent(this, AddNewNoteActivity.class);
 //		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
 
-		NoteTemplatePickerDialogFragment dialogFragment = new NoteTemplatePickerDialogFragment();
-		dialogFragment.show(getFragmentManager(), FT_NOTE_TEMPLATE_PICKER);
+		if (NoteStore.getNoteTemplateCount(getContentResolver()) == 0)
+		{
+			Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
+		}
+		else
+		{
+			NoteTemplatePickerDialogFragment dialogFragment = new NoteTemplatePickerDialogFragment();
+			dialogFragment.show(getFragmentManager(), FT_NOTE_TEMPLATE_PICKER);
+		}
+
 		Log.v(LOG_TAG, "Bye");
 	}
 

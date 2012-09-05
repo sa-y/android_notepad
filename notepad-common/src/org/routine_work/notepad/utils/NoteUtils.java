@@ -13,6 +13,8 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.utils.Log;
 
@@ -102,15 +104,18 @@ public class NoteUtils implements NotepadConstants
 				int titleIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.TITLE);
 				int contentIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.CONTENT);
 				int titleLockedIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.TITLE_LOCKED);
-				boolean titleLocked = (cursor.getInt(titleLockedIndex) != 0);
 
-				Date now = new Date();
-				String dateText = DateFormat.getDateFormat(context).format(now);
-				String timeText = DateFormat.getTimeFormat(context).format(now);
 				String titleTemplate = cursor.getString(titleIndex);
 				String contentTemplate = cursor.getString(contentIndex);
-				String title = String.format(titleTemplate, dateText, timeText);
-				String content = String.format(contentTemplate, dateText, timeText);
+				boolean titleLocked = (cursor.getInt(titleLockedIndex) != 0);
+
+				Map<String, String> templateContextMap = new HashMap<String, String>();
+				Date now = new Date();
+				templateContextMap.put("date", DateFormat.getDateFormat(context).format(now));
+				templateContextMap.put("time", DateFormat.getTimeFormat(context).format(now));
+
+				String title = expandTemplate(titleTemplate, templateContextMap);
+				String content = expandTemplate(contentTemplate, templateContextMap);
 
 				Uri noteUri = searchNoteByTitle(context, title);
 				Log.d(LOG_TAG, "noteUri => " + noteUri);
@@ -181,5 +186,22 @@ public class NoteUtils implements NotepadConstants
 
 		Log.v(LOG_TAG, "Bye");
 		return result;
+	}
+
+	public static String expandTemplate(String template, Map<String, String> templateContextMap)
+	{
+		String text = template;
+
+		for (String key : templateContextMap.keySet())
+		{
+			String value = templateContextMap.get(key);
+			Log.d(LOG_TAG, "key => " + key);
+			Log.d(LOG_TAG, "value => " + value);
+			String regexp = "(?i)#\\{" + key + "\\}";
+			Log.d(LOG_TAG, "regexp => " + regexp);
+			text = text.replaceAll(regexp, value);
+		}
+
+		return text;
 	}
 }

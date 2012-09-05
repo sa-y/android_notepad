@@ -6,12 +6,12 @@
 	<bool name="template_blank_note_title_locked">false</bool>
 
 	<string name="template_diary_note_name">Diary</string>
-	<string name="template_diary_note_title">%1$s</string>
+	<string name="template_diary_note_title">#{date}</string>
 	<string name="template_diary_note_content"></string>
 	<bool name="template_diary_note_title_locked">true</bool>
 
 	<string name="template_quick_note_name">Quick Note</string>
-	<string name="template_quick_note_title">%1$s %2$s</string>
+	<string name="template_quick_note_title">#{date} #{time}</string>
 	<string name="template_quick_note_content"></string>
 	<bool name="template_quick_note_title_locked">true</bool>
 
