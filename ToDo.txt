@@ -58,31 +58,41 @@ Title, Content, Focus
 #############################
 !! notepad-common
 
+* NoteTemplate コンテントプロバイダに check_same_title カラムを追加
+** 意味
+*** テンプレートからノートを作成する際に同じ名前のノートを検索してあればそれを
+    編集しているが、その動作を制御する値。
+*** true => チェックする
+*** false => チェックせずに常に新規ノートを作成する
+** 手順(notepad-common)
+*** NoteStore.NoteTemplate.Columns にて定数を追加
+*** NoteTemplate モデルクラスを修正
+*** NoteDBConstans の DB バージョンを更新
+*** NoteDBConstans でテーブル作成 SQL 修正
+*** NoteDBHelper にデータコンバート処理を追加
+** 手順(notepad-app)
+*** テンプレートの初期データに項目を追加
+*** テンプレート編集画面を修正
+*** NoteStore.NoteTemplate 利用箇所を検索して必要に応じて修正
+** 手順(notepad-app-level-11)
+*** テンプレートの初期データに項目を追加
+*** テンプレート編集画面を修正
+*** NoteStore.NoteTemplate 利用箇所を検索して必要に応じて修正
+
 * TimeFormatUtils 修正
 ** 西暦部分のないフォーマットにできないか？
 
 * NoteSearchQueryParser に日付記法とかもあってもいいかも
 ** 書式
-*** mtime_start:<yyyymmddHHMMSS>
-*** mtime_end:<yyyymmddHHMMSS>
-*** あるいは mtime:<yyyymmdd[HHMMSS]>-<yyyymmdd[HHMMSS]>
+*** mt:<yyyymmdd[HH[MM[SS]]]>
+*** ct:<yyyymmdd[HH[MM[SS]]]>
 ** 手順
 *** ContentProvider 側で処理できるようなURIを決める
-    -> URI の query parameter を使う？
-    -> contents://org.routine_work.notepad.noteprovider/notes?mtime=<yyyymmddHHMMSS>-<yyyymmddHHMMSS>
+    -> contents://org.routine_work.notepad.noteprovider/notes?mt=<yyyymmddHHMMSS>-<yyyymmddHHMMSS>
+    -> contents://org.routine_work.notepad.noteprovider/notes?ct=<yyyymmddHHMMSS>-<yyyymmddHHMMSS>
 *** ContentProvider 側の処理を実装
 *** NoteSearchQueryParser にパース機能を実装
 *** NoteSearchQueryParser を利用するコードの修正
-
-* 作成時間による表示URIがあってもいい?
-** 例
-*** contents://org.routine_work.notepad.noteprovider/notes/2012
-*** contents://org.routine_work.notepad.noteprovider/notes/201212
-*** contents://org.routine_work.notepad.noteprovider/notes/20121231
-** 数値の羅列はIDと区別がつかないから無理
-** 全部クエリーパラメータのほうが簡単？
-*** contents://org.routine_work.notepad.noteprovider/notes?ctime_s=<yyyymmddHHMMSS>&ctime_e=<yyyymmddHHMMSS>
-
 
 
 ############################################################
