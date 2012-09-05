@@ -384,25 +384,6 @@ public class NoteDetailActivity extends Activity
 	}
 
 	@Override
-	public boolean onTouchEvent(MotionEvent event)
-	{
-		switch (event.getAction())
-		{
-			case MotionEvent.ACTION_DOWN:
-				Log.d(LOG_TAG, "ACTION_DOWN");
-				break;
-			case MotionEvent.ACTION_UP:
-				Log.d(LOG_TAG, "ACTION_UP");
-				break;
-			case MotionEvent.ACTION_CANCEL:
-				Log.d(LOG_TAG, "ACTION_CANCEL");
-				break;
-		}
-
-		return super.onTouchEvent(event);
-	}
-
-	@Override
 	public void onClick(View view)
 	{
 		Log.v(LOG_TAG, "Hello");
