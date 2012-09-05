@@ -127,6 +127,7 @@ public class NoteDetailActivity extends Activity
 		addNewNoteImageButton = (ImageButton) findViewById(R.id.add_new_note_button);
 		editNoteImageButton = (ImageButton) findViewById(R.id.edit_note_button);
 		deleteNoteImageButton = (ImageButton) findViewById(R.id.delete_note_button);
+
 		homeImageButton.setOnClickListener(this);
 		addNewNoteImageButton.setOnClickListener(this);
 		editNoteImageButton.setOnClickListener(this);
@@ -143,6 +144,7 @@ public class NoteDetailActivity extends Activity
 		noteTitleLockImageButton.setOnClickListener(this);
 		noteTitleUnlockImageButton.setOnClickListener(this);
 		noteContentEditText.setOnFocusChangeListener(this);
+		noteContentEditText.setOnClickListener(this);
 
 		// View Mode
 		noteViewContainer = (ViewGroup) findViewById(R.id.note_view_container);
@@ -261,6 +263,7 @@ public class NoteDetailActivity extends Activity
 		menuInflater.inflate(R.menu.edit_note_option_menu, menu);
 		menuInflater.inflate(R.menu.delete_note_option_menu, menu);
 		menuInflater.inflate(R.menu.share_note_option_menu, menu);
+		menuInflater.inflate(R.menu.actionbar_visibility_option_menu, menu);
 		menuInflater.inflate(R.menu.quit_menu, menu);
 
 		Log.v(LOG_TAG, "Bye");
@@ -277,19 +280,25 @@ public class NoteDetailActivity extends Activity
 		MenuItem editNoteMenuItem = menu.findItem(R.id.edit_note_menuitem);
 		MenuItem deleteNoteMenuItem = menu.findItem(R.id.delete_note_menuitem);
 		MenuItem shareNoteMenuItem = menu.findItem(R.id.share_note_menuitem);
+		MenuItem showActionBarMenuItem = menu.findItem(R.id.show_actionbar_menuitem);
+		MenuItem hideActionBarMenuItem = menu.findItem(R.id.hide_actionbar_menuitem);
 		if (Intent.ACTION_VIEW.equals(currentAction))
 		{
 			addNewNoteMenuItem.setVisible(true);
 			editNoteMenuItem.setVisible(true);
 			deleteNoteMenuItem.setVisible(true);
 			shareNoteMenuItem.setVisible(true);
+			showActionBarMenuItem.setVisible(false);
+			hideActionBarMenuItem.setVisible(false);
 		}
 		else if (Intent.ACTION_EDIT.equals(currentAction))
 		{
 			addNewNoteMenuItem.setVisible(true);
 			editNoteMenuItem.setVisible(false);
 			deleteNoteMenuItem.setVisible(false);
-			shareNoteMenuItem.setVisible(false);
+			shareNoteMenuItem.setVisible(true);
+			showActionBarMenuItem.setVisible(!isActionBarVisible());
+			hideActionBarMenuItem.setVisible(isActionBarVisible());
 		}
 		else if (Intent.ACTION_DELETE.equals(currentAction))
 		{
@@ -297,6 +306,8 @@ public class NoteDetailActivity extends Activity
 			editNoteMenuItem.setVisible(false);
 			deleteNoteMenuItem.setVisible(false);
 			shareNoteMenuItem.setVisible(false);
+			showActionBarMenuItem.setVisible(false);
+			hideActionBarMenuItem.setVisible(false);
 		}
 
 		Log.v(LOG_TAG, "Bye");
@@ -326,7 +337,15 @@ public class NoteDetailActivity extends Activity
 				break;
 			case R.id.share_note_menuitem:
 				Log.d(LOG_TAG, "share_note_menuitem selected.");
-				NoteUtils.shareNote(this, currentNoteUri);
+				shareCurrentNote();
+				break;
+			case R.id.show_actionbar_menuitem:
+				Log.d(LOG_TAG, "show_actionbar_menuitem selected.");
+				showActionBar();
+				break;
+			case R.id.hide_actionbar_menuitem:
+				Log.d(LOG_TAG, "hide_actionbar_menuitem selected.");
+				hideActionBar();
 				break;
 			case R.id.quit_menuitem:
 				Log.d(LOG_TAG, "quit_menuitem selected.");
@@ -339,6 +358,48 @@ public class NoteDetailActivity extends Activity
 
 		Log.v(LOG_TAG, "Bye");
 		return result;
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{
+		boolean result;
+		Log.v(LOG_TAG, "Hello");
+
+		Log.v(LOG_TAG, "keyCode => " + keyCode);
+		if (keyCode == KeyEvent.KEYCODE_BACK)
+		{
+			Log.v(LOG_TAG, "KEYCODE_BACK is down.");
+			setResultByModifiedFlag();
+			finish();
+			result = true;
+		}
+		else
+		{
+			result = super.onKeyDown(keyCode, event);
+		}
+
+		Log.v(LOG_TAG, "Bye");
+		return result;
+	}
+
+	@Override
+	public boolean onTouchEvent(MotionEvent event)
+	{
+		switch (event.getAction())
+		{
+			case MotionEvent.ACTION_DOWN:
+				Log.d(LOG_TAG, "ACTION_DOWN");
+				break;
+			case MotionEvent.ACTION_UP:
+				Log.d(LOG_TAG, "ACTION_UP");
+				break;
+			case MotionEvent.ACTION_CANCEL:
+				Log.d(LOG_TAG, "ACTION_CANCEL");
+				break;
+		}
+
+		return super.onTouchEvent(event);
 	}
 
 	@Override
@@ -384,6 +445,13 @@ public class NoteDetailActivity extends Activity
 				Log.d(LOG_TAG, "note_title_unlock_button is clicked.");
 				showDialog(DIALOG_ID_UNLOCK);
 				break;
+			case R.id.note_content_edittext:
+				Log.d(LOG_TAG, "note_content_edittext is clicked.");
+				if (actionBarAutoHide)
+				{
+					hideActionBar();
+				}
+				break;
 		}
 
 		Log.v(LOG_TAG, "Bye");
@@ -412,29 +480,6 @@ public class NoteDetailActivity extends Activity
 	}
 
 	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event)
-	{
-		boolean result;
-		Log.v(LOG_TAG, "Hello");
-
-		Log.v(LOG_TAG, "keyCode => " + keyCode);
-		if (keyCode == KeyEvent.KEYCODE_BACK)
-		{
-			Log.v(LOG_TAG, "KEYCODE_BACK is down.");
-			setResultByModifiedFlag();
-			finish();
-			result = true;
-		}
-		else
-		{
-			result = super.onKeyDown(keyCode, event);
-		}
-
-		Log.v(LOG_TAG, "Bye");
-		return result;
-	}
-
-	@Override
 	public void onFocusChange(View v, boolean hasFocus)
 	{
 		Log.v(LOG_TAG, "Hello");
@@ -458,11 +503,11 @@ public class NoteDetailActivity extends Activity
 				{
 					if (hasFocus)
 					{
-						actionBarContainer.setVisibility(View.GONE);
+						hideActionBar();
 					}
 					else
 					{
-						actionBarContainer.setVisibility(View.VISIBLE);
+						showActionBar();
 					}
 				}
 				break;
@@ -511,7 +556,7 @@ public class NoteDetailActivity extends Activity
 		Log.d(LOG_TAG, "noteContentEditText.text => " + noteContentEditText.getText().toString());
 		Log.d(LOG_TAG, "------------------------------------------------------------");
 
-		actionBarContainer.setVisibility(View.VISIBLE);
+		showActionBar();
 		homeImageButton.requestFocus();
 
 		// load saved instance
@@ -711,6 +756,21 @@ public class NoteDetailActivity extends Activity
 		Log.d(LOG_TAG, "------------------------------------------------------------");
 
 		Log.v(LOG_TAG, "Bye");
+	}
+
+	private void showActionBar()
+	{
+		actionBarContainer.setVisibility(View.VISIBLE);
+	}
+
+	private void hideActionBar()
+	{
+		actionBarContainer.setVisibility(View.GONE);
+	}
+
+	private boolean isActionBarVisible()
+	{
+		return actionBarContainer.getVisibility() == View.VISIBLE;
 	}
 
 	private void setNoteTitleEditable(boolean editable)
@@ -916,6 +976,20 @@ public class NoteDetailActivity extends Activity
 		}
 
 		Log.v(LOG_TAG, "Bye");
+	}
+
+	private void shareCurrentNote()
+	{
+		if (Intent.ACTION_EDIT.equals(currentAction))
+		{
+			String noteTitle = noteTitleEditText.getText().toString();
+			String noteContent = noteContentEditText.getText().toString();
+			NoteUtils.shareNote(this, noteTitle, noteContent);
+		}
+		else
+		{
+			NoteUtils.shareNote(this, currentNoteUri);
+		}
 	}
 
 	private void updateViews()

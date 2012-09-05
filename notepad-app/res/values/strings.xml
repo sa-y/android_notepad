@@ -6,6 +6,9 @@
 	<string name="quit">Quit</string>
 	<string name="no_data">No Data</string>
 
+	<string name="show_actionbar">Show ActionBar</string>
+	<string name="hide_actionbar">Hide ActionBar</string>
+
 	<string name="note">Note</string>
 	<string name="no_note">No Note</string>
 	<string name="title">Title</string>
