@@ -119,11 +119,13 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 	private void updateSummary()
 	{
 		Log.v(LOG_TAG, "Hello");
+		String prefKey;
+		String prefValueString;
+		ListPreference listPreference;
 		CharSequence summary;
 
 		// Theme
 		final String notepadThemeKey = getString(R.string.notepad_theme_key);
-		final String notepadThemeDefaultValue = getString(R.string.notepad_theme_default_value);
 		ListPreference notepadThemeListPreference = (ListPreference) getPreferenceScreen().findPreference(notepadThemeKey);
 		summary = notepadThemeListPreference.getEntry();
 		notepadThemeListPreference.setSummary(summary);
@@ -143,6 +145,20 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 		summary = getLayoutName(noteListLayoutLandValue);
 		ListPreference noteListLayoutLandPreference = (ListPreference) getPreferenceScreen().findPreference(noteListLayoutLandKey);
 		noteListLayoutLandPreference.setSummary(summary);
+
+		// Text Lines in Portrait
+		prefKey = getString(R.string.note_list_item_content_lines_port_key);
+		listPreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
+		prefValueString = listPreference.getEntry().toString();
+		summary = getString(R.string.note_list_item_content_lines_summary, prefValueString);
+		listPreference.setSummary(summary);
+
+		// Text Lines in Landscape
+		prefKey = getString(R.string.note_list_item_content_lines_land_key);
+		listPreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
+		prefValueString = listPreference.getEntry().toString();
+		summary = getString(R.string.note_list_item_content_lines_summary, prefValueString);
+		listPreference.setSummary(summary);
 
 		Log.v(LOG_TAG, "Bye");
 	}

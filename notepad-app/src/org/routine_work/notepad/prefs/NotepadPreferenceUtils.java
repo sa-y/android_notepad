@@ -93,38 +93,6 @@ public class NotepadPreferenceUtils
 		return themeId;
 	}
 
-	public static boolean getActionBarAutoHide(Context context)
-	{
-		boolean actionBarAutoHide;
-		int keyId;
-		int defaultValueId;
-		Log.v(LOG_TAG, "Hello");
-
-		Resources resources = context.getResources();
-		Configuration configuration = resources.getConfiguration();
-		switch (configuration.orientation)
-		{
-			case Configuration.ORIENTATION_LANDSCAPE:
-				keyId = R.string.actionbar_auto_hide_land_key;
-				defaultValueId = R.bool.actionbar_auto_hide_land_default_value;
-				break;
-			default:
-				keyId = R.string.actionbar_auto_hide_port_key;
-				defaultValueId = R.bool.actionbar_auto_hide_port_default_value;
-				break;
-		}
-
-		SharedPreferences sharedPreferences = getSharedPreferences(context);
-
-		String key = resources.getString(keyId);
-		boolean defaultValue = resources.getBoolean(defaultValueId);
-		actionBarAutoHide = sharedPreferences.getBoolean(key, defaultValue);
-
-		Log.d(LOG_TAG, "actionBarAutoHide => " + actionBarAutoHide);
-		Log.v(LOG_TAG, "Bye");
-		return actionBarAutoHide;
-	}
-
 	public static int getNoteListItemContentLines(Context context)
 	{
 		int noteListItemContentLines = 1;
@@ -164,6 +132,38 @@ public class NotepadPreferenceUtils
 		Log.d(LOG_TAG, "noteListItemContentLines => " + noteListItemContentLines);
 		Log.v(LOG_TAG, "Bye");
 		return noteListItemContentLines;
+	}
+
+	public static boolean getActionBarAutoHide(Context context)
+	{
+		boolean actionBarAutoHide;
+		int keyId;
+		int defaultValueId;
+		Log.v(LOG_TAG, "Hello");
+
+		Resources resources = context.getResources();
+		Configuration configuration = resources.getConfiguration();
+		switch (configuration.orientation)
+		{
+			case Configuration.ORIENTATION_LANDSCAPE:
+				keyId = R.string.actionbar_auto_hide_land_key;
+				defaultValueId = R.bool.actionbar_auto_hide_land_default_value;
+				break;
+			default:
+				keyId = R.string.actionbar_auto_hide_port_key;
+				defaultValueId = R.bool.actionbar_auto_hide_port_default_value;
+				break;
+		}
+
+		SharedPreferences sharedPreferences = getSharedPreferences(context);
+
+		String key = resources.getString(keyId);
+		boolean defaultValue = resources.getBoolean(defaultValueId);
+		actionBarAutoHide = sharedPreferences.getBoolean(key, defaultValue);
+
+		Log.d(LOG_TAG, "actionBarAutoHide => " + actionBarAutoHide);
+		Log.v(LOG_TAG, "Bye");
+		return actionBarAutoHide;
 	}
 
 	public static void reset(Context context)

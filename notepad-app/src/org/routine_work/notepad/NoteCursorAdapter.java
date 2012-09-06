@@ -67,11 +67,13 @@ public class NoteCursorAdapter extends SimpleCursorAdapter
 
 	public NoteCursorAdapter(Context context, Cursor c, boolean checkable)
 	{
-		super(context, R.layout.note_list_item, c, NOTE_LIST_MAPPING_FROM, NOTE_LIST_MAPPING_TO);
+		super(context, R.layout.note_list_item, c,
+			NOTE_LIST_MAPPING_FROM, NOTE_LIST_MAPPING_TO);
 		this.checkable = checkable;
 		this.context = context;
 
 		noteListItemContentLines = NotepadPreferenceUtils.getNoteListItemContentLines(context);
+
 		SharedPreferences sharedPreferences = NotepadPreferenceUtils.getSharedPreferences(context);
 		sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
@@ -98,8 +100,8 @@ public class NoteCursorAdapter extends SimpleCursorAdapter
 		}
 
 		TextView noteContentTextView = (TextView) view.findViewById(R.id.note_content_textview);
-		noteContentTextView.setLines(noteListItemContentLines);
 		noteContentTextView.setSingleLine(noteListItemContentLines == 1);
+		noteContentTextView.setLines(noteListItemContentLines);
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -142,7 +144,7 @@ public class NoteCursorAdapter extends SimpleCursorAdapter
 		if (portKey.equals(key) || landKey.equals(key))
 		{
 			int newLines = NotepadPreferenceUtils.getNoteListItemContentLines(context);
-			setNoteListItemContentLines(newLines);
+			this.setNoteListItemContentLines(newLines);
 		}
 
 		Log.v(LOG_TAG, "Bye");

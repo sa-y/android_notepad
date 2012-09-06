@@ -40,13 +40,20 @@ public class NotepadPreferenceUtils
 
 	private static final String LOG_TAG = "simple-notepad";
 
+	public static SharedPreferences getSharedPreferences(Context context)
+	{
+		String preferenceName = context.getPackageName() + "_preferences";
+		SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
+		return sharedPreferences;
+	}
+
 	public static int getTheme(Context context)
 	{
 		int themeId = R.style.Theme_Notepad_Dark;
 		Log.v(LOG_TAG, "Hello");
 
 		String preferenceName = context.getPackageName() + "_preferences";
-		SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
+		SharedPreferences sharedPreferences = getSharedPreferences(context);
 		String key = context.getString(R.string.notepad_theme_key);
 		String defaultValue = context.getString(R.string.notepad_theme_default_value);
 		String themeValue = sharedPreferences.getString(key, defaultValue);
@@ -71,49 +78,72 @@ public class NotepadPreferenceUtils
 		String noteListLayout;
 		Log.v(LOG_TAG, "Hello");
 
+		int keyId;
+		int defaultValueId;
 		Resources resources = context.getResources();
 		Configuration configuration = resources.getConfiguration();
 		switch (configuration.orientation)
 		{
 			case Configuration.ORIENTATION_LANDSCAPE:
-				noteListLayout = getNoteListLayoutLand(context);
+				keyId = R.string.note_list_layout_land_key;
+				defaultValueId = R.string.note_list_layout_land_default_value;
 				break;
 			default:
-				noteListLayout = getNoteListLayoutPort(context);
+				keyId = R.string.note_list_layout_port_key;
+				defaultValueId = R.string.note_list_layout_port_default_value;
 				break;
 		}
+
+		SharedPreferences sharedPreferences = getSharedPreferences(context);
+
+		String key = resources.getString(keyId);
+		String defaultValue = resources.getString(defaultValueId);
+		noteListLayout = sharedPreferences.getString(key, defaultValue);
 
 		Log.v(LOG_TAG, "noteListLayout => " + noteListLayout);
 		Log.v(LOG_TAG, "Bye");
 		return noteListLayout;
 	}
 
-	public static String getNoteListLayoutPort(Context context)
+	public static int getNoteListItemContentLines(Context context)
 	{
-		String preferenceName = context.getPackageName() + "_preferences";
-		SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
+		int noteListItemContentLines = 1;
+		int keyId;
+		int defaultValueId;
+		Log.v(LOG_TAG, "Hello");
+
 		Resources resources = context.getResources();
+		Configuration configuration = resources.getConfiguration();
+		switch (configuration.orientation)
+		{
+			case Configuration.ORIENTATION_LANDSCAPE:
+				keyId = R.string.note_list_item_content_lines_land_key;
+				defaultValueId = R.string.note_list_item_content_lines_land_default_value;
+				break;
+			default:
+				keyId = R.string.note_list_item_content_lines_port_key;
+				defaultValueId = R.string.note_list_item_content_lines_port_default_value;
+				break;
+		}
 
-		String key = resources.getString(R.string.note_list_layout_port_key);
-		String defaultValue = resources.getString(R.string.note_list_layout_port_default_value);
+		SharedPreferences sharedPreferences = getSharedPreferences(context);
+
+		String key = resources.getString(keyId);
+		String defaultValue = resources.getString(defaultValueId);
 		String value = sharedPreferences.getString(key, defaultValue);
+		Log.d(LOG_TAG, "value => " + value);
+		try
+		{
+			noteListItemContentLines = Integer.parseInt(value);
+		}
+		catch (NumberFormatException e)
+		{
+			Log.e(LOG_TAG, "Integer.parseInt(" + value + ") is failed.");
+		}
 
-		Log.v(LOG_TAG, "noteListLayoutPort => " + value);
-		return value;
-	}
-
-	public static String getNoteListLayoutLand(Context context)
-	{
-		String preferenceName = context.getPackageName() + "_preferences";
-		SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
-		Resources resources = context.getResources();
-
-		String key = resources.getString(R.string.note_list_layout_land_key);
-		String defaultValue = resources.getString(R.string.note_list_layout_land_default_value);
-		String value = sharedPreferences.getString(key, defaultValue);
-
-		Log.v(LOG_TAG, "noteListLayout => " + value);
-		return value;
+		Log.d(LOG_TAG, "noteListItemContentLines => " + noteListItemContentLines);
+		Log.v(LOG_TAG, "Bye");
+		return noteListItemContentLines;
 	}
 
 	public static boolean getActionBarAutoHide(Context context)

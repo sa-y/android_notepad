@@ -15,12 +15,19 @@
 	<!-- Layout Category -->
 	<string name="layout_category_title">Layout</string>
 	<!-- Layout : Note List -->
-	<string name="note_list_layout_port">Note List Layout(Portrait)</string>
-	<string name="note_list_layout_port_title">Note List Layout(Portrait)</string>
-	<string name="note_list_layout_land">Note List Layout(Landscape)</string>
-	<string name="note_list_layout_land_title">Note List Layout(Landscape)</string>
+	<string name="note_list_layout_port">Note List Layout in Portrait</string>
+	<string name="note_list_layout_port_title">Note List Layout in Portrait</string>
+	<string name="note_list_layout_land">Note List Layout in Landscape</string>
+	<string name="note_list_layout_land_title">Note List Layout in Landscape</string>
 	<string name="single_pane">Single Pane</string>
 	<string name="wide_two_pane">Two Pane</string>
+
+	<!-- Note List Category -->
+	<string name="note_list_category_title">Note List</string>
+	<!-- Note List : Content Text Lines -->
+	<string name="note_list_item_content_lines_port_title">Text Lines in Portrait</string>
+	<string name="note_list_item_content_lines_land_title">Text Lines in Landscape</string>
+	<string name="note_list_item_content_lines_summary">%1$s Lines</string>
 
 	<!-- ActionBar Category -->
 	<string name="actionbar_category_title">Action Bar</string>

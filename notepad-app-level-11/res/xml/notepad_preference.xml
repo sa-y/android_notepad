@@ -1,19 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-<!--
-	<PreferenceCategory android:title="@string/dashboard_category_title" >
-		<ListPreference
-			android:key="@string/dashboard_view_mode_key"
-			android:defaultValue="@string/dashboard_view_mode_default_value"
-			android:title="@string/dashboard_view_mode"
-			android:dialogTitle="@string/dashboard_view_mode_title"
-			android:entries="@array/dashboard_view_mode_entries"
-			android:entryValues="@array/dashboard_view_mode_values"
-		/>
-	</PreferenceCategory>
--->
-
 	<PreferenceCategory android:title="@string/theme_category_title" >
 		<ListPreference
 			android:key="@string/notepad_theme_key"
@@ -44,6 +31,27 @@
 		/>
 	</PreferenceCategory>
 
+	<PreferenceCategory android:title="@string/note_list_category_title" >
+		<ListPreference
+			android:key="@string/note_list_item_content_lines_port_key"
+			android:defaultValue="@string/note_list_item_content_lines_port_default_value"
+			android:title="@string/note_list_item_content_lines_port_title"
+			android:dialogTitle="@string/note_list_item_content_lines_port_title"
+			android:summary="@string/note_list_item_content_lines_summary"
+			android:entries="@array/note_list_item_content_lines_values"
+			android:entryValues="@array/note_list_item_content_lines_values"
+		/>
+		<ListPreference
+			android:key="@string/note_list_item_content_lines_land_key"
+			android:defaultValue="@string/note_list_item_content_lines_land_default_value"
+			android:title="@string/note_list_item_content_lines_land_title"
+			android:dialogTitle="@string/note_list_item_content_lines_land_title"
+			android:summary="@string/note_list_item_content_lines_summary"
+			android:entries="@array/note_list_item_content_lines_values"
+			android:entryValues="@array/note_list_item_content_lines_values"
+		/>
+	</PreferenceCategory>
+
 	<PreferenceCategory android:title="@string/actionbar_category_title" >
 		<CheckBoxPreference
 			android:key="@string/actionbar_auto_hide_port_key"
@@ -63,8 +71,8 @@
 
 	<PreferenceCategory android:title="@string/etc" >
 		<PreferenceScreen
-		   android:title="@string/initialize_preference_title"
-		   android:summary="@string/initialize_preference_summary"
+			android:title="@string/initialize_preference_title"
+			android:summary="@string/initialize_preference_summary"
 		>
 			<intent
 				android:action="android.intent.action.MAIN"
@@ -73,8 +81,8 @@
 			/>
 		</PreferenceScreen>
 		<PreferenceScreen
-		   android:title="@string/about_app_title"
-		   android:summary="@string/about_app_summary"
+			android:title="@string/about_app_title"
+			android:summary="@string/about_app_summary"
 		>
 			<intent
 				android:action="android.intent.action.MAIN"
@@ -85,19 +93,19 @@
 	</PreferenceCategory>
 
 
-<!--
-	<PreferenceCategory android:title="Debug" >
-		<PreferenceScreen
+	<!--
+		<PreferenceCategory android:title="Debug" >
+			<PreferenceScreen
 		   android:title="Debug"
 		   android:summary="Debug functions"
-		>
-			<intent
-				android:action="android.intent.action.MAIN"
-				android:targetPackage="org.routine_work.android.battery_logger"
-				android:targetClass="org.routine_work.android.battery_logger.DebugActivity"
-			/>
-		</PreferenceScreen>
-	</PreferenceCategory>
--->
+			>
+				<intent
+					android:action="android.intent.action.MAIN"
+					android:targetPackage="org.routine_work.android.battery_logger"
+					android:targetClass="org.routine_work.android.battery_logger.DebugActivity"
+				/>
+			</PreferenceScreen>
+		</PreferenceCategory>
+	-->
 
 </PreferenceScreen>

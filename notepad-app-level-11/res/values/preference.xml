@@ -32,6 +32,17 @@
 		<item>@string/note_list_layout_wide_two_value</item>
 	</string-array>
 
+	<!-- Note List -->
+	<string name="note_list_item_content_lines_port_key" >note_list_item_content_lines_port</string>
+	<string name="note_list_item_content_lines_land_key" >note_list_item_content_lines_land</string>
+
+	<string-array name="note_list_item_content_lines_values">
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+		<item>4</item>
+	</string-array>
+
 	<!-- ActionBar -->
 	<string name="actionbar_auto_hide_port_key" >actionbar_auto_hide_port</string>
 	<string name="actionbar_auto_hide_land_key" >actionbar_auto_hide_land</string>

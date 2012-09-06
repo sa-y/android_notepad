@@ -34,16 +34,6 @@ Title, Content, Focus
 #############################
 !! notepad-app-level-11
 
-* 設定:ノート一覧画面の本文の表示行数を設定変更可能にする
-** レイアウトファイルに設定してあるものをロジックで上書きする必要がある
-** xml/notepad_preferences.xml に設定項目を定義
-** preference.xml にキーを定義
-** strings_preference.xml にメッセージを定義
-** strings_note_list_item.xml を preferences_note_list_item.xml に
-   変更してデフォルト値を記述する(ファイルはスクリーンサイズ毎)
-** NotepadPreferenceUtils に読み出しメソッドを作成
-** NoteCursorAdapter の View 初期化時に設定を読み出して設定するよう修正
-
 
 * アクションバー自動非表示時にジェスチャーで表示できるようにする
 
@@ -134,6 +124,17 @@ Title, Content, Focus
 
 #############################
 !! notepad-app-level-11
+
+#* 設定:ノート一覧画面の本文の表示行数を設定変更可能にする
+#** レイアウトファイルに設定してあるものをロジックで上書きする必要がある
+#** xml/notepad_preferences.xml に設定項目を定義
+#** preference.xml にキーを定義
+#** strings_preference.xml にメッセージを定義
+#** strings_note_list_item.xml を preferences_note_list_item.xml に
+#   変更してデフォルト値を記述する(ファイルはスクリーンサイズ毎)
+#** NotepadPreferenceUtils に読み出しメソッドを作成
+#** NoteCursorAdapter の View 初期化時に設定を読み出して設定するよう修正
+
 
 #* 各レイアウトのリファクタリング
 #** 不要なコンテナを削除

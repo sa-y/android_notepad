@@ -24,11 +24,13 @@
 package org.routine_work.notepad.fragment;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.view.View;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import org.routine_work.notepad.R;
+import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.utils.TimeFormatUtils;
 import org.routine_work.utils.Log;
@@ -38,7 +40,8 @@ import org.routine_work.utils.Log;
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
 public class NoteCursorAdapter extends SimpleCursorAdapter
-	implements SimpleCursorAdapter.ViewBinder
+	implements SimpleCursorAdapter.ViewBinder,
+	SharedPreferences.OnSharedPreferenceChangeListener
 {
 
 	private static final String LOG_TAG = "simple-notepad";
@@ -56,6 +59,7 @@ public class NoteCursorAdapter extends SimpleCursorAdapter
 	};
 	private Context context;
 	private boolean checkable = false;
+	private int noteListItemContentLines;
 
 	public NoteCursorAdapter(Context context, Cursor c)
 	{
@@ -68,6 +72,12 @@ public class NoteCursorAdapter extends SimpleCursorAdapter
 			NOTE_LIST_MAPPING_FROM, NOTE_LIST_MAPPING_TO);
 		this.checkable = checkable;
 		this.context = context;
+
+		noteListItemContentLines = NotepadPreferenceUtils.getNoteListItemContentLines(context);
+
+		SharedPreferences sharedPreferences = NotepadPreferenceUtils.getSharedPreferences(context);
+		sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+
 		setViewBinder(this);
 	}
 
@@ -89,6 +99,10 @@ public class NoteCursorAdapter extends SimpleCursorAdapter
 				checkbox.setVisibility(View.GONE);
 			}
 		}
+
+		TextView noteContentTextView = (TextView) view.findViewById(R.id.note_content_textview);
+		noteContentTextView.setSingleLine(noteListItemContentLines == 1);
+		noteContentTextView.setLines(noteListItemContentLines);
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -121,6 +135,22 @@ public class NoteCursorAdapter extends SimpleCursorAdapter
 		return result;
 	}
 
+	@Override
+	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key)
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		String portKey = context.getString(R.string.note_list_item_content_lines_port_key);
+		String landKey = context.getString(R.string.note_list_item_content_lines_land_key);
+		if (portKey.equals(key) || landKey.equals(key))
+		{
+			int newLines = NotepadPreferenceUtils.getNoteListItemContentLines(context);
+			this.setNoteListItemContentLines(newLines);
+		}
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
 	public boolean isCheckable()
 	{
 		return checkable;
@@ -129,5 +159,19 @@ public class NoteCursorAdapter extends SimpleCursorAdapter
 	public void setCheckable(boolean checkable)
 	{
 		this.checkable = checkable;
+	}
+
+	public int getNoteListItemContentLines()
+	{
+		return noteListItemContentLines;
+	}
+
+	public void setNoteListItemContentLines(int noteListItemContentLines)
+	{
+		if (noteListItemContentLines != this.noteListItemContentLines)
+		{
+			this.noteListItemContentLines = noteListItemContentLines;
+			notifyDataSetChanged();
+		}
 	}
 }
