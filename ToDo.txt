@@ -37,13 +37,6 @@ Title, Content, Focus
 #############################
 !! notepad-app-level-11
 
-* 各種 ListView の layout_margin を修正
-** layout_margin を減らしてリスト項目の layout_margin で調整する
-** ListView 用のスタイルを用意
-*** 現状 medium サイズのとき一覧画面の余白が大きすぎる
-*** 一覧画面の note_list_fragment.xml のルート要素にに body スタイルになっているから
-*** styles_list_container.xml に list_container スタイルを定義
-*** note_list.xml のルート要素に list_container を当てる？
 
 * アクションバー自動非表示時にジェスチャーで表示できるようにする
 
@@ -58,7 +51,10 @@ Title, Content, Focus
 #############################
 !! notepad-common
 
-* NoteTemplate コンテントプロバイダに check_same_title カラムを追加
+* NoteTemplate コンテントプロバイダになカラムを追加
+** 名前
+*** check_same_title
+*** append_existing_note
 ** 意味
 *** テンプレートからノートを作成する際に同じ名前のノートを検索してあればそれを
     編集しているが、その動作を制御する値。
@@ -118,6 +114,13 @@ Title, Content, Focus
 
 #############################
 !! notepad-app-level-11
+
+#* 各レイアウトのリファクタリング
+#** 不要なコンテナを削除
+#** @layout/*_activity.xml のルートに @style/body を設定する。
+#** @layout/*_fragment.xml に設定してある @style/body は削除する
+#** small-land 用の 設定値を定義
+#** 余白の値を微修正
 
 #* テンプレート一覧、編集画面のホームボタンの処理を実装
 #** ホームボタンを押した際に NotepadActivity に戻る様に実装
