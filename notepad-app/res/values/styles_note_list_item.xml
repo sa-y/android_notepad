@@ -23,8 +23,8 @@
 	<style name="note_list_item_content">
 		<item name="android:layout_margin">@dimen/note_list_item_content_layout_margin</item>
 		<item name="android:gravity">left</item>
-		<item name="android:singleLine">@string/note_list_item_content_singleLine</item>
-		<item name="android:lines">@string/note_list_item_content_lines</item>
+		<item name="android:singleLine">false</item>
+		<item name="android:lines">2</item>
 		<item name="android:ellipsize">end</item>
 		<item name="android:textSize">@dimen/note_list_item_content_textSize</item>
 		<item name="android:textColor">?android:attr/textColorSecondary</item>
