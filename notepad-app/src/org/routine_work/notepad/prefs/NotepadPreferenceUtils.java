@@ -40,12 +40,18 @@ public class NotepadPreferenceUtils
 
 	private static final String LOG_TAG = "simple-notepad";
 
+	public static SharedPreferences getSharedPreferences(Context context)
+	{
+		String preferenceName = context.getPackageName() + "_preferences";
+		SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
+		return sharedPreferences;
+	}
+
 	public static int getTheme(Context context)
 	{
 		int themeId = R.style.Theme_Notepad_Dark;
 
-		String preferenceName = context.getPackageName() + "_preferences";
-		SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
+		SharedPreferences sharedPreferences = getSharedPreferences(context);
 		String key = context.getString(R.string.notepad_theme_key);
 		String defaultValue = context.getString(R.string.notepad_theme_default_value);
 		String themeValue = sharedPreferences.getString(key, defaultValue);
@@ -68,8 +74,7 @@ public class NotepadPreferenceUtils
 	{
 		int themeId = R.style.Theme_Notepad_Dark_Dialog;
 
-		String preferenceName = context.getPackageName() + "_preferences";
-		SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
+		SharedPreferences sharedPreferences = getSharedPreferences(context);
 		String key = context.getString(R.string.notepad_theme_key);
 		String defaultValue = context.getString(R.string.notepad_theme_default_value);
 		String themeValue = sharedPreferences.getString(key, defaultValue);
@@ -109,24 +114,63 @@ public class NotepadPreferenceUtils
 				break;
 		}
 
-		String preferenceName = context.getPackageName() + "_preferences";
-		SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
+		SharedPreferences sharedPreferences = getSharedPreferences(context);
 
 		String key = resources.getString(keyId);
 		boolean defaultValue = resources.getBoolean(defaultValueId);
 		actionBarAutoHide = sharedPreferences.getBoolean(key, defaultValue);
 
-		Log.v(LOG_TAG, "actionBarAutoHide => " + actionBarAutoHide);
+		Log.d(LOG_TAG, "actionBarAutoHide => " + actionBarAutoHide);
 		Log.v(LOG_TAG, "Bye");
 		return actionBarAutoHide;
+	}
+
+	public static int getNoteListItemContentLines(Context context)
+	{
+		int noteListItemContentLines = 1;
+		int keyId;
+		int defaultValueId;
+		Log.v(LOG_TAG, "Hello");
+
+		Resources resources = context.getResources();
+		Configuration configuration = resources.getConfiguration();
+		switch (configuration.orientation)
+		{
+			case Configuration.ORIENTATION_LANDSCAPE:
+				keyId = R.string.note_list_item_content_lines_land_key;
+				defaultValueId = R.string.note_list_item_content_lines_land_default_value;
+				break;
+			default:
+				keyId = R.string.note_list_item_content_lines_port_key;
+				defaultValueId = R.string.note_list_item_content_lines_port_default_value;
+				break;
+		}
+
+		SharedPreferences sharedPreferences = getSharedPreferences(context);
+
+		String key = resources.getString(keyId);
+		String defaultValue = resources.getString(defaultValueId);
+		String value = sharedPreferences.getString(key, defaultValue);
+		Log.d(LOG_TAG, "value => " + value);
+		try
+		{
+			noteListItemContentLines = Integer.parseInt(value);
+		}
+		catch (NumberFormatException e)
+		{
+			Log.e(LOG_TAG, "Integer.parseInt(" + value + ") is failed.");
+		}
+
+		Log.d(LOG_TAG, "noteListItemContentLines => " + noteListItemContentLines);
+		Log.v(LOG_TAG, "Bye");
+		return noteListItemContentLines;
 	}
 
 	public static void reset(Context context)
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		String preferenceName = context.getPackageName() + "_preferences";
-		SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
+		SharedPreferences sharedPreferences = getSharedPreferences(context);
 		Editor edit = sharedPreferences.edit();
 		edit.clear();
 		edit.commit();

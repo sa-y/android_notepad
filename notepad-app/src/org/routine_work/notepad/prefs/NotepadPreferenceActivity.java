@@ -116,12 +116,29 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 	private void updateSummary()
 	{
 		String prefKey;
+		String prefValueString;
 		CharSequence summary;
+		ListPreference listPreference;
 
+		// Theme 
 		prefKey = getString(R.string.notepad_theme_key);
-		ListPreference dashboardViewModePreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
-		summary = dashboardViewModePreference.getEntry();
-		dashboardViewModePreference.setSummary(summary);
+		listPreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
+		summary = listPreference.getEntry();
+		listPreference.setSummary(summary);
+
+		// Text Lines in Portrait
+		prefKey = getString(R.string.note_list_item_content_lines_port_key);
+		listPreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
+		prefValueString = listPreference.getEntry().toString();
+		summary = getString(R.string.note_list_item_content_lines_summary, prefValueString);
+		listPreference.setSummary(summary);
+
+		// Text Lines in Landscape
+		prefKey = getString(R.string.note_list_item_content_lines_land_key);
+		listPreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
+		prefValueString = listPreference.getEntry().toString();
+		summary = getString(R.string.note_list_item_content_lines_summary, prefValueString);
+		listPreference.setSummary(summary);
 
 	}
 }

@@ -19,12 +19,19 @@
 	<string name="actionbar_auto_hide_summary_on">The Action Bar is hidden during editing note automatically.</string>
 	<string name="actionbar_auto_hide_summary_off">The Action Bar is always displayed during note editing.</string>
 
+	<!-- Note List Category -->
+	<string name="note_list_category_title">Note List</string>
+	<!-- Note List : Content Text Lines -->
+	<string name="note_list_item_content_lines_port_title">Text Lines in Portrait</string>
+	<string name="note_list_item_content_lines_land_title">Text Lines in Landscape</string>
+	<string name="note_list_item_content_lines_summary">%1$s Lines</string>
+
 	<!-- Etc Category -->
 	<string name="etc">Etc</string>
 	<!-- Initialize Preferences -->
 	<string name="initialize_preference">Initialize Preferences</string>
 	<string name="initialize_preference_title">Initialize Preferences</string>
-	<string name="initialize_preference_summary">All preference values are initialized</string>
+	<string name="initialize_preference_summary">All preference values are initialized.</string>
 	<string name="initialize_preference_confirm_message">All the preference values will be initialized by default value.</string>
 
 </resources>

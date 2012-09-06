@@ -42,6 +42,27 @@
 		/>
 	</PreferenceCategory>
 
+	<PreferenceCategory android:title="@string/note_list_category_title" >
+		<ListPreference
+			android:key="@string/note_list_item_content_lines_port_key"
+			android:defaultValue="@string/note_list_item_content_lines_port_default_value"
+			android:title="@string/note_list_item_content_lines_port_title"
+			android:dialogTitle="@string/note_list_item_content_lines_port_title"
+			android:summary="@string/note_list_item_content_lines_summary"
+			android:entries="@array/note_list_item_content_lines_values"
+			android:entryValues="@array/note_list_item_content_lines_values"
+		/>
+		<ListPreference
+			android:key="@string/note_list_item_content_lines_land_key"
+			android:defaultValue="@string/note_list_item_content_lines_land_default_value"
+			android:title="@string/note_list_item_content_lines_land_title"
+			android:dialogTitle="@string/note_list_item_content_lines_land_title"
+			android:summary="@string/note_list_item_content_lines_summary"
+			android:entries="@array/note_list_item_content_lines_values"
+			android:entryValues="@array/note_list_item_content_lines_values"
+		/>
+	</PreferenceCategory>
+
 	<PreferenceCategory android:title="@string/etc" >
 		<PreferenceScreen
 			android:title="@string/initialize_preference_title"
