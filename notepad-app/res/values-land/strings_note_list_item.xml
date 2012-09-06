@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-	<string name="note_list_item_content_singleLine">true</string>
-	<string name="note_list_item_content_lines">1</string>
-</resources>
