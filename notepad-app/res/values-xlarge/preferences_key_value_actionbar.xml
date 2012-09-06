@@ -3,6 +3,5 @@
 <resources>
 	<!-- ActionBar Auto Hide-->
 	<bool name="actionbar_auto_hide_port_default_value" >false</bool>
-	<bool name="actionbar_auto_hide_land_default_value" >true</bool>
-
+	<bool name="actionbar_auto_hide_land_default_value" >false</bool>
 </resources>

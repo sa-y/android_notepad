@@ -7,7 +7,7 @@ Title, Content, Focus
     O,       X, Content
     X,       X, Title
 
-* 編集が麺でのアクションバーの自動非表示設定のデフォルト
+* 編集画面でのアクションバーの自動非表示設定のデフォルト
 ** small-port  => on
 ** small-land  => on
 ** medium-port => off
@@ -19,6 +19,7 @@ Title, Content, Focus
 
 #############################
 !! notepad-app
+
 
 * ノート一覧画面のタイトル部分にノートの数を表示
 
@@ -95,6 +96,8 @@ Title, Content, Focus
 ! 0.1.6
 
 !! notepad-app
+
+#* アクションバー自動非表示の設定のデフォルト値をスクリーンサイズ毎に定義
 
 #* ノート編集画面にアクションバー表示、非表示のオプションメニューを追加
 
