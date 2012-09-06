@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- This file is made every screen size -->
 <resources>
+	<!-- Layout : Default Value-->
 	<string name="note_list_layout_port_default_value" >@string/note_list_layout_wide_two_value</string>
 	<string name="note_list_layout_land_default_value" >@string/note_list_layout_wide_two_value</string>
 </resources>
