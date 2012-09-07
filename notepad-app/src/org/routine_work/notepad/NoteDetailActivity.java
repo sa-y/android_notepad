@@ -602,14 +602,14 @@ public class NoteDetailActivity extends Activity
 			currentNote.setTitleLocked(false);
 
 			// init default text
-			String extraTitle = intent.getStringExtra(Intent.EXTRA_TITLE);
+			String extraTitle = intent.getStringExtra(EXTRA_TITLE);
 			Log.d(LOG_TAG, "EXTRA_TITLE => " + extraTitle);
 			if (extraTitle != null)
 			{
 				currentNote.setTitle(extraTitle);
 			}
 
-			String extraText = intent.getStringExtra(Intent.EXTRA_TEXT);
+			String extraText = intent.getStringExtra(EXTRA_TEXT);
 			Log.d(LOG_TAG, "EXTRA_TEXT => " + extraText);
 			if (extraText != null)
 			{
@@ -653,6 +653,15 @@ public class NoteDetailActivity extends Activity
 			{
 				currentNoteUri = newNoteUri;
 				loadNoteFromViews();
+			}
+
+			String extraText = intent.getStringExtra(EXTRA_TEXT);
+			Log.d(LOG_TAG, "EXTRA_TEXT => " + extraText);
+			if (extraText != null)
+			{
+				String appended = currentNote.getContent() + "\n" + extraText;
+				currentNote.setContent(appended);
+				updateNoteEditTexts();
 			}
 
 			setTitle(R.string.edit_note_title);

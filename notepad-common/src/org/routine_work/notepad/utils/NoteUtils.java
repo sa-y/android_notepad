@@ -125,6 +125,7 @@ public class NoteUtils implements NotepadConstants
 					// if note is already exist
 					Intent intent = new Intent(Intent.ACTION_EDIT, noteUri);
 					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					intent.putExtra(EXTRA_TEXT, content);
 					context.startActivity(intent);
 				}
 				else
