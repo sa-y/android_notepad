@@ -49,7 +49,6 @@ public class NoteDetailFragment extends Fragment
 	private static final String SAVE_KEY_NOTE_URI = "noteUri";
 	protected TextView noteTitleTextView;
 	protected TextView noteContentTextView;
-	protected boolean viewIsInflated = false;
 	protected Uri noteUri;
 	private NoteDetailEventCallback noteDetailEventCallback;
 
@@ -130,7 +129,6 @@ public class NoteDetailFragment extends Fragment
 
 		noteTitleTextView = (TextView) v.findViewById(R.id.note_title_textview);
 		noteContentTextView = (TextView) v.findViewById(R.id.note_content_textview);
-		viewIsInflated = true;
 
 		Log.v(LOG_TAG, "Bye");
 		return v;

@@ -30,6 +30,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -240,8 +241,8 @@ public class NoteDetailActivity extends Activity
 				Log.d(LOG_TAG, "Insert note.");
 				editNoteFragment.setNoteUri(NoteStore.Note.CONTENT_URI);
 
-				String noteTitle = intent.getStringExtra(Intent.EXTRA_TITLE);
-				String noteContent = intent.getStringExtra(Intent.EXTRA_TEXT);
+				String noteTitle = intent.getStringExtra(EXTRA_TITLE);
+				String noteContent = intent.getStringExtra(EXTRA_TEXT);
 				boolean noteTitleLocked = intent.getBooleanExtra(EXTRA_TITLE_LOCKED, false);
 				Log.d(LOG_TAG, "noteTitle => " + noteTitle);
 				Log.d(LOG_TAG, "noteContent => " + noteContent);
@@ -271,6 +272,13 @@ public class NoteDetailActivity extends Activity
 						return;
 					}
 				}
+
+				String appendText = intent.getStringExtra(EXTRA_TEXT);
+				if (TextUtils.isEmpty(appendText) == false)
+				{
+					editNoteFragment.setAppendText(appendText);
+				}
+
 				setTitle(R.string.edit_note_title);
 			}
 

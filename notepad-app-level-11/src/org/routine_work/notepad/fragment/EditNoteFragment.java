@@ -84,6 +84,7 @@ public class EditNoteFragment extends Fragment
 	private Uri noteUri;
 	private final Note currentNote = new Note();
 	private final Note originalNote = new Note();
+	private String appendText;
 
 	public EditNoteFragment()
 	{
@@ -147,7 +148,7 @@ public class EditNoteFragment extends Fragment
 		noteTitleLockImageButton.setOnClickListener(this);
 		noteTitleUnlockImageButton.setOnClickListener(this);
 
-		updateNoteEditText();
+		updateNoteEditTexts();
 		updateNoteTitleLockedViews();
 		updateNoteLockButtonsViews();
 		updateFocusedView();
@@ -450,6 +451,16 @@ public class EditNoteFragment extends Fragment
 		Log.v(LOG_TAG, "Bye");
 	}
 
+	public String getAppendText()
+	{
+		return appendText;
+	}
+
+	public void setAppendText(String appendText)
+	{
+		this.appendText = appendText;
+	}
+
 	public void setNoteContents(String noteTitle, String noteContent, boolean noteTitleLocked)
 	{
 		Log.v(LOG_TAG, "Hello");
@@ -467,15 +478,23 @@ public class EditNoteFragment extends Fragment
 		currentNote.setTitle(noteTitle);
 		currentNote.setContent(noteContent);
 		currentNote.setTitleLocked(noteTitleLocked);
+
+		// append text
+		if (TextUtils.isEmpty(appendText) == false)
+		{
+			String newContent = currentNote.getContent() + "\n" + appendText;
+			currentNote.setContent(newContent);
+			appendText = null;
+		}
 		originalNote.copyFrom(currentNote);
 
-		updateNoteEditText();
+		updateNoteEditTexts();
 		updateNoteTitleLockedViews();
 		updateNoteLockButtonsViews();
 		updateFocusedView();
 	}
 
-	private void updateNoteEditText()
+	private void updateNoteEditTexts()
 	{
 		if (viewIsInflated)
 		{
@@ -493,12 +512,12 @@ public class EditNoteFragment extends Fragment
 			if ((TextUtils.isEmpty(currentNote.getTitle()) == false)
 				&& (TextUtils.isEmpty(currentNote.getContent()) == true))
 			{
-				Log.v(LOG_TAG, "noteContentEditText#requestFocus()");
+				Log.d(LOG_TAG, "noteContentEditText#requestFocus()");
 				IMEUtils.requestSoftKeyboardWindow(getActivity(), noteContentEditText);
 			}
 			else
 			{
-				Log.v(LOG_TAG, "noteTitleEditText#requestFocus()");
+				Log.d(LOG_TAG, "noteTitleEditText#requestFocus()");
 				IMEUtils.requestSoftKeyboardWindow(getActivity(), noteTitleEditText);
 			}
 		}
