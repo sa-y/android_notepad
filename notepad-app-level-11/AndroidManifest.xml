@@ -184,6 +184,8 @@
 		<!-- Service : data initialize service -->
 		<service android:name=".template.NoteTemplateInitializer" />
 
+		<service android:name=".provider.NoteDBOptimizer" />
+
 		<!-- Provider : Notes & Templates Content Provider  -->
 		<provider
 			android:name=".provider.NoteProvider"

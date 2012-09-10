@@ -45,6 +45,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import org.routine_work.notepad.prefs.NotepadPreferenceActivity;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
+import org.routine_work.notepad.provider.NoteDBOptimizer;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.template.NoteTemplateInitializer;
 import org.routine_work.notepad.template.NoteTemplatePickerDialog;
@@ -362,6 +363,8 @@ public class NotepadActivity extends ListActivity
 				break;
 			case R.id.quit_menuitem:
 				Log.d(LOG_TAG, "quit_menuitem is selected.");
+				Intent noteDBOptimizerIntent = new Intent(this, NoteDBOptimizer.class);
+				startService(noteDBOptimizerIntent);
 				finish();
 				break;
 			default:
@@ -486,6 +489,9 @@ public class NotepadActivity extends ListActivity
 		String action = intent.getAction();
 		if (ACTION_QUIT.equals(action))
 		{
+			Intent noteDBOptimizerIntent = new Intent(this, NoteDBOptimizer.class);
+			startService(noteDBOptimizerIntent);
+
 			finish();
 		}
 		else if (Intent.ACTION_SEARCH.equals(action))
