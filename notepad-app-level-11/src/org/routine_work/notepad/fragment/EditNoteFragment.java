@@ -310,6 +310,7 @@ public class EditNoteFragment extends Fragment
 				// Update
 				values.put(NoteStore.Note.Columns.TITLE, currentNote.getTitle());
 				values.put(NoteStore.Note.Columns.CONTENT, currentNote.getContent());
+				values.put(NoteStore.Note.Columns.TITLE_LOCKED, currentNote.isTitleLocked());
 				values.put(NoteStore.Note.Columns.DATE_MODIFIED, now);
 				int updatedCount = contentResolver.update(noteUri, values, null, null);
 				Log.d(LOG_TAG, "Updated : updatedCount => " + updatedCount);
