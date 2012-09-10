@@ -20,11 +20,9 @@ Title, Content, Focus
 #############################
 !! notepad-app
 
-* 日本語リソース作成
+* 編集時に EditText にフォーカスが来た際にテキストの最後にカーソルが来てほしい
 
 * ノートのエクスポート機能
-
-* ノート一覧のタイトルや本文の TextView にヒントを設定
 
 * ノート表示画面にコンテキストメニューの実装
 ** コピー
@@ -33,6 +31,8 @@ Title, Content, Focus
 * NoteDetailActivity のリファクタリング
 
 * ノート表示画面のタイトルや本文のクリック処理で編集画面へ遷移
+
+* 日本語リソース作成
 
 * ノート用データベース最適化機能
 ** IntentService として実装
@@ -59,39 +59,6 @@ Title, Content, Focus
 #############################
 !! notepad-common
 
-* NoteTemplate コンテントプロバイダになカラムを追加
-** 名前
-*** edit_same_title 
-** 意味
-*** テンプレートからノートを作成する際に同じ名前のノートを検索してあればそれを
-    編集しているが、その動作を制御する値。
-*** true => 同じ名前のタイトルのノートを編集する
-*** false => タイトルをチェックせずに常に新規ノートを作成する
-#** 手順(notepad-common)
-#*** NoteStore.NoteTemplate.Columns にて定数を追加
-#*** NoteTemplate モデルクラスを修正
-#*** NoteDBConstans の DB バージョンを更新
-#*** NoteDBConstans でテーブル作成 SQL 修正
-#*** NoteDBHelper にデータコンバート処理を追加
-#*** NoteUtils.startNoteDetailActivityWithTemplate() を修正
-#** 手順(notepad-app)
-#*** テンプレートの初期データに項目を追加
-#**** data_note_template.xml
-#**** string.xml
-#**** NoteTemplateInitializer.java
-#*** テンプレート編集画面を修正
-#**** note_template_detail_item.xml
-#**** NoteTemplateDetailActivity.java
-** 手順(notepad-app-level-11)
-#*** テンプレートの初期データに項目を追加
-#**** data_note_template.xml
-#**** string.xml
-#**** NoteTemplateInitializer.java
-#*** テンプレート編集画面を修正
-#**** note_template_detail_item.xml
-#**** NoteTemplateDetailActivity.java
-
-
 * TimeFormatUtils 修正
 ** 西暦部分のないフォーマットにできないか？
 
@@ -113,9 +80,49 @@ Title, Content, Focus
 
 !! notepad-app
 
+#* ノート一覧のタイトルや本文の TextView にヒントを設定
+
+#* テンプレート編集画面に edit_same_title を追加
+#** 手順(notepad-app)
+#*** テンプレートの初期データに項目を追加
+#**** data_note_template.xml
+#**** string.xml
+#**** NoteTemplateInitializer.java
+#*** テンプレート編集画面を修正
+#**** note_template_detail_item.xml
+#**** NoteTemplateDetailActivity.java
+
 !! notepad-app-level-11
 
+#* ノート一覧のタイトルや本文の TextView にヒントを設定
+
+#* テンプレート編集画面に edit_same_title を追加
+#** 手順(notepad-app-level-11)
+#*** テンプレートの初期データに項目を追加
+#**** data_note_template.xml
+#**** string.xml
+#**** NoteTemplateInitializer.java
+#*** テンプレート編集画面を修正
+#**** note_template_detail_item.xml
+#**** NoteTemplateDetailActivity.java
+
 !! notepad-common
+
+#* NoteTemplate コンテントプロバイダになカラムを追加
+#** 名前
+#*** edit_same_title 
+#** 意味
+#*** テンプレートからノートを作成する際に同じ名前のノートを検索してあればそれを
+#    編集しているが、その動作を制御する値。
+#*** true => 同じ名前のタイトルのノートを編集する
+#*** false => タイトルをチェックせずに常に新規ノートを作成する
+#** 手順(notepad-common)
+#*** NoteStore.NoteTemplate.Columns にて定数を追加
+#*** NoteTemplate モデルクラスを修正
+#*** NoteDBConstans の DB バージョンを更新
+#*** NoteDBConstans でテーブル作成 SQL 修正
+#*** NoteDBHelper にデータコンバート処理を追加
+#*** NoteUtils.startNoteDetailActivityWithTemplate() を修正
 
 ############################################################
 ! 0.1.6

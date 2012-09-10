@@ -6,7 +6,7 @@
 		android:icon="@android:drawable/ic_menu_save"
 		android:showAsAction="always|withText"
 		android:numericShortcut="1"
-		android:alphabeticShortcut="d"
+		android:alphabeticShortcut="s"
 	/>
 	<item
 		android:id="@+id/cancel_menuitem"
