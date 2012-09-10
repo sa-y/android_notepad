@@ -96,6 +96,27 @@
 	</LinearLayout>
 
 	<LinearLayout
+		android:id="@+id/note_template_detail_item_edit_same_title"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:visibility="gone"
+	>
+		<CheckedTextView 
+			android:id="@+id/note_template_edit_same_title_checkbox"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_margin="4dip"
+			android:layout_alignParentLeft="true" 
+			android:paddingLeft="8dip"
+			android:gravity="center_vertical|left" 
+			android:text="@string/edit_same_title"
+			android:textSize="@dimen/note_template_detail_item_value_textSize"
+			android:checkMark="?android:attr/listChoiceIndicatorSingle"
+		/>
+	</LinearLayout>
+
+	<LinearLayout
 		android:id="@+id/note_template_detail_item_content"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"

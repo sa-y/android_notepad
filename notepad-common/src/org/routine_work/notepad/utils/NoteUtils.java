@@ -104,10 +104,12 @@ public class NoteUtils implements NotepadConstants
 				int titleIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.TITLE);
 				int contentIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.CONTENT);
 				int titleLockedIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.TITLE_LOCKED);
+				int editSameTitleIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.EDIT_SAME_TITLE);
 
 				String titleTemplate = cursor.getString(titleIndex);
 				String contentTemplate = cursor.getString(contentIndex);
 				boolean titleLocked = (cursor.getInt(titleLockedIndex) != 0);
+				boolean editSameTitle = (cursor.getInt(editSameTitleIndex) != 0);
 
 				Map<String, String> templateContextMap = new HashMap<String, String>();
 				Date now = new Date();
@@ -117,8 +119,17 @@ public class NoteUtils implements NotepadConstants
 				String title = expandTemplate(titleTemplate, templateContextMap);
 				String content = expandTemplate(contentTemplate, templateContextMap);
 
-				Uri noteUri = searchNoteByTitle(context, title);
+				Uri noteUri;
+				if (editSameTitle)
+				{
+					noteUri = searchNoteByTitle(context, title);
+				}
+				else
+				{
+					noteUri = null;
+				}
 				Log.d(LOG_TAG, "noteUri => " + noteUri);
+
 				if (noteUri != null)
 				{
 					Log.d(LOG_TAG, "note is already exist.");

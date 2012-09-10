@@ -24,6 +24,8 @@ Title, Content, Focus
 
 * ノートのエクスポート機能
 
+* ノート一覧のタイトルや本文の TextView にヒントを設定
+
 * ノート表示画面にコンテキストメニューの実装
 ** コピー
 ** 共有
@@ -65,20 +67,30 @@ Title, Content, Focus
     編集しているが、その動作を制御する値。
 *** true => 同じ名前のタイトルのノートを編集する
 *** false => タイトルをチェックせずに常に新規ノートを作成する
-** 手順(notepad-common)
-*** NoteStore.NoteTemplate.Columns にて定数を追加
-*** NoteTemplate モデルクラスを修正
-*** NoteDBConstans の DB バージョンを更新
-*** NoteDBConstans でテーブル作成 SQL 修正
-*** NoteDBHelper にデータコンバート処理を追加
-** 手順(notepad-app)
-*** テンプレートの初期データに項目を追加
-*** テンプレート編集画面を修正
-*** NoteStore.NoteTemplate 利用箇所を検索して必要に応じて修正
+#** 手順(notepad-common)
+#*** NoteStore.NoteTemplate.Columns にて定数を追加
+#*** NoteTemplate モデルクラスを修正
+#*** NoteDBConstans の DB バージョンを更新
+#*** NoteDBConstans でテーブル作成 SQL 修正
+#*** NoteDBHelper にデータコンバート処理を追加
+#*** NoteUtils.startNoteDetailActivityWithTemplate() を修正
+#** 手順(notepad-app)
+#*** テンプレートの初期データに項目を追加
+#**** data_note_template.xml
+#**** string.xml
+#**** NoteTemplateInitializer.java
+#*** テンプレート編集画面を修正
+#**** note_template_detail_item.xml
+#**** NoteTemplateDetailActivity.java
 ** 手順(notepad-app-level-11)
-*** テンプレートの初期データに項目を追加
-*** テンプレート編集画面を修正
-*** NoteStore.NoteTemplate 利用箇所を検索して必要に応じて修正
+#*** テンプレートの初期データに項目を追加
+#**** data_note_template.xml
+#**** string.xml
+#**** NoteTemplateInitializer.java
+#*** テンプレート編集画面を修正
+#**** note_template_detail_item.xml
+#**** NoteTemplateDetailActivity.java
+
 
 * TimeFormatUtils 修正
 ** 西暦部分のないフォーマットにできないか？
@@ -95,6 +107,15 @@ Title, Content, Focus
 *** NoteSearchQueryParser にパース機能を実装
 *** NoteSearchQueryParser を利用するコードの修正
 
+
+############################################################
+! 0.1.7
+
+!! notepad-app
+
+!! notepad-app-level-11
+
+!! notepad-common
 
 ############################################################
 ! 0.1.6

@@ -43,7 +43,8 @@ public class NoteTemplate implements Serializable
 	private String name;
 	private String title;
 	private String content;
-	private boolean titleLocked;
+	private boolean titleLocked = false;
+	private boolean editSameTitle = true;
 
 	public static void writeNoteTo(NoteTemplate note, File file) throws FileNotFoundException, IOException
 	{
@@ -82,17 +83,19 @@ public class NoteTemplate implements Serializable
 		this.setTitle(other.getTitle());
 		this.setContent(other.getContent());
 		this.setTitleLocked(other.isTitleLocked());
+		this.setEditSameTitle(other.isEditSameTitle());
 	}
 
 	@Override
 	public int hashCode()
 	{
-		int hash = 5;
-		hash = 53 * hash + (int) (this.id ^ (this.id >>> 32));
-		hash = 53 * hash + (this.name != null ? this.name.hashCode() : 0);
-		hash = 53 * hash + (this.title != null ? this.title.hashCode() : 0);
-		hash = 53 * hash + (this.content != null ? this.content.hashCode() : 0);
-		hash = 53 * hash + (this.titleLocked ? 1 : 0);
+		int hash = 3;
+		hash = 19 * hash + (int) (this.id ^ (this.id >>> 32));
+		hash = 19 * hash + (this.name != null ? this.name.hashCode() : 0);
+		hash = 19 * hash + (this.title != null ? this.title.hashCode() : 0);
+		hash = 19 * hash + (this.content != null ? this.content.hashCode() : 0);
+		hash = 19 * hash + (this.titleLocked ? 1 : 0);
+		hash = 19 * hash + (this.isEditSameTitle() ? 1 : 0);
 		return hash;
 	}
 
@@ -128,13 +131,17 @@ public class NoteTemplate implements Serializable
 		{
 			return false;
 		}
+		if (this.isEditSameTitle() != other.isEditSameTitle())
+		{
+			return false;
+		}
 		return true;
 	}
 
 	@Override
 	public String toString()
 	{
-		return "NoteTemplate{" + "id=" + id + ", name=" + name + ", title=" + title + ", content=" + content + ", titleLocked=" + titleLocked + '}';
+		return "NoteTemplate{" + "id=" + id + ", name=" + name + ", title=" + title + ", content=" + content + ", titleLocked=" + titleLocked + ", editSameTitle=" + isEditSameTitle() + '}';
 	}
 
 	/**
@@ -215,5 +222,21 @@ public class NoteTemplate implements Serializable
 	public void setTitleLocked(boolean titleLocked)
 	{
 		this.titleLocked = titleLocked;
+	}
+
+	/**
+	 * @return the editSameTitle
+	 */
+	public boolean isEditSameTitle()
+	{
+		return editSameTitle;
+	}
+
+	/**
+	 * @param editSameTitle the editSameTitle to set
+	 */
+	public void setEditSameTitle(boolean editSameTitle)
+	{
+		this.editSameTitle = editSameTitle;
 	}
 }

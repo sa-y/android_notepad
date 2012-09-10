@@ -38,8 +38,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.CheckedTextView;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -67,7 +65,8 @@ public class NoteTemplateDetailActivity extends ListActivity
 	private static final int POSITION_NAME = 0;
 	private static final int POSITION_TITLE = 1;
 	private static final int POSITION_TITLE_LOCKED = 2;
-	private static final int POSITION_CONTENT = 3;
+	private static final int POSITION_EDIT_SAME_TITLE = 3;
+	private static final int POSITION_CONTENT = 4;
 	private static final String LOG_TAG = "simple-notepad";
 	// view
 	private TextView titleTextView;
@@ -264,6 +263,11 @@ public class NoteTemplateDetailActivity extends ListActivity
 				titleLockCheck.toggle();
 				currentNoteTemplate.setTitleLocked(titleLockCheck.isChecked());
 				break;
+			case POSITION_EDIT_SAME_TITLE:
+				CheckedTextView editSameTitleCheck = (CheckedTextView) view.findViewById(R.id.note_template_edit_same_title_checkbox);
+				editSameTitleCheck.toggle();
+				currentNoteTemplate.setEditSameTitle(editSameTitleCheck.isChecked());
+				break;
 			case POSITION_CONTENT:
 				startEditTextTemplateActivity();
 				break;
@@ -331,6 +335,7 @@ public class NoteTemplateDetailActivity extends ListActivity
 			currentNoteTemplate.setTitle("");
 			currentNoteTemplate.setContent("");
 			currentNoteTemplate.setTitleLocked(false);
+			currentNoteTemplate.setEditSameTitle(true);
 
 			titleTextView.setText(R.string.add_new_note_template_title);
 
@@ -338,7 +343,7 @@ public class NoteTemplateDetailActivity extends ListActivity
 		}
 		else if (Intent.ACTION_EDIT.equals(newAction))
 		{
-			if (isNoteTemplateItemUri(newNoteTemplateUri))
+			if (NoteStore.isNoteTemplateItemUri(this, newNoteTemplateUri))
 			{
 				if (NoteStore.exist(getContentResolver(), newNoteTemplateUri))
 				{
@@ -368,7 +373,7 @@ public class NoteTemplateDetailActivity extends ListActivity
 		Log.v(LOG_TAG, "Hello");
 		Log.d(LOG_TAG, "currentNoteTemplateUri => " + currentNoteTemplateUri);
 
-		if (isNoteTemplateItemUri(currentNoteTemplateUri))
+		if (NoteStore.isNoteTemplateItemUri(this, currentNoteTemplateUri))
 		{
 			ContentResolver contentResolver = getContentResolver();
 			Cursor cursor = contentResolver.query(currentNoteTemplateUri, null, null, null, null);
@@ -380,11 +385,13 @@ public class NoteTemplateDetailActivity extends ListActivity
 					int titleIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.TITLE);
 					int contentIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.CONTENT);
 					int titleLockedIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.TITLE_LOCKED);
+					int editSameTitleIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.EDIT_SAME_TITLE);
 
 					String templateName = cursor.getString(nameIndex);
 					String templateTitle = cursor.getString(titleIndex);
 					String templateContent = cursor.getString(contentIndex);
 					boolean templateTitleLocked = cursor.getInt(titleLockedIndex) != 0;
+					boolean templateEditSameTitle = cursor.getInt(editSameTitleIndex) != 0;
 
 					if (templateName == null)
 					{
@@ -403,10 +410,12 @@ public class NoteTemplateDetailActivity extends ListActivity
 					Log.d(LOG_TAG, "templateTitle => " + templateTitle);
 					Log.d(LOG_TAG, "templateContent => " + templateContent);
 					Log.d(LOG_TAG, "templateTitleLocked => " + templateTitleLocked);
+					Log.d(LOG_TAG, "templateEditSameTitle => " + templateEditSameTitle);
 
 					currentNoteTemplate.setName(templateName);
 					currentNoteTemplate.setTitle(templateTitle);
 					currentNoteTemplate.setTitleLocked(templateTitleLocked);
+					currentNoteTemplate.setEditSameTitle(templateEditSameTitle);
 					currentNoteTemplate.setContent(templateContent);
 
 					originalNoteTemplate.copyFrom(currentNoteTemplate);
@@ -458,9 +467,10 @@ public class NoteTemplateDetailActivity extends ListActivity
 			values.put(NoteStore.NoteTemplate.Columns.TITLE, currentNoteTemplate.getTitle());
 			values.put(NoteStore.NoteTemplate.Columns.CONTENT, currentNoteTemplate.getContent());
 			values.put(NoteStore.NoteTemplate.Columns.TITLE_LOCKED, currentNoteTemplate.isTitleLocked());
+			values.put(NoteStore.NoteTemplate.Columns.EDIT_SAME_TITLE, currentNoteTemplate.isEditSameTitle());
 
 			ContentResolver contentResolver = getContentResolver();
-			if (isNoteTemplateItemUri(currentNoteTemplateUri))
+			if (NoteStore.isNoteTemplateItemUri(this, currentNoteTemplateUri))
 			{
 				// Update
 				int updatedCount = contentResolver.update(currentNoteTemplateUri, values, null, null);
@@ -480,27 +490,6 @@ public class NoteTemplateDetailActivity extends ListActivity
 			Log.d(LOG_TAG, "note is not modified.");
 		}
 
-	}
-
-	private boolean isNoteTemplateItemUri(Uri uri)
-	{
-		boolean result = false;
-		Log.v(LOG_TAG, "Hello");
-		Log.d(LOG_TAG, "uri => " + uri);
-
-		if (uri != null)
-		{
-			String type = getContentResolver().getType(uri);
-			Log.v(LOG_TAG, "type => " + type);
-			if (NoteStore.NoteTemplate.NOTE_TEMPLATE_ITEM_CONTENT_TYPE.equals(type))
-			{
-				result = true;
-			}
-		}
-
-		Log.d(LOG_TAG, "result => " + result);
-		Log.v(LOG_TAG, "Bye");
-		return result;
 	}
 
 	private void startEditNameActivity()
@@ -532,7 +521,6 @@ public class NoteTemplateDetailActivity extends ListActivity
 	}
 
 	class NoteTemplateDetailListAdapter extends BaseAdapter
-		implements OnCheckedChangeListener
 	{
 
 		private LayoutInflater inflater;
@@ -544,7 +532,7 @@ public class NoteTemplateDetailActivity extends ListActivity
 
 		public int getCount()
 		{
-			return 4;
+			return 5;
 		}
 
 		public Object getItem(int position)
@@ -560,6 +548,9 @@ public class NoteTemplateDetailActivity extends ListActivity
 					break;
 				case POSITION_TITLE_LOCKED:
 					result = Boolean.valueOf(currentNoteTemplate.isTitleLocked());
+					break;
+				case POSITION_EDIT_SAME_TITLE:
+					result = Boolean.valueOf(currentNoteTemplate.isEditSameTitle());
 					break;
 				case POSITION_CONTENT:
 					result = currentNoteTemplate.getContent();
@@ -589,11 +580,13 @@ public class NoteTemplateDetailActivity extends ListActivity
 			View nameView = itemView.findViewById(R.id.note_template_detail_item_name);
 			View titleView = itemView.findViewById(R.id.note_template_detail_item_title);
 			View titleLockedView = itemView.findViewById(R.id.note_template_detail_item_title_locked);
+			View editSameTitleView = itemView.findViewById(R.id.note_template_detail_item_edit_same_title);
 			View contentView = itemView.findViewById(R.id.note_template_detail_item_content);
 
 			nameView.setVisibility(View.GONE);
 			titleView.setVisibility(View.GONE);
 			titleLockedView.setVisibility(View.GONE);
+			editSameTitleView.setVisibility(View.GONE);
 			contentView.setVisibility(View.GONE);
 
 			switch (position)
@@ -613,6 +606,11 @@ public class NoteTemplateDetailActivity extends ListActivity
 					titleLockCheck.setChecked(currentNoteTemplate.isTitleLocked());
 					titleLockedView.setVisibility(View.VISIBLE);
 					break;
+				case POSITION_EDIT_SAME_TITLE:
+					CheckedTextView editSameTitleCheck = (CheckedTextView) itemView.findViewById(R.id.note_template_edit_same_title_checkbox);
+					editSameTitleCheck.setChecked(currentNoteTemplate.isEditSameTitle());
+					editSameTitleView.setVisibility(View.VISIBLE);
+					break;
 				case POSITION_CONTENT:
 					TextView contentTextView = (TextView) itemView.findViewById(R.id.note_template_content_textview);
 					contentTextView.setText(currentNoteTemplate.getContent());
@@ -622,21 +620,6 @@ public class NoteTemplateDetailActivity extends ListActivity
 
 			Log.d(LOG_TAG, "Bye");
 			return itemView;
-		}
-
-		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-		{
-			Log.d(LOG_TAG, "Hello");
-			switch (buttonView.getId())
-			{
-				case R.id.note_template_title_lock_checkbox:
-					currentNoteTemplate.setTitleLocked(isChecked);
-					Log.d(LOG_TAG, "titleLocked => " + currentNoteTemplate.isTitleLocked());
-					break;
-				default:
-					throw new AssertionError();
-			}
-			Log.d(LOG_TAG, "Bye");
 		}
 	}
 }

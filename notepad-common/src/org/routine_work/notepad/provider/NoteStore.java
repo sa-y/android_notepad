@@ -70,6 +70,7 @@ public class NoteStore
 			String TITLE = "title";
 			String CONTENT = "content";
 			String TITLE_LOCKED = "title_locked";
+			String EDIT_SAME_TITLE = "edit_same_title";
 		}
 		Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/notetemplates");
 		String NOTE_TEMPLATE_LIST_CONTENT_TYPE = "vnd.android.cursor.dir/vnd.routine_work.notetemplate";
@@ -117,6 +118,27 @@ public class NoteStore
 			String type = contentResolver.getType(uri);
 			Log.v(LOG_TAG, "uri.type => " + type);
 			result = NoteStore.Note.NOTE_ITEM_CONTENT_TYPE.equals(type);
+		}
+
+		Log.d(LOG_TAG, "result => " + result);
+		Log.v(LOG_TAG, "Bye");
+		return result;
+	}
+
+	public static boolean isNoteTemplateItemUri(Context context, Uri uri)
+	{
+		boolean result = false;
+		Log.v(LOG_TAG, "Hello");
+		Log.d(LOG_TAG, "uri => " + uri);
+
+		if (uri != null)
+		{
+			String type = context.getContentResolver().getType(uri);
+			Log.v(LOG_TAG, "type => " + type);
+			if (NoteStore.NoteTemplate.NOTE_TEMPLATE_ITEM_CONTENT_TYPE.equals(type))
+			{
+				result = true;
+			}
 		}
 
 		Log.d(LOG_TAG, "result => " + result);

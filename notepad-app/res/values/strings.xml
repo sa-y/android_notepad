@@ -30,6 +30,7 @@
 	<string name="title_template">Title Template</string>
 	<string name="text_template">Text Template</string>
 	<string name="title_lock">Title Lock</string>
+	<string name="edit_same_title">Edit Same Title</string>
 
 	<string name="note_not_exist">The specified note does not exist.</string>
 	<string name="note_not_specified">A note is not specified.</string>
