@@ -51,6 +51,7 @@ import org.routine_work.notepad.fragment.NoteListFragment;
 import org.routine_work.notepad.fragment.ViewNoteFragment;
 import org.routine_work.notepad.prefs.NotepadPreferenceActivity;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
+import org.routine_work.notepad.provider.NoteDBOptimizer;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.template.NoteTemplateInitializer;
 import org.routine_work.notepad.template.NoteTemplatePickerDialogFragment;
@@ -169,6 +170,23 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 
 		super.onResume();
 		reloadNoteList();
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	@Override
+	protected void onDestroy()
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		int quitCount = NotepadPreferenceUtils.incrementQuitCount(this);
+		if (quitCount % 10 == 0)
+		{
+			Intent noteDBOptimizerIntent = new Intent(this, NoteDBOptimizer.class);
+			startService(noteDBOptimizerIntent);
+		}
+
+		super.onDestroy();
 
 		Log.v(LOG_TAG, "Bye");
 	}

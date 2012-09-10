@@ -212,6 +212,14 @@ public class NotepadActivity extends ListActivity
 			cursor.close();
 			cursor = null;
 		}
+
+		int quitCount = NotepadPreferenceUtils.incrementQuitCount(this);
+		if (quitCount % 10 == 0)
+		{
+			Intent noteDBOptimizerIntent = new Intent(this, NoteDBOptimizer.class);
+			startService(noteDBOptimizerIntent);
+		}
+
 		super.onDestroy();
 
 		Log.v(LOG_TAG, "Bye");
@@ -363,8 +371,6 @@ public class NotepadActivity extends ListActivity
 				break;
 			case R.id.quit_menuitem:
 				Log.d(LOG_TAG, "quit_menuitem is selected.");
-				Intent noteDBOptimizerIntent = new Intent(this, NoteDBOptimizer.class);
-				startService(noteDBOptimizerIntent);
 				finish();
 				break;
 			default:
@@ -489,9 +495,6 @@ public class NotepadActivity extends ListActivity
 		String action = intent.getAction();
 		if (ACTION_QUIT.equals(action))
 		{
-			Intent noteDBOptimizerIntent = new Intent(this, NoteDBOptimizer.class);
-			startService(noteDBOptimizerIntent);
-
 			finish();
 		}
 		else if (Intent.ACTION_SEARCH.equals(action))

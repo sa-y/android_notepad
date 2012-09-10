@@ -34,11 +34,6 @@ Title, Content, Focus
 
 * 日本語リソース作成
 
-* ノート用データベース最適化機能
-** IntentService として実装
-** vacuum して reindex
-** 設定画面から起動？
-** アプリケーション終了時にN回に1回くらい自動起動する？
 
 * ソート順を変更指定可能にする
 ** 作成日時 ≒ ID 
@@ -80,7 +75,10 @@ Title, Content, Focus
 ############################################################
 ! 0.1.7
 
+#############################
 !! notepad-app
+
+#* NotepadActivity#onDestroy() で NoteDBOptimizer を10回に1回くらい自動起動する
 
 #* ノート一覧のタイトルや本文の TextView にヒントを設定
 
@@ -94,7 +92,11 @@ Title, Content, Focus
 #**** note_template_detail_item.xml
 #**** NoteTemplateDetailActivity.java
 
+
+#############################
 !! notepad-app-level-11
+
+#* NotepadActivity#onDestroy() で NoteDBOptimizer を10回に1回くらい自動起動する
 
 #* ノート一覧のタイトルや本文の TextView にヒントを設定
 
@@ -108,7 +110,14 @@ Title, Content, Focus
 #**** note_template_detail_item.xml
 #**** NoteTemplateDetailActivity.java
 
+
+#############################
 !! notepad-common
+
+#* ノート用データベース最適化機能
+#** NoteDBOptimizer
+#** IntentService として実装
+#** vacuum して reindex
 
 #* NoteTemplate コンテントプロバイダになカラムを追加
 #** 名前

@@ -196,6 +196,31 @@ public class NotepadPreferenceUtils
 		return value;
 	}
 
+	public static int incrementQuitCount(Context context)
+	{
+		final String QUIT_COUNT_KEY = "QUIT_COUNT";
+		int quitCount;
+		Log.v(LOG_TAG, "Hello");
+
+		String preferenceName = context.getPackageName();
+		SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
+
+		// read
+		quitCount = sharedPreferences.getInt(QUIT_COUNT_KEY, 0);
+
+		// increment
+		quitCount++;
+
+		// update
+		Editor edit = sharedPreferences.edit();
+		edit.putInt(QUIT_COUNT_KEY, quitCount);
+		edit.commit();
+
+		Log.d(LOG_TAG, "quitCount => " + quitCount);
+		Log.v(LOG_TAG, "Bye");
+		return quitCount;
+	}
+
 	public static void reset(Context context)
 	{
 		String preferenceName = context.getPackageName() + "_preferences";
