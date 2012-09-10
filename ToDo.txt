@@ -28,7 +28,15 @@ Title, Content, Focus
 ** コピー
 ** 共有
 
+* NoteDetailActivity のリファクタリング
+
 * ノート表示画面のタイトルや本文のクリック処理で編集画面へ遷移
+
+* ノート用データベース最適化機能
+** IntentService として実装
+** vacuum して reindex
+** 設定画面から起動？
+** アプリケーション終了時にN回に1回くらい自動起動する？
 
 * ソート順を変更指定可能にする
 ** 作成日時 ≒ ID 
@@ -50,14 +58,13 @@ Title, Content, Focus
 !! notepad-common
 
 * NoteTemplate コンテントプロバイダになカラムを追加
-** 名前(以下のどちらか)
-*** check_same_title ?
-*** append_existing_note ?
+** 名前
+*** edit_same_title 
 ** 意味
 *** テンプレートからノートを作成する際に同じ名前のノートを検索してあればそれを
     編集しているが、その動作を制御する値。
-*** true => チェックする
-*** false => チェックせずに常に新規ノートを作成する
+*** true => 同じ名前のタイトルのノートを編集する
+*** false => タイトルをチェックせずに常に新規ノートを作成する
 ** 手順(notepad-common)
 *** NoteStore.NoteTemplate.Columns にて定数を追加
 *** NoteTemplate モデルクラスを修正
