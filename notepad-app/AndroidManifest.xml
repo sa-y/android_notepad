@@ -169,6 +169,10 @@
 			android:label="@string/about_app_title"
 		/>
 
+		<!-- Activity : Debug -->
+		<activity android:name=".debug.DebugFunctionActivity" />
+		<service android:name=".debug.DummyNoteCreateService" />
+
 		<!-- Service : data initialize service -->
 		<service android:name=".template.NoteTemplateInitializer" />
 

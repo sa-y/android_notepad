@@ -20,6 +20,9 @@ Title, Content, Focus
 #############################
 !! notepad-app
 
+* デバッグ用機能
+** データ大量作成機能
+
 * NoteDetailActivity のリファクタリング
 *** NoteDetailViewer
 *** NoteDetailEditor
