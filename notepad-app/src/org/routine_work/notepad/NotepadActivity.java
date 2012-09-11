@@ -133,14 +133,7 @@ public class NotepadActivity extends ListActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.notepad_activity);
 
-		int noteTemplateCount = NoteStore.getNoteTemplateCount(getContentResolver());
-		Log.d(LOG_TAG, "noteTemplateCount => " + noteTemplateCount);
-		if (noteTemplateCount == 0)
-		{
-			Log.d(LOG_TAG, "start NoteTemplateInitializer");
-			Intent noteTeplateInitializerIntent = new Intent(this, NoteTemplateInitializer.class);
-			startService(noteTeplateInitializerIntent);
-		}
+		initializeNoteTemplateData();
 
 		searchEditText = (EditText) findViewById(R.id.search_edittext);
 		searchEditText.addTextChangedListener(new SearchEditTextWatcher());
@@ -439,8 +432,8 @@ public class NotepadActivity extends ListActivity
 		switch (id)
 		{
 			case DIALOG_ID_NOTE_TEMPLATE_PICKER:
-//				dialog = getNoteTemplatePickerDialog();
-				dialog = new NoteTemplatePickerDialog(this);
+				dialog = getNoteTemplatePickerDialog();
+//				dialog = new NoteTemplatePickerDialog(this);
 				break;
 		}
 
@@ -736,6 +729,22 @@ public class NotepadActivity extends ListActivity
 			noteTemplatePickerDialog = new NoteTemplatePickerDialog(this);
 		}
 		return noteTemplatePickerDialog;
+	}
+
+	private void initializeNoteTemplateData()
+	{
+		if (NotepadPreferenceUtils.isTemplateDataInitialized(this) == false)
+		{
+			NotepadPreferenceUtils.setTemplateDataInitialized(this, true);
+			int noteTemplateCount = NoteStore.getNoteTemplateCount(getContentResolver());
+			Log.d(LOG_TAG, "noteTemplateCount => " + noteTemplateCount);
+			if (noteTemplateCount == 0)
+			{
+				Log.d(LOG_TAG, "start NoteTemplateInitializer");
+				Intent noteTeplateInitializerIntent = new Intent(this, NoteTemplateInitializer.class);
+				startService(noteTeplateInitializerIntent);
+			}
+		}
 	}
 
 	class SearchEditTextWatcher implements TextWatcher

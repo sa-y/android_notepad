@@ -39,6 +39,7 @@ public class NotepadPreferenceUtils
 {
 
 	private static final String LOG_TAG = "simple-notepad";
+	private static final String TEMPLATE_DATA_INITIALIZED_KEY = "TEMPLATE_DATA_INITIALIZED";
 
 	public static SharedPreferences getSharedPreferences(Context context)
 	{
@@ -189,6 +190,36 @@ public class NotepadPreferenceUtils
 		Log.d(LOG_TAG, "quitCount => " + quitCount);
 		Log.v(LOG_TAG, "Bye");
 		return quitCount;
+	}
+
+	public static boolean isTemplateDataInitialized(Context context)
+	{
+		boolean initialized;
+		Log.v(LOG_TAG, "Hello");
+
+		String preferenceName = context.getPackageName();
+		SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
+
+		initialized = sharedPreferences.getBoolean(TEMPLATE_DATA_INITIALIZED_KEY, false);
+
+		Log.d(LOG_TAG, "initialized => " + initialized);
+		Log.v(LOG_TAG, "Bye");
+		return initialized;
+	}
+
+	public static void setTemplateDataInitialized(Context context, boolean initialized)
+	{
+		Log.v(LOG_TAG, "Hello");
+		Log.d(LOG_TAG, "initialized => " + initialized);
+
+		String preferenceName = context.getPackageName();
+		SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
+
+		Editor edit = sharedPreferences.edit();
+		edit.putBoolean(TEMPLATE_DATA_INITIALIZED_KEY, initialized);
+		edit.commit();
+
+		Log.v(LOG_TAG, "Bye");
 	}
 
 	public static void reset(Context context)

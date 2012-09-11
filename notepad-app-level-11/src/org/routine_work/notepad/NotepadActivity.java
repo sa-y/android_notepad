@@ -115,14 +115,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.notepad_activity);
 
-		int noteTemplateCount = NoteStore.getNoteTemplateCount(getContentResolver());
-		Log.d(LOG_TAG, "noteTemplateCount => " + noteTemplateCount);
-		if (noteTemplateCount == 0)
-		{
-			Log.d(LOG_TAG, "start NoteTemplateInitializer");
-			Intent noteTeplateInitializerIntent = new Intent(this, NoteTemplateInitializer.class);
-			startService(noteTeplateInitializerIntent);
-		}
+		initializeNoteTemplateData();
 
 		Resources resources = getResources();
 		layoutSinglePaneValue = resources.getString(R.string.note_list_layout_single_value);
@@ -671,5 +664,21 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		startActivity(intent);
 
 		Log.v(LOG_TAG, "Bye");
+	}
+
+	private void initializeNoteTemplateData()
+	{
+		if (NotepadPreferenceUtils.isTemplateDataInitialized(this) == false)
+		{
+			NotepadPreferenceUtils.setTemplateDataInitialized(this, true);
+			int noteTemplateCount = NoteStore.getNoteTemplateCount(getContentResolver());
+			Log.d(LOG_TAG, "noteTemplateCount => " + noteTemplateCount);
+			if (noteTemplateCount == 0)
+			{
+				Log.d(LOG_TAG, "start NoteTemplateInitializer");
+				Intent noteTeplateInitializerIntent = new Intent(this, NoteTemplateInitializer.class);
+				startService(noteTeplateInitializerIntent);
+			}
+		}
 	}
 }
