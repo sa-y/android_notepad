@@ -2,6 +2,6 @@
 <!-- This file is made every screen size -->
 <resources>
 	<!-- Note List Item Content Text Lines -->
-	<string name="note_list_item_content_lines_port_default_value">3</string>
+	<string name="note_list_item_content_lines_port_default_value">2</string>
 	<string name="note_list_item_content_lines_land_default_value">2</string>
 </resources>
