@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- notepad-app-level-11 -->
+<resources>
+	<string name="app_name">Notepad</string>
+
+	<string name="quit">終了</string>
+	<string name="save">保存</string>
+	<string name="no_data">データがありません</string>
+
+	<string name="note">ノート</string>
+	<string name="no_note">ノートがありません</string>
+	<string name="title">タイトル</string>
+	<string name="text">本文</string>
+	<string name="name">名前</string>
+
+	<string name="lock">ロック</string>
+	<string name="unlock">アンロック</string>
+	<string name="lock_title">タイトルをロック</string>
+	<string name="unlock_title">タイトルをアンロック</string>
+	<string name="lock_title_confirm">タイトルは編集できなくなります。よろしいですか？</string>
+	<string name="unlock_title_confirm">タイトルは編集可能になります。よろしいですか？</string>
+
+	<string name="note_template">ノートのテンプレート</string>
+	<string name="no_note_template">ノートのテンプレートがありません</string>
+	<string name="template_name">テンプレート名</string>
+	<string name="title_template">タイトルのテンプレート</string>
+	<string name="text_template">本文のテンプレート</string>
+	<string name="title_lock">タイトルロック</string>
+	<string name="edit_same_title">タイトルが同じものを編集</string>
+
+	<string name="note_not_exist">指定されたノートは存在しません。</string>
+	<string name="note_not_specified">ノートが指定されていません。</string>
+
+	<string name="search_note_label">Notepad</string>
+	<string name="search_note_hint">ノートを検索</string>
+	<string name="search_note_description">ノートを検索します。</string>
+
+	<!-- activity title -->
+	<string name="note_list_title">ノート一覧</string>
+	<string name="view_note_title">ノートを表示</string>
+	<string name="edit_note_title">ノートを編集</string>
+	<string name="add_new_note_title">新規ノート作成</string>
+	<string name="delete_note_title">ノートを削除</string>
+	<string name="delete_notes_title">ノートを削除</string>
+	<string name="select_note_title">ノートを選択</string>
+
+	<string name="note_template_list_title">テンプレート一覧</string>
+	<string name="edit_note_template_title">テンプレートを編集</string>
+	<string name="add_new_note_template_title">新規テンプレート作成</string>
+	<string name="select_note_template_title">テンプレートを選択</string>
+
+	<string name="new_from_template_title">テンプレートから新規作成</string>
+
+	<!-- menu item label -->
+	<string name="new_note">新規</string>
+	<string name="edit_note">編集</string>
+	<string name="delete_note">削除</string>
+	<string name="share_note">共有</string>
+	<string name="delete_notes">ノートを削除</string>
+	<string name="search_note">検索</string>
+
+	<string name="templates">テンプレート</string>
+	<string name="edit_note_template">編集</string>
+	<string name="delete_note_template">削除</string>
+
+	<!-- create note shortcut -->
+	<string name="new_shortcut_title">新規ショートカット作成</string>
+	<string name="shortcut_name">ショートカット名</string>
+</resources>

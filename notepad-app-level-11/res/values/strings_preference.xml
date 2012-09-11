@@ -15,9 +15,7 @@
 	<!-- Layout Category -->
 	<string name="layout_category_title">Layout</string>
 	<!-- Layout : Note List -->
-	<string name="note_list_layout_port">Note List Layout in Portrait</string>
 	<string name="note_list_layout_port_title">Note List Layout in Portrait</string>
-	<string name="note_list_layout_land">Note List Layout in Landscape</string>
 	<string name="note_list_layout_land_title">Note List Layout in Landscape</string>
 	<string name="single_pane">Single Pane</string>
 	<string name="wide_two_pane">Two Pane</string>

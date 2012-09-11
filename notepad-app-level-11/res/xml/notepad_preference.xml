@@ -16,7 +16,7 @@
 		<ListPreference
 			android:key="@string/note_list_layout_port_key"
 			android:defaultValue="@string/note_list_layout_port_default_value"
-			android:title="@string/note_list_layout_port"
+			android:title="@string/note_list_layout_port_title"
 			android:dialogTitle="@string/note_list_layout_port_title"
 			android:entries="@array/note_list_layout_entries"
 			android:entryValues="@array/note_list_layout_values"
@@ -24,7 +24,7 @@
 		<ListPreference
 			android:key="@string/note_list_layout_land_key"
 			android:defaultValue="@string/note_list_layout_land_default_value"
-			android:title="@string/note_list_layout_land"
+			android:title="@string/note_list_layout_land_title"
 			android:dialogTitle="@string/note_list_layout_land_title"
 			android:entries="@array/note_list_layout_entries"
 			android:entryValues="@array/note_list_layout_values"

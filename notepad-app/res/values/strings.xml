@@ -17,8 +17,6 @@
 
 	<string name="lock">Lock</string>
 	<string name="unlock">Unlock</string>
-	<string name="locked">Locked</string>
-	<string name="unlocked">Unlocked</string>
 	<string name="lock_title">Lock Title</string>
 	<string name="unlock_title">Unlock Title</string>
 	<string name="lock_title_confirm">The editing of this title becomes impossible. Are you all right?</string>
@@ -37,9 +35,7 @@
 
 	<string name="search_note_label">Notepad</string>
 	<string name="search_note_hint">Search note</string>
-	<string name="search_note_description">search_note_description</string>
-
-	<string name="daily_note">Daily Note</string>
+	<string name="search_note_description">Search note</string>
 
 	<!-- activity title -->
 	<string name="note_list_title">Note List</string>
@@ -72,7 +68,7 @@
 	<string name="delete_note_template">Delete</string>
 
 	<!-- create note shortcut -->
-	<string name="new_shortcut">New Shortcut</string>
+	<string name="new_shortcut_title">New Shortcut</string>
 	<string name="shortcut_name">Shortcut Name</string>
 
 </resources>

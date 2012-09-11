@@ -9,7 +9,7 @@
 		<TextView
 			style="@style/actionbar_title" 
 			android:id="@+id/title_textview"
-			android:text="@string/new_shortcut"
+			android:text="@string/new_shortcut_title"
 		/>
 	</LinearLayout>
 

@@ -1,9 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-<!--
 	<string name="preferences">設定</string>
 	<string name="preferences_title">設定</string>
--->
+
+	<!-- Theme Category -->
+	<string name="theme_category_title">テーマ</string>
+	<string name="notepad_theme">Notepad テーマ</string>
+	<string name="notepad_theme_title">Notepad テーマ</string>
+	<string name="dark_theme">暗いテーマ</string>
+	<string name="light_theme">明るいテーマ</string>
+
+	<!-- ActionBar Category -->
+	<string name="actionbar_category_title">アクションバー</string>
+	<!-- ActionBar : Auto Hide -->
+	<string name="actionbar_auto_hide_port_title">自動非表示（縦画面）</string>
+	<string name="actionbar_auto_hide_land_title">自動非表示（横画面）</string>
+	<string name="actionbar_auto_hide_summary_on">ノート編集時にアクションバーが自動的に非表示になります。</string>
+	<string name="actionbar_auto_hide_summary_off">ノート編集時にアクションバーが常に表示されます。</string>
+
+	<!-- Note List Category -->
+	<string name="note_list_category_title">ノート一覧</string>
+	<!-- Note List : Content Text Lines -->
+	<string name="note_list_item_content_lines_port_title">本文の行数（縦画面）</string>
+	<string name="note_list_item_content_lines_land_title">本文の行数（横画面）</string>
+	<string name="note_list_item_content_lines_summary">%1$s 行</string>
+
+	<!-- Etc Category -->
+	<string name="etc">その他</string>
+	<!-- Initialize Preferences -->
+	<string name="initialize_preference">設定を初期化</string>
+	<string name="initialize_preference_title">設定を初期化</string>
+	<string name="initialize_preference_summary">すべての設定値を初期化します。</string>
+	<string name="initialize_preference_confirm_message">すべての設定は規定の値に初期化されます。</string>
 
 </resources>
