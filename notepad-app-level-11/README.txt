@@ -33,7 +33,7 @@ Set up profile in ~/.m2/settings.xml
 >
 	<profiles>
 		<profile>
-			<id>android-hello</id>
+			<id>android-release</id>
 			<properties>
 				<sign.keystore>some/keystore/path/hello.keystore</sign.keystore>
 				<sign.storepass>hello.keystore.pass</sign.storepass>
