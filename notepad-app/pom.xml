@@ -65,7 +65,6 @@
 					</sdk>
 					<proguard>
 						<skip>true</skip>
-						<config>proguard.conf</config>
 					</proguard>
 					<extractDuplicates>true</extractDuplicates>
 				</configuration>
@@ -192,11 +191,6 @@
 							<proguard>
 								<skip>false</skip>
 								<config>proguard.cfg</config>
-								<!--
-								<config>proguard.cfg</config>
-								<config>proguard-android.txt</config>
-								<config>${env.ANDROID_HOME}/tools/proguard/proguard-android.txt</config>
-								-->
 							</proguard>
 						</configuration>
 					</plugin>
