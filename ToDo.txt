@@ -20,7 +20,10 @@ Title, Content, Focus
 #############################
 !! notepad-app
 
+* ノート一覧の ListView でファーストスクロールを有効化
+
 * デバッグ用機能
+** デバッグ用画面を設定画面内に作成
 ** データ大量作成機能
 
 * NoteDetailActivity のリファクタリング

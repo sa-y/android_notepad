@@ -44,7 +44,7 @@ public class DebugFunctionActivity extends ListActivity
 	private static final int ITEM_ID_CREATE_NOTES = 0;
 	private static final String[] FUNCTION_NAMES =
 	{
-		"Create Notes",
+		"Create Dummy Notes",
 	};
 
 	@Override

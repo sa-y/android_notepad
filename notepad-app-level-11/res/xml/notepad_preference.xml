@@ -93,19 +93,19 @@
 	</PreferenceCategory>
 
 
+	<PreferenceCategory android:title="Debug" >
+		<PreferenceScreen
+			android:title="Debug"
+			android:summary="Debug functions"
+		>
+			<intent
+				android:action="android.intent.action.MAIN"
+				android:targetPackage="org.routine_work.notepad"
+				android:targetClass="org.routine_work.notepad.debug.DebugFunctionActivity"
+			/>
+		</PreferenceScreen>
+	</PreferenceCategory>
 	<!--
-		<PreferenceCategory android:title="Debug" >
-			<PreferenceScreen
-		   android:title="Debug"
-		   android:summary="Debug functions"
-			>
-				<intent
-					android:action="android.intent.action.MAIN"
-					android:targetPackage="org.routine_work.android.battery_logger"
-					android:targetClass="org.routine_work.android.battery_logger.DebugActivity"
-				/>
-			</PreferenceScreen>
-		</PreferenceCategory>
 	-->
 
 </PreferenceScreen>
