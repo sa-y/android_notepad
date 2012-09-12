@@ -24,12 +24,17 @@
 package org.routine_work.notepad.debug;
 
 import android.app.ListActivity;
-import android.content.Intent;
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 import org.routine_work.notepad.R;
+import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
+import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.utils.Log;
 
 /**
@@ -51,6 +56,7 @@ public class DebugFunctionActivity extends ListActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		Log.v(LOG_TAG, "Hello");
+		setTheme(NotepadPreferenceUtils.getTheme(this));
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.simple_list);
@@ -81,9 +87,64 @@ public class DebugFunctionActivity extends ListActivity
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		Intent serviceIntent = new Intent(this, DummyNoteCreateService.class);
-		startService(serviceIntent);
+		TestNoteDataCreationTask task = new TestNoteDataCreationTask();
+		task.execute();
 
 		Log.v(LOG_TAG, "Bye");
+	}
+
+	class TestNoteDataCreationTask extends AsyncTask<Void, Void, Boolean>
+	{
+
+		private static final int DATA_COUNT = 100;
+
+		@Override
+		protected Boolean doInBackground(Void... arg0)
+		{
+			Boolean result = Boolean.FALSE;
+
+			try
+			{
+				ContentResolver contentResolver = getContentResolver();
+				ContentValues values = new ContentValues();
+
+				for (int i = 0; i < DATA_COUNT; i++)
+				{
+					String title = String.format("Title : %08d", i);
+					String content = String.format("Text : %08d", i);
+					boolean titleLocked = (i % 3) == 0;
+					long now = System.currentTimeMillis();
+					values.clear();
+					values.put(NoteStore.Note.Columns.TITLE, title);
+					values.put(NoteStore.Note.Columns.CONTENT, content);
+					values.put(NoteStore.Note.Columns.TITLE_LOCKED, titleLocked);
+					values.put(NoteStore.Note.Columns.DATE_ADDED, now);
+					values.put(NoteStore.Note.Columns.DATE_MODIFIED, now);
+					contentResolver.insert(NoteStore.Note.CONTENT_URI, values);
+				}
+				result = Boolean.TRUE;
+			}
+			catch (Exception e)
+			{
+				Log.e(LOG_TAG, "The test note data creation failed.", e);
+			}
+
+			return result;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result)
+		{
+			String message;
+			if (result.booleanValue())
+			{
+				message = "The test note data were created.";
+			}
+			else
+			{
+				message = "The test note data creation failed.";
+			}
+			Toast.makeText(DebugFunctionActivity.this, message, Toast.LENGTH_SHORT).show();
+		}
 	}
 }
