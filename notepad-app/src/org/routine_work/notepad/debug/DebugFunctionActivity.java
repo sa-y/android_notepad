@@ -47,17 +47,19 @@ public class DebugFunctionActivity extends ListActivity
 
 	private static final String LOG_TAG = "simple-notepad";
 	private static final int ITEM_ID_CREATE_NOTES = 0;
+	private static final int ITEM_ID_DELETE_ALL_NOTES = 1;
 	private static final String[] FUNCTION_NAMES =
 	{
-		"Create Notes",
+		"Create Test Notes",
+		"Delete All Notes",
 	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		Log.v(LOG_TAG, "Hello");
-		setTheme(NotepadPreferenceUtils.getTheme(this));
 
+		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.simple_list);
 
@@ -78,22 +80,18 @@ public class DebugFunctionActivity extends ListActivity
 		{
 			case ITEM_ID_CREATE_NOTES:
 				Log.d(LOG_TAG, "ITEM_ID_CREATE_NOTES is clicked.");
-				startDummyNoteCreateService();
+				DebugFunctionActivity.CreateTestNoteTask createTestNoteTask = new DebugFunctionActivity.CreateTestNoteTask();
+				createTestNoteTask.execute();
+				break;
+			case ITEM_ID_DELETE_ALL_NOTES:
+				Log.d(LOG_TAG, "ITEM_ID_DELETE_ALL_NOTES is clicked.");
+				DebugFunctionActivity.DeleteAllNotesTask deleteAllNotesTask = new DebugFunctionActivity.DeleteAllNotesTask();
+				deleteAllNotesTask.execute();
 				break;
 		}
 	}
 
-	private void startDummyNoteCreateService()
-	{
-		Log.v(LOG_TAG, "Hello");
-
-		TestNoteDataCreationTask task = new TestNoteDataCreationTask();
-		task.execute();
-
-		Log.v(LOG_TAG, "Bye");
-	}
-
-	class TestNoteDataCreationTask extends AsyncTask<Void, Void, Boolean>
+	class CreateTestNoteTask extends AsyncTask<Void, Void, Boolean>
 	{
 
 		private static final int DATA_COUNT = 100;
@@ -133,6 +131,12 @@ public class DebugFunctionActivity extends ListActivity
 		}
 
 		@Override
+		protected void onPreExecute()
+		{
+			Toast.makeText(DebugFunctionActivity.this, "The test data creation was started.", Toast.LENGTH_SHORT).show();
+		}
+
+		@Override
 		protected void onPostExecute(Boolean result)
 		{
 			String message;
@@ -142,7 +146,51 @@ public class DebugFunctionActivity extends ListActivity
 			}
 			else
 			{
-				message = "The test note data creation failed.";
+				message = "The test data creation failed.";
+			}
+			Toast.makeText(DebugFunctionActivity.this, message, Toast.LENGTH_SHORT).show();
+		}
+	}
+
+	class DeleteAllNotesTask extends AsyncTask<Void, Void, Boolean>
+	{
+
+		@Override
+		protected Boolean doInBackground(Void... arg0)
+		{
+			Boolean result = Boolean.FALSE;
+
+			try
+			{
+				ContentResolver contentResolver = getContentResolver();
+				contentResolver.delete(NoteStore.Note.CONTENT_URI, null, null);
+				result = Boolean.TRUE;
+			}
+			catch (Exception e)
+			{
+				Log.e(LOG_TAG, "The deletion of data failed.", e);
+			}
+
+			return result;
+		}
+
+		@Override
+		protected void onPreExecute()
+		{
+			Toast.makeText(DebugFunctionActivity.this, "The deletion of data was started.", Toast.LENGTH_SHORT).show();
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result)
+		{
+			String message;
+			if (result.booleanValue())
+			{
+				message = "All data were deleted.";
+			}
+			else
+			{
+				message = "The deletion of data failed.";
 			}
 			Toast.makeText(DebugFunctionActivity.this, message, Toast.LENGTH_SHORT).show();
 		}
