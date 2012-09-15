@@ -73,7 +73,7 @@
 		</PreferenceScreen>
 	</PreferenceCategory>
 
-
+	<!--
 	<PreferenceCategory android:title="Debug" >
 		<PreferenceScreen
 			android:title="Debug"
@@ -86,7 +86,6 @@
 			/>
 		</PreferenceScreen>
 	</PreferenceCategory>
-	<!--
 	-->
 
 </PreferenceScreen>
