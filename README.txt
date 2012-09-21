@@ -6,10 +6,14 @@ The following functions are supported.
 * Add new note from template
 * Searching note
 * Creating the shortcut to a note
-* Hardware keyboard support
 
+This software has the following features.
+* Hardware keyboard operation
+* No advertisement
+* Open source
 
 !! Build Targets
+
 
 http://maven-android-plugin-m2site.googlecode.com/svn/plugin-info.html
 
