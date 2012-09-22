@@ -1,62 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	style="@style/body"
 	android:id="@+id/note_edit_container"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
-	android:orientation="vertical"
+	android:fillViewport="true"
+	style="@style/body"
 >
-	<FrameLayout
+	<LinearLayout
 		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_weight="0"
+		android:layout_height="fill_parent"
+		android:orientation="vertical"
 	>
-		<EditText
-			android:id="@+id/note_title_edittext"
+		<FrameLayout
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:layout_weight="0"
-			android:layout_gravity="bottom"
-			android:paddingRight="44dip"
-			android:lines="1"
-			android:inputType="text"
-			android:hint="@string/title"
+		>
+			<EditText
+				android:id="@+id/note_title_edittext"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_weight="0"
+				android:layout_gravity="bottom"
+				android:paddingRight="44dip"
+				android:lines="1"
+				android:inputType="text"
+				android:hint="@string/title"
 		/>
-		<ImageButton
-			android:id="@+id/note_title_lock_button"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_weight="0"
-			android:layout_gravity="right|center_vertical"
-			android:layout_margin="4dip"
-			android:padding="4dip"
-			android:src="?attr/ic_unlock"
-			android:background="@drawable/actionbar_button_bg"
-			android:visibility="visible"
+			<ImageButton
+				android:id="@+id/note_title_lock_button"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="0"
+				android:layout_gravity="right|center_vertical"
+				android:layout_margin="4dip"
+				android:padding="4dip"
+				android:src="?attr/ic_unlock"
+				android:background="@drawable/actionbar_button_bg"
+				android:visibility="visible"
 		/>
-		<ImageButton
-			android:id="@+id/note_title_unlock_button"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_weight="0"
-			android:layout_gravity="right|center_vertical"
-			android:layout_margin="4dip"
-			android:padding="4dip"
-			android:src="?attr/ic_lock"
-			android:background="@drawable/actionbar_button_bg"
-			android:visibility="gone"
-		/>
-	</FrameLayout>
+			<ImageButton
+				android:id="@+id/note_title_unlock_button"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="0"
+				android:layout_gravity="right|center_vertical"
+				android:layout_margin="4dip"
+				android:padding="4dip"
+				android:src="?attr/ic_lock"
+				android:background="@drawable/actionbar_button_bg"
+				android:visibility="gone"
+			/>
+		</FrameLayout>
 
-	<EditText
-		android:id="@+id/note_content_edittext"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_weight="1"
-		android:minLines="2"
-		android:inputType="textMultiLine"
-		android:gravity="left|top"
-		android:hint="@string/text"
-	/>
-</LinearLayout>
+		<EditText
+			android:id="@+id/note_content_edittext"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:minLines="2"
+			android:inputType="textMultiLine"
+			android:gravity="left|top"
+			android:hint="@string/text"
+		/>
+	</LinearLayout>
+</ScrollView>
