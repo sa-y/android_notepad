@@ -30,6 +30,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -118,14 +119,7 @@ public class NoteDetailActivity extends Activity
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		FragmentManager fm = getFragmentManager();
-		Fragment noteDetailFragment = fm.findFragmentByTag(FT_NOTE_EDIT);
-		if (noteDetailFragment instanceof EditNoteFragment)
-		{
-			Log.d(LOG_TAG, "EditNoteFragment is already exist.");
-			EditNoteFragment editNoteFragment = (EditNoteFragment) noteDetailFragment;
-			editNoteFragment.saveNote();
-		}
+		saveNote();
 		super.onPause();
 
 		Log.v(LOG_TAG, "Bye");
@@ -197,21 +191,28 @@ public class NoteDetailActivity extends Activity
 
 		FragmentManager fm = getFragmentManager();
 
+		Uri newNoteUri = null;
 		String nextAction = null;
 		if (savedInstanceState != null)
 		{
 			nextAction = savedInstanceState.getString(SAVE_KEY_CURRENT_ACTION);
 			Log.d(LOG_TAG, "init action from savedInstanceState => " + nextAction);
 		}
+
 		if (nextAction == null)
 		{
 			nextAction = intent.getAction();
 			Log.d(LOG_TAG, "init action from Intent => " + nextAction);
 		}
-		Log.d(LOG_TAG, "nextAction => " + nextAction);
 
-		Uri data = intent.getData();
-		Log.d(LOG_TAG, "intent.data => " + data);
+		if (newNoteUri == null)
+		{
+			newNoteUri = intent.getData();
+			Log.d(LOG_TAG, "init newNoteUri from Intent => " + newNoteUri);
+		}
+
+		Log.d(LOG_TAG, "nextAction => " + nextAction);
+		Log.d(LOG_TAG, "newNoteUri => " + newNoteUri);
 
 		if (Intent.ACTION_INSERT.equals(nextAction)
 			|| Intent.ACTION_EDIT.equals(nextAction)
@@ -255,14 +256,18 @@ public class NoteDetailActivity extends Activity
 				|| Intent.ACTION_VIEW.equals(nextAction))
 			{
 				Log.d(LOG_TAG, "Edit note.");
-				Uri nextNoteUri = data;
-				Log.d(LOG_TAG, "Edit nextNoteUri => " + nextNoteUri);
-
-				if (NoteStore.isNoteItemUri(this, nextNoteUri))
+				Log.d(LOG_TAG, "Edit newNoteUri => " + newNoteUri);
+				Uri editNoteUri = editNoteFragment.getNoteUri();
+				if (editNoteUri == null)
 				{
-					if (NoteStore.exist(getContentResolver(), nextNoteUri))
+					editNoteUri = newNoteUri;
+				}
+
+				if (NoteStore.isNoteItemUri(this, editNoteUri))
+				{
+					if (NoteStore.exist(getContentResolver(), editNoteUri))
 					{
-						editNoteFragment.setNoteUri(nextNoteUri);
+						editNoteFragment.setNoteUri(editNoteUri);
 					}
 					else
 					{
@@ -303,33 +308,43 @@ public class NoteDetailActivity extends Activity
 				ft.commit();
 			}
 
-			Uri nextNoteUri = deleteNoteFragment.getNoteUri();
-			if (nextNoteUri == null)
-			{
-				nextNoteUri = data;
-			}
-			Log.d(LOG_TAG, "Delete nextNoteUri => " + nextNoteUri);
+			Log.d(LOG_TAG, "Delete newNoteUri => " + newNoteUri);
 
-			if (NoteStore.isNoteItemUri(this, nextNoteUri) == false)
+			if (NoteStore.isNoteItemUri(this, newNoteUri) == false)
 			{
 				Toast.makeText(this, R.string.note_not_specified, Toast.LENGTH_LONG).show();
 				finish();
 				return;
 			}
 
-			if (NoteStore.exist(getContentResolver(), nextNoteUri) == false)
+			if (NoteStore.exist(getContentResolver(), newNoteUri) == false)
 			{
 				Toast.makeText(this, R.string.note_not_exist, Toast.LENGTH_LONG).show();
 				finish();
 				return;
 			}
 
-			deleteNoteFragment.setNoteUri(nextNoteUri);
+			deleteNoteFragment.setNoteUri(newNoteUri);
 			setTitle(R.string.delete_note_title);
 		}
 		currentAction = nextAction;
 		Log.d(LOG_TAG, "currentAction => " + currentAction);
 
 		Log.v(LOG_TAG, "Bye");
+	}
+
+	private void saveNote()
+	{
+		if (Intent.ACTION_EDIT.equals(currentAction))
+		{
+			FragmentManager fm = getFragmentManager();
+			Fragment noteDetailFragment = fm.findFragmentByTag(FT_NOTE_EDIT);
+			if (noteDetailFragment instanceof EditNoteFragment)
+			{
+				Log.d(LOG_TAG, "EditNoteFragment is already exist.");
+				EditNoteFragment editNoteFragment = (EditNoteFragment) noteDetailFragment;
+				editNoteFragment.saveNote();
+			}
+		}
 	}
 }
