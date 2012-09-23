@@ -20,9 +20,6 @@ Title, Content, Focus
 #############################
 !! notepad-app
 
-* ノート編集画面の EditText でスクロールバーが出ない
-** ScrollView にタイトルと本文のものを入れる?
-
 * NoteDetailActivity のリファクタリング
 *** NoteDetailViewer
 *** NoteDetailEditor
@@ -45,9 +42,6 @@ Title, Content, Focus
 
 #############################
 !! notepad-app-level-11
-
-* ノート編集画面の EditText でスクロールバーが出ない
-** ScrollView にタイトルと本文のものを入れる?
 
 * ノート編集中に新規作成後に回転すると編集内容が前に
   編集していたものになってしまうバグ
@@ -74,6 +68,25 @@ Title, Content, Focus
 *** ContentProvider 側の処理を実装
 *** NoteSearchQueryParser にパース機能を実装
 *** NoteSearchQueryParser を利用するコードの修正
+
+############################################################
+! 1.0.2
+
+------------------------------
+!! notepad-app
+
+* ノート編集画面の EditText でスクロールバーが出ない
+** ScrollView にタイトルと本文のものを入れた
+
+------------------------------
+!! notepad-app-level-11
+
+* ノート編集画面の EditText でスクロールバーが出ない
+** ScrollView にタイトルと本文のものを入れた
+
+
+------------------------------
+!! notepad-common
 
 
 ############################################################
