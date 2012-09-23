@@ -119,7 +119,7 @@ public class NoteDetailActivity extends Activity
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		saveNote();
+		saveEditingNote();
 		super.onPause();
 
 		Log.v(LOG_TAG, "Bye");
@@ -333,7 +333,7 @@ public class NoteDetailActivity extends Activity
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void saveNote()
+	private void saveEditingNote()
 	{
 		if (Intent.ACTION_EDIT.equals(currentAction))
 		{

@@ -20,6 +20,8 @@ Title, Content, Focus
 #############################
 !! notepad-app
 
+* テンプレートから新規作成して回転した際に未編集でも保存されてしまうバグ
+
 * NoteDetailActivity のリファクタリング
 *** NoteDetailViewer
 *** NoteDetailEditor
@@ -43,6 +45,7 @@ Title, Content, Focus
 #############################
 !! notepad-app-level-11
 
+* テンプレートから新規作成して回転した際に未編集でも保存されてしまうバグ
 
 * アクションバー自動非表示時にジェスチャーで表示できるようにする
 
