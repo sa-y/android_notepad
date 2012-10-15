@@ -65,6 +65,7 @@ public class NoteDetailActivity extends Activity
 	private static final String SAVE_KEY_CURRENT_NOTE_URI = "currentNoteUri";
 	private static final String SAVE_KEY_CURRENT_ACTION = "currentAction";
 	private static final String SAVE_KEY_CURRENT_NOTE = "currentNote";
+	private static final String SAVE_KEY_ORIGINAL_NOTE = "originalNote";
 	private static final int DIALOG_ID_LOCK = 0;
 	private static final int DIALOG_ID_UNLOCK = 1;
 	private static final int DIALOG_ID_NOTE_TEMPLATE_PICKER = 2;
@@ -89,7 +90,7 @@ public class NoteDetailActivity extends Activity
 	private Dialog lockDialog;
 	private Dialog unlockDialog;
 	private NoteTemplatePickerDialog noteTemplatePickerDialog;
-	// data
+	// model data
 	private String currentAction;
 	private Uri currentNoteUri;
 	private final Note currentNote = new Note();
@@ -162,10 +163,10 @@ public class NoteDetailActivity extends Activity
 	{
 		Log.v(LOG_TAG, "Hello");
 		super.onSaveInstanceState(outState);
-		saveNote();
 		outState.putString(SAVE_KEY_CURRENT_ACTION, currentAction);
 		outState.putParcelable(SAVE_KEY_CURRENT_NOTE_URI, currentNoteUri);
 		outState.putSerializable(SAVE_KEY_CURRENT_NOTE, currentNote);
+		outState.putSerializable(SAVE_KEY_ORIGINAL_NOTE, originalNote);
 		Log.v(LOG_TAG, "Bye");
 	}
 
@@ -541,199 +542,196 @@ public class NoteDetailActivity extends Activity
 		homeImageButton.requestFocus();
 
 		// load saved instance
-		String newAction = null;
-		Uri newNoteUri = null;
 		Log.d(LOG_TAG, "savedInstanceState => " + savedInstanceState);
 		if (savedInstanceState != null)
 		{
+			Log.d(LOG_TAG, "restore model data from savedInstanceState");
 			// load currentAction
-			newAction = savedInstanceState.getString(SAVE_KEY_CURRENT_ACTION);
-			Log.d(LOG_TAG, "SAVE_KEY_CURRENT_ACTION => " + savedInstanceState.getString(SAVE_KEY_CURRENT_ACTION));
+			currentAction = savedInstanceState.getString(SAVE_KEY_CURRENT_ACTION);
 
 			// load currentNoteUri
 			Parcelable noteUriObj = savedInstanceState.getParcelable(SAVE_KEY_CURRENT_NOTE_URI);
-			Log.d(LOG_TAG, "SAVE_KEY_NOTE_URI => " + noteUriObj);
 			if (noteUriObj instanceof Uri)
 			{
-				newNoteUri = (Uri) noteUriObj;
-				Log.d(LOG_TAG, "newNoteUri => " + newNoteUri);
+				currentNoteUri = (Uri) noteUriObj;
 			}
 
 			// load currentNote
 			Object currentNoteObj = savedInstanceState.getSerializable(SAVE_KEY_CURRENT_NOTE);
-			Log.d(LOG_TAG, "SAVE_KEY_NOTE => " + currentNoteObj);
 			if (currentNoteObj instanceof Note)
 			{
-				Note note = (Note) currentNoteObj;
-				currentNote.copyFrom(note);
-				Log.d(LOG_TAG, "currentNote => " + currentNoteUri);
+				currentNote.copyFrom((Note) currentNoteObj);
+			}
+
+			// load originalNote
+			Object originalNoteObj = savedInstanceState.getSerializable(SAVE_KEY_ORIGINAL_NOTE);
+			if (originalNoteObj instanceof Note)
+			{
+				originalNote.copyFrom((Note) originalNoteObj);
 			}
 		}
-
-		if (newAction == null)
+		else
 		{
+
 			Log.d(LOG_TAG, "intent.action => " + intent.getAction());
-			newAction = intent.getAction();
+			String newAction = intent.getAction();
 			if (newAction == null)
 			{
 				newAction = Intent.ACTION_EDIT;
 			}
-		}
 
-		if (newNoteUri == null)
-		{
 			Log.d(LOG_TAG, "intent.data => " + intent.getData());
-			newNoteUri = intent.getData();
+			Uri newNoteUri = intent.getData();
 			if (newNoteUri == null)
 			{
 				newNoteUri = currentNoteUri;
 			}
-		}
 
-		Log.d(LOG_TAG, "newAction => " + newAction);
-		Log.d(LOG_TAG, "newNoteUri => " + newNoteUri);
+			Log.d(LOG_TAG, "newAction => " + newAction);
+			Log.d(LOG_TAG, "newNoteUri => " + newNoteUri);
 
-		if (Intent.ACTION_INSERT.equals(newAction))
-		{
-			Log.d(LOG_TAG, "ACTION_INSERT");
-			currentNoteUri = NoteStore.Note.CONTENT_URI;
-			currentNote.setTitle("");
-			currentNote.setContent("");
-			currentNote.setTitleLocked(false);
-
-			// init default text
-			String extraTitle = intent.getStringExtra(EXTRA_TITLE);
-			Log.d(LOG_TAG, "EXTRA_TITLE => " + extraTitle);
-			if (extraTitle != null)
+			if (Intent.ACTION_INSERT.equals(newAction))
 			{
-				currentNote.setTitle(extraTitle);
-			}
+				Log.d(LOG_TAG, "ACTION_INSERT");
+				currentNoteUri = NoteStore.Note.CONTENT_URI;
+				currentNote.setTitle("");
+				currentNote.setContent("");
+				currentNote.setTitleLocked(false);
 
-			String extraText = intent.getStringExtra(EXTRA_TEXT);
-			Log.d(LOG_TAG, "EXTRA_TEXT => " + extraText);
-			if (extraText != null)
-			{
-				currentNote.setContent(extraText);
-			}
-
-			boolean extraTitleLocked = intent.getBooleanExtra(EXTRA_TITLE_LOCKED, false);
-			Log.d(LOG_TAG, "EXTRA_TITLE_LOCKED => " + extraTitleLocked);
-			currentNote.setTitleLocked(extraTitleLocked);
-
-			setTitle(R.string.add_new_note_title);
-			updateFocusedEditText();
-
-			addNewNoteImageButton.setVisibility(View.VISIBLE);
-			editNoteImageButton.setVisibility(View.GONE);
-			deleteNoteImageButton.setVisibility(View.GONE);
-
-			noteEditContainer.setVisibility(View.VISIBLE);
-			noteViewContainer.setVisibility(View.GONE);
-
-			newAction = Intent.ACTION_EDIT;
-		}
-		else if (Intent.ACTION_EDIT.equals(newAction))
-		{
-			Log.d(LOG_TAG, "ACTION_EDIT");
-			if (NoteStore.isNoteItemUri(this, newNoteUri))
-			{
-				if (NoteStore.exist(getContentResolver(), newNoteUri))
+				// init default text
+				String extraTitle = intent.getStringExtra(EXTRA_TITLE);
+				Log.d(LOG_TAG, "EXTRA_TITLE => " + extraTitle);
+				if (extraTitle != null)
 				{
-					currentNoteUri = newNoteUri;
-					loadNoteFromContentProvider();
+					currentNote.setTitle(extraTitle);
+				}
+
+				String extraText = intent.getStringExtra(EXTRA_TEXT);
+				Log.d(LOG_TAG, "EXTRA_TEXT => " + extraText);
+				if (extraText != null)
+				{
+					currentNote.setContent(extraText);
+				}
+
+				boolean extraTitleLocked = intent.getBooleanExtra(EXTRA_TITLE_LOCKED, false);
+				Log.d(LOG_TAG, "EXTRA_TITLE_LOCKED => " + extraTitleLocked);
+				currentNote.setTitleLocked(extraTitleLocked);
+
+				setTitle(R.string.add_new_note_title);
+				updateFocusedEditText();
+
+				addNewNoteImageButton.setVisibility(View.VISIBLE);
+				editNoteImageButton.setVisibility(View.GONE);
+				deleteNoteImageButton.setVisibility(View.GONE);
+
+				noteEditContainer.setVisibility(View.VISIBLE);
+				noteViewContainer.setVisibility(View.GONE);
+
+				newAction = Intent.ACTION_EDIT;
+			}
+			else if (Intent.ACTION_EDIT.equals(newAction))
+			{
+				Log.d(LOG_TAG, "ACTION_EDIT");
+				if (NoteStore.isNoteItemUri(this, newNoteUri))
+				{
+					if (NoteStore.exist(getContentResolver(), newNoteUri))
+					{
+						currentNoteUri = newNoteUri;
+						loadNoteFromContentProvider();
+					}
+					else
+					{
+						Toast.makeText(this, R.string.note_not_exist, Toast.LENGTH_LONG).show();
+						finish();
+						return;
+					}
 				}
 				else
+				{
+					currentNoteUri = newNoteUri;
+					loadNoteFromViews();
+				}
+
+				String extraText = intent.getStringExtra(EXTRA_TEXT);
+				Log.d(LOG_TAG, "EXTRA_TEXT => " + extraText);
+				if (extraText != null)
+				{
+					String appended = currentNote.getContent() + "\n" + extraText;
+					currentNote.setContent(appended);
+					updateNoteEditTexts();
+				}
+
+				setTitle(R.string.edit_note_title);
+				updateFocusedEditText();
+
+				addNewNoteImageButton.setVisibility(View.VISIBLE);
+				editNoteImageButton.setVisibility(View.GONE);
+				deleteNoteImageButton.setVisibility(View.GONE);
+
+				noteEditContainer.setVisibility(View.VISIBLE);
+				noteViewContainer.setVisibility(View.GONE);
+
+			}
+			else if (Intent.ACTION_VIEW.equals(newAction))
+			{
+				Log.d(LOG_TAG, "ACTION_VIEW");
+				if (NoteStore.isNoteItemUri(this, newNoteUri) == false)
+				{
+					Toast.makeText(this, R.string.note_not_specified, Toast.LENGTH_LONG).show();
+					finish();
+					return;
+				}
+
+				if (NoteStore.exist(getContentResolver(), newNoteUri) == false)
 				{
 					Toast.makeText(this, R.string.note_not_exist, Toast.LENGTH_LONG).show();
 					finish();
 					return;
 				}
-			}
-			else
-			{
+
 				currentNoteUri = newNoteUri;
-				loadNoteFromViews();
-			}
+				loadNoteFromContentProvider();
 
-			String extraText = intent.getStringExtra(EXTRA_TEXT);
-			Log.d(LOG_TAG, "EXTRA_TEXT => " + extraText);
-			if (extraText != null)
+				setTitle(R.string.view_note_title);
+				addNewNoteImageButton.setVisibility(View.GONE);
+				editNoteImageButton.setVisibility(View.VISIBLE);
+				deleteNoteImageButton.setVisibility(View.VISIBLE);
+
+				noteEditContainer.setVisibility(View.GONE);
+				noteViewContainer.setVisibility(View.VISIBLE);
+			}
+			else if (Intent.ACTION_DELETE.equals(newAction))
 			{
-				String appended = currentNote.getContent() + "\n" + extraText;
-				currentNote.setContent(appended);
-				updateNoteEditTexts();
+				if (NoteStore.isNoteItemUri(this, newNoteUri) == false)
+				{
+					Toast.makeText(this, R.string.note_not_specified, Toast.LENGTH_LONG).show();
+					finish();
+					return;
+				}
+
+				if (NoteStore.exist(getContentResolver(), newNoteUri) == false)
+				{
+					Toast.makeText(this, R.string.note_not_exist, Toast.LENGTH_LONG).show();
+					finish();
+					return;
+				}
+
+				currentNoteUri = newNoteUri;
+				loadNoteFromContentProvider();
+
+				setTitle(R.string.delete_note_title);
+				addNewNoteImageButton.setVisibility(View.GONE);
+				editNoteImageButton.setVisibility(View.GONE);
+				deleteNoteImageButton.setVisibility(View.VISIBLE);
+
+				noteEditContainer.setVisibility(View.GONE);
+				noteViewContainer.setVisibility(View.VISIBLE);
 			}
 
-			setTitle(R.string.edit_note_title);
-			updateFocusedEditText();
-
-			addNewNoteImageButton.setVisibility(View.VISIBLE);
-			editNoteImageButton.setVisibility(View.GONE);
-			deleteNoteImageButton.setVisibility(View.GONE);
-
-			noteEditContainer.setVisibility(View.VISIBLE);
-			noteViewContainer.setVisibility(View.GONE);
-
+			currentAction = newAction;
+			originalNote.copyFrom(currentNote);
+			updateViews();
 		}
-		else if (Intent.ACTION_VIEW.equals(newAction))
-		{
-			Log.d(LOG_TAG, "ACTION_VIEW");
-			if (NoteStore.isNoteItemUri(this, newNoteUri) == false)
-			{
-				Toast.makeText(this, R.string.note_not_specified, Toast.LENGTH_LONG).show();
-				finish();
-				return;
-			}
-
-			if (NoteStore.exist(getContentResolver(), newNoteUri) == false)
-			{
-				Toast.makeText(this, R.string.note_not_exist, Toast.LENGTH_LONG).show();
-				finish();
-				return;
-			}
-
-			currentNoteUri = newNoteUri;
-			loadNoteFromContentProvider();
-
-			setTitle(R.string.view_note_title);
-			addNewNoteImageButton.setVisibility(View.GONE);
-			editNoteImageButton.setVisibility(View.VISIBLE);
-			deleteNoteImageButton.setVisibility(View.VISIBLE);
-
-			noteEditContainer.setVisibility(View.GONE);
-			noteViewContainer.setVisibility(View.VISIBLE);
-		}
-		else if (Intent.ACTION_DELETE.equals(newAction))
-		{
-			if (NoteStore.isNoteItemUri(this, newNoteUri) == false)
-			{
-				Toast.makeText(this, R.string.note_not_specified, Toast.LENGTH_LONG).show();
-				finish();
-				return;
-			}
-
-			if (NoteStore.exist(getContentResolver(), newNoteUri) == false)
-			{
-				Toast.makeText(this, R.string.note_not_exist, Toast.LENGTH_LONG).show();
-				finish();
-				return;
-			}
-
-			currentNoteUri = newNoteUri;
-			loadNoteFromContentProvider();
-
-			setTitle(R.string.delete_note_title);
-			addNewNoteImageButton.setVisibility(View.GONE);
-			editNoteImageButton.setVisibility(View.GONE);
-			deleteNoteImageButton.setVisibility(View.VISIBLE);
-
-			noteEditContainer.setVisibility(View.GONE);
-			noteViewContainer.setVisibility(View.VISIBLE);
-		}
-
-		currentAction = newAction;
-		originalNote.copyFrom(currentNote);
-		updateViews();
 
 		Log.d(LOG_TAG, "isFinishing() => " + isFinishing());
 		Log.d(LOG_TAG, "------------------------------------------------------------");
@@ -856,6 +854,7 @@ public class NoteDetailActivity extends Activity
 
 	private void saveNote()
 	{
+		Log.v(LOG_TAG, "Hello");
 		if (Intent.ACTION_EDIT.equals(currentAction))
 		{
 			if (isModified())
@@ -903,6 +902,7 @@ public class NoteDetailActivity extends Activity
 		{
 			Log.d(LOG_TAG, "now not in edit mode.");
 		}
+		Log.v(LOG_TAG, "Bye");
 	}
 
 	private void deleteNote()
