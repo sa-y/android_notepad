@@ -149,11 +149,7 @@ class NoteDBHelper extends SQLiteOpenHelper
 		{
 			backupNotesVersion4(db, notesBackupDir);
 		}
-		else if (oldVersion == 5)
-		{
-			backupNotes(db, notesBackupDir);
-		}
-		else if (oldVersion >= 6)
+		else if (oldVersion >= 5)
 		{
 			backupNotes(db, notesBackupDir);
 		}
