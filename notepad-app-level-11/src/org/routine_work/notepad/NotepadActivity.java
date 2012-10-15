@@ -76,7 +76,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 
 	static
 	{
-		Log.setOutputLevel(Log.VERBOSE);
+		Log.setOutputLevel(Log.DEBUG);
 		Log.setTraceMode(true);
 		Log.setIndentMode(true);
 	}

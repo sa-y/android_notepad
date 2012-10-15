@@ -68,6 +68,8 @@ public class EditNoteFragment extends Fragment
 
 	private static final String LOG_TAG = "simple-notepad";
 	private static final String SAVE_KEY_NOTE_URI = "noteUri";
+	private static final String SAVE_KEY_CURRENT_NOTE = "currentNote";
+	private static final String SAVE_KEY_ORIGINAL_NOTE = "originalNote";
 	private static final String FT_TITLE_LOCK = "FT_TITLE_LOCK";
 	private static final String FT_TITLE_UNLOCK = "FT_TITLE_UNLOCK";
 	private static final String FT_NOTE_TEMPLATE_PICKER = "FT_NOTE_TEMPLATE_PICKER";
@@ -97,21 +99,34 @@ public class EditNoteFragment extends Fragment
 	public void onCreate(Bundle savedInstanceState)
 	{
 		Log.v(LOG_TAG, "Hello");
-
 		super.onCreate(savedInstanceState);
-		if (savedInstanceState != null)
-		{
-			Parcelable uri = savedInstanceState.getParcelable(SAVE_KEY_NOTE_URI);
-			Log.d(LOG_TAG, "Load savedInstanceState.uri => " + uri);
-			if (uri instanceof Uri)
-			{
-				setNoteUri((Uri) uri);
-			}
-		}
 
 		setHasOptionsMenu(true);
 		actionBarAutoHide = NotepadPreferenceUtils.getActionBarAutoHide(getActivity());
 		Log.d(LOG_TAG, "actionBarAutoHide => " + actionBarAutoHide);
+
+		if (savedInstanceState != null)
+		{
+			Log.d(LOG_TAG, "Load data from savedInstanceState.uri");
+			Parcelable uri = savedInstanceState.getParcelable(SAVE_KEY_NOTE_URI);
+			if (uri instanceof Uri)
+			{
+				setNoteUri((Uri) uri);
+			}
+
+			Object currentNoteObj = savedInstanceState.getSerializable(SAVE_KEY_CURRENT_NOTE);
+			if (currentNoteObj instanceof Note)
+			{
+				currentNote.copyFrom((Note) currentNoteObj);
+			}
+
+			Object originalNoteObj = savedInstanceState.getSerializable(SAVE_KEY_ORIGINAL_NOTE);
+			if (originalNoteObj instanceof Note)
+			{
+				originalNote.copyFrom((Note) originalNoteObj);
+			}
+		}
+
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -211,6 +226,8 @@ public class EditNoteFragment extends Fragment
 
 		Log.d(LOG_TAG, "Save noteUri=> " + noteUri);
 		outState.putParcelable(SAVE_KEY_NOTE_URI, noteUri);
+		outState.putSerializable(SAVE_KEY_CURRENT_NOTE, currentNote);
+		outState.putSerializable(SAVE_KEY_ORIGINAL_NOTE, originalNote);
 
 		Log.v(LOG_TAG, "Bye");
 	}
