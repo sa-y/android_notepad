@@ -65,6 +65,7 @@ Title, Content, Focus
 *** ContentProvider 側の処理を実装
 *** NoteSearchQueryParser にパース機能を実装
 *** NoteSearchQueryParser を利用するコードの修正
+
 ############################################################
 ! 1.0.3
 
