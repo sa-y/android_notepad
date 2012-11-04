@@ -34,8 +34,10 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.ClipboardManager;
 import android.text.TextUtils;
 import android.view.*;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnFocusChangeListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -56,7 +58,9 @@ import org.routine_work.utils.Log;
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
 public class NoteDetailActivity extends Activity
-	implements View.OnClickListener, OnFocusChangeListener,
+	implements
+	View.OnClickListener,
+	OnFocusChangeListener,
 	DialogInterface.OnClickListener,
 	NotepadConstants
 {
@@ -150,7 +154,12 @@ public class NoteDetailActivity extends Activity
 		// View Mode
 		noteViewContainer = (ViewGroup) findViewById(R.id.note_view_container);
 		noteTitleTextView = (TextView) findViewById(R.id.note_title_textview);
+//		noteTitleTextView.setOnClickListener(this);
 		noteContentTextView = (TextView) findViewById(R.id.note_content_textview);
+//		noteContentTextView.setOnClickListener(this);
+
+		registerForContextMenu(noteTitleTextView);
+		registerForContextMenu(noteContentTextView);
 
 		// process intent
 		initWithIntent(savedInstanceState, getIntent());
@@ -434,9 +443,66 @@ public class NoteDetailActivity extends Activity
 					hideActionBar();
 				}
 				break;
+			case R.id.note_title_textview:
+				Log.d(LOG_TAG, "note_title_textview is clicked.");
+//				startEditNoteActivity();
+				break;
+			case R.id.note_content_textview:
+				Log.d(LOG_TAG, "note_content_textview is clicked.");
+//				startEditNoteActivity();
+				break;
 		}
 
 		Log.v(LOG_TAG, "Bye");
+	}
+
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo)
+	{
+		Log.v(LOG_TAG, "Hello");
+		super.onCreateContextMenu(menu, v, menuInfo);
+
+		MenuInflater menuInflater = getMenuInflater();
+		switch (v.getId())
+		{
+			case R.id.note_title_textview:
+				menuInflater.inflate(R.menu.note_title_context_menu, menu);
+				break;
+			case R.id.note_content_textview:
+				menuInflater.inflate(R.menu.note_content_context_menu, menu);
+				break;
+			default:
+		}
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	@Override
+	public boolean onContextItemSelected(MenuItem item)
+	{
+		boolean result = true;
+		Log.v(LOG_TAG, "Hello");
+
+		switch (item.getItemId())
+		{
+			case R.id.edit_note_menuitem:
+				Log.d(LOG_TAG, "edit_note_menuitem selected.");
+				startEditNoteActivity();
+				break;
+			case R.id.copy_note_title_menuitem:
+				Log.d(LOG_TAG, "copy_note_title_menuitem selected.");
+				copyNoteTitleToClipboard();
+				break;
+			case R.id.copy_note_content_menuitem:
+				Log.d(LOG_TAG, "copy_note_content_menuitem selected.");
+				copyNoteContentToClipboard();
+				break;
+			default:
+				result = super.onContextItemSelected(item);
+		}
+
+		Log.v(LOG_TAG, "Hello");
+		return result;
 	}
 
 	// DialogInterface.OnClickListener
@@ -458,6 +524,7 @@ public class NoteDetailActivity extends Activity
 				setNoteTitleLocked(false);
 			}
 		}
+
 		Log.v(LOG_TAG, "Bye");
 	}
 
@@ -1137,5 +1204,18 @@ public class NoteDetailActivity extends Activity
 			IMEUtils.requestKeyboardFocusByClick(noteTitleEditText);
 		}
 		Log.v(LOG_TAG, "Bye");
+	}
+
+	private void copyNoteTitleToClipboard()
+	{
+		
+		ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+		clipboardManager.setText(noteTitleTextView.getText());
+	}
+
+	private void copyNoteContentToClipboard()
+	{
+		ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+		clipboardManager.setText(noteContentTextView.getText());
 	}
 }
