@@ -24,8 +24,10 @@
 package org.routine_work.notepad.fragment;
 
 import android.app.Activity;
+import android.content.ClipboardManager;
 import android.os.Bundle;
 import android.view.*;
+import android.view.ContextMenu.ContextMenuInfo;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.utils.NoteUtils;
@@ -77,6 +79,9 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 
 		View view = super.onCreateView(inflater, container, savedInstanceState);
 
+		registerForContextMenu(noteTitleTextView);
+		registerForContextMenu(noteContentTextView);
+
 		Log.v(LOG_TAG, "Bye");
 		return view;
 	}
@@ -121,6 +126,51 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 		return result;
 	}
 
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo)
+	{
+		super.onCreateContextMenu(menu, v, menuInfo);
+		MenuInflater menuInflater = getActivity().getMenuInflater();
+		switch (v.getId())
+		{
+			case R.id.note_title_textview:
+				menuInflater.inflate(R.menu.note_title_context_menu, menu);
+				break;
+			case R.id.note_content_textview:
+				menuInflater.inflate(R.menu.note_content_context_menu, menu);
+				break;
+			default:
+		}
+	}
+
+	@Override
+	public boolean onContextItemSelected(MenuItem item)
+	{
+		boolean result = true;
+		Log.v(LOG_TAG, "Hello");
+
+		switch (item.getItemId())
+		{
+			case R.id.edit_note_menuitem:
+				Log.d(LOG_TAG, "edit_note_menuitem selected.");
+				startEditNoteActivity();
+				break;
+			case R.id.copy_note_title_menuitem:
+				Log.d(LOG_TAG, "copy_note_title_menuitem selected.");
+				copyNoteTitleToClipboard();
+				break;
+			case R.id.copy_note_content_menuitem:
+				Log.d(LOG_TAG, "copy_note_content_menuitem selected.");
+				copyNoteContentToClipboard();
+				break;
+			default:
+				result = super.onContextItemSelected(item);
+		}
+
+		Log.v(LOG_TAG, "Hello");
+		return result;
+	}
+
 	private void startEditNoteActivity()
 	{
 		Log.v(LOG_TAG, "Hello");
@@ -154,5 +204,17 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 		String noteContent = noteContentTextView.getText().toString();
 		NoteUtils.shareNote(getActivity(), noteTitle, noteContent);
 		Log.v(LOG_TAG, "Bye");
+	}
+
+	private void copyNoteTitleToClipboard()
+	{
+		ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Activity.CLIPBOARD_SERVICE);
+		clipboardManager.setText(noteTitleTextView.getText());
+	}
+
+	private void copyNoteContentToClipboard()
+	{
+		ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Activity.CLIPBOARD_SERVICE);
+		clipboardManager.setText(noteContentTextView.getText());
 	}
 }

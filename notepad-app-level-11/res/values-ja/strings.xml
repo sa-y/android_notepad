@@ -59,6 +59,9 @@
 	<string name="delete_notes">ノートを削除</string>
 	<string name="search_note">検索</string>
 
+	<string name="copy_note_title">タイトルをコピー</string>
+	<string name="copy_note_content">本文をコピー</string>
+
 	<string name="templates">テンプレート</string>
 	<string name="edit_note_template">編集</string>
 	<string name="delete_note_template">削除</string>

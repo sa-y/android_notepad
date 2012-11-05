@@ -59,6 +59,9 @@
 	<string name="delete_notes">Delete Notes</string>
 	<string name="search_note">Search</string>
 
+	<string name="copy_note_title">Copy Title</string>
+	<string name="copy_note_content">Copy Text</string>
+
 	<string name="templates">Templates</string>
 	<string name="edit_note_template">Edit</string>
 	<string name="delete_note_template">Delete</string>

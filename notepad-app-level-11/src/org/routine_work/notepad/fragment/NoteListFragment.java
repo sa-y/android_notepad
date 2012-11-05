@@ -147,8 +147,11 @@ public class NoteListFragment extends ListFragment
 		Log.v(LOG_TAG, "Hello");
 
 		super.onCreateContextMenu(menu, v, menuInfo);
-		MenuInflater menuInflater = getActivity().getMenuInflater();
-		menuInflater.inflate(R.menu.note_list_context_menu, menu);
+		if (v == getListView())
+		{
+			MenuInflater menuInflater = getActivity().getMenuInflater();
+			menuInflater.inflate(R.menu.note_list_context_menu, menu);
+		}
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -160,20 +163,27 @@ public class NoteListFragment extends ListFragment
 		Log.v(LOG_TAG, "Hello");
 
 		AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo();
-		switch (item.getItemId())
+		if (menuInfo != null)
 		{
-			case R.id.delete_note_menuitem:
-				deleteNote(menuInfo.id);
-				result = true;
-				break;
-			case R.id.edit_note_menuitem:
-				editNote(menuInfo.id);
-				break;
-			case R.id.share_note_menuitem:
-				NoteUtils.shareNote(getActivity(), menuInfo.id);
-				break;
-			default:
-				result = super.onContextItemSelected(item);
+			switch (item.getItemId())
+			{
+				case R.id.delete_note_menuitem:
+					deleteNote(menuInfo.id);
+					result = true;
+					break;
+				case R.id.edit_note_menuitem:
+					editNote(menuInfo.id);
+					break;
+				case R.id.share_note_menuitem:
+					NoteUtils.shareNote(getActivity(), menuInfo.id);
+					break;
+				default:
+					result = super.onContextItemSelected(item);
+			}
+		}
+		else
+		{
+			result = super.onContextItemSelected(item);
 		}
 
 		Log.v(LOG_TAG, "Bye");

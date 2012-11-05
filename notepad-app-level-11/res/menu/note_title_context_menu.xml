@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item
+		android:id="@+id/copy_note_title_menuitem"
+		android:title="@string/copy_note_title"
+		android:numericShortcut="1"
+		android:alphabeticShortcut="c"
+	/>
+	<item
+		android:id="@+id/edit_note_menuitem"
+		android:title="@string/edit_note"
+		android:icon="@android:drawable/ic_menu_edit"
+		android:numericShortcut="2"
+		android:alphabeticShortcut="e"
+	/>
+</menu>
