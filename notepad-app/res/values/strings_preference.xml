@@ -41,7 +41,6 @@
 		and all note will be restored from backup file in the external storage. 
 		And this application will be finished to reflect the change of note data.
 	</string>
-
 	<!-- Pick Backup File -->
 	<string name="select_backup_file_title">Select Backup File</string>
 	<string name="no_backup_file">No Backup File</string>

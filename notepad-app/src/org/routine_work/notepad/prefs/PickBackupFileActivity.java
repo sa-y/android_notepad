@@ -137,16 +137,22 @@ public class PickBackupFileActivity extends ListActivity
 			File backupDirPath = Environment.getExternalStorageDirectory();
 			backupDirPath = new File(backupDirPath, BACKUP_DIR_NAME);
 			Log.d(LOG_TAG, "backupDirPath => " + backupDirPath);
-			File[] listFiles = backupDirPath.listFiles(backupFilenameFilter);
 
-			backupFileDataList.clear();
-			for (File file : listFiles)
+			if (backupDirPath.exists() && backupDirPath.canRead())
 			{
-				Map<String, String> backupFileData = new HashMap<String, String>();
-				backupFileData.put(MAPPING_KEY_FILE_PATH, file.getAbsolutePath());
-				backupFileData.put(MAPPING_KEY_FILE_NAME, file.getName());
-				Log.d(LOG_TAG, "backupFileData => " + backupFileData);
-				backupFileDataList.add(backupFileData);
+				File[] listFiles = backupDirPath.listFiles(backupFilenameFilter);
+				if (listFiles != null)
+				{
+					backupFileDataList.clear();
+					for (File file : listFiles)
+					{
+						Map<String, String> backupFileData = new HashMap<String, String>();
+						backupFileData.put(MAPPING_KEY_FILE_PATH, file.getAbsolutePath());
+						backupFileData.put(MAPPING_KEY_FILE_NAME, file.getName());
+						Log.d(LOG_TAG, "backupFileData => " + backupFileData);
+						backupFileDataList.add(backupFileData);
+					}
+				}
 			}
 		}
 
