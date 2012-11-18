@@ -8,6 +8,8 @@
 >
 	<uses-sdk android:minSdkVersion="11" android:targetSdkVersion="11" />
 
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
 	<application
 		android:label="@string/app_name"
 		android:icon="@drawable/ic_launcher_notepad"
@@ -170,6 +172,21 @@
 		<activity
 			android:name=".prefs.NotepadPreferenceActivity"
 			android:label="@string/preferences_title"
+		/>
+
+		<activity
+			android:name=".prefs.BackupDatabaseActivity" 
+			android:label="@string/backup_notes_title"
+		/>
+
+		<activity
+			android:name=".prefs.RestoreDatabaseActivity" 
+			android:label="@string/restore_notes_title"
+		/>
+
+		<activity
+			android:name=".prefs.PickBackupFileActivity" 
+			android:label="@string/select_backup_file_title"
 		/>
 
 		<activity

@@ -35,6 +35,25 @@
 	<string name="actionbar_auto_hide_summary_on">The Action Bar is hidden during editing note automatically.</string>
 	<string name="actionbar_auto_hide_summary_off">The Action Bar is always displayed during note editing.</string>
 
+	<!-- Backup and Restore Category -->
+	<string name="backup_and_restore">Backup &amp; Restore</string>
+	<!-- Backup Notes -->
+	<string name="backup_notes">Backup Notes</string>
+	<string name="backup_notes_title">Backup Notes</string>
+	<string name="backup_notes_summary">All note data will be backed up.</string>
+	<string name="backup_notes_confirm_message">All note data will be backed up to the external storage.</string>
+	<!-- Restore Notes -->
+	<string name="restore_notes">Restore Notes</string>
+	<string name="restore_notes_title">Restore Notes</string>
+	<string name="restore_notes_summary">All note data will be restored from backup file.</string>
+	<string name="restore_notes_confirm_message">The current notes are deleted, 
+		and all note will be restored from backup file in the external storage. 
+		And this application will be finished to reflect the change of note data.
+	</string>
+	<!-- Pick Backup File -->
+	<string name="select_backup_file_title">Select Backup File</string>
+	<string name="no_backup_file">No Backup File</string>
+
 	<!-- Etc Category -->
 	<string name="etc">Etc</string>
 	<!-- Initialize Preferences -->

@@ -69,6 +69,29 @@
 		/>
 	</PreferenceCategory>
 
+	<PreferenceCategory android:title="@string/backup_and_restore" >
+		<PreferenceScreen
+			android:title="@string/backup_notes_title"
+			android:summary="@string/backup_notes_summary"
+		>
+			<intent
+				android:action="android.intent.action.MAIN"
+				android:targetPackage="org.routine_work.notepad"
+				android:targetClass="org.routine_work.notepad.prefs.BackupDatabaseActivity"
+			/>
+		</PreferenceScreen>
+		<PreferenceScreen
+			android:title="@string/restore_notes_title"
+			android:summary="@string/restore_notes_summary"
+		>
+			<intent
+				android:action="android.intent.action.MAIN"
+				android:targetPackage="org.routine_work.notepad"
+				android:targetClass="org.routine_work.notepad.prefs.RestoreDatabaseActivity"
+			/>
+		</PreferenceScreen>
+	</PreferenceCategory>
+
 	<PreferenceCategory android:title="@string/etc" >
 		<PreferenceScreen
 			android:title="@string/initialize_preference_title"

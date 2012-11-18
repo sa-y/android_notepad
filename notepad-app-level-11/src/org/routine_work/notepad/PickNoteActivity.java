@@ -70,10 +70,6 @@ public class PickNoteActivity extends ListActivity
 			setTitle(title);
 		}
 
-//		listAdapter = new SimpleCursorAdapter(this,
-//			R.layout.note_list_item, null,
-//			NOTE_LIST_MAPPING_FROM, NOTE_LIST_MAPPING_TO);
-//		listAdapter.setViewBinder(new NoteListItemViewBinder(this));
 		listAdapter = new NoteCursorAdapter(this, null);
 		setListAdapter(listAdapter);
 
