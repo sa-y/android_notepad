@@ -7,6 +7,7 @@
 	android:installLocation="auto"
 >
 	<uses-sdk android:minSdkVersion="3" android:targetSdkVersion="4" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 	<application
 		android:label="@string/app_name"
@@ -160,6 +161,21 @@
 		/>
 
 		<activity
+			android:name=".prefs.BackupDatabaseActivity" 
+			android:label="@string/backup_notes_title"
+		/>
+
+		<activity
+			android:name=".prefs.RestoreDatabaseActivity" 
+			android:label="@string/restore_notes_title"
+		/>
+
+		<activity
+			android:name=".prefs.PickBackupFileActivity" 
+			android:label="@string/select_backup_file_title"
+		/>
+
+		<activity
 			android:name=".prefs.InitializePreferenceActivity" 
 			android:label="@string/initialize_preference_title"
 		/>
@@ -193,7 +209,4 @@
 
 	</application>
 
-	<!--
-	<uses-permission android:name="android.permission.INTERNET" />
-	-->
 </manifest> 

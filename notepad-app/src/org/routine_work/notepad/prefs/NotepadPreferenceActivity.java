@@ -42,7 +42,7 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 	implements SharedPreferences.OnSharedPreferenceChangeListener
 {
 
-	private static final String LOG_TAG = "android.R";
+	private static final String LOG_TAG = "simple-notepad";
 	private SharedPreferences sharedPreferences;
 
 	@Override

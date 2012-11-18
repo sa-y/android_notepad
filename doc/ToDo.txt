@@ -5,6 +5,8 @@ notepad-app
 *** NoteDetailViewer
 *** NoteDetailEditor
 
+* データベースのバックアップとリストア機能
+
 * ノートのエクスポート機能
 * ノートのインポート機能
 

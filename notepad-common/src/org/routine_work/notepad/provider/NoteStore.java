@@ -29,6 +29,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.provider.BaseColumns;
+import java.io.File;
 import java.util.Collection;
 import org.routine_work.utils.Log;
 
@@ -304,5 +305,11 @@ public class NoteStore
 				writableDatabase.close();
 			}
 		}
+	}
+
+	public static File getNoteDatabasePath(Context context)
+	{
+		File databasePath = context.getDatabasePath(NoteDBConstants.DATABASE_NAME);
+		return databasePath;
 	}
 }

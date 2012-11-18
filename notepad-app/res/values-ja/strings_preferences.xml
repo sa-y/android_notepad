@@ -26,6 +26,25 @@
 	<string name="note_list_item_content_lines_land_title">本文の行数（横画面）</string>
 	<string name="note_list_item_content_lines_summary">%1$s 行</string>
 
+	<!-- Backup and Restore Category -->
+	<string name="backup_and_restore">バックアップと復元</string>
+	<!-- Backup Notes -->
+	<string name="backup_notes">ノートをバックアップ</string>
+	<string name="backup_notes_title">ノートをバックアップ</string>
+	<string name="backup_notes_summary">すべてのノートをバックアップします。</string>
+	<string name="backup_notes_confirm_message">すべてのノートが外部ストレージにバックアップされます。</string>
+	<!-- Restore Notes -->
+	<string name="restore_notes">ノートを復元</string>
+	<string name="restore_notes_title">ノートを復元</string>
+	<string name="restore_notes_summary">バックアップファイルからすべてのノートを復元します。</string>
+	<string name="restore_notes_confirm_message">現在のノートはすべて削除されて、
+		外部ストレージのバックアップファイルからノートを復元します。
+		その後、データの変更を反映するために、アプリケーションを終了します。
+	</string>
+	<!-- Pick Backup File -->
+	<string name="select_backup_file_title">バックアップファイル選択</string>
+	<string name="no_backup_file">バックアップファイルがありません</string>
+
 	<!-- Etc Category -->
 	<string name="etc">その他</string>
 	<!-- Initialize Preferences -->

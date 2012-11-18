@@ -33,11 +33,8 @@ import org.routine_work.notepad.R;
 public class InitializePreferenceActivity extends Activity implements OnClickListener
 {
 
-	public static final String LOG_TAG = "simple-battery-logger";
+	private static final String LOG_TAG = "simple-notepad";
 
-	/**
-	 * Called when the activity is first created.
-	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{

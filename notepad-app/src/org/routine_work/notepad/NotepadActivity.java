@@ -104,7 +104,7 @@ public class NotepadActivity extends ListActivity
 
 	static
 	{
-		Log.setOutputLevel(Log.DEBUG);
+		Log.setOutputLevel(Log.VERBOSE);
 		Log.setTraceMode(true);
 		Log.setIndentMode(true);
 	}

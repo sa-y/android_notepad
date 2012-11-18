@@ -26,12 +26,32 @@
 	<string name="note_list_item_content_lines_land_title">Text Lines in Landscape</string>
 	<string name="note_list_item_content_lines_summary">%1$s Lines</string>
 
+	<!-- Backup and Restore Category -->
+	<string name="backup_and_restore">Backup &amp; Restore</string>
+	<!-- Backup Notes -->
+	<string name="backup_notes">Backup Notes</string>
+	<string name="backup_notes_title">Backup Notes</string>
+	<string name="backup_notes_summary">All note data will be backed up.</string>
+	<string name="backup_notes_confirm_message">All note data will be backed up to the external storage.</string>
+	<!-- Restore Notes -->
+	<string name="restore_notes">Restore Notes</string>
+	<string name="restore_notes_title">Restore Notes</string>
+	<string name="restore_notes_summary">All note data will be restored from backup file.</string>
+	<string name="restore_notes_confirm_message">The current notes are deleted, 
+		and all note will be restored from backup file in the external storage. 
+		And this application will be finished to reflect the change of note data.
+	</string>
+
+	<!-- Pick Backup File -->
+	<string name="select_backup_file_title">Select Backup File</string>
+	<string name="no_backup_file">No Backup File</string>
+
 	<!-- Etc Category -->
 	<string name="etc">Etc</string>
 	<!-- Initialize Preferences -->
 	<string name="initialize_preference">Initialize Preferences</string>
 	<string name="initialize_preference_title">Initialize Preferences</string>
 	<string name="initialize_preference_summary">All preference values are initialized.</string>
-	<string name="initialize_preference_confirm_message">All the preference values will be initialized by default value.</string>
+	<string name="initialize_preference_confirm_message">All the preference values will be initialized by default value. The current data are deleted.</string>
 
 </resources>

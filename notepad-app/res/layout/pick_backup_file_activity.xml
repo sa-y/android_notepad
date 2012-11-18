@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical"
+>
+	<LinearLayout style="@style/actionbar" >
+		<TextView
+			style="@style/actionbar_title" 
+			android:text="@string/select_backup_file_title"
+		/>
+	</LinearLayout>
+
+	<FrameLayout
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+	>
+		<ListView
+			android:id="@android:id/list"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:drawSelectorOnTop="false"
+			android:fastScrollEnabled="true"
+		/>
+		<TextView
+			android:id="@android:id/empty"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:text="@string/no_backup_file"
+		/>
+	</FrameLayout>
+
+
+</LinearLayout>
