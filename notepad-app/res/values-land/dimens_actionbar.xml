@@ -2,8 +2,8 @@
 <!-- This file is made every screen size and -->
 <resources>
 	<!-- actionbar -->
-	<dimen name="actionbar_layout_height">48dip</dimen>
+	<dimen name="actionbar_layout_height">44dip</dimen>
 	<dimen name="actionbar_title_textSize">18sp</dimen>
 	<dimen name="actionbar_title_paddingLeft">8dip</dimen>
-	<dimen name="actionbar_button_padding">12dip</dimen>
+	<dimen name="actionbar_button_padding">10dip</dimen>
 </resources>

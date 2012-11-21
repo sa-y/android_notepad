@@ -100,8 +100,16 @@ public class NoteCursorAdapter extends SimpleCursorAdapter
 		}
 
 		TextView noteContentTextView = (TextView) view.findViewById(R.id.note_content_textview);
-		noteContentTextView.setSingleLine(noteListItemContentLines == 1);
-		noteContentTextView.setLines(noteListItemContentLines);
+		if (noteListItemContentLines == 0)
+		{
+			noteContentTextView.setVisibility(View.GONE);
+		}
+		else
+		{
+			noteContentTextView.setVisibility(View.VISIBLE);
+			noteContentTextView.setSingleLine(noteListItemContentLines == 1);
+			noteContentTextView.setLines(noteListItemContentLines);
+		}
 
 		Log.v(LOG_TAG, "Bye");
 	}

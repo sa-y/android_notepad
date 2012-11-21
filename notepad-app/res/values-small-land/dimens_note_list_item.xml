@@ -2,7 +2,7 @@
 <!-- This file is made every screen size -->
 <resources>
 	<!-- note_list_item -->
-	<dimen name="note_list_item_title_textSize">20sp</dimen>
+	<dimen name="note_list_item_title_textSize">18sp</dimen>
 
 	<dimen name="note_list_item_modified_textSize">14sp</dimen>
 

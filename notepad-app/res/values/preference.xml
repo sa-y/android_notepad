@@ -25,6 +25,7 @@
 	<string name="note_list_item_content_lines_land_key" >note_list_item_content_lines_land</string>
 
 	<string-array name="note_list_item_content_lines_values">
+		<item>0</item>
 		<item>1</item>
 		<item>2</item>
 		<item>3</item>
