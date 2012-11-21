@@ -12,6 +12,14 @@
 	<string name="dark_theme">暗いテーマ</string>
 	<string name="light_theme">明るいテーマ</string>
 
+	<!-- ActionBar Category -->
+	<string name="actionbar_category_title">アクションバー</string>
+	<!-- ActionBar : Auto Hide -->
+	<string name="actionbar_auto_hide_port_title">自動非表示（縦画面）</string>
+	<string name="actionbar_auto_hide_land_title">自動非表示（横画面）</string>
+	<string name="actionbar_auto_hide_summary_on">ノート編集時にアクションバーが自動的に非表示になります。</string>
+	<string name="actionbar_auto_hide_summary_off">ノート編集時にアクションバーが常に表示されます。</string>
+
 	<!-- Layout Category -->
 	<string name="layout_category_title">配置</string>
 	<!-- Layout : Note List -->
@@ -27,27 +35,19 @@
 	<string name="note_list_item_content_lines_land_title">本文の行数（横画面）</string>
 	<string name="note_list_item_content_lines_summary">%1$s 行</string>
 
-	<!-- ActionBar Category -->
-	<string name="actionbar_category_title">アクションバー</string>
-	<!-- ActionBar : Auto Hide -->
-	<string name="actionbar_auto_hide_port_title">自動非表示（縦画面）</string>
-	<string name="actionbar_auto_hide_land_title">自動非表示（横画面）</string>
-	<string name="actionbar_auto_hide_summary_on">ノート編集時にアクションバーが自動的に非表示になります。</string>
-	<string name="actionbar_auto_hide_summary_off">ノート編集時にアクションバーが常に表示されます。</string>
-
 	<!-- Backup and Restore Category -->
 	<string name="backup_and_restore">バックアップと復元</string>
 	<!-- Backup Notes -->
-	<string name="backup_notes">ノートをバックアップ</string>
-	<string name="backup_notes_title">ノートをバックアップ</string>
-	<string name="backup_notes_summary">すべてのノートをバックアップします。</string>
-	<string name="backup_notes_confirm_message">すべてのノートが外部ストレージにバックアップされます。</string>
+	<string name="backup_data">データをバックアップ</string>
+	<string name="backup_data_title">データをバックアップ</string>
+	<string name="backup_data_summary">すべてのノートとテンプレートのデータをバックアップします。</string>
+	<string name="backup_data_confirm_message">すべてのノートとテンプレートが外部ストレージにバックアップされます。</string>
 	<!-- Restore Notes -->
-	<string name="restore_notes">ノートを復元</string>
-	<string name="restore_notes_title">ノートを復元</string>
-	<string name="restore_notes_summary">バックアップファイルからすべてのノートを復元します。</string>
-	<string name="restore_notes_confirm_message">現在のノートはすべて削除されて、
-		外部ストレージのバックアップファイルからノートを復元します。
+	<string name="restore_data">データを復元</string>
+	<string name="restore_data_title">データを復元</string>
+	<string name="restore_data_summary">バックアップファイルからすべてのノートとテンプレートのデータを復元します。</string>
+	<string name="restore_data_confirm_message">現在のノートとテンプレートはすべて削除されて、
+		外部ストレージのバックアップファイルからデータを復元します。
 		その後、データの変更を反映するために、アプリケーションを終了します。
 	</string>
 	<!-- Pick Backup File -->

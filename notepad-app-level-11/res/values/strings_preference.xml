@@ -20,13 +20,6 @@
 	<string name="single_pane">Single Pane</string>
 	<string name="wide_two_pane">Two Pane</string>
 
-	<!-- Note List Category -->
-	<string name="note_list_category_title">Note List</string>
-	<!-- Note List : Content Text Lines -->
-	<string name="note_list_item_content_lines_port_title">Text Lines in Portrait</string>
-	<string name="note_list_item_content_lines_land_title">Text Lines in Landscape</string>
-	<string name="note_list_item_content_lines_summary">%1$s Lines</string>
-
 	<!-- ActionBar Category -->
 	<string name="actionbar_category_title">Action Bar</string>
 	<!-- ActionBar : Auto Hide -->
@@ -35,20 +28,27 @@
 	<string name="actionbar_auto_hide_summary_on">The Action Bar is hidden during editing note automatically.</string>
 	<string name="actionbar_auto_hide_summary_off">The Action Bar is always displayed during note editing.</string>
 
+	<!-- Note List Category -->
+	<string name="note_list_category_title">Note List</string>
+	<!-- Note List : Content Text Lines -->
+	<string name="note_list_item_content_lines_port_title">Text Lines in Portrait</string>
+	<string name="note_list_item_content_lines_land_title">Text Lines in Landscape</string>
+	<string name="note_list_item_content_lines_summary">%1$s Lines</string>
+
 	<!-- Backup and Restore Category -->
 	<string name="backup_and_restore">Backup &amp; Restore</string>
-	<!-- Backup Notes -->
-	<string name="backup_notes">Backup Notes</string>
-	<string name="backup_notes_title">Backup Notes</string>
-	<string name="backup_notes_summary">All note data will be backed up.</string>
-	<string name="backup_notes_confirm_message">All note data will be backed up to the external storage.</string>
-	<!-- Restore Notes -->
-	<string name="restore_notes">Restore Notes</string>
-	<string name="restore_notes_title">Restore Notes</string>
-	<string name="restore_notes_summary">All note data will be restored from backup file.</string>
-	<string name="restore_notes_confirm_message">The current notes are deleted, 
-		and all note will be restored from backup file in the external storage. 
-		And this application will be finished to reflect the change of note data.
+	<!-- Backup Data -->
+	<string name="backup_data">Backup Data</string>
+	<string name="backup_data_title">Backup Data</string>
+	<string name="backup_data_summary">All notes and templates are backed up.</string>
+	<string name="backup_data_confirm_message">All notes and templates will be backed up to the external storage.</string>
+	<!-- Restore Data -->
+	<string name="restore_data">Restore Data</string>
+	<string name="restore_data_title">Restore Data</string>
+	<string name="restore_data_summary">All notes and templates are restored from backup file.</string>
+	<string name="restore_data_confirm_message">The current notes and templates are deleted, 
+		And all data will be restored from backup file in the external storage. 
+		This application will be finished to reflect the change of note data.
 	</string>
 	<!-- Pick Backup File -->
 	<string name="select_backup_file_title">Select Backup File</string>
@@ -59,7 +59,7 @@
 	<!-- Initialize Preferences -->
 	<string name="initialize_preference">Initialize Preferences</string>
 	<string name="initialize_preference_title">Initialize Preferences</string>
-	<string name="initialize_preference_summary">All preference values are initialized</string>
-	<string name="initialize_preference_confirm_message">All the preference values will be initialized by default value.</string>
+	<string name="initialize_preference_summary">All preference values are initialized.</string>
+	<string name="initialize_preference_confirm_message">All the preference values will be initialized by default value. The current data are deleted.</string>
 
 </resources>

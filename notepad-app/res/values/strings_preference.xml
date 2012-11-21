@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- This file is made every languages -->
 <resources>
 
 	<string name="preferences">Preferences</string>
@@ -28,18 +29,18 @@
 
 	<!-- Backup and Restore Category -->
 	<string name="backup_and_restore">Backup &amp; Restore</string>
-	<!-- Backup Notes -->
-	<string name="backup_notes">Backup Notes</string>
-	<string name="backup_notes_title">Backup Notes</string>
-	<string name="backup_notes_summary">All note data will be backed up.</string>
-	<string name="backup_notes_confirm_message">All note data will be backed up to the external storage.</string>
-	<!-- Restore Notes -->
-	<string name="restore_notes">Restore Notes</string>
-	<string name="restore_notes_title">Restore Notes</string>
-	<string name="restore_notes_summary">All note data will be restored from backup file.</string>
-	<string name="restore_notes_confirm_message">The current notes are deleted, 
-		and all note will be restored from backup file in the external storage. 
-		And this application will be finished to reflect the change of note data.
+	<!-- Backup Data -->
+	<string name="backup_data">Backup Data</string>
+	<string name="backup_data_title">Backup Data</string>
+	<string name="backup_data_summary">All notes and templates are backed up.</string>
+	<string name="backup_data_confirm_message">All notes and templates will be backed up to the external storage.</string>
+	<!-- Restore Data -->
+	<string name="restore_data">Restore Data</string>
+	<string name="restore_data_title">Restore Data</string>
+	<string name="restore_data_summary">All notes and templates are restored from backup file.</string>
+	<string name="restore_data_confirm_message">The current notes and templates are deleted, 
+		And all data will be restored from backup file in the external storage. 
+		This application will be finished to reflect the change of note data.
 	</string>
 	<!-- Pick Backup File -->
 	<string name="select_backup_file_title">Select Backup File</string>

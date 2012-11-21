@@ -52,8 +52,8 @@
 
 	<PreferenceCategory android:title="@string/backup_and_restore" >
 		<PreferenceScreen
-			android:title="@string/backup_notes_title"
-			android:summary="@string/backup_notes_summary"
+			android:title="@string/backup_data_title"
+			android:summary="@string/backup_data_summary"
 		>
 			<intent
 				android:action="android.intent.action.MAIN"
@@ -62,8 +62,8 @@
 			/>
 		</PreferenceScreen>
 		<PreferenceScreen
-			android:title="@string/restore_notes_title"
-			android:summary="@string/restore_notes_summary"
+			android:title="@string/restore_data_title"
+			android:summary="@string/restore_data_summary"
 		>
 			<intent
 				android:action="android.intent.action.MAIN"
