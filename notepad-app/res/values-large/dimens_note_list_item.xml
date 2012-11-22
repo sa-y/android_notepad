@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- This file is made every screen size -->
 <resources>
 	<!-- note_list_item -->
-	<dimen name="note_list_item_title_textSize">22dip</dimen>
+	<dimen name="note_list_item_title_textSize">24sp</dimen>
 
-	<dimen name="note_list_item_modified_textSize">18dip</dimen>
+	<dimen name="note_list_item_modified_textSize">18sp</dimen>
 
-	<dimen name="note_list_item_content_textSize">16dip</dimen>
+	<dimen name="note_list_item_content_textSize">16sp</dimen>
 	<dimen name="note_list_item_content_layout_margin">4dip</dimen>
 
 	<dimen name="note_list_item_checked_layout_margin">3dip</dimen>

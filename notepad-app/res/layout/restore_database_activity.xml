@@ -13,7 +13,7 @@
 		<TextView
 			style="@style/actionbar_title" 
 			android:id="@+id/title_textview"
-			android:text="@string/restore_notes_title"
+			android:text="@string/restore_data_title"
 		/>
 	</LinearLayout>
 
@@ -28,7 +28,7 @@
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
 			android:padding="4dip"
-			android:text="@string/restore_notes_confirm_message"
+			android:text="@string/restore_data_confirm_message"
 			android:textColor="?android:textColorPrimary"
 			android:textSize="18sp"
 		/>

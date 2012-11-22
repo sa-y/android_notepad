@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- This file is made every languages -->
 <resources>
 
 	<string name="preferences">設定</string>
@@ -6,8 +7,8 @@
 
 	<!-- Theme Category -->
 	<string name="theme_category_title">テーマ</string>
-	<string name="notepad_theme">Notepad テーマ</string>
-	<string name="notepad_theme_title">Notepad テーマ</string>
+	<string name="notepad_theme">Notepad のテーマ</string>
+	<string name="notepad_theme_title">Notepad のテーマ</string>
 	<string name="dark_theme">暗いテーマ</string>
 	<string name="light_theme">明るいテーマ</string>
 
@@ -29,16 +30,16 @@
 	<!-- Backup and Restore Category -->
 	<string name="backup_and_restore">バックアップと復元</string>
 	<!-- Backup Notes -->
-	<string name="backup_notes">ノートをバックアップ</string>
-	<string name="backup_notes_title">ノートをバックアップ</string>
-	<string name="backup_notes_summary">すべてのノートをバックアップします。</string>
-	<string name="backup_notes_confirm_message">すべてのノートが外部ストレージにバックアップされます。</string>
+	<string name="backup_data">データをバックアップ</string>
+	<string name="backup_data_title">データをバックアップ</string>
+	<string name="backup_data_summary">すべてのノートとテンプレートのデータをバックアップします。</string>
+	<string name="backup_data_confirm_message">すべてのノートとテンプレートが外部ストレージにバックアップされます。</string>
 	<!-- Restore Notes -->
-	<string name="restore_notes">ノートを復元</string>
-	<string name="restore_notes_title">ノートを復元</string>
-	<string name="restore_notes_summary">バックアップファイルからすべてのノートを復元します。</string>
-	<string name="restore_notes_confirm_message">現在のノートはすべて削除されて、
-		外部ストレージのバックアップファイルからノートを復元します。
+	<string name="restore_data">データを復元</string>
+	<string name="restore_data_title">データを復元</string>
+	<string name="restore_data_summary">バックアップファイルからすべてのノートとテンプレートのデータを復元します。</string>
+	<string name="restore_data_confirm_message">現在のノートとテンプレートはすべて削除されて、
+		外部ストレージのバックアップファイルからデータを復元します。
 		その後、データの変更を反映するために、アプリケーションを終了します。
 	</string>
 	<!-- Pick Backup File -->

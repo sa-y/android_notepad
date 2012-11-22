@@ -14,7 +14,7 @@
 		android:label="@string/app_name"
 		android:icon="@drawable/ic_launcher_notepad"
 		android:theme="@style/Theme.Notepad.Dark"
-		android:debuggable="true"
+		android:debuggable="false"
 	>
 
 		<!-- Activity : Notes -->
@@ -163,12 +163,12 @@
 
 		<activity
 			android:name=".prefs.BackupDatabaseActivity" 
-			android:label="@string/backup_notes_title"
+			android:label="@string/backup_data_title"
 		/>
 
 		<activity
 			android:name=".prefs.RestoreDatabaseActivity" 
-			android:label="@string/restore_notes_title"
+			android:label="@string/restore_data_title"
 		/>
 
 		<activity

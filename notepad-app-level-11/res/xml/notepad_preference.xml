@@ -12,6 +12,23 @@
 		/>
 	</PreferenceCategory>
 
+	<PreferenceCategory android:title="@string/actionbar_category_title" >
+		<CheckBoxPreference
+			android:key="@string/actionbar_auto_hide_port_key"
+			android:defaultValue="@bool/actionbar_auto_hide_port_default_value"
+			android:title="@string/actionbar_auto_hide_port_title"
+			android:summaryOn="@string/actionbar_auto_hide_summary_on"
+			android:summaryOff="@string/actionbar_auto_hide_summary_off"
+		/>
+		<CheckBoxPreference
+			android:key="@string/actionbar_auto_hide_land_key"
+			android:defaultValue="@bool/actionbar_auto_hide_land_default_value"
+			android:title="@string/actionbar_auto_hide_land_title"
+			android:summaryOn="@string/actionbar_auto_hide_summary_on"
+			android:summaryOff="@string/actionbar_auto_hide_summary_off"
+		/>
+	</PreferenceCategory>
+
 	<PreferenceCategory android:title="@string/layout_category_title" >
 		<ListPreference
 			android:key="@string/note_list_layout_port_key"
@@ -52,27 +69,10 @@
 		/>
 	</PreferenceCategory>
 
-	<PreferenceCategory android:title="@string/actionbar_category_title" >
-		<CheckBoxPreference
-			android:key="@string/actionbar_auto_hide_port_key"
-			android:defaultValue="@bool/actionbar_auto_hide_port_default_value"
-			android:title="@string/actionbar_auto_hide_port_title"
-			android:summaryOn="@string/actionbar_auto_hide_summary_on"
-			android:summaryOff="@string/actionbar_auto_hide_summary_off"
-		/>
-		<CheckBoxPreference
-			android:key="@string/actionbar_auto_hide_land_key"
-			android:defaultValue="@bool/actionbar_auto_hide_land_default_value"
-			android:title="@string/actionbar_auto_hide_land_title"
-			android:summaryOn="@string/actionbar_auto_hide_summary_on"
-			android:summaryOff="@string/actionbar_auto_hide_summary_off"
-		/>
-	</PreferenceCategory>
-
 	<PreferenceCategory android:title="@string/backup_and_restore" >
 		<PreferenceScreen
-			android:title="@string/backup_notes_title"
-			android:summary="@string/backup_notes_summary"
+			android:title="@string/backup_data_title"
+			android:summary="@string/backup_data_summary"
 		>
 			<intent
 				android:action="android.intent.action.MAIN"
@@ -81,8 +81,8 @@
 			/>
 		</PreferenceScreen>
 		<PreferenceScreen
-			android:title="@string/restore_notes_title"
-			android:summary="@string/restore_notes_summary"
+			android:title="@string/restore_data_title"
+			android:summary="@string/restore_data_summary"
 		>
 			<intent
 				android:action="android.intent.action.MAIN"

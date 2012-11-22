@@ -11,7 +11,7 @@
 		android:layout_height="wrap_content"
 		android:layout_weight="1"
 		android:padding="4dip"
-		android:text="@string/backup_notes_confirm_message"
+		android:text="@string/backup_data_confirm_message"
 		android:textColor="?android:textColorPrimary"
 		android:textSize="18sp"
 	/>

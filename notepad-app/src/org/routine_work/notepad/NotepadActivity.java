@@ -433,7 +433,6 @@ public class NotepadActivity extends ListActivity
 		{
 			case DIALOG_ID_NOTE_TEMPLATE_PICKER:
 				dialog = getNoteTemplatePickerDialog();
-//				dialog = new NoteTemplatePickerDialog(this);
 				break;
 		}
 
