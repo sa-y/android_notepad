@@ -13,9 +13,15 @@
 	<bool name="template_quick_note_title_locked">true</bool>
 	<bool name="template_quick_note_edit_same_title">false</bool>
 
+	<string name="template_action_log_note_name">アクションログ</string>
+	<string name="template_action_log_note_title">#{date} の記録</string>
+	<string name="template_action_log_note_content">#{time}, </string>
+	<bool name="template_action_log_note_title_locked">true</bool>
+	<bool name="template_action_log_note_edit_same_title">true</bool>
+
 	<string name="template_daily_report_note_name">日報</string>
-	<string name="template_daily_report_note_title">#{date}</string>
-	<string name="template_daily_report_note_content">#{time}, </string>
+	<string name="template_daily_report_note_title">#{date} の日報</string>
+	<string name="template_daily_report_note_content"># #{time}\n</string>
 	<bool name="template_daily_report_note_title_locked">true</bool>
 	<bool name="template_daily_report_note_edit_same_title">true</bool>
 

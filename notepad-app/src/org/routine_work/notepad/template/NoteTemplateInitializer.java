@@ -91,6 +91,20 @@ public class NoteTemplateInitializer extends IntentService
 			values.put(NoteStore.NoteTemplate.Columns.EDIT_SAME_TITLE, editSameTitle);
 			contentResolver.insert(NoteStore.NoteTemplate.CONTENT_URI, values);
 
+			// action log template
+			values.clear();
+			name = resources.getString(R.string.template_action_log_note_name);
+			title = resources.getString(R.string.template_action_log_note_title);
+			content = resources.getString(R.string.template_action_log_note_content);
+			titleLocked = resources.getBoolean(R.bool.template_action_log_note_title_locked);
+			editSameTitle = resources.getBoolean(R.bool.template_action_log_note_edit_same_title);
+			values.put(NoteStore.NoteTemplate.Columns.NAME, name);
+			values.put(NoteStore.NoteTemplate.Columns.TITLE, title);
+			values.put(NoteStore.NoteTemplate.Columns.CONTENT, content);
+			values.put(NoteStore.NoteTemplate.Columns.TITLE_LOCKED, titleLocked);
+			values.put(NoteStore.NoteTemplate.Columns.EDIT_SAME_TITLE, editSameTitle);
+			contentResolver.insert(NoteStore.NoteTemplate.CONTENT_URI, values);
+
 			// daily report template
 			values.clear();
 			name = resources.getString(R.string.template_daily_report_note_name);
