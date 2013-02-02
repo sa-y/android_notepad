@@ -76,10 +76,16 @@ public class NoteDetailActivity extends Activity
 			"Hi!");
 		Intent intent = getIntent();
 
-		initWithIntent(intent, savedInstanceState);
+		if (savedInstanceState != null)
+		{
+			initWithSavedInstance(savedInstanceState);
+		}
+		else
+		{
+			initWithIntent(intent);
+		}
 
-		Log.v(LOG_TAG,
-			"Bye");
+		Log.v(LOG_TAG, "Bye");
 	}
 
 	@Override
@@ -88,8 +94,7 @@ public class NoteDetailActivity extends Activity
 		Log.v(LOG_TAG, "Hello");
 
 		super.onNewIntent(intent);
-		Log.d(LOG_TAG, "Hi!");
-		initWithIntent(intent, null);
+		initWithIntent(intent);
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -184,142 +189,144 @@ public class NoteDetailActivity extends Activity
 		return result;
 	}
 
-	private void initWithIntent(Intent intent, Bundle savedInstanceState)
+	private void initWithSavedInstance(Bundle savedInstanceState)
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		Log.d(LOG_TAG, "init model data from savedInstanceState => " + savedInstanceState);
+		currentAction = savedInstanceState.getString(SAVE_KEY_CURRENT_ACTION);
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	private void initWithIntent(Intent intent)
 	{
 		Log.v(LOG_TAG, "Hello");
 
 		FragmentManager fm = getFragmentManager();
 
-		if (savedInstanceState != null)
+		Log.d(LOG_TAG, "init model data from intent => " + intent);
+
+		String nextAction = intent.getAction();
+		Uri newNoteUri = intent.getData();
+
+		Log.d(LOG_TAG, "nextAction => " + nextAction);
+		Log.d(LOG_TAG, "newNoteUri => " + newNoteUri);
+
+		if (Intent.ACTION_INSERT.equals(nextAction)
+			|| Intent.ACTION_EDIT.equals(nextAction)
+			|| Intent.ACTION_VIEW.equals(nextAction))
 		{
-			Log.d(LOG_TAG, "init model data from savedInstanceState => " + savedInstanceState);
-			currentAction = savedInstanceState.getString(SAVE_KEY_CURRENT_ACTION);
-		}
-		else
-		{
-			Log.d(LOG_TAG, "init model data from intent => " + intent);
+			EditNoteFragment editNoteFragment;
+			Fragment noteDetailFragment = fm.findFragmentByTag(FT_NOTE_EDIT);
+			Log.d(LOG_TAG, "noteDetailFragment=> " + noteDetailFragment);
+			if (noteDetailFragment instanceof EditNoteFragment)
+			{
+				Log.d(LOG_TAG, "EditNoteFragment is already exist.");
+				editNoteFragment = (EditNoteFragment) noteDetailFragment;
+			}
+			else
+			{
+				Log.d(LOG_TAG, "EditNoteFragment is created now.");
+				editNoteFragment = new EditNoteFragment();
+				FragmentTransaction ft = fm.beginTransaction();
+				ft.replace(R.id.note_detail_container, editNoteFragment, FT_NOTE_EDIT);
+				ft.commit();
+			}
+			Log.d(LOG_TAG, "editNoteFragment => " + editNoteFragment);
+			Log.d(LOG_TAG, "editNoteFragment.noteUri => " + editNoteFragment.getNoteUri());
 
-			String nextAction = intent.getAction();
-			Uri newNoteUri = intent.getData();
+			if (Intent.ACTION_INSERT.equals(nextAction))
+			{
+				Log.d(LOG_TAG, "Insert note.");
+				editNoteFragment.setNoteUri(NoteStore.Note.CONTENT_URI);
 
-			Log.d(LOG_TAG, "nextAction => " + nextAction);
-			Log.d(LOG_TAG, "newNoteUri => " + newNoteUri);
+				String noteTitle = intent.getStringExtra(EXTRA_TITLE);
+				String noteContent = intent.getStringExtra(EXTRA_TEXT);
+				boolean noteTitleLocked = intent.getBooleanExtra(EXTRA_TITLE_LOCKED, false);
+				Log.d(LOG_TAG, "noteTitle => " + noteTitle);
+				Log.d(LOG_TAG, "noteContent => " + noteContent);
+				Log.d(LOG_TAG, "noteTitleLocked => " + noteTitleLocked);
+				editNoteFragment.setNoteContents(noteTitle, noteContent, noteTitleLocked);
 
-			if (Intent.ACTION_INSERT.equals(nextAction)
-				|| Intent.ACTION_EDIT.equals(nextAction)
+				setTitle(R.string.add_new_note_title);
+			}
+			else if (Intent.ACTION_EDIT.equals(nextAction)
 				|| Intent.ACTION_VIEW.equals(nextAction))
 			{
-				EditNoteFragment editNoteFragment;
-				Fragment noteDetailFragment = fm.findFragmentByTag(FT_NOTE_EDIT);
-				Log.d(LOG_TAG, "noteDetailFragment=> " + noteDetailFragment);
-				if (noteDetailFragment instanceof EditNoteFragment)
+				Log.d(LOG_TAG, "Edit note.");
+				Log.d(LOG_TAG, "Edit newNoteUri => " + newNoteUri);
+				Uri editNoteUri = editNoteFragment.getNoteUri();
+				if (editNoteUri == null)
 				{
-					Log.d(LOG_TAG, "EditNoteFragment is already exist.");
-					editNoteFragment = (EditNoteFragment) noteDetailFragment;
+					editNoteUri = newNoteUri;
 				}
-				else
-				{
-					Log.d(LOG_TAG, "EditNoteFragment is created now.");
-					editNoteFragment = new EditNoteFragment();
-					FragmentTransaction ft = fm.beginTransaction();
-					ft.replace(R.id.note_detail_container, editNoteFragment, FT_NOTE_EDIT);
-					ft.commit();
-				}
-				Log.d(LOG_TAG, "editNoteFragment => " + editNoteFragment);
-				Log.d(LOG_TAG, "editNoteFragment.noteUri => " + editNoteFragment.getNoteUri());
 
-				if (Intent.ACTION_INSERT.equals(nextAction))
+				if (NoteStore.isNoteItemUri(this, editNoteUri))
 				{
-					Log.d(LOG_TAG, "Insert note.");
-					editNoteFragment.setNoteUri(NoteStore.Note.CONTENT_URI);
-
-					String noteTitle = intent.getStringExtra(EXTRA_TITLE);
-					String noteContent = intent.getStringExtra(EXTRA_TEXT);
-					boolean noteTitleLocked = intent.getBooleanExtra(EXTRA_TITLE_LOCKED, false);
-					Log.d(LOG_TAG, "noteTitle => " + noteTitle);
-					Log.d(LOG_TAG, "noteContent => " + noteContent);
-					Log.d(LOG_TAG, "noteTitleLocked => " + noteTitleLocked);
-					editNoteFragment.setNoteContents(noteTitle, noteContent, noteTitleLocked);
-
-					setTitle(R.string.add_new_note_title);
-				}
-				else if (Intent.ACTION_EDIT.equals(nextAction)
-					|| Intent.ACTION_VIEW.equals(nextAction))
-				{
-					Log.d(LOG_TAG, "Edit note.");
-					Log.d(LOG_TAG, "Edit newNoteUri => " + newNoteUri);
-					Uri editNoteUri = editNoteFragment.getNoteUri();
-					if (editNoteUri == null)
+					if (NoteStore.exist(getContentResolver(), editNoteUri))
 					{
-						editNoteUri = newNoteUri;
+						editNoteFragment.setNoteUri(editNoteUri);
 					}
-
-					if (NoteStore.isNoteItemUri(this, editNoteUri))
+					else
 					{
-						if (NoteStore.exist(getContentResolver(), editNoteUri))
-						{
-							editNoteFragment.setNoteUri(editNoteUri);
-						}
-						else
-						{
-							Toast.makeText(this, R.string.note_not_exist, Toast.LENGTH_LONG).show();
-							NotepadActivity.goHomeActivity(this);
-							finish();
-							return;
-						}
+						Toast.makeText(this, R.string.note_not_exist, Toast.LENGTH_LONG).show();
+						NotepadActivity.goHomeActivity(this);
+						finish();
+						return;
 					}
-
-					String appendText = intent.getStringExtra(EXTRA_TEXT);
-					if (TextUtils.isEmpty(appendText) == false)
-					{
-						editNoteFragment.setAppendText(appendText);
-					}
-
-					setTitle(R.string.edit_note_title);
 				}
 
-				nextAction = Intent.ACTION_EDIT;
+				String appendText = intent.getStringExtra(EXTRA_TEXT);
+				if (TextUtils.isEmpty(appendText) == false)
+				{
+					editNoteFragment.setAppendText(appendText);
+				}
+
+				setTitle(R.string.edit_note_title);
 			}
-			else if (Intent.ACTION_DELETE.equals(nextAction))
-			{
-				DeleteNoteFragment deleteNoteFragment;
-				Fragment noteDetailFragment = fm.findFragmentByTag(FT_NOTE_DELETE);
-				Log.d(LOG_TAG, "noteDetailFragment => " + noteDetailFragment);
-				if (noteDetailFragment instanceof DeleteNoteFragment)
-				{
-					Log.d(LOG_TAG, "DeleteNoteFragment is already exist.");
-					deleteNoteFragment = (DeleteNoteFragment) noteDetailFragment;
-				}
-				else
-				{
-					Log.d(LOG_TAG, "DeleteNoteFragment is created now.");
-					deleteNoteFragment = new DeleteNoteFragment();
-					FragmentTransaction ft = fm.beginTransaction();
-					ft.replace(R.id.note_detail_container, deleteNoteFragment, FT_NOTE_DELETE);
-					ft.commit();
-				}
 
-				Log.d(LOG_TAG, "Delete newNoteUri => " + newNoteUri);
-
-				if (NoteStore.isNoteItemUri(this, newNoteUri) == false)
-				{
-					Toast.makeText(this, R.string.note_not_specified, Toast.LENGTH_LONG).show();
-					finish();
-					return;
-				}
-
-				if (NoteStore.exist(getContentResolver(), newNoteUri) == false)
-				{
-					Toast.makeText(this, R.string.note_not_exist, Toast.LENGTH_LONG).show();
-					finish();
-					return;
-				}
-
-				deleteNoteFragment.setNoteUri(newNoteUri);
-				setTitle(R.string.delete_note_title);
-			}
-			currentAction = nextAction;
+			nextAction = Intent.ACTION_EDIT;
 		}
+		else if (Intent.ACTION_DELETE.equals(nextAction))
+		{
+			DeleteNoteFragment deleteNoteFragment;
+			Fragment noteDetailFragment = fm.findFragmentByTag(FT_NOTE_DELETE);
+			Log.d(LOG_TAG, "noteDetailFragment => " + noteDetailFragment);
+			if (noteDetailFragment instanceof DeleteNoteFragment)
+			{
+				Log.d(LOG_TAG, "DeleteNoteFragment is already exist.");
+				deleteNoteFragment = (DeleteNoteFragment) noteDetailFragment;
+			}
+			else
+			{
+				Log.d(LOG_TAG, "DeleteNoteFragment is created now.");
+				deleteNoteFragment = new DeleteNoteFragment();
+				FragmentTransaction ft = fm.beginTransaction();
+				ft.replace(R.id.note_detail_container, deleteNoteFragment, FT_NOTE_DELETE);
+				ft.commit();
+			}
+
+			Log.d(LOG_TAG, "Delete newNoteUri => " + newNoteUri);
+
+			if (NoteStore.isNoteItemUri(this, newNoteUri) == false)
+			{
+				Toast.makeText(this, R.string.note_not_specified, Toast.LENGTH_LONG).show();
+				finish();
+				return;
+			}
+
+			if (NoteStore.exist(getContentResolver(), newNoteUri) == false)
+			{
+				Toast.makeText(this, R.string.note_not_exist, Toast.LENGTH_LONG).show();
+				finish();
+				return;
+			}
+
+			deleteNoteFragment.setNoteUri(newNoteUri);
+			setTitle(R.string.delete_note_title);
+		}
+		currentAction = nextAction;
 		Log.d(LOG_TAG, "currentAction => " + currentAction);
 
 		Log.v(LOG_TAG, "Bye");
