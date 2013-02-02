@@ -1,6 +1,7 @@
 1.0.4
 =====
 * Add new note template.
+* Fixed a bug on screen rotation.
 
 1.0.3
 =====

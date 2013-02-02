@@ -5,10 +5,6 @@ notepad-app
 *** NoteDetailViewer
 *** NoteDetailEditor
 
-* NoteDetailActivity のリファクタリング
-** initWithIntent() の 第一引数の Bundle を削除
-** 呼び出し側で分岐するべき
-
 * NoteTemplateDetailActivity のリファクタリング
 ** onCreate() の第一引数の Bundle がある場合にはすべて Bundle から復元するべき
 ** 保存処理を onActivityResult() から呼び出すべき
