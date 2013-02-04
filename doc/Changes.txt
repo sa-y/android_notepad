@@ -1,12 +1,13 @@
 1.0.4
 =====
-* Add new note template.
-* Fixed a bug on screen rotation.
+* Add new note template
+* Fixed a bug on note template list
+* Fixed a bug on screen rotation
 
 1.0.3
 =====
 
-* Fixed note saving bug on screen rotation.
+* Fixed note saving bug on screen rotation
 * Backup and restore database
 * Add context menu to note viewer
 

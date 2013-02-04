@@ -62,6 +62,8 @@ public class NoteTemplateDetailActivity extends ListActivity
 
 	private static final String SAVE_KEY_CURRENT_ACTION = "currentAction";
 	private static final String SAVE_KEY_CURRENT_NOTE_TEMAPLATE_URI = "currentNoteTemplateUri";
+	private static final String SAVE_KEY_CURRENT_NOTE_TEMAPLATE = "currentNoteTemplate";
+	private static final String SAVE_KEY_ORIGINAL_NOTE_TEMAPLATE = "originalNoteTemplate";
 	private static final int POSITION_NAME = 0;
 	private static final int POSITION_TITLE = 1;
 	private static final int POSITION_TITLE_LOCKED = 2;
@@ -91,14 +93,20 @@ public class NoteTemplateDetailActivity extends ListActivity
 		ImageButton homeImageButton = (ImageButton) findViewById(R.id.home_button);
 		homeImageButton.setOnClickListener(this);
 
-		// process intent
-		initWithIntent(savedInstanceState, getIntent());
-
 		noteTemplateDetailListAdapter = new NoteTemplateDetailListAdapter();
 		setListAdapter(noteTemplateDetailListAdapter);
 
 		ListView listView = getListView();
 		listView.setOnItemClickListener(this);
+
+		if (savedInstanceState != null)
+		{
+			initWithSavedInstance(savedInstanceState);
+		}
+		else
+		{
+			initWithIntent(getIntent());
+		}
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -111,6 +119,8 @@ public class NoteTemplateDetailActivity extends ListActivity
 		saveNoteTemplate();
 		outState.putString(SAVE_KEY_CURRENT_ACTION, currentAction);
 		outState.putParcelable(SAVE_KEY_CURRENT_NOTE_TEMAPLATE_URI, currentNoteTemplateUri);
+		outState.putSerializable(SAVE_KEY_CURRENT_NOTE_TEMAPLATE, currentNoteTemplate);
+		outState.putSerializable(SAVE_KEY_ORIGINAL_NOTE_TEMAPLATE, originalNoteTemplate);
 		Log.v(LOG_TAG, "Bye");
 	}
 
@@ -120,7 +130,7 @@ public class NoteTemplateDetailActivity extends ListActivity
 		Log.v(LOG_TAG, "Hello");
 
 		super.onNewIntent(intent);
-		initWithIntent(null, intent);
+		initWithIntent(intent);
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -275,54 +285,55 @@ public class NoteTemplateDetailActivity extends ListActivity
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	protected void initWithIntent(Bundle savedInstanceState, Intent intent)
+	protected void initWithSavedInstance(Bundle savedInstanceState)
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		Log.d(LOG_TAG, "restore from savedInstanceState");
+		// restore currentAction
+		currentAction = savedInstanceState.getString(SAVE_KEY_CURRENT_ACTION);
+
+		// restore currentNoteUri
+		Parcelable currentNoteTemplateUriObj = savedInstanceState.getParcelable(SAVE_KEY_CURRENT_NOTE_TEMAPLATE_URI);
+		if (currentNoteTemplateUriObj instanceof Uri)
+		{
+			currentNoteTemplateUri = (Uri) currentNoteTemplateUriObj;
+		}
+
+		// restore currentNoteTemplate
+		Object currentNoteTemplateObj = savedInstanceState.getSerializable(SAVE_KEY_CURRENT_NOTE_TEMAPLATE);
+		if (currentNoteTemplateObj instanceof NoteTemplate)
+		{
+			currentNoteTemplate.copyFrom((NoteTemplate) currentNoteTemplateObj);
+		}
+
+		// restore originalNoteTemplate
+		Object originalNoteTemplateObj = savedInstanceState.getSerializable(SAVE_KEY_ORIGINAL_NOTE_TEMAPLATE);
+		if (originalNoteTemplateObj instanceof NoteTemplate)
+		{
+			originalNoteTemplate.copyFrom((NoteTemplate) originalNoteTemplateObj);
+		}
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	protected void initWithIntent(Intent intent)
 	{
 		Log.v(LOG_TAG, "Hello");
 		Log.d(LOG_TAG, "isFinishing() => " + isFinishing());
 
-		Log.d(LOG_TAG, "currentAction => " + currentAction);
-		Log.d(LOG_TAG, "currentNoteTemplateUri => " + currentNoteTemplateUri);
-
-		// load saved note uri
-		String newAction = null;
-		Uri newNoteTemplateUri = null;
-		Log.d(LOG_TAG, "savedInstanceState => " + savedInstanceState);
-		if (savedInstanceState != null)
-		{
-			// load currentAction
-			newAction = savedInstanceState.getString(SAVE_KEY_CURRENT_ACTION);
-			Log.d(LOG_TAG, "SAVE_KEY_CURRENT_ACTION => " + savedInstanceState.getString(SAVE_KEY_CURRENT_ACTION));
-
-			// load currentNoteUri
-			Parcelable noteUriObj = savedInstanceState.getParcelable(SAVE_KEY_CURRENT_NOTE_TEMAPLATE_URI);
-			Log.d(LOG_TAG, "SAVE_KEY_CURRENT_NOTE_TEMAPLATE_URI => " + savedInstanceState.getParcelable(SAVE_KEY_CURRENT_NOTE_TEMAPLATE_URI));
-			if (noteUriObj instanceof Uri)
-			{
-				newNoteTemplateUri = (Uri) noteUriObj;
-				Log.d(LOG_TAG, "newNoteTemplateUri => " + newNoteTemplateUri);
-			}
-		}
-
+		Log.d(LOG_TAG, "intent.action => " + intent.getAction());
+		String newAction = intent.getAction();
 		if (newAction == null)
 		{
-			Log.d(LOG_TAG, "intent.action => " + intent.getAction());
-			newAction = intent.getAction();
-			if (newAction == null)
-			{
-				newAction = Intent.ACTION_EDIT;
-			}
+			newAction = Intent.ACTION_EDIT;
 		}
 
+		Log.d(LOG_TAG, "intent.data => " + intent.getData());
+		Uri newNoteTemplateUri = intent.getData();
 		if (newNoteTemplateUri == null)
 		{
-			Log.d(LOG_TAG, "intent.data => " + intent.getData());
-			newNoteTemplateUri = intent.getData();
-			if (newNoteTemplateUri == null)
-			{
-				newNoteTemplateUri = currentNoteTemplateUri;
-			}
+			newNoteTemplateUri = currentNoteTemplateUri;
 		}
-
 
 		Log.d(LOG_TAG, "newAction => " + newAction);
 		Log.d(LOG_TAG, "newNoteTemplateUri => " + newNoteTemplateUri);
@@ -348,7 +359,7 @@ public class NoteTemplateDetailActivity extends ListActivity
 				if (NoteStore.exist(getContentResolver(), newNoteTemplateUri))
 				{
 					currentNoteTemplateUri = newNoteTemplateUri;
-					loadNote();
+					loadNoteTemplate();
 				}
 				else
 				{
@@ -360,15 +371,19 @@ public class NoteTemplateDetailActivity extends ListActivity
 
 			titleTextView.setText(R.string.edit_note_template_title);
 		}
-
 		currentAction = newAction;
 		originalNoteTemplate.copyFrom(currentNoteTemplate);
+
+		Log.d(LOG_TAG, "currentAction => " + currentAction);
+		Log.d(LOG_TAG, "currentNoteTemplateUri => " + currentNoteTemplateUri);
+		Log.d(LOG_TAG, "currentNoteTemplate => " + currentNoteTemplate);
+		Log.d(LOG_TAG, "originalNoteTemplate => " + originalNoteTemplate);
 		Log.d(LOG_TAG, "isFinishing() => " + isFinishing());
 
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void loadNote()
+	private void loadNoteTemplate()
 	{
 		Log.v(LOG_TAG, "Hello");
 		Log.d(LOG_TAG, "currentNoteTemplateUri => " + currentNoteTemplateUri);
@@ -417,8 +432,6 @@ public class NoteTemplateDetailActivity extends ListActivity
 					currentNoteTemplate.setTitleLocked(templateTitleLocked);
 					currentNoteTemplate.setEditSameTitle(templateEditSameTitle);
 					currentNoteTemplate.setContent(templateContent);
-
-					originalNoteTemplate.copyFrom(currentNoteTemplate);
 				}
 			}
 		}
