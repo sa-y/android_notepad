@@ -71,6 +71,7 @@ public class NoteTemplateListActivity extends ListActivity
 		Log.v(LOG_TAG, "Hello");
 
 		MenuInflater menuInflater = getMenuInflater();
+		menuInflater.inflate(R.menu.note_template_list_option_menu, menu);
 		menuInflater.inflate(R.menu.quit_option_menu, menu);
 
 		Log.v(LOG_TAG, "Bye");
@@ -87,12 +88,16 @@ public class NoteTemplateListActivity extends ListActivity
 		switch (itemId)
 		{
 			case android.R.id.home:
-				Log.d(LOG_TAG, "home selected.");
+				Log.d(LOG_TAG, "home is selected.");
 				NotepadActivity.goHomeActivity(this);
 				finish();
 				break;
+			case R.id.add_new_note_template_menuitem:
+				Log.d(LOG_TAG, "add_new_note_template_menuitem is  selected.");
+				startAddNewNoteTemplateActivity();
+				break;
 			case R.id.quit_menuitem:
-				Log.d(LOG_TAG, "quit_menuitem selected.");
+				Log.d(LOG_TAG, "quit_menuitem is selected.");
 				NotepadActivity.quitApplication(this);
 				finish();
 				break;
@@ -175,7 +180,7 @@ public class NoteTemplateListActivity extends ListActivity
 		return cursorLoader;
 	}
 
-	public void onLoadFinished(Loader<Cursor> loader, Cursor d)
+	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor)
 	{
 		Log.v(LOG_TAG, "Hello");
 		Log.d(LOG_TAG, "cursor => " + cursor);
@@ -248,10 +253,14 @@ public class NoteTemplateListActivity extends ListActivity
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
+		Log.v(LOG_TAG, "Hello");
+
 		if (resultCode == RESULT_OK)
 		{
 			listAdapter.notifyDataSetChanged();
 		}
+
+		Log.v(LOG_TAG, "Bye");
 	}
 
 	private void initializeListData()

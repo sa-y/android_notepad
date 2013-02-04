@@ -63,6 +63,7 @@
 	<string name="copy_note_content">Copy Text</string>
 
 	<string name="templates">Templates</string>
+	<string name="add_new_note_template">Add</string>
 	<string name="edit_note_template">Edit</string>
 	<string name="delete_note_template">Delete</string>
 

@@ -69,6 +69,7 @@ public class NoteTemplateListActivity extends ListActivity
 		Log.v(LOG_TAG, "Hello");
 
 		MenuInflater menuInflater = getMenuInflater();
+		menuInflater.inflate(R.menu.note_template_list_option_menu, menu);
 		menuInflater.inflate(R.menu.quit_menu, menu);
 
 		Log.v(LOG_TAG, "Bye");
@@ -84,8 +85,12 @@ public class NoteTemplateListActivity extends ListActivity
 		int itemId = item.getItemId();
 		switch (itemId)
 		{
+			case R.id.add_new_note_template_menuitem:
+				Log.d(LOG_TAG, "add_new_note_template_menuitem is selected.");
+				startAddNewNoteTemplateActivity();
+				break;
 			case R.id.quit_menuitem:
-				Log.d(LOG_TAG, "quit_menuitem selected.");
+				Log.d(LOG_TAG, "quit_menuitem is selected.");
 				NotepadActivity.quitApplication(this);
 				finish();
 				break;

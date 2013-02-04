@@ -5,6 +5,8 @@ notepad-app
 *** NoteDetailViewer
 *** NoteDetailEditor
 
+#* テンプレート一覧画面のオプションメニューに「テンプレート追加」を追加する
+
 #* NoteTemplateDetailActivity のリファクタリング
 #** onCreate() の第一引数の Bundle がある場合にはすべて Bundle から復元するべき
 #** 保存処理を onActivityResult() から呼び出すべき
@@ -58,6 +60,15 @@ notepad-app
 
 notepad-app-level-11
 ====================
+
+#* テンプレート一覧画面のオプションメニューに「テンプレート追加」を追加する
+
+* NoteTemplateDetailActivity のリファクタリング
+** onCreate() の第一引数の Bundle がある場合にはすべて Bundle から復元するべき
+** 保存処理を onActivityResult() から呼び出すべき
+
+* ノートテンプレート一覧表示画面でバグ
+** 再現させる
 
 * アクションバー自動非表示時にジェスチャーで表示できるようにする
 ** ScrollView の上端にいる場合に下にスワイプしたら表示？
