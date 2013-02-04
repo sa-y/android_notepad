@@ -402,21 +402,30 @@ public class EditNoteFragment extends Fragment
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		if (cursor != null)
+		Log.d(LOG_TAG, "getActivity().isFinishing() => " + getActivity().isFinishing());
+		if (getActivity().isFinishing() == false)
 		{
-			if (cursor.moveToFirst())
+			if (cursor != null)
 			{
-				int titleColumnIndex = cursor.getColumnIndex(NoteStore.Note.Columns.TITLE);
-				int contentColumnIndex = cursor.getColumnIndex(NoteStore.Note.Columns.CONTENT);
-				int titleLockedColumnIndex = cursor.getColumnIndex(NoteStore.Note.Columns.TITLE_LOCKED);
-				String noteTitle = cursor.getString(titleColumnIndex);
-				String noteContent = cursor.getString(contentColumnIndex);
-				boolean noteTitleLocked = cursor.getInt(titleLockedColumnIndex) != 0;
-				Log.d(LOG_TAG, "noteTitle => " + noteTitle);
-				Log.d(LOG_TAG, "noteContent => " + noteContent);
-				Log.d(LOG_TAG, "noteTitleLocked => " + noteTitleLocked);
-				setNoteContents(noteTitle, noteContent, noteTitleLocked);
+				if (cursor.moveToFirst())
+				{
+					Log.d(LOG_TAG, "The note loading is started.");
+					int titleColumnIndex = cursor.getColumnIndex(NoteStore.Note.Columns.TITLE);
+					int contentColumnIndex = cursor.getColumnIndex(NoteStore.Note.Columns.CONTENT);
+					int titleLockedColumnIndex = cursor.getColumnIndex(NoteStore.Note.Columns.TITLE_LOCKED);
+					String noteTitle = cursor.getString(titleColumnIndex);
+					String noteContent = cursor.getString(contentColumnIndex);
+					boolean noteTitleLocked = cursor.getInt(titleLockedColumnIndex) != 0;
+					Log.d(LOG_TAG, "noteTitle => " + noteTitle);
+					Log.d(LOG_TAG, "noteContent => " + noteContent);
+					Log.d(LOG_TAG, "noteTitleLocked => " + noteTitleLocked);
+					setNoteContents(noteTitle, noteContent, noteTitleLocked);
+				}
 			}
+		}
+		else
+		{
+			Log.d(LOG_TAG, "The note loading is cancelled.");
 		}
 
 		Log.v(LOG_TAG, "Bye");
@@ -530,12 +539,12 @@ public class EditNoteFragment extends Fragment
 			if ((TextUtils.isEmpty(currentNote.getTitle()) == false)
 				&& (TextUtils.isEmpty(currentNote.getContent()) == true))
 			{
-				Log.d(LOG_TAG, "noteContentEditText#requestFocus()");
+//				IMEUtils.requestKeyboardFocus(noteContentEditText); // 
 				IMEUtils.requestSoftKeyboardWindow(getActivity(), noteContentEditText);
 			}
 			else
 			{
-				Log.d(LOG_TAG, "noteTitleEditText#requestFocus()");
+//				IMEUtils.requestKeyboardFocus(noteTitleEditText);
 				IMEUtils.requestSoftKeyboardWindow(getActivity(), noteTitleEditText);
 			}
 		}

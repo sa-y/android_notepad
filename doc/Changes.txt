@@ -3,6 +3,7 @@
 * Added a new note template
 * Added menu item "Add" in note template list
 * Fixed a bug on note template list
+* Fixed a note editor bug
 * Fixed a bug on screen rotation
 
 1.0.3

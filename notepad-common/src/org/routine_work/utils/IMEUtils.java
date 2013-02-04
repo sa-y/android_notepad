@@ -63,6 +63,10 @@ public class IMEUtils
 		{
 			public void run()
 			{
+//				if (targetView.isFocused() == false)
+//				{
+//					targetView.requestFocus();
+//				}
 				showSoftKeyboardWindow(targetContext, targetView);
 			}
 		}, delayInMillis);

@@ -256,17 +256,19 @@ public class NoteDetailActivity extends Activity
 			{
 				Log.d(LOG_TAG, "Edit note.");
 				Log.d(LOG_TAG, "Edit newNoteUri => " + newNoteUri);
-				Uri editNoteUri = editNoteFragment.getNoteUri();
-				if (editNoteUri == null)
-				{
-					editNoteUri = newNoteUri;
-				}
+				/*
+				 Uri editNoteUri = editNoteFragment.getNoteUri();
+				 if (editNoteUri == null)
+				 {
+				 editNoteUri = newNoteUri;
+				 }
+				 */
 
-				if (NoteStore.isNoteItemUri(this, editNoteUri))
+				if (NoteStore.isNoteItemUri(this, newNoteUri))
 				{
-					if (NoteStore.exist(getContentResolver(), editNoteUri))
+					if (NoteStore.exist(getContentResolver(), newNoteUri))
 					{
-						editNoteFragment.setNoteUri(editNoteUri);
+						editNoteFragment.setNoteUri(newNoteUri);
 					}
 					else
 					{
@@ -275,6 +277,11 @@ public class NoteDetailActivity extends Activity
 						finish();
 						return;
 					}
+				}
+				else
+				{
+					// add new note if uri is not note item,
+					editNoteFragment.setNoteUri(NoteStore.Note.CONTENT_URI);
 				}
 
 				String appendText = intent.getStringExtra(EXTRA_TEXT);
