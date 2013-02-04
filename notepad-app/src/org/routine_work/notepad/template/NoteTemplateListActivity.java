@@ -243,17 +243,15 @@ public class NoteTemplateListActivity extends ListActivity
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
+		Log.v(LOG_TAG, "Hello");
+
 		if (resultCode == RESULT_OK)
 		{
+			Log.d(LOG_TAG, "Call listAdapter.notifyDataSetChanged()");
 			listAdapter.notifyDataSetChanged();
 		}
-	}
 
-	@Override
-	protected void onResume()
-	{
-		super.onResume();
-		updateNoteTemplateData();
+		Log.v(LOG_TAG, "Bye");
 	}
 
 	private void initializeNoteTemplateAdapter()
