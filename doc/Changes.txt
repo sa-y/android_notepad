@@ -1,6 +1,7 @@
 1.0.4
 =====
-* Add new note template
+* Added a new note template
+* Added menu item "Add" in note template list
 * Fixed a bug on note template list
 * Fixed a bug on screen rotation
 

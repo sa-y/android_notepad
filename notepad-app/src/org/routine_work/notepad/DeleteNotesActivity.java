@@ -181,7 +181,6 @@ public class DeleteNotesActivity extends ListActivity
 			{
 				int checkedPosition = checkedItemPositions.keyAt(i);
 				long id = listView.getItemIdAtPosition(checkedPosition);
-				Log.d(LOG_TAG, "delete note. i => " + i + ", checkedPosition => " + checkedPosition + ", id => " + id);
 				checkedIdList.add(id);
 			}
 		}

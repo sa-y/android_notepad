@@ -58,12 +58,11 @@ public class NoteTemplateListActivity extends ListActivity
 	LoaderManager.LoaderCallbacks<Cursor>
 {
 
-	private static final int NOTE_TEMPLATELOADER_ID = 0;
+	private static final int NOTE_TEMPLATE_LOADER_ID = 0;
 	private static final String LOG_TAG = "simple-notepad";
 	// instances
 	private String currentAction;
 	private SimpleCursorAdapter listAdapter;
-	private Cursor cursor;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
@@ -168,7 +167,7 @@ public class NoteTemplateListActivity extends ListActivity
 	}
 
 	// BEGIN ---------- LoaderManager.LoaderCallbacks<Cursor> ----------
-	public Loader<Cursor> onCreateLoader(int i, Bundle bundle)
+	public Loader<Cursor> onCreateLoader(int id, Bundle bundle)
 	{
 		Log.v(LOG_TAG, "Hello");
 
@@ -205,7 +204,13 @@ public class NoteTemplateListActivity extends ListActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.note_template_list_activity);
 
-		initializeListData();
+		listAdapter = new SimpleCursorAdapter(this,
+			android.R.layout.simple_list_item_1, null,
+			NOTE_TEMPLATE_LIST_MAPPING_FROM, NOTE_TEMPLATE_LIST_MAPPING_TO);
+		setListAdapter(listAdapter);
+
+		LoaderManager loaderManager = getLoaderManager();
+		loaderManager.initLoader(NOTE_TEMPLATE_LOADER_ID, null, this);
 
 		ListView listView = getListView();
 		listView.setOnItemClickListener(this);
@@ -231,22 +236,6 @@ public class NoteTemplateListActivity extends ListActivity
 			setTitle(title);
 		}
 
-
-		Log.v(LOG_TAG, "Bye");
-	}
-
-	@Override
-	protected void onDestroy()
-	{
-		Log.v(LOG_TAG, "Hello");
-
-		if (cursor != null)
-		{
-			cursor.close();
-			cursor = null;
-		}
-		super.onDestroy();
-
 		Log.v(LOG_TAG, "Bye");
 	}
 
@@ -259,28 +248,6 @@ public class NoteTemplateListActivity extends ListActivity
 		{
 			listAdapter.notifyDataSetChanged();
 		}
-
-		Log.v(LOG_TAG, "Bye");
-	}
-
-	private void initializeListData()
-	{
-		Log.v(LOG_TAG, "Hello");
-		LoaderManager loaderManager = getLoaderManager();
-		loaderManager.initLoader(NOTE_TEMPLATELOADER_ID, null, this);
-
-		ContentResolver cr = getContentResolver();
-		Cursor c = cr.query(NoteStore.NoteTemplate.CONTENT_URI, null, null, null,
-			NoteStore.NoteTemplate.Columns._ID + " ASC");
-		if (c != null && c.moveToFirst())
-		{
-			cursor = c;
-		}
-
-		listAdapter = new SimpleCursorAdapter(this,
-			android.R.layout.simple_list_item_1, cursor,
-			NOTE_TEMPLATE_LIST_MAPPING_FROM, NOTE_TEMPLATE_LIST_MAPPING_TO);
-		setListAdapter(listAdapter);
 
 		Log.v(LOG_TAG, "Bye");
 	}
