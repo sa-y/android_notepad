@@ -61,7 +61,7 @@ public class NoteTemplateListActivity extends ListActivity
 	// instances
 	private String currentAction;
 	private SimpleCursorAdapter listAdapter;
-	private Cursor cursor;
+	private Cursor cursor = null;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
@@ -179,7 +179,7 @@ public class NoteTemplateListActivity extends ListActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.note_template_list_activity);
 
-		initializeListData();
+		initializeNoteTemplateAdapter();
 
 		ListView listView = getListView();
 		listView.setOnItemClickListener(this);
@@ -215,6 +215,7 @@ public class NoteTemplateListActivity extends ListActivity
 			titleTextView.setText(title);
 		}
 
+		updateNoteTemplateData();
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -243,22 +244,37 @@ public class NoteTemplateListActivity extends ListActivity
 		}
 	}
 
-	private void initializeListData()
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		updateNoteTemplateData();
+	}
+
+	private void initializeNoteTemplateAdapter()
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		listAdapter = new SimpleCursorAdapter(this,
+			android.R.layout.simple_list_item_1, null,
+			NOTE_TEMPLATE_LIST_MAPPING_FROM, NOTE_TEMPLATE_LIST_MAPPING_TO);
+		setListAdapter(listAdapter);
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	private void updateNoteTemplateData()
 	{
 		Log.v(LOG_TAG, "Hello");
 
 		ContentResolver cr = getContentResolver();
-		Cursor c = cr.query(NoteStore.NoteTemplate.CONTENT_URI, null, null, null,
+		Cursor newCursor = cr.query(NoteStore.NoteTemplate.CONTENT_URI, null, null, null,
 			NoteStore.NoteTemplate.Columns._ID + " ASC");
-		if (c != null && c.moveToFirst())
+		listAdapter.changeCursor(newCursor);
+		if (cursor != null)
 		{
-			cursor = c;
+			cursor.close();
 		}
-
-		listAdapter = new SimpleCursorAdapter(this,
-			android.R.layout.simple_list_item_1, cursor,
-			NOTE_TEMPLATE_LIST_MAPPING_FROM, NOTE_TEMPLATE_LIST_MAPPING_TO);
-		setListAdapter(listAdapter);
 
 		Log.v(LOG_TAG, "Bye");
 	}
