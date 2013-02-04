@@ -61,6 +61,8 @@ public class NoteTemplateDetailActivity extends ListActivity
 
 	private static final String SAVE_KEY_CURRENT_ACTION = "currentAction";
 	private static final String SAVE_KEY_CURRENT_NOTE_TEMAPLATE_URI = "currentNoteTemplateUri";
+	private static final String SAVE_KEY_CURRENT_NOTE_TEMAPLATE = "currentNoteTemplate";
+	private static final String SAVE_KEY_ORIGINAL_NOTE_TEMAPLATE = "originalNoteTemplate";
 	private static final int POSITION_NAME = 0;
 	private static final int POSITION_TITLE = 1;
 	private static final int POSITION_TITLE_LOCKED = 2;
@@ -73,95 +75,6 @@ public class NoteTemplateDetailActivity extends ListActivity
 	private String currentAction;
 	private Uri currentNoteTemplateUri;
 	private NoteTemplateDetailListAdapter noteTemplateDetailListAdapter;
-
-	@Override
-	public void onCreate(Bundle savedInstanceState)
-	{
-		Log.v(LOG_TAG, "Hello");
-
-		setTheme(NotepadPreferenceUtils.getTheme(this));
-		super.onCreate(savedInstanceState);
-
-		setContentView(R.layout.note_template_detail_activity);
-
-		// process intent
-		initWithIntent(savedInstanceState, getIntent());
-
-		noteTemplateDetailListAdapter = new NoteTemplateDetailListAdapter();
-		setListAdapter(noteTemplateDetailListAdapter);
-
-		ListView listView = getListView();
-		listView.setOnItemClickListener(this);
-
-		Log.v(LOG_TAG, "Bye");
-	}
-
-	@Override
-	protected void onSaveInstanceState(Bundle outState)
-	{
-		Log.v(LOG_TAG, "Hello");
-		super.onSaveInstanceState(outState);
-		saveNoteTemplate();
-		outState.putString(SAVE_KEY_CURRENT_ACTION, currentAction);
-		outState.putParcelable(SAVE_KEY_CURRENT_NOTE_TEMAPLATE_URI, currentNoteTemplateUri);
-		Log.v(LOG_TAG, "Bye");
-	}
-
-	@Override
-	protected void onNewIntent(Intent intent)
-	{
-		Log.v(LOG_TAG, "Hello");
-
-		super.onNewIntent(intent);
-		initWithIntent(null, intent);
-
-		Log.v(LOG_TAG, "Bye");
-	}
-
-	@Override
-	protected void onPause()
-	{
-		Log.v(LOG_TAG, "Hello");
-
-		super.onPause();
-		saveNoteTemplate();
-
-		Log.v(LOG_TAG, "Bye");
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data)
-	{
-		switch (requestCode)
-		{
-			case REQUEST_CODE_EDIT_TEMPLATE_NAME:
-				if (resultCode == RESULT_OK)
-				{
-					String name = data.getStringExtra(Intent.EXTRA_TEXT);
-					currentNoteTemplate.setName(name);
-					noteTemplateDetailListAdapter.notifyDataSetChanged();
-				}
-				break;
-			case REQUEST_CODE_EDIT_TEMPLATE_TITLE:
-				if (resultCode == RESULT_OK)
-				{
-					String title = data.getStringExtra(Intent.EXTRA_TEXT);
-					currentNoteTemplate.setTitle(title);
-					noteTemplateDetailListAdapter.notifyDataSetChanged();
-				}
-				break;
-			case REQUEST_CODE_EDIT_TEMPLATE_TEXT:
-				if (resultCode == RESULT_OK)
-				{
-					String content = data.getStringExtra(Intent.EXTRA_TEXT);
-					currentNoteTemplate.setContent(content);
-					noteTemplateDetailListAdapter.notifyDataSetChanged();
-				}
-				break;
-			default:
-				super.onActivityResult(requestCode, resultCode, data);
-		}
-	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
@@ -254,59 +167,153 @@ public class NoteTemplateDetailActivity extends ListActivity
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	protected void initWithIntent(Bundle savedInstanceState, Intent intent)
+	@Override
+	protected void onCreate(Bundle savedInstanceState)
 	{
 		Log.v(LOG_TAG, "Hello");
-		Log.d(LOG_TAG, "isFinishing() => " + isFinishing());
 
-		Log.d(LOG_TAG, "currentAction => " + currentAction);
-		Log.d(LOG_TAG, "currentNoteTemplateUri => " + currentNoteTemplateUri);
+		setTheme(NotepadPreferenceUtils.getTheme(this));
+		super.onCreate(savedInstanceState);
 
-		// load saved note uri
-		String newAction = null;
-		Uri newNoteTemplateUri = null;
-		Log.d(LOG_TAG, "savedInstanceState => " + savedInstanceState);
+		setContentView(R.layout.note_template_detail_activity);
+
+		noteTemplateDetailListAdapter = new NoteTemplateDetailListAdapter();
+		setListAdapter(noteTemplateDetailListAdapter);
+
+		ListView listView = getListView();
+		listView.setOnItemClickListener(this);
+
 		if (savedInstanceState != null)
 		{
-			// load currentAction
-			newAction = savedInstanceState.getString(SAVE_KEY_CURRENT_ACTION);
-			Log.d(LOG_TAG, "SAVE_KEY_CURRENT_ACTION => " + savedInstanceState.getString(SAVE_KEY_CURRENT_ACTION));
-
-			// load currentNoteUri
-			Parcelable noteUriObj = savedInstanceState.getParcelable(SAVE_KEY_CURRENT_NOTE_TEMAPLATE_URI);
-			Log.d(LOG_TAG, "SAVE_KEY_CURRENT_NOTE_TEMAPLATE_URI => " + savedInstanceState.getParcelable(SAVE_KEY_CURRENT_NOTE_TEMAPLATE_URI));
-			if (noteUriObj instanceof Uri)
-			{
-				newNoteTemplateUri = (Uri) noteUriObj;
-				Log.d(LOG_TAG, "newNoteTemplateUri => " + newNoteTemplateUri);
-			}
+			initWithSavedInstance(savedInstanceState);
+		}
+		else
+		{
+			initWithIntent(getIntent());
 		}
 
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState)
+	{
+		Log.v(LOG_TAG, "Hello");
+		super.onSaveInstanceState(outState);
+		saveNoteTemplate();
+		outState.putString(SAVE_KEY_CURRENT_ACTION, currentAction);
+		outState.putParcelable(SAVE_KEY_CURRENT_NOTE_TEMAPLATE_URI, currentNoteTemplateUri);
+		outState.putSerializable(SAVE_KEY_CURRENT_NOTE_TEMAPLATE, currentNoteTemplate);
+		outState.putSerializable(SAVE_KEY_ORIGINAL_NOTE_TEMAPLATE, originalNoteTemplate);
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	@Override
+	protected void onNewIntent(Intent intent)
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		super.onNewIntent(intent);
+		initWithIntent(intent);
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	@Override
+	protected void onPause()
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		super.onPause();
+		saveNoteTemplate();
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		switch (requestCode)
+		{
+			case REQUEST_CODE_EDIT_TEMPLATE_NAME:
+				if (resultCode == RESULT_OK)
+				{
+					String name = data.getStringExtra(Intent.EXTRA_TEXT);
+					currentNoteTemplate.setName(name);
+					noteTemplateDetailListAdapter.notifyDataSetChanged();
+				}
+				break;
+			case REQUEST_CODE_EDIT_TEMPLATE_TITLE:
+				if (resultCode == RESULT_OK)
+				{
+					String title = data.getStringExtra(Intent.EXTRA_TEXT);
+					currentNoteTemplate.setTitle(title);
+					noteTemplateDetailListAdapter.notifyDataSetChanged();
+				}
+				break;
+			case REQUEST_CODE_EDIT_TEMPLATE_TEXT:
+				if (resultCode == RESULT_OK)
+				{
+					String content = data.getStringExtra(Intent.EXTRA_TEXT);
+					currentNoteTemplate.setContent(content);
+					noteTemplateDetailListAdapter.notifyDataSetChanged();
+				}
+				break;
+			default:
+				super.onActivityResult(requestCode, resultCode, data);
+		}
+	}
+
+	protected void initWithSavedInstance(Bundle savedInstanceState)
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		Log.d(LOG_TAG, "restore from savedInstanceState");
+		// restore currentAction
+		currentAction = savedInstanceState.getString(SAVE_KEY_CURRENT_ACTION);
+
+		// restore currentNoteUri
+		Parcelable currentNoteTemplateUriObj = savedInstanceState.getParcelable(SAVE_KEY_CURRENT_NOTE_TEMAPLATE_URI);
+		if (currentNoteTemplateUriObj instanceof Uri)
+		{
+			currentNoteTemplateUri = (Uri) currentNoteTemplateUriObj;
+		}
+
+		// restore currentNoteTemplate
+		Object currentNoteTemplateObj = savedInstanceState.getSerializable(SAVE_KEY_CURRENT_NOTE_TEMAPLATE);
+		if (currentNoteTemplateObj instanceof NoteTemplate)
+		{
+			currentNoteTemplate.copyFrom((NoteTemplate) currentNoteTemplateObj);
+		}
+
+		// restore originalNoteTemplate
+		Object originalNoteTemplateObj = savedInstanceState.getSerializable(SAVE_KEY_ORIGINAL_NOTE_TEMAPLATE);
+		if (originalNoteTemplateObj instanceof NoteTemplate)
+		{
+			originalNoteTemplate.copyFrom((NoteTemplate) originalNoteTemplateObj);
+		}
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	protected void initWithIntent(Intent intent)
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		String newAction = intent.getAction();
 		if (newAction == null)
 		{
-			Log.d(LOG_TAG, "intent.action => " + intent.getAction());
-			newAction = intent.getAction();
-			if (newAction == null)
-			{
-				newAction = Intent.ACTION_EDIT;
-			}
+			newAction = Intent.ACTION_EDIT;
 		}
 
+		Uri newNoteTemplateUri = intent.getData();
 		if (newNoteTemplateUri == null)
 		{
-			Log.d(LOG_TAG, "intent.data => " + intent.getData());
-			newNoteTemplateUri = intent.getData();
-			if (newNoteTemplateUri == null)
-			{
-				newNoteTemplateUri = currentNoteTemplateUri;
-			}
+			newNoteTemplateUri = currentNoteTemplateUri;
 		}
-
 
 		Log.d(LOG_TAG, "newAction => " + newAction);
 		Log.d(LOG_TAG, "newNoteTemplateUri => " + newNoteTemplateUri);
 
-		Log.d(LOG_TAG, "isFinishing() => " + isFinishing());
 		if (Intent.ACTION_INSERT.equals(newAction))
 		{
 			currentNoteTemplateUri = NoteStore.NoteTemplate.CONTENT_URI;
@@ -339,9 +346,13 @@ public class NoteTemplateDetailActivity extends ListActivity
 
 			setTitle(R.string.edit_note_template_title);
 		}
-
 		currentAction = newAction;
 		originalNoteTemplate.copyFrom(currentNoteTemplate);
+
+		Log.d(LOG_TAG, "currentAction => " + currentAction);
+		Log.d(LOG_TAG, "currentNoteTemplateUri => " + currentNoteTemplateUri);
+		Log.d(LOG_TAG, "currentNoteTemplate => " + currentNoteTemplate);
+		Log.d(LOG_TAG, "originalNoteTemplate => " + originalNoteTemplate);
 		Log.d(LOG_TAG, "isFinishing() => " + isFinishing());
 
 		Log.v(LOG_TAG, "Bye");
@@ -396,8 +407,6 @@ public class NoteTemplateDetailActivity extends ListActivity
 					currentNoteTemplate.setTitleLocked(templateTitleLocked);
 					currentNoteTemplate.setEditSameTitle(templateEditSameTitle);
 					currentNoteTemplate.setContent(templateContent);
-
-					originalNoteTemplate.copyFrom(currentNoteTemplate);
 				}
 			}
 		}

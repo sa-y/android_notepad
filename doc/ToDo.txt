@@ -63,9 +63,9 @@ notepad-app-level-11
 
 #* テンプレート一覧画面のオプションメニューに「テンプレート追加」を追加する
 
-* NoteTemplateDetailActivity のリファクタリング
-** onCreate() の第一引数の Bundle がある場合にはすべて Bundle から復元するべき
-** 保存処理を onActivityResult() から呼び出すべき
+#* NoteTemplateDetailActivity のリファクタリング
+#** onCreate() の第一引数の Bundle がある場合にはすべて Bundle から復元するべき
+#** 保存処理を onActivityResult() から呼び出すべき
 
 #* ノートテンプレート一覧表示画面をリファクタリング
 #** なんかLoaderManager でロードするコードと古いコードが混ざっている
