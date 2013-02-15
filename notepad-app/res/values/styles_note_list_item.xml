@@ -9,7 +9,7 @@
 		<item name="android:lines">1</item>
 		<item name="android:ellipsize">marquee</item>
 		<item name="android:textSize">@dimen/note_list_item_title_textSize</item>
-		<item name="android:textColor">?android:attr/textColorPrimary</item>
+		<item name="android:textColor">?attr/textColorPrimary</item>
 	</style>
 
 	<style name="note_list_item_modified">
@@ -17,7 +17,7 @@
 		<item name="android:layout_gravity">right|center_vertical</item>
 		<item name="android:gravity">right</item>
 		<item name="android:textSize">@dimen/note_list_item_modified_textSize</item>
-		<item name="android:textColor">?android:attr/textColorSecondary</item>
+		<item name="android:textColor">?attr/textColorSecondary</item>
 	</style>
 
 	<style name="note_list_item_content">
@@ -28,7 +28,7 @@
 		<item name="android:maxLines">2</item>
 		<item name="android:ellipsize">end</item>
 		<item name="android:textSize">@dimen/note_list_item_content_textSize</item>
-		<item name="android:textColor">?android:attr/textColorSecondary</item>
+		<item name="android:textColor">?attr/textColorSecondary</item>
 	</style>
 
 </resources>

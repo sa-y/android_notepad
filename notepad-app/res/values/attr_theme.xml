@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <declare-styleable name="Theme.Notepad">
+        <attr name="textColorPrimary" format="reference" />
+        <attr name="textColorSecondary" format="reference" />
         <attr name="ic_add" format="reference" />
         <attr name="ic_clear" format="reference" />
         <attr name="ic_delete" format="reference" />

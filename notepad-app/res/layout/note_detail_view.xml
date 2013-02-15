@@ -23,6 +23,7 @@
 			android:lines="1"
 			android:hint="@string/title"
 			android:textSize="18sp"
+			android:textColor="?attr/textColorSecondary"
 		/>
 
 		<View style="@style/note_detail_separator" />
@@ -38,6 +39,7 @@
 			android:gravity="left|top"
 			android:hint="@string/text"
 			android:textSize="18sp"
+			android:textColor="?attr/textColorSecondary"
 		/>
 
 	</LinearLayout>

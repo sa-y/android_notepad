@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:state_enabled="false" android:color="#888"/>
-    <item android:state_window_focused="false" android:color="#666"/>
-    <item android:state_pressed="true" android:color="#CCC"/>
-    <item android:state_selected="true" android:color="#CCC"/>
-    <item android:color="#BBB"/> <!-- not selected -->
+	<item android:color="#777" android:state_window_focused="false" android:state_enabled="false" />
+	<item android:color="#999" android:state_window_focused="false" />
+	<item android:color="#999" android:state_selected="true" android:state_enabled="false" />
+	<item android:color="#999" android:state_pressed="true" android:state_enabled="false" />
+	<item android:color="#CCC" android:state_selected="true" />
+	<item android:color="#CCC" android:state_pressed="true" />
+	<item android:color="#999" android:state_enabled="false" />
+	<item android:color="#BBB" /> <!-- not selected -->
 </selector>
