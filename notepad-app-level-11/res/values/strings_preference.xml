@@ -35,6 +35,17 @@
 	<string name="note_list_item_content_lines_land_title">Text Lines in Landscape</string>
 	<string name="note_list_item_content_lines_summary">%1$s Lines</string>
 
+	<!-- AutoLink Category -->
+	<string name="note_autolink_category_title">Auto Link</string>
+	<!-- AutoLink : Note Title -->
+	<string name="note_title_autolink_title">Auto Link in Title</string>
+	<string name="note_title_autolink_summary_on">The URL and the E-mail in the title are linked automatically.</string>
+	<string name="note_title_autolink_summary_off">The URL and the E-mail in the title are not linked.</string>
+	<!-- AutoLink : Note Content -->
+	<string name="note_content_autolink_title">Auto Link in Text</string>
+	<string name="note_content_autolink_summary_on">The URL and the E-mail in the text are linked automatically.</string>
+	<string name="note_content_autolink_summary_off">The URL and the E-mail in the text are not linked.</string>
+
 	<!-- Backup and Restore Category -->
 	<string name="backup_and_restore">Backup &amp; Restore</string>
 	<!-- Backup Data -->

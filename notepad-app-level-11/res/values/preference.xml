@@ -16,6 +16,10 @@
 		<item>@string/notepad_theme_light_value</item>
 	</string-array>
 
+	<!-- ActionBar -->
+	<string name="actionbar_auto_hide_port_key" >actionbar_auto_hide_port</string>
+	<string name="actionbar_auto_hide_land_key" >actionbar_auto_hide_land</string>
+
 	<!-- Layout -->
 	<string name="note_list_layout_port_key" >note_list_layout_port</string>
 	<string name="note_list_layout_land_key" >note_list_layout_land</string>
@@ -44,8 +48,10 @@
 		<item>4</item>
 	</string-array>
 
-	<!-- ActionBar -->
-	<string name="actionbar_auto_hide_port_key" >actionbar_auto_hide_port</string>
-	<string name="actionbar_auto_hide_land_key" >actionbar_auto_hide_land</string>
+	<!-- Note AutoLink -->
+	<string name="note_title_autolink_key" >note_title_autolink</string>
+	<bool name="note_title_autolink_default_value" >false</bool>
+	<string name="note_content_autolink_key" >note_content_autolink</string>
+	<bool name="note_content_autolink_default_value" >true</bool>
 
 </resources>

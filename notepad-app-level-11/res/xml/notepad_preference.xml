@@ -69,6 +69,23 @@
 		/>
 	</PreferenceCategory>
 
+	<PreferenceCategory android:title="@string/note_autolink_category_title" >
+		<CheckBoxPreference
+			android:key="@string/note_title_autolink_key"
+			android:defaultValue="@bool/note_title_autolink_default_value"
+			android:title="@string/note_title_autolink_title"
+			android:summaryOn="@string/note_title_autolink_summary_on"
+			android:summaryOff="@string/note_title_autolink_summary_off"
+		/>
+		<CheckBoxPreference
+			android:key="@string/note_content_autolink_key"
+			android:defaultValue="@bool/note_content_autolink_default_value"
+			android:title="@string/note_content_autolink_title"
+			android:summaryOn="@string/note_content_autolink_summary_on"
+			android:summaryOff="@string/note_content_autolink_summary_off"
+		/>
+	</PreferenceCategory>
+
 	<PreferenceCategory android:title="@string/backup_and_restore" >
 		<PreferenceScreen
 			android:title="@string/backup_data_title"

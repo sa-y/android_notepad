@@ -26,9 +26,11 @@ package org.routine_work.notepad.fragment;
 import android.app.Activity;
 import android.content.ClipboardManager;
 import android.os.Bundle;
+import android.text.util.Linkify;
 import android.view.*;
 import android.view.ContextMenu.ContextMenuInfo;
 import org.routine_work.notepad.R;
+import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.utils.NoteUtils;
 import org.routine_work.notepad.utils.NotepadConstants;
@@ -78,6 +80,24 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 		Log.v(LOG_TAG, "Hello");
 
 		View view = super.onCreateView(inflater, container, savedInstanceState);
+
+		if (NotepadPreferenceUtils.getNoteTitleAutoLink(getActivity()))
+		{
+			noteTitleTextView.setAutoLinkMask(Linkify.ALL);
+		}
+		else
+		{
+			noteTitleTextView.setAutoLinkMask(0);
+		}
+
+		if (NotepadPreferenceUtils.getNoteContentAutoLink(getActivity()))
+		{
+			noteContentTextView.setAutoLinkMask(Linkify.ALL);
+		}
+		else
+		{
+			noteContentTextView.setAutoLinkMask(0);
+		}
 
 		registerForContextMenu(noteTitleTextView);
 		registerForContextMenu(noteContentTextView);

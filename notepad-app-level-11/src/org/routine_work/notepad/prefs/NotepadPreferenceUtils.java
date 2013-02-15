@@ -51,9 +51,7 @@ public class NotepadPreferenceUtils
 	public static int getTheme(Context context)
 	{
 		int themeId = R.style.Theme_Notepad_Dark;
-		Log.v(LOG_TAG, "Hello");
 
-		String preferenceName = context.getPackageName() + "_preferences";
 		SharedPreferences sharedPreferences = getSharedPreferences(context);
 		String key = context.getString(R.string.notepad_theme_key);
 		String defaultValue = context.getString(R.string.notepad_theme_default_value);
@@ -70,7 +68,6 @@ public class NotepadPreferenceUtils
 			themeId = R.style.Theme_Notepad_Light;
 		}
 
-		Log.v(LOG_TAG, "Bye");
 		return themeId;
 	}
 
@@ -150,6 +147,8 @@ public class NotepadPreferenceUtils
 	public static boolean getActionBarAutoHide(Context context)
 	{
 		boolean actionBarAutoHide;
+		int keyId;
+		int defaultValueId;
 		Log.v(LOG_TAG, "Hello");
 
 		Resources resources = context.getResources();
@@ -157,44 +156,56 @@ public class NotepadPreferenceUtils
 		switch (configuration.orientation)
 		{
 			case Configuration.ORIENTATION_LANDSCAPE:
-				actionBarAutoHide = getActionBarAutoHideLand(context);
+				keyId = R.string.actionbar_auto_hide_land_key;
+				defaultValueId = R.bool.actionbar_auto_hide_land_default_value;
 				break;
 			default:
-				actionBarAutoHide = getActionBarAutoHidePort(context);
+				keyId = R.string.actionbar_auto_hide_port_key;
+				defaultValueId = R.bool.actionbar_auto_hide_port_default_value;
 				break;
 		}
 
-		Log.v(LOG_TAG, "actionBarAutoHide => " + actionBarAutoHide);
+		SharedPreferences sharedPreferences = getSharedPreferences(context);
+
+		String key = resources.getString(keyId);
+		boolean defaultValue = resources.getBoolean(defaultValueId);
+		actionBarAutoHide = sharedPreferences.getBoolean(key, defaultValue);
+
+		Log.d(LOG_TAG, "actionBarAutoHide => " + actionBarAutoHide);
 		Log.v(LOG_TAG, "Bye");
 		return actionBarAutoHide;
 	}
 
-	public static boolean getActionBarAutoHidePort(Context context)
+	public static boolean getNoteTitleAutoLink(Context context)
 	{
-		String preferenceName = context.getPackageName() + "_preferences";
-		SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
+		boolean noteTitleAutoLink;
+		Log.v(LOG_TAG, "Hello");
+
+		SharedPreferences sharedPreferences = getSharedPreferences(context);
 		Resources resources = context.getResources();
+		String key = resources.getString(R.string.note_title_autolink_key);
+		boolean defaultValue = resources.getBoolean(R.bool.note_title_autolink_default_value);
+		noteTitleAutoLink = sharedPreferences.getBoolean(key, defaultValue);
 
-		String key = resources.getString(R.string.actionbar_auto_hide_port_key);
-		boolean defaultValue = resources.getBoolean(R.bool.actionbar_auto_hide_port_default_value);
-		boolean value = sharedPreferences.getBoolean(key, defaultValue);
-
-		Log.v(LOG_TAG, "value => " + value);
-		return value;
+		Log.d(LOG_TAG, "noteTitleAutoLink => " + noteTitleAutoLink);
+		Log.v(LOG_TAG, "Bye");
+		return noteTitleAutoLink;
 	}
 
-	public static boolean getActionBarAutoHideLand(Context context)
+	public static boolean getNoteContentAutoLink(Context context)
 	{
-		String preferenceName = context.getPackageName() + "_preferences";
-		SharedPreferences sharedPreferences = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE);
+		boolean noteContentAutoLink;
+		Log.v(LOG_TAG, "Hello");
+
+		SharedPreferences sharedPreferences = getSharedPreferences(context);
 		Resources resources = context.getResources();
+		String key = resources.getString(R.string.note_content_autolink_key);
+		boolean defaultValue = resources.getBoolean(R.bool.note_content_autolink_default_value);
+		noteContentAutoLink = sharedPreferences.getBoolean(key, defaultValue);
 
-		String key = resources.getString(R.string.actionbar_auto_hide_land_key);
-		boolean defaultValue = resources.getBoolean(R.bool.actionbar_auto_hide_land_default_value);
-		boolean value = sharedPreferences.getBoolean(key, defaultValue);
-
-		Log.v(LOG_TAG, "value => " + value);
-		return value;
+		Log.d(LOG_TAG, "noteContentAutoLink => " + noteContentAutoLink);
+		Log.v(LOG_TAG, "Bye");
+		return noteContentAutoLink;
 	}
 
 	public static int incrementQuitCount(Context context)

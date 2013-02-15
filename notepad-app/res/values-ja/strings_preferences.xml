@@ -27,6 +27,17 @@
 	<string name="note_list_item_content_lines_land_title">本文の行数（横画面）</string>
 	<string name="note_list_item_content_lines_summary">%1$s 行</string>
 
+	<!-- AutoLink Category -->
+	<string name="note_autolink_category_title">自動リンク</string>
+	<!-- AutoLink : Note Title -->
+	<string name="note_title_autolink_title">タイトル内の自動リンク</string>
+	<string name="note_title_autolink_summary_on">ノートのタイトル内のURLやメールアドレスは自動的にリンクされます。</string>
+	<string name="note_title_autolink_summary_off">ノートのタイトル内のURLやメールアドレスはリンクされません。</string>
+	<!-- AutoLink : Note Content -->
+	<string name="note_content_autolink_title">本文内の自動リンク</string>
+	<string name="note_content_autolink_summary_on">ノートの本文内のURLやメールアドレスは自動的にリンクされます。</string>
+	<string name="note_content_autolink_summary_off">ノートの本文内のURLやメールアドレスはリンクされません。</string>
+
 	<!-- Backup and Restore Category -->
 	<string name="backup_and_restore">バックアップと復元</string>
 	<!-- Backup Notes -->
@@ -51,7 +62,7 @@
 	<!-- Initialize Preferences -->
 	<string name="initialize_preference">設定を初期化</string>
 	<string name="initialize_preference_title">設定を初期化</string>
-	<string name="initialize_preference_summary">すべての設定値を初期化します。</string>
+	<string name="initialize_preference_summary">すべての設定を初期化します。</string>
 	<string name="initialize_preference_confirm_message">すべての設定は規定の値に初期化されます。</string>
 
 </resources>

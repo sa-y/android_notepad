@@ -167,6 +167,38 @@ public class NotepadPreferenceUtils
 		return actionBarAutoHide;
 	}
 
+	public static boolean getNoteTitleAutoLink(Context context)
+	{
+		boolean noteTitleAutoLink;
+		Log.v(LOG_TAG, "Hello");
+
+		SharedPreferences sharedPreferences = getSharedPreferences(context);
+		Resources resources = context.getResources();
+		String key = resources.getString(R.string.note_title_autolink_key);
+		boolean defaultValue = resources.getBoolean(R.bool.note_title_autolink_default_value);
+		noteTitleAutoLink = sharedPreferences.getBoolean(key, defaultValue);
+
+		Log.d(LOG_TAG, "noteTitleAutoLink => " + noteTitleAutoLink);
+		Log.v(LOG_TAG, "Bye");
+		return noteTitleAutoLink;
+	}
+
+	public static boolean getNoteContentAutoLink(Context context)
+	{
+		boolean noteContentAutoLink;
+		Log.v(LOG_TAG, "Hello");
+
+		SharedPreferences sharedPreferences = getSharedPreferences(context);
+		Resources resources = context.getResources();
+		String key = resources.getString(R.string.note_content_autolink_key);
+		boolean defaultValue = resources.getBoolean(R.bool.note_content_autolink_default_value);
+		noteContentAutoLink = sharedPreferences.getBoolean(key, defaultValue);
+
+		Log.d(LOG_TAG, "noteContentAutoLink => " + noteContentAutoLink);
+		Log.v(LOG_TAG, "Bye");
+		return noteContentAutoLink;
+	}
+
 	public static int incrementQuitCount(Context context)
 	{
 		final String QUIT_COUNT_KEY = "QUIT_COUNT";

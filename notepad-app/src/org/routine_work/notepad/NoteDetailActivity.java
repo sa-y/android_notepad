@@ -36,6 +36,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.ClipboardManager;
 import android.text.TextUtils;
+import android.text.util.Linkify;
 import android.view.*;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnFocusChangeListener;
@@ -154,8 +155,26 @@ public class NoteDetailActivity extends Activity
 		// View Mode
 		noteViewContainer = (ViewGroup) findViewById(R.id.note_view_container);
 		noteTitleTextView = (TextView) findViewById(R.id.note_title_textview);
-//		noteTitleTextView.setOnClickListener(this);
+		if (NotepadPreferenceUtils.getNoteTitleAutoLink(this))
+		{
+			noteTitleTextView.setAutoLinkMask(Linkify.ALL);
+		}
+		else
+		{
+			noteTitleTextView.setAutoLinkMask(0);
+		}
+
 		noteContentTextView = (TextView) findViewById(R.id.note_content_textview);
+		if (NotepadPreferenceUtils.getNoteContentAutoLink(this))
+		{
+			noteContentTextView.setAutoLinkMask(Linkify.ALL);
+		}
+		else
+		{
+			noteContentTextView.setAutoLinkMask(0);
+		}
+
+//		noteTitleTextView.setOnClickListener(this);
 //		noteContentTextView.setOnClickListener(this);
 
 		registerForContextMenu(noteTitleTextView);
@@ -176,7 +195,8 @@ public class NoteDetailActivity extends Activity
 
 	/**
 	 * This method is called before onPause().
-	 * @param outState 
+	 *
+	 * @param outState
 	 */
 	@Override
 	protected void onSaveInstanceState(Bundle outState)

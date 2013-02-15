@@ -137,8 +137,11 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 		final String noteListLayoutLandDefaultValue = getString(R.string.note_list_layout_land_default_value);
 
 		String noteListLayoutPortValue = sharedPreferences.getString(noteListLayoutPortKey, noteListLayoutPortDefaultValue);
+		Log.v(LOG_TAG, "noteListLayoutPortDefaultValue => " + noteListLayoutPortDefaultValue);
 		summary = getLayoutName(noteListLayoutPortValue);
+		Log.v(LOG_TAG, "summary => " + summary);
 		ListPreference noteListLayoutPortPreference = (ListPreference) getPreferenceScreen().findPreference(noteListLayoutPortKey);
+		Log.v(LOG_TAG, "noteListLayoutPortPreference => " + noteListLayoutPortPreference);
 		noteListLayoutPortPreference.setSummary(summary);
 
 		String noteListLayoutLandValue = sharedPreferences.getString(noteListLayoutLandKey, noteListLayoutLandDefaultValue);

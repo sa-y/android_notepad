@@ -32,4 +32,10 @@
 		<item>4</item>
 	</string-array>
 
+	<!-- Note AutoLink -->
+	<string name="note_title_autolink_key" >note_title_autolink</string>
+	<bool name="note_title_autolink_default_value" >false</bool>
+	<string name="note_content_autolink_key" >note_content_autolink</string>
+	<bool name="note_content_autolink_default_value" >true</bool>
+
 </resources>
