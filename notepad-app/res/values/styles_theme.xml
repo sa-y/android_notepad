@@ -12,6 +12,15 @@
 		<item name="android:background" >@drawable/edit_text_holo_light</item>
 	</style>
 
+	<!-- TextView -->
+	<style name="Widget.Holo.Dark.TextView" parent="@android:style/Widget.TextView" >
+		<item name="android:textColor" >@color/secondary_text_holo_dark</item>
+	</style>
+
+	<style name="Widget.Holo.Light.TextView" parent="@android:style/Widget.TextView" >
+		<item name="android:textColor" >@color/secondary_text_holo_light</item>
+	</style>
+
 	<!-- ListView -->
 	<style name="Widget.Notepad.ListView" parent="@android:style/Widget.ListView" >
 		<item name="android:listSelector" >@drawable/list_selector</item>
@@ -20,6 +29,7 @@
 	<!-- Dark Theme -->
 	<style name="Theme.Notepad.Dark" parent="@android:style/Theme.NoTitleBar" >
 		<item name="android:editTextStyle">@style/Widget.Holo.Dark.EditText</item>
+		<item name="android:textViewStyle">@style/Widget.Holo.Dark.TextView</item>
 		<item name="android:listViewStyle">@style/Widget.Notepad.ListView</item>
 		<item name="ic_add">@drawable/ic_add_dark</item>
 		<item name="ic_clear">@drawable/ic_clear_dark</item>
@@ -35,6 +45,7 @@
 	<!-- Light Theme -->
 	<style name="Theme.Notepad.Light" parent="@android:style/Theme.Light.NoTitleBar" >
 		<item name="android:editTextStyle">@style/Widget.Holo.Light.EditText</item>
+		<item name="android:textViewStyle">@style/Widget.Holo.Light.TextView</item>
 		<item name="android:listViewStyle">@style/Widget.Notepad.ListView</item>
 		<item name="ic_add">@drawable/ic_add_light</item>
 		<item name="ic_clear">@drawable/ic_clear_light</item>

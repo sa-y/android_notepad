@@ -10,9 +10,19 @@
 		<item name="android:textColor" >@color/primary_text_holo_light</item>
 	</style>
 
+	<!-- TextView -->
+	<style name="Widget.Notepad.Dark.TextView" parent="@android:style/Widget.Holo.TextView" >
+		<item name="android:textColor" >@color/secondary_text_holo_dark</item>
+	</style>
+
+	<style name="Widget.Notepad.Light.TextView" parent="@android:style/Widget.Holo.Light.TextView" >
+		<item name="android:textColor" >@color/secondary_text_holo_light</item>
+	</style>
+
 	<!-- Dark Theme -->
 	<style name="Theme.Notepad.Dark" parent="@android:style/Theme.Holo" >
 		<item name="android:editTextStyle">@style/Widget.Notepad.Dark.EditText</item>
+		<item name="android:textViewStyle">@style/Widget.Notepad.Dark.TextView</item>
 		<item name="ic_lock">@drawable/ic_lock_dark</item>
 		<item name="ic_unlock">@drawable/ic_unlock_dark</item>
 	</style>
@@ -20,6 +30,7 @@
 	<!-- Light Theme -->
 	<style name="Theme.Notepad.Light" parent="@android:style/Theme.Holo.Light" >
 		<item name="android:editTextStyle">@style/Widget.Notepad.Light.EditText</item>
+		<item name="android:textViewStyle">@style/Widget.Notepad.Light.TextView</item>
 		<item name="ic_lock">@drawable/ic_lock_light</item>
 		<item name="ic_unlock">@drawable/ic_unlock_light</item>
 	</style>
