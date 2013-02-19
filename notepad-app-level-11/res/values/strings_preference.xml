@@ -30,6 +30,11 @@
 
 	<!-- Note List Category -->
 	<string name="note_list_category_title">Note List</string>
+	<!-- Note List : Modified Time Visibility -->
+	<string name="note_list_item_modified_time_visibility_port_title">Modified Time in Portrait</string>
+	<string name="note_list_item_modified_time_visibility_land_title">Modified Time in Landscape</string>
+	<string name="note_list_item_modified_time_visibility_summary_on">The modified time is visible in note list.</string>
+	<string name="note_list_item_modified_time_visibility_summary_off">The modified time is not visible in note list.</string>
 	<!-- Note List : Content Text Lines -->
 	<string name="note_list_item_content_lines_port_title">Text Lines in Portrait</string>
 	<string name="note_list_item_content_lines_land_title">Text Lines in Landscape</string>

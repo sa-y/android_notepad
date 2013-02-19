@@ -60,6 +60,7 @@ public class NoteCursorAdapter extends SimpleCursorAdapter
 	private Context context;
 	private boolean checkable = false;
 	private int noteListItemContentLines;
+	private boolean noteListItemModifiedTimeVisible;
 
 	public NoteCursorAdapter(Context context, Cursor c)
 	{
@@ -74,6 +75,8 @@ public class NoteCursorAdapter extends SimpleCursorAdapter
 		this.context = context;
 
 		noteListItemContentLines = NotepadPreferenceUtils.getNoteListItemContentLines(context);
+		noteListItemModifiedTimeVisible = NotepadPreferenceUtils.isNoteListItemModifiedTimeVisible(context);
+		Log.i(LOG_TAG, "noteListItemModifiedTimeVisible => " + noteListItemModifiedTimeVisible);
 
 		SharedPreferences sharedPreferences = NotepadPreferenceUtils.getSharedPreferences(context);
 		sharedPreferences.registerOnSharedPreferenceChangeListener(this);
@@ -112,6 +115,16 @@ public class NoteCursorAdapter extends SimpleCursorAdapter
 			noteContentTextView.setLines(noteListItemContentLines);
 		}
 
+		TextView noteModifiedTimeTextView = (TextView) view.findViewById(R.id.note_modified_textview);
+		if (noteListItemModifiedTimeVisible)
+		{
+			noteModifiedTimeTextView.setVisibility(View.VISIBLE);
+		}
+		else
+		{
+			noteModifiedTimeTextView.setVisibility(View.GONE);
+		}
+
 		Log.v(LOG_TAG, "Bye");
 	}
 
@@ -148,12 +161,20 @@ public class NoteCursorAdapter extends SimpleCursorAdapter
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		String portKey = context.getString(R.string.note_list_item_content_lines_port_key);
-		String landKey = context.getString(R.string.note_list_item_content_lines_land_key);
-		if (portKey.equals(key) || landKey.equals(key))
+		String linesPortKey = context.getString(R.string.note_list_item_content_lines_port_key);
+		String linesLandKey = context.getString(R.string.note_list_item_content_lines_land_key);
+		if (linesPortKey.equals(key) || linesLandKey.equals(key))
 		{
 			int newLines = NotepadPreferenceUtils.getNoteListItemContentLines(context);
 			this.setNoteListItemContentLines(newLines);
+		}
+
+		String mtimePortKey = context.getString(R.string.note_list_item_modified_time_visibility_port_key);
+		String mtimeLandKey = context.getString(R.string.note_list_item_modified_time_visibility_land_key);
+		if (mtimePortKey.equals(key) || mtimeLandKey.equals(key))
+		{
+			boolean mtimeVisible = NotepadPreferenceUtils.isNoteListItemModifiedTimeVisible(context);
+			this.setNoteListItemModifiedTImeVisible(mtimeVisible);
 		}
 
 		Log.v(LOG_TAG, "Bye");
@@ -167,6 +188,20 @@ public class NoteCursorAdapter extends SimpleCursorAdapter
 	public void setCheckable(boolean checkable)
 	{
 		this.checkable = checkable;
+	}
+
+	public boolean isNoteListItemModifiedTimeVisible()
+	{
+		return noteListItemModifiedTimeVisible;
+	}
+
+	public void setNoteListItemModifiedTImeVisible(boolean modifiedTimeVisible)
+	{
+		if (modifiedTimeVisible != this.noteListItemModifiedTimeVisible)
+		{
+			this.noteListItemModifiedTimeVisible = modifiedTimeVisible;
+			notifyDataSetChanged();
+		}
 	}
 
 	public int getNoteListItemContentLines()

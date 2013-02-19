@@ -37,6 +37,9 @@
 	</string-array>
 
 	<!-- Note List -->
+	<string name="note_list_item_modified_time_visibility_port_key" >note_list_item_modified_time_visibility_port</string>
+	<string name="note_list_item_modified_time_visibility_land_key" >note_list_item_modified_time_visibility_land</string>
+
 	<string name="note_list_item_content_lines_port_key" >note_list_item_content_lines_port</string>
 	<string name="note_list_item_content_lines_land_key" >note_list_item_content_lines_land</string>
 
