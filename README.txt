@@ -1,38 +1,40 @@
-! notepad-app
+notepad-app
+===========
 
 Simple Notepad is a simple notepad application for Android.
 
 The following functions are supported.
-* Add new note from template
-* Searching note
-* Creating the shortcut to a note
+ * Add new note from template
+ * Searching note
+ * Creating the shortcut to a note
 
 This software has the following features.
-* Hardware keyboard operation
-* No advertisement
-* Open source
+ * Hardware keyboard operation
+ * No advertisement
+ * Open source
 
-!! Build Targets
 
+Build Targets
+=============
 
 http://maven-android-plugin-m2site.googlecode.com/svn/plugin-info.html
 
-* mvn compile - compile sources.
-* mvn package - build apk package.
-* mvn clean   -  cleaning generated files.
-* mvn install - install packages to maven local repository.
-
-* mvn android:deploy - install apk to device or emulator.
-* mvn android:generate-sources
+ * mvn compile - compile sources.
+ * mvn package - build apk package.
+ * mvn clean   -  cleaning generated files.
+ * mvn install - install packages to maven local repository.
+ 
+ * mvn android:deploy - install apk to device or emulator.
+ * mvn android:generate-sources
 
 
 !! Release Build
 
 Define following properties in 'android-release' profile.
-* sign.keystore
-* sign.alias
-* sign.storepass
-* sign.keypass
+ * sign.keystore
+ * sign.alias
+ * sign.storepass
+ * sign.keypass
 
 Set up profile in ~/.m2/settings.xml 
 ------------------------------------------------------------
