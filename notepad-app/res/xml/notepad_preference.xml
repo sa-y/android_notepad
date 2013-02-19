@@ -30,6 +30,20 @@
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/note_list_category_title" >
+		<CheckBoxPreference
+			android:key="@string/note_list_item_modified_time_visibility_port_key"
+			android:defaultValue="@bool/note_list_item_modified_time_visibility_port_default_value"
+			android:title="@string/note_list_item_modified_time_visibility_port_title"
+			android:summaryOn="@string/note_list_item_modified_time_visibility_summary_on"
+			android:summaryOff="@string/note_list_item_modified_time_visibility_summary_off"
+		/>
+		<CheckBoxPreference
+			android:key="@string/note_list_item_modified_time_visibility_land_key"
+			android:defaultValue="@bool/note_list_item_modified_time_visibility_land_default_value"
+			android:title="@string/note_list_item_modified_time_visibility_land_title"
+			android:summaryOn="@string/note_list_item_modified_time_visibility_summary_on"
+			android:summaryOff="@string/note_list_item_modified_time_visibility_summary_off"
+		/>
 		<ListPreference
 			android:key="@string/note_list_item_content_lines_port_key"
 			android:defaultValue="@string/note_list_item_content_lines_port_default_value"

@@ -94,6 +94,38 @@ public class NotepadPreferenceUtils
 		return themeId;
 	}
 
+	public static boolean isNoteListItemModifiedTimeVisible(Context context)
+	{
+		boolean noteListItemModifiedTimeVisible;
+		int keyId;
+		int defaultValueId;
+		Log.v(LOG_TAG, "Hello");
+
+		Resources resources = context.getResources();
+		Configuration configuration = resources.getConfiguration();
+		switch (configuration.orientation)
+		{
+			case Configuration.ORIENTATION_LANDSCAPE:
+				keyId = R.string.note_list_item_modified_time_visibility_land_key;
+				defaultValueId = R.bool.note_list_item_modified_time_visibility_land_default_value;
+				break;
+			default:
+				keyId = R.string.note_list_item_modified_time_visibility_port_key;
+				defaultValueId = R.bool.note_list_item_modified_time_visibility_port_default_value;
+				break;
+		}
+
+		SharedPreferences sharedPreferences = getSharedPreferences(context);
+		String key = resources.getString(keyId);
+		Log.d(LOG_TAG, "key => " + key);
+		boolean defaultValue = resources.getBoolean(defaultValueId);
+		noteListItemModifiedTimeVisible = sharedPreferences.getBoolean(key, defaultValue);
+
+		Log.d(LOG_TAG, "noteListItemModifiedTimeVisible => " + noteListItemModifiedTimeVisible);
+		Log.v(LOG_TAG, "Bye");
+		return noteListItemModifiedTimeVisible;
+	}
+
 	public static int getNoteListItemContentLines(Context context)
 	{
 		int noteListItemContentLines = 1;

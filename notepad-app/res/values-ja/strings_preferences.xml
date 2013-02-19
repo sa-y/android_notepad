@@ -22,6 +22,11 @@
 
 	<!-- Note List Category -->
 	<string name="note_list_category_title">ノート一覧</string>
+	<!-- Note List : Modified Time Visibility -->
+	<string name="note_list_item_modified_time_visibility_port_title">更新日時を表示（縦画面）</string>
+	<string name="note_list_item_modified_time_visibility_land_title">更新日時を表示（横画面）</string>
+	<string name="note_list_item_modified_time_visibility_summary_on">ノート一覧画面で更新日時を表示します。</string>
+	<string name="note_list_item_modified_time_visibility_summary_off">ノート一覧画面で更新日時を非表示にします。</string>
 	<!-- Note List : Content Text Lines -->
 	<string name="note_list_item_content_lines_port_title">本文の行数（縦画面）</string>
 	<string name="note_list_item_content_lines_land_title">本文の行数（横画面）</string>
