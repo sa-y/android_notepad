@@ -173,7 +173,7 @@ public class NoteCursorAdapter extends SimpleCursorAdapter
 		if (mtimePortKey.equals(key) || mtimeLandKey.equals(key))
 		{
 			boolean mtimeVisible = NotepadPreferenceUtils.isNoteListItemModifiedTimeVisible(context);
-			this.setNoteListItemModifiedTImeVisibility(mtimeVisible);
+			this.setNoteListItemModifiedTImeVisible(mtimeVisible);
 		}
 
 		Log.v(LOG_TAG, "Bye");
@@ -194,7 +194,7 @@ public class NoteCursorAdapter extends SimpleCursorAdapter
 		return noteListItemModifiedTimeVisible;
 	}
 
-	public void setNoteListItemModifiedTImeVisibility(boolean modifiedTimeVisible)
+	public void setNoteListItemModifiedTImeVisible(boolean modifiedTimeVisible)
 	{
 		if (modifiedTimeVisible != this.noteListItemModifiedTimeVisible)
 		{
