@@ -1,5 +1,6 @@
 1.0.5
 =====
+* Added a option for sort order 
 * Added a option for modified time visibility in note list
 * Added Web, E-Mail, Tel autolink in note viewer
 
