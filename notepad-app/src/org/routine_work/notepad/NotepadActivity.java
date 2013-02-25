@@ -30,6 +30,7 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -62,6 +63,7 @@ import org.routine_work.utils.Log;
 public class NotepadActivity extends ListActivity
 	implements View.OnClickListener, OnItemClickListener,
 	TextView.OnEditorActionListener, OnFocusChangeListener,
+	SharedPreferences.OnSharedPreferenceChangeListener,
 	NotepadConstants
 {
 
@@ -163,6 +165,9 @@ public class NotepadActivity extends ListActivity
 			searchImageButton.setOnClickListener(this);
 			ImageButton cancelSearchImageButton = (ImageButton) findViewById(R.id.cancel_search_button);
 			cancelSearchImageButton.setOnClickListener(this);
+
+			SharedPreferences sharedPreferences = NotepadPreferenceUtils.getSharedPreferences(this);
+			sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 		}
 
 		Log.v(LOG_TAG, "Bye");
@@ -472,6 +477,22 @@ public class NotepadActivity extends ListActivity
 		Log.v(LOG_TAG, "Bye");
 	}
 
+	public void onSharedPreferenceChanged(SharedPreferences prefs, String key)
+	{
+		Log.v(LOG_TAG, "Hello");
+		Log.d(LOG_TAG, "shared preference " + key + " is changed.");
+
+		String noteListSortOrderKey = getString(R.string.note_list_sort_order_key);
+		if (noteListSortOrderKey.equals(key))
+		{
+			Log.d(LOG_TAG, "sort order is changed, update note list with new sort order.");
+			String queryString = searchEditText.getText().toString();
+			updateContentWithQuery(queryString);
+		}
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
 	private void initializeWithIntent(Intent intent)
 	{
 		Log.v(LOG_TAG, "Hello");
@@ -688,7 +709,10 @@ public class NotepadActivity extends ListActivity
 		Log.v(LOG_TAG, "Hello");
 		Log.v(LOG_TAG, "contentUri => " + contentUri);
 
-		String sortOrder = NoteStore.Note.Columns.DATE_MODIFIED + " DESC";
+//		String sortOrder = NoteStore.Note.Columns.DATE_MODIFIED + " DESC";
+		String sortOrder = NotepadPreferenceUtils.getNoteListSortOrder(this);
+		Log.d(LOG_TAG, "sortOrder => " + sortOrder);
+
 		Cursor newCursor = getContentResolver().query(contentUri, null, null, null, sortOrder);
 		listAdapter.changeCursor(newCursor);
 

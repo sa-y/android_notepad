@@ -62,6 +62,15 @@
 			android:entries="@array/note_list_item_content_lines_values"
 			android:entryValues="@array/note_list_item_content_lines_values"
 		/>
+		<!-- note list sort order -->
+		<ListPreference
+			android:key="@string/note_list_sort_order_key"
+			android:defaultValue="@string/note_list_sort_order_default_value"
+			android:title="@string/note_list_sort_order_title"
+			android:dialogTitle="@string/note_list_sort_order_title"
+			android:entries="@array/note_list_sort_order_entries"
+			android:entryValues="@array/note_list_sort_order_values"
+		/>
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/note_autolink_category_title" >

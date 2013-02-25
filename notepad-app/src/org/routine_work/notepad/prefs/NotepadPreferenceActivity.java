@@ -140,5 +140,10 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 		summary = getString(R.string.note_list_item_content_lines_summary, prefValueString);
 		listPreference.setSummary(summary);
 
+		// Sort Order
+		prefKey = getString(R.string.note_list_sort_order_key);
+		listPreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
+		summary = listPreference.getEntry();
+		listPreference.setSummary(summary);
 	}
 }

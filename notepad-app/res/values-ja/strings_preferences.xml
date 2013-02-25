@@ -32,6 +32,18 @@
 	<string name="note_list_item_content_lines_land_title">本文の行数（横画面）</string>
 	<string name="note_list_item_content_lines_summary">%1$s 行</string>
 
+	<!-- Note List : Sort Order -->
+	<string name="note_list_sort_order_title" >並び替え</string>
+	<!-- Note List : Sort Order Entries -->
+	<string name="note_list_sort_order_entry_title_asc" >タイトルの昇順</string>
+	<string name="note_list_sort_order_entry_title_desc" >タイトルの降順</string>
+	<string name="note_list_sort_order_entry_date_modified_asc" >更新日時の昇順</string>
+	<string name="note_list_sort_order_entry_date_modified_desc" >更新日時の降順</string>
+	<!--
+	<string name="note_list_sort_order_entry_date_added_asc" >作成日時の昇順</string>
+	<string name="note_list_sort_order_entry_date_added_desc" >作成日時の降順</string>
+	-->
+
 	<!-- AutoLink Category -->
 	<string name="note_autolink_category_title">自動リンク</string>
 	<!-- AutoLink : Note Title -->

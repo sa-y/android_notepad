@@ -167,6 +167,20 @@ public class NotepadPreferenceUtils
 		return noteListItemContentLines;
 	}
 
+	public static String getNoteListSortOrder(Context context)
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		SharedPreferences sharedPreferences = getSharedPreferences(context);
+		String key = context.getString(R.string.note_list_sort_order_key);
+		String defaultValue = context.getString(R.string.note_list_sort_order_default_value);
+		String noteListSortOrder = sharedPreferences.getString(key, defaultValue);
+
+		Log.d(LOG_TAG, "noteListSortOrder => " + noteListSortOrder);
+		Log.v(LOG_TAG, "Bye");
+		return noteListSortOrder;
+	}
+
 	public static boolean getActionBarAutoHide(Context context)
 	{
 		boolean actionBarAutoHide;

@@ -35,7 +35,41 @@
 		<item>4</item>
 	</string-array>
 
-	<!-- Note AutoLink -->
+	<!-- note list sort order -->
+	<string name="note_list_sort_order_key" >note_list_sort_order</string>
+	<string name="note_list_sort_order_default_value" >@string/note_list_sort_order_value_date_modified_desc</string>
+
+	<string name="note_list_sort_order_value_title_asc" >title asc</string>
+	<string name="note_list_sort_order_value_title_desc" >title desc</string>
+	<string name="note_list_sort_order_value_date_modified_asc" >date_modified asc</string>
+	<string name="note_list_sort_order_value_date_modified_desc" >date_modified desc</string>
+	<!--
+	<string name="note_list_sort_order_value_date_added_asc" >date_added asc</string>
+	<string name="note_list_sort_order_value_date_added_desc" >date_added desc</string>
+	-->
+
+	<string-array name="note_list_sort_order_entries">
+		<item>@string/note_list_sort_order_entry_title_asc</item>
+		<item>@string/note_list_sort_order_entry_title_desc</item>
+		<item>@string/note_list_sort_order_entry_date_modified_asc</item>
+		<item>@string/note_list_sort_order_entry_date_modified_desc</item>
+		<!--
+		<item>@string/note_list_sort_order_entry_date_added_asc</item>
+		<item>@string/note_list_sort_order_entry_date_added_desc</item>
+		-->
+	</string-array>
+	<string-array name="note_list_sort_order_values">
+		<item>@string/note_list_sort_order_value_title_asc</item>
+		<item>@string/note_list_sort_order_value_title_desc</item>
+		<item>@string/note_list_sort_order_value_date_modified_asc</item>
+		<item>@string/note_list_sort_order_value_date_modified_desc</item>
+		<!--
+		<item>@string/note_list_sort_order_value_date_added_asc</item>
+		<item>@string/note_list_sort_order_value_date_added_desc</item>
+		-->
+	</string-array>
+
+	<!-- note viewer auto link -->
 	<string name="note_title_autolink_key" >note_title_autolink</string>
 	<bool name="note_title_autolink_default_value" >false</bool>
 	<string name="note_content_autolink_key" >note_content_autolink</string>
