@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2012 Masahiko, SAWAI <masahiko.sawai@gmail.com>.
+ * Copyright 2012-2013 Masahiko, SAWAI <masahiko.sawai@gmail.com>.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -46,6 +46,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import org.routine_work.notepad.R;
+import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.utils.NoteUtils;
 import org.routine_work.notepad.utils.NotepadConstants;
@@ -208,7 +209,8 @@ public class NoteListFragment extends ListFragment
 		Log.v(LOG_TAG, "Hello");
 		Log.d(LOG_TAG, "this.contentUri => " + this.contentUri);
 
-		String sortOrder = NoteStore.Note.Columns.DATE_MODIFIED + " DESC";
+//		String sortOrder = NoteStore.Note.Columns.DATE_MODIFIED + " DESC";
+		String sortOrder = NotepadPreferenceUtils.getNoteListSortOrder(getActivity());
 		CursorLoader cursorLoader = new CursorLoader(getActivity(),
 			contentUri, null, null, null, sortOrder);
 

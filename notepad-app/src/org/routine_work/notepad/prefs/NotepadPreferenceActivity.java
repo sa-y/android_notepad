@@ -1,7 +1,7 @@
 /*
  *  The MIT License
  *
- *  Copyright 2011-2012 Masahiko, SAWAI <masahiko.sawai@gmail.com>.
+ *  Copyright 2011-2013 Masahiko, SAWAI <masahiko.sawai@gmail.com>.
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -53,9 +53,8 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.notepad_preference);
-		sharedPreferences = getPreferenceManager().getSharedPreferences();
 
-		updateSummary();
+		sharedPreferences = getPreferenceManager().getSharedPreferences();
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -64,15 +63,14 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 	protected void onResume()
 	{
 		super.onResume();
-		SharedPreferences preferences = getPreferenceScreen().getSharedPreferences();
-		preferences.registerOnSharedPreferenceChangeListener(this);
+		updateSummary();
+		sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 	}
 
 	@Override
 	protected void onPause()
 	{
-		SharedPreferences preferences = getPreferenceScreen().getSharedPreferences();
-		preferences.unregisterOnSharedPreferenceChangeListener(this);
+		sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
 		super.onPause();
 	}
 

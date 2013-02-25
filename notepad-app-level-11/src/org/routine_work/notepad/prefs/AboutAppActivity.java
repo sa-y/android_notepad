@@ -55,7 +55,7 @@ public class AboutAppActivity extends Activity
 	implements View.OnClickListener
 {
 
-	private static final String LOG_TAG = "android.R";
+	private static final String LOG_TAG = "simple-notepad";
 	private Intent[] applicationManagementIntents;
 	private Intent[] applicationStoreIntents;
 

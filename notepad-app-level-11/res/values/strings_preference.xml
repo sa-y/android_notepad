@@ -40,6 +40,18 @@
 	<string name="note_list_item_content_lines_land_title">Text Lines in Landscape</string>
 	<string name="note_list_item_content_lines_summary">%1$s Lines</string>
 
+	<!-- Note List : Sort Order -->
+	<string name="note_list_sort_order_title" >Sort Order</string>
+	<!-- Note List : Sort Order Entries -->
+	<string name="note_list_sort_order_entry_title_asc" >Title Ascending</string>
+	<string name="note_list_sort_order_entry_title_desc" >Title Descending</string>
+	<string name="note_list_sort_order_entry_date_modified_asc" >Modified Ascending</string>
+	<string name="note_list_sort_order_entry_date_modified_desc" >Modified Descending</string>
+	<!--
+	<string name="note_list_sort_order_entry_date_added_asc" >created ascending</string>
+	<string name="note_list_sort_order_entry_date_added_desc" >created descending</string>
+	-->
+
 	<!-- AutoLink Category -->
 	<string name="note_autolink_category_title">Auto Link</string>
 	<!-- AutoLink : Note Title -->

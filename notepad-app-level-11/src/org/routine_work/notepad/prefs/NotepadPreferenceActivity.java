@@ -1,7 +1,7 @@
 /*
  *  The MIT License
  *
- *  Copyright 2011-2012 Masahiko, SAWAI <masahiko.sawai@gmail.com>.
+ *  Copyright 2011-2013 Masahiko, SAWAI <masahiko.sawai@gmail.com>.
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
@@ -42,7 +42,7 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 	implements SharedPreferences.OnSharedPreferenceChangeListener
 {
 
-	private static final String LOG_TAG = "android.R";
+	private static final String LOG_TAG = "simple-notepad";
 	private SharedPreferences sharedPreferences;
 
 	@Override
@@ -53,6 +53,7 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.notepad_preference);
+
 		sharedPreferences = getPreferenceManager().getSharedPreferences();
 
 		Log.v(LOG_TAG, "Bye");
@@ -61,22 +62,16 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 	@Override
 	protected void onResume()
 	{
-		Log.v(LOG_TAG, "Hello");
 		super.onResume();
-
-		sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 		updateSummary();
-		Log.v(LOG_TAG, "Bye");
+		sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 	}
 
 	@Override
 	protected void onPause()
 	{
-		Log.v(LOG_TAG, "Hello");
 		sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
-
 		super.onPause();
-		Log.v(LOG_TAG, "Bye");
 	}
 
 	@Override
@@ -118,17 +113,16 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 
 	private void updateSummary()
 	{
-		Log.v(LOG_TAG, "Hello");
 		String prefKey;
 		String prefValueString;
-		ListPreference listPreference;
 		CharSequence summary;
+		ListPreference listPreference;
 
 		// Theme
-		final String notepadThemeKey = getString(R.string.notepad_theme_key);
-		ListPreference notepadThemeListPreference = (ListPreference) getPreferenceScreen().findPreference(notepadThemeKey);
-		summary = notepadThemeListPreference.getEntry();
-		notepadThemeListPreference.setSummary(summary);
+		prefKey = getString(R.string.notepad_theme_key);
+		listPreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
+		summary = listPreference.getEntry();
+		listPreference.setSummary(summary);
 
 		// Layout
 		final String noteListLayoutPortKey = getString(R.string.note_list_layout_port_key);
@@ -163,7 +157,11 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 		summary = getString(R.string.note_list_item_content_lines_summary, prefValueString);
 		listPreference.setSummary(summary);
 
-		Log.v(LOG_TAG, "Bye");
+		// Sort Order
+		prefKey = getString(R.string.note_list_sort_order_key);
+		listPreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
+		summary = listPreference.getEntry();
+		listPreference.setSummary(summary);
 	}
 
 	private String getLayoutName(String layoutValue)
