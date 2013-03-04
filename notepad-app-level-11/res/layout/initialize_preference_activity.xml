@@ -12,7 +12,7 @@
 		android:layout_weight="1"
 		android:layout_margin="4dip"
 		android:text="@string/initialize_preference_confirm_message"
-		android:textColor="?android:textColorPrimary"
+		android:textColor="?android:attr/textColorPrimary"
 	/>
 
 	<View style="@style/hline" />
