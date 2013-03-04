@@ -21,8 +21,7 @@
 	<style name="Theme.Notepad.Dark" parent="@android:style/Theme.NoTitleBar" >
 		<item name="android:editTextStyle">@style/Widget.Holo.Dark.EditText</item>
 		<item name="android:listViewStyle">@style/Widget.Notepad.ListView</item>
-		<item name="textColorPrimary">@color/primary_text_holo_dark</item>
-		<item name="textColorSecondary">@color/secondary_text_holo_dark</item>
+
 		<item name="ic_add">@drawable/ic_add_dark</item>
 		<item name="ic_clear">@drawable/ic_clear_dark</item>
 		<item name="ic_delete">@drawable/ic_delete_dark</item>
@@ -38,8 +37,21 @@
 	<style name="Theme.Notepad.Light" parent="@android:style/Theme.Light.NoTitleBar" >
 		<item name="android:editTextStyle">@style/Widget.Holo.Light.EditText</item>
 		<item name="android:listViewStyle">@style/Widget.Notepad.ListView</item>
-		<item name="textColorPrimary">@color/primary_text_holo_light</item>
-		<item name="textColorSecondary">@color/secondary_text_holo_light</item>
+
+		<!-- Preference styles -->  
+		<!--
+		<item name="preferenceScreenStyle">@android:style/Preference.PreferenceScreen</item>  
+		<item name="preferenceCategoryStyle">@android:style/Preference.Category</item>  
+		<item name="preferenceStyle">@android:style/Preference</item>  
+		<item name="preferenceInformationStyle">@android:style/Preference.Information</item>  
+		<item name="checkBoxPreferenceStyle">@android:style/Preference.CheckBoxPreference</item>  
+		<item name="yesNoPreferenceStyle">@android:style/Preference.DialogPreference.YesNoPreference</item>  
+		<item name="dialogPreferenceStyle">@android:style/Preference.DialogPreference</item>  
+		<item name="editTextPreferenceStyle">@android:style/Preference.DialogPreference.EditTextPreference</item>  
+		<item name="ringtonePreferenceStyle">@android:style/Preference.RingtonePreference</item>  
+		<item name="preferenceLayoutChild">@android:layout/preference_child</item>  
+		-->
+
 		<item name="ic_add">@drawable/ic_add_light</item>
 		<item name="ic_clear">@drawable/ic_clear_light</item>
 		<item name="ic_delete">@drawable/ic_delete_light</item>
