@@ -50,6 +50,7 @@ public class NoteDetailActivity extends Activity
 	private static final String LOG_TAG = "simple-notepad";
 	private static final String FT_NOTE_EDIT = "FT_NOTE_EDIT";
 	private static final String FT_NOTE_DELETE = "FT_NOTE_DELETE";
+	private static final String SAVE_KEY_CURRENT_TITLE = "currentTitle";
 	private static final String SAVE_KEY_CURRENT_ACTION = "currentAction";
 	private String currentAction;
 
@@ -135,6 +136,7 @@ public class NoteDetailActivity extends Activity
 		Log.v(LOG_TAG, "Hello");
 
 		super.onSaveInstanceState(outState);
+		outState.putCharSequence(SAVE_KEY_CURRENT_TITLE, getTitle());
 		outState.putString(SAVE_KEY_CURRENT_ACTION, currentAction);
 
 		Log.v(LOG_TAG, "Bye");
@@ -194,6 +196,15 @@ public class NoteDetailActivity extends Activity
 		Log.v(LOG_TAG, "Hello");
 
 		Log.d(LOG_TAG, "init model data from savedInstanceState => " + savedInstanceState);
+
+		// restore title
+		CharSequence title = savedInstanceState.getCharSequence(SAVE_KEY_CURRENT_TITLE);
+		if (!TextUtils.isEmpty(title))
+		{
+			setTitle(title);
+		}
+
+		// restore currentAction
 		currentAction = savedInstanceState.getString(SAVE_KEY_CURRENT_ACTION);
 
 		Log.v(LOG_TAG, "Bye");
