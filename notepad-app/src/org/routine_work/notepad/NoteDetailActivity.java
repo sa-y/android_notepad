@@ -205,7 +205,7 @@ public class NoteDetailActivity extends Activity
 		Log.v(LOG_TAG, "Hello");
 		saveNote();
 		super.onSaveInstanceState(outState);
-		outState.putString(SAVE_KEY_CURRENT_TITLE, getTitle().toString());
+		outState.putCharSequence(SAVE_KEY_CURRENT_TITLE, getTitle());
 		outState.putString(SAVE_KEY_CURRENT_ACTION, currentAction);
 		outState.putParcelable(SAVE_KEY_CURRENT_NOTE_URI, currentNoteUri);
 		outState.putSerializable(SAVE_KEY_CURRENT_NOTE, currentNote);
@@ -644,7 +644,7 @@ public class NoteDetailActivity extends Activity
 		homeImageButton.requestFocus();
 
 		// load title
-		String title = savedInstanceState.getString(SAVE_KEY_CURRENT_TITLE);
+		CharSequence title = savedInstanceState.getCharSequence(SAVE_KEY_CURRENT_TITLE);
 		if (TextUtils.isEmpty(title) == false)
 		{
 			setTitle(title);
