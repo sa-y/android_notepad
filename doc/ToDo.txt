@@ -1,9 +1,6 @@
 notepad-app
 ===========
 
-* NoteDetailActivity 回転時にタイトルがおかしくなるバグ
-** 画面回転時にタイトルを保存、復元していないため常に Note Viewer になる。
-** 修正方法 onSaveInstance() で保存、initWithSavedInstanceState() で復元するように修正する
 
 * NoteDetailActivity のリファクタリング
 ** NoteDetailViewer

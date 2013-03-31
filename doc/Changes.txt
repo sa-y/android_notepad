@@ -1,6 +1,8 @@
 1.0.6
 =====
 
+* Fixed a bug that the title of NoteDetailActivity is incorrect when a screen rotated.
+
 1.0.5
 =====
 * Added a option for sort order 
