@@ -1,6 +1,10 @@
 notepad-app
 ===========
 
+* NoteDetailActivity 回転時にタイトルがおかしくなるバグ
+** 画面回転時にタイトルを保存、復元していないため常に Note Viewer になる。
+** 修正方法 onSaveInstance() で保存、initWithSavedInstanceState() で復元するように修正する
+
 * NoteDetailActivity のリファクタリング
 ** NoteDetailViewer
 ** NoteDetailEditor
@@ -15,7 +19,7 @@ notepad-app
 ** text/* の SEND を受信するようにする？
 
 * ノート一覧画面でノート表示順を変更可能にする
-** 現在のソート順を同表示するか？
+** 現在のソート順をどのように表示するか？
 *** ノート一覧画面にヘッダをつけてそこに表示する？
 
 notepad-app-level-11
