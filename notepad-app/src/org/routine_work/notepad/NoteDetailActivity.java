@@ -68,6 +68,7 @@ public class NoteDetailActivity extends Activity
 
 	private static final String LOG_TAG = "simple-notepad";
 	private static final String SAVE_KEY_CURRENT_NOTE_URI = "currentNoteUri";
+	private static final String SAVE_KEY_CURRENT_TITLE = "currentTitle";
 	private static final String SAVE_KEY_CURRENT_ACTION = "currentAction";
 	private static final String SAVE_KEY_CURRENT_NOTE = "currentNote";
 	private static final String SAVE_KEY_ORIGINAL_NOTE = "originalNote";
@@ -204,6 +205,7 @@ public class NoteDetailActivity extends Activity
 		Log.v(LOG_TAG, "Hello");
 		saveNote();
 		super.onSaveInstanceState(outState);
+		outState.putString(SAVE_KEY_CURRENT_TITLE, getTitle().toString());
 		outState.putString(SAVE_KEY_CURRENT_ACTION, currentAction);
 		outState.putParcelable(SAVE_KEY_CURRENT_NOTE_URI, currentNoteUri);
 		outState.putSerializable(SAVE_KEY_CURRENT_NOTE, currentNote);
@@ -608,6 +610,16 @@ public class NoteDetailActivity extends Activity
 	}
 
 	@Override
+	public void setTitle(CharSequence title)
+	{
+		super.setTitle(title);
+		if (titleTextView != null)
+		{
+			titleTextView.setText(title);
+		}
+	}
+
+	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
 		// 蟄舌い繧ｯ繝�ぅ繝薙ユ繧｣繧�FLAG_ACTIVITY_CLEAR_TOP 縺ｧ襍ｷ蜍輔☆繧九°繧峨％縺薙↓縺ｯ譚･縺ｪ縺�
@@ -630,6 +642,13 @@ public class NoteDetailActivity extends Activity
 
 		showActionBar();
 		homeImageButton.requestFocus();
+
+		// load title
+		String title = savedInstanceState.getString(SAVE_KEY_CURRENT_TITLE);
+		if (TextUtils.isEmpty(title) == false)
+		{
+			setTitle(title);
+		}
 
 		// load currentAction
 		currentAction = savedInstanceState.getString(SAVE_KEY_CURRENT_ACTION);
