@@ -14,16 +14,15 @@ notepad-app
   * ノート編集画面
 
 * 汎用のインテントを受信してノート作成
-  * text/* の SEND を受信するようにする？
-  * 受信処理専用アクティビティを作成
-    * ReceiveTextActivity
-    * 受信後にノート追加用のインテントを投げる？
-      * Action : Intent.ACTION_INSERT
-      * Type : "vnd.android.cursor.dir/vnd.routine_work.note"
-      * Extra
-        * EXTRA_TITLE
-        * EXTRA_TEXT
-
+#  * text/* の SEND を受信するようにする？
+#  * 受信処理専用アクティビティを作成
+#    * ReceiveTextActivity
+#    * 受信後にノート追加用のインテントを投げる？
+#      * Action : Intent.ACTION_INSERT
+#      * Type : "vnd.android.cursor.dir/vnd.routine_work.note"
+#      * Extra
+#        * EXTRA_TITLE
+#        * EXTRA_TEXT
   * 設定画面で有効無効切り替えられるように
     * ReceiveTextActivity の有効無効を行う？
     * 設定値を用意
