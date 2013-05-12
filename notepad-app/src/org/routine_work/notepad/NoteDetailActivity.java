@@ -712,6 +712,7 @@ public class NoteDetailActivity extends Activity
 			newNoteUri = currentNoteUri;
 		}
 
+
 		Log.d(LOG_TAG, "newAction => " + newAction);
 		Log.d(LOG_TAG, "newNoteUri => " + newNoteUri);
 
@@ -741,6 +742,7 @@ public class NoteDetailActivity extends Activity
 			boolean extraTitleLocked = intent.getBooleanExtra(EXTRA_TITLE_LOCKED, false);
 			Log.d(LOG_TAG, "EXTRA_TITLE_LOCKED => " + extraTitleLocked);
 			currentNote.setTitleLocked(extraTitleLocked);
+
 
 			setTitle(R.string.add_new_note_title);
 			updateFocusedEditText();
@@ -827,7 +829,17 @@ public class NoteDetailActivity extends Activity
 		}
 
 		currentAction = newAction;
-		originalNote.copyFrom(currentNote);
+
+		boolean modified = intent.getBooleanExtra(EXTRA_MODIFIED, false);
+		if (modified)
+		{
+			originalNote.setTitle("");
+			originalNote.setContent("");
+		}
+		else
+		{
+			originalNote.copyFrom(currentNote);
+		}
 
 		updateViews();
 

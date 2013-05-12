@@ -255,10 +255,11 @@ public class NoteDetailActivity extends Activity
 				String noteTitle = intent.getStringExtra(EXTRA_TITLE);
 				String noteContent = intent.getStringExtra(EXTRA_TEXT);
 				boolean noteTitleLocked = intent.getBooleanExtra(EXTRA_TITLE_LOCKED, false);
+				boolean modified = intent.getBooleanExtra(EXTRA_MODIFIED, false);
 				Log.d(LOG_TAG, "noteTitle => " + noteTitle);
 				Log.d(LOG_TAG, "noteContent => " + noteContent);
 				Log.d(LOG_TAG, "noteTitleLocked => " + noteTitleLocked);
-				editNoteFragment.setNoteContents(noteTitle, noteContent, noteTitleLocked);
+				editNoteFragment.setNoteContents(noteTitle, noteContent, noteTitleLocked, modified);
 
 				setTitle(R.string.add_new_note_title);
 			}

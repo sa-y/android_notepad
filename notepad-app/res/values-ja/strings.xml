@@ -45,6 +45,7 @@
 	<string name="add_new_note_title">新規ノート作成</string>
 	<string name="delete_note_title">ノートを削除</string>
 	<string name="select_note_title">ノートを選択</string>
+	<string name="insert_note_title">ノートを挿入</string>
 
 	<string name="note_template_list_title">テンプレート一覧</string>
 	<string name="note_template_detail_title">テンプレート詳細</string>

@@ -45,6 +45,7 @@
 	<string name="add_new_note_title">New Note</string>
 	<string name="delete_note_title">Delete Note</string>
 	<string name="select_note_title">Select Note</string>
+	<string name="insert_note_title">Insert Note</string>
 
 	<string name="note_template_list_title">Template List</string>
 	<string name="note_template_detail_title">Template Detail</string>

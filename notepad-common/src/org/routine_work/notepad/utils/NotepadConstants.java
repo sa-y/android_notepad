@@ -44,4 +44,5 @@ public interface NotepadConstants
 	String EXTRA_TEXT = Intent.EXTRA_TEXT;
 	String EXTRA_TITLE_LOCKED = NotepadConstants.class.getPackage().getName() + ".EXTRA_TITLE_LOCKED";
 	String EXTRA_NOTE_TEMPLATE = NotepadConstants.class.getPackage().getName() + ".EXTRA_NOTE_TEMPLATE";
+	String EXTRA_MODIFIED = NotepadConstants.class.getPackage().getName() + ".EXTRA_MODIFIED";
 }

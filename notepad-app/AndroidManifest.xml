@@ -74,6 +74,17 @@
 				<category android:name="android.intent.category.DEFAULT" />
 				<data android:mimeType="vnd.android.cursor.dir/vnd.routine_work.note" />
 			</intent-filter>
+		</activity>
+
+		<activity
+			android:name=".ReceiveTextActivity"
+			android:label="@string/insert_note_title"
+		>
+			<intent-filter>
+				<action android:name="android.intent.action.SEND" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<data android:mimeType="text/plain" />
+			</intent-filter>
 
 		</activity>
 

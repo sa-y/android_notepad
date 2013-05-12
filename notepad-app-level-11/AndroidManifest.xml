@@ -90,6 +90,18 @@
 		</activity>
 
 		<activity
+			android:name=".ReceiveTextActivity"
+			android:label="@string/insert_note_title"
+		>
+			<intent-filter>
+				<action android:name="android.intent.action.SEND" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<data android:mimeType="text/*" />
+			</intent-filter>
+
+		</activity>
+
+		<activity
 			android:name=".PickNoteActivity" 
 			android:label="@string/select_note_title"
 		>

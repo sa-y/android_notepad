@@ -490,10 +490,16 @@ public class EditNoteFragment extends Fragment
 
 	public void setNoteContents(String noteTitle, String noteContent, boolean noteTitleLocked)
 	{
+		this.setNoteContents(noteTitle, noteContent, noteTitleLocked, false);
+	}
+
+	public void setNoteContents(String noteTitle, String noteContent, boolean noteTitleLocked, boolean modified)
+	{
 		Log.v(LOG_TAG, "Hello");
 		Log.d(LOG_TAG, "noteTitle => " + noteTitle);
 		Log.d(LOG_TAG, "noteContent => " + noteContent);
 		Log.d(LOG_TAG, "noteTitleLocked => " + noteTitleLocked);
+		Log.d(LOG_TAG, "modified => " + modified);
 		if (noteTitle == null)
 		{
 			noteTitle = "";
@@ -513,7 +519,17 @@ public class EditNoteFragment extends Fragment
 			currentNote.setContent(newContent);
 			appendText = null;
 		}
-		originalNote.copyFrom(currentNote);
+
+		// setup originalNote
+		if (modified)
+		{
+			originalNote.setTitle("");
+			originalNote.setContent("");
+		}
+		else
+		{
+			originalNote.copyFrom(currentNote);
+		}
 
 		updateNoteEditTexts();
 		updateNoteTitleLockedViews();
