@@ -4,6 +4,9 @@
 * Fixed a bug that the title of NoteDetailActivity is incorrect 
   when a screen rotated.
 * Added text receiving activity
+* Fixed the space size in note list
+* Fixed a default value of the option for modified time visibility
+
 
 1.0.5
 =====
