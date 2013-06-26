@@ -6,6 +6,7 @@
 * Added text receiving activity
 * Fixed the space size in note list
 * Fixed a default value of the option for modified time visibility
+* Added text intent receiving function
 
 
 1.0.5
