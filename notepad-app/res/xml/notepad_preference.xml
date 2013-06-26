@@ -90,7 +90,7 @@
 		/>
 	</PreferenceCategory>
 
-	<PreferenceCategory android:title="@string/receive_text_category_title" >
+	<PreferenceCategory android:title="@string/share_data_category_title" >
 		<CheckBoxPreference
 			android:key="@string/receive_text_key"
 			android:defaultValue="@bool/receive_text_default_value"

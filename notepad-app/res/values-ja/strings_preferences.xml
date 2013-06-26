@@ -48,18 +48,20 @@
 	<string name="note_autolink_category_title">自動リンク</string>
 	<!-- Auto Link : Note Title -->
 	<string name="note_title_autolink_title">タイトル内の自動リンク</string>
-	<string name="note_title_autolink_summary_on">ノートのタイトル内のURLやメールアドレスは自動的にリンクされます。</string>
-	<string name="note_title_autolink_summary_off">ノートのタイトル内のURLやメールアドレスはリンクされません。</string>
+	<string name="note_title_autolink_summary_on">ノートのタイトル内のURLやメールアドレスを自動的にリンクにします。</string>
+	<string name="note_title_autolink_summary_off">ノートのタイトル内のURLやメールアドレスをリンクにしません。</string>
 	<!-- Auto Link : Note Content -->
 	<string name="note_content_autolink_title">本文内の自動リンク</string>
-	<string name="note_content_autolink_summary_on">ノートの本文内のURLやメールアドレスは自動的にリンクされます。</string>
-	<string name="note_content_autolink_summary_off">ノートの本文内のURLやメールアドレスはリンクされません。</string>
+	<string name="note_content_autolink_summary_on">ノートの本文内のURLやメールアドレスを自動的にリンクにします。</string>
+	<string name="note_content_autolink_summary_off">ノートの本文内のURLやメールアドレスをリンクにしません。</string>
 
-	<!-- Receive Text Category -->
+	<!-- Share Data Category -->
+	<string name="share_data_category_title">データ共有</string>
+	<!-- Receive Text -->
 	<string name="receive_text_category_title">テキストの受け取り</string>
-	<string name="receive_text_title">テキストを受け取って新規ノートとして追加</string>
-	<string name="receive_text_summary_on">テキストインテントの受け取り機能は有効です。</string>
-	<string name="receive_text_summary_off">テキストインテントの受け取り機能は無効です。</string>
+	<string name="receive_text_title">テキストの受け取り</string>
+	<string name="receive_text_summary_on">テキストデータを受け取って新規ノートとして追加できます。</string>
+	<string name="receive_text_summary_off">テキストデータの受け取り機能は無効です。</string>
 
 	<!-- Backup and Restore Category -->
 	<string name="backup_and_restore">バックアップと復元</string>

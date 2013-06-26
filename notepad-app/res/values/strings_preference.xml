@@ -55,14 +55,15 @@
 	<string name="note_content_autolink_summary_on">The URL and the E-mail in the text are linked automatically.</string>
 	<string name="note_content_autolink_summary_off">The URL and the E-mail in the text are not linked.</string>
 
-	<!-- Receive Text Category -->
-	<string name="receive_text_category_title">Receive Text</string>
-	<string name="receive_text_title">Receive Text and Insert New Note</string>
+	<!-- Share Data Category -->
+	<string name="share_data_category_title">Share Data</string>
+	<!-- Receive Text -->
+	<string name="receive_text_title">Receive Text</string>
 	<string name="receive_text_summary_on">The text intent receiving is enabled.</string>
 	<string name="receive_text_summary_off">The text intent receiving is disabled.</string>
 
 	<!-- Backup and Restore Category -->
-	<string name="backup_and_restore">Backup &amp; Restore</string>
+	<string name="backup_and_restore">Back up &amp; Restore</string>
 	<!-- Backup Data -->
 	<string name="backup_data">Backup Data</string>
 	<string name="backup_data_title">Backup Data</string>

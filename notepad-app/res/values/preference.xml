@@ -77,7 +77,8 @@
 	<string name="note_content_autolink_key" >note_content_autolink</string>
 	<bool name="note_content_autolink_default_value" >true</bool>
 
-	<!-- Receive Text Category -->
+	<!-- Share Data Category -->
+	<!-- Share Data : Receive Text -->
 	<string name="receive_text_key" >receive_text</string>
 	<bool name="receive_text_default_value" >true</bool>
 
