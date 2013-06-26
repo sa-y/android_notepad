@@ -85,10 +85,17 @@
 		-->
 	</string-array>
 
-	<!-- note viewer auto link -->
+	<!-- Auto Link Category -->
+	<!-- Auto Link : Note Title -->
 	<string name="note_title_autolink_key" >note_title_autolink</string>
 	<bool name="note_title_autolink_default_value" >false</bool>
+	<!-- Auto Link : Note Content -->
 	<string name="note_content_autolink_key" >note_content_autolink</string>
 	<bool name="note_content_autolink_default_value" >true</bool>
+
+	<!-- Share Data Category -->
+	<!-- Share Data : Receive Text -->
+	<string name="receive_text_key" >receive_text</string>
+	<bool name="receive_text_default_value" >true</bool>
 
 </resources>

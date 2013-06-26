@@ -120,12 +120,12 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 			if (receiveTextEnabled)
 			{
 				newState = PackageManager.COMPONENT_ENABLED_STATE_ENABLED;
-				Log.d(LOG_TAG, "Update ReceiveTextActivity component : PackageManager.COMPONENT_ENABLED_STATE_ENABLED");
+				Log.d(LOG_TAG, "Enable ReceiveTextActivity component");
 			}
 			else
 			{
 				newState = PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
-				Log.d(LOG_TAG, "Update ReceiveTextActivity component : PackageManager.COMPONENT_ENABLED_STATE_DISABLED");
+				Log.d(LOG_TAG, "Disable ReceiveTextActivity component");
 			}
 
 			PackageManager packageManager = getPackageManager();

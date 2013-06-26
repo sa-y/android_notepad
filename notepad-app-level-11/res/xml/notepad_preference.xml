@@ -109,6 +109,16 @@
 		/>
 	</PreferenceCategory>
 
+	<PreferenceCategory android:title="@string/share_data_category_title" >
+		<CheckBoxPreference
+			android:key="@string/receive_text_key"
+			android:defaultValue="@bool/receive_text_default_value"
+			android:title="@string/receive_text_title"
+			android:summaryOn="@string/receive_text_summary_on"
+			android:summaryOff="@string/receive_text_summary_off"
+		/>
+	</PreferenceCategory>
+
 	<PreferenceCategory android:title="@string/backup_and_restore" >
 		<PreferenceScreen
 			android:title="@string/backup_data_title"

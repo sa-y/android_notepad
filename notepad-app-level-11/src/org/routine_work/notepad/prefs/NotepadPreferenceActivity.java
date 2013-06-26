@@ -23,7 +23,9 @@
  */
 package org.routine_work.notepad.prefs;
 
+import android.content.ComponentName;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.PreferenceActivity;
@@ -32,6 +34,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
+import org.routine_work.notepad.ReceiveTextActivity;
 import org.routine_work.utils.Log;
 
 /**
@@ -106,7 +109,33 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 		Log.v(LOG_TAG, "Hello");
 		Log.i(LOG_TAG, "shared preference " + key + " is changed.");
 
-		updateSummary();
+		String receiveTextKey = getString(R.string.receive_text_key);
+		if (key.equals(receiveTextKey))
+		{
+			// update component enable/disable
+			boolean defaultValue = getResources().getBoolean(R.bool.receive_text_default_value);
+			boolean receiveTextEnabled = prefs.getBoolean(key, defaultValue);
+			int newState;
+
+			if (receiveTextEnabled)
+			{
+				newState = PackageManager.COMPONENT_ENABLED_STATE_ENABLED;
+				Log.d(LOG_TAG, "Enable ReceiveTextActivity component");
+			}
+			else
+			{
+				newState = PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
+				Log.d(LOG_TAG, "Disable ReceiveTextActivity component");
+			}
+
+			PackageManager packageManager = getPackageManager();
+			ComponentName componentName = new ComponentName(this, ReceiveTextActivity.class);
+			packageManager.setComponentEnabledSetting(componentName, newState, PackageManager.DONT_KILL_APP); // dont stop
+		}
+		else
+		{
+			updateSummary();
+		}
 
 		Log.v(LOG_TAG, "Bye");
 	}
