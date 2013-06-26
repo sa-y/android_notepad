@@ -33,6 +33,7 @@ notepad-app
     * ノート一覧画面にヘッダをつけてそこに表示する？
 
 
+
 notepad-app-level-11
 ====================
 
@@ -40,6 +41,7 @@ notepad-app-level-11
   * ScrollView の上端にいる場合に下にスワイプしたら表示？
 
 * NotepadPreferenceActivity をフラグメントにする？
+
 
 
 notepad-common

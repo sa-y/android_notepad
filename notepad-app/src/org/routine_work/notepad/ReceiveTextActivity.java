@@ -57,9 +57,9 @@ public class ReceiveTextActivity extends Activity implements NotepadConstants
 			{
 				noteTitle = intent.getStringExtra(Intent.EXTRA_SUBJECT);
 			}
-			String noteContent = intent.getStringExtra(Intent.EXTRA_TEXT);
 
-			if (!TextUtils.isEmpty(noteTitle))
+			String noteContent = intent.getStringExtra(Intent.EXTRA_TEXT);
+			if (!TextUtils.isEmpty(noteContent))
 			{
 				Intent insertNoteIntent = new Intent(Intent.ACTION_INSERT);
 				insertNoteIntent.setType(NoteStore.Note.NOTE_LIST_CONTENT_TYPE);

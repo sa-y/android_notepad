@@ -6,6 +6,11 @@
 	<dimen name="body_paddingTop">6dip</dimen>
 	<dimen name="body_paddingBottom">6dip</dimen>
 
+	<dimen name="fragment_layout_marginLeft">2dip</dimen>
+	<dimen name="fragment_layout_marginRight">2dip</dimen>
+	<dimen name="fragment_layout_marginTop">4dip</dimen>
+	<dimen name="fragment_layout_marginBottom">4dip</dimen>
+
 	<dimen name="list_item_paddingLeft">4dip</dimen>
 	<dimen name="list_item_paddingRight">4dip</dimen>
 	<dimen name="list_item_paddingTop">4dip</dimen>

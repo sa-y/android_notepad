@@ -3,7 +3,7 @@
 <resources>
 	<!-- Note List Item  Modified Time Visibility -->
 	<bool name="note_list_item_modified_time_visibility_port_default_value">false</bool>
-	<bool name="note_list_item_modified_time_visibility_land_default_value">true</bool>
+	<bool name="note_list_item_modified_time_visibility_land_default_value">false</bool>
 
 	<!-- Note List Item Content Text Lines -->
 	<string name="note_list_item_content_lines_port_default_value">1</string>
