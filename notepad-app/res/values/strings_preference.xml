@@ -44,16 +44,22 @@
 	<string name="note_list_sort_order_entry_date_added_desc" >created descending</string>
 	-->
 
-	<!-- AutoLink Category -->
+	<!-- Auto Link Category -->
 	<string name="note_autolink_category_title">Auto Link</string>
-	<!-- AutoLink : Note Title -->
+	<!-- Auto Link : Note Title -->
 	<string name="note_title_autolink_title">Auto Link in Title</string>
 	<string name="note_title_autolink_summary_on">The URL and the E-mail in the title are linked automatically.</string>
 	<string name="note_title_autolink_summary_off">The URL and the E-mail in the title are not linked.</string>
-	<!-- AutoLink : Note Content -->
+	<!-- Auto Link : Note Content -->
 	<string name="note_content_autolink_title">Auto Link in Text</string>
 	<string name="note_content_autolink_summary_on">The URL and the E-mail in the text are linked automatically.</string>
 	<string name="note_content_autolink_summary_off">The URL and the E-mail in the text are not linked.</string>
+
+	<!-- Receive Text Category -->
+	<string name="receive_text_category_title">Receive Text</string>
+	<string name="receive_text_title">Receive Text and Insert New Note</string>
+	<string name="receive_text_summary_on">The text intent receiving is enabled.</string>
+	<string name="receive_text_summary_off">The text intent receiving is disabled.</string>
 
 	<!-- Backup and Restore Category -->
 	<string name="backup_and_restore">Backup &amp; Restore</string>

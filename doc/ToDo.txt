@@ -39,6 +39,8 @@ notepad-app-level-11
 * アクションバー自動非表示時にジェスチャーで表示できるようにする
   * ScrollView の上端にいる場合に下にスワイプしたら表示？
 
+* NotepadPreferenceActivity をフラグメントにする？
+
 
 notepad-common
 ==============
