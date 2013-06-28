@@ -35,29 +35,26 @@ notepad-app
   * すべてのデバイスでユニークなノートIDが欲しい
   * UUIDをつける？
     * ノート作成時にノート毎にUUIDを生成する
-  * uuid カラムを追加
-    * notepad-common
-      * NoteStore.Note.Columns を修正
-      * NoteDBConstants を修正
-        * DATABASE_VERSION
-        * Notes.CREATE_TABLE_SQL
-      * Note を修正
-        * インスタンス変数 uuid を追加
-        * メソッド hashCode() を修正
-        * メソッド equals() を修正
-        * メソッド toString() を修正
-        * メソッド copyFrom() を修正
-      * NoteDBHelper を修正
-    * notepad-app
-      * NoteDetailActivity を修正
-        * saveNote()
-      * DebugFunctionActivity を修正
-        * CreateTestNoteTask
-    * notepad-app-level11
-      * EditNoteFragment を修正
-        * saveNote()
-      * DebugFunctionActivity を修正
-        * CreateTestNoteTask
+#  * uuid カラムを追加
+#    * notepad-common
+#      * NoteStoreを修正
+#        * NoteStore.Note.Columns に UUID を追加
+#      * NoteDBConstants を修正
+#        * DATABASE_VERSION
+#        * Notes.CREATE_TABLE_SQL
+#      * Note を修正
+#        * インスタンス変数 uuid を追加
+#        * メソッド hashCode() を修正
+#        * メソッド equals() を修正
+#        * メソッド toString() を修正
+#        * メソッド copyFrom() を修正
+#      * NoteDBHelper を修正
+#        * backupNotesVersion4() 修正
+#        * backupNotesVersion5() 修正
+#        * backupNotesVersion12() 追加
+#        * restoreNotes() 修正
+#      * NoteProvider を修正
+#        * insertNote() を UUID がなければ生成するように修正
 
 
 notepad-app-level-11

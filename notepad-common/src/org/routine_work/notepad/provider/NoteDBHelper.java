@@ -31,6 +31,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.UUID;
 import org.routine_work.notepad.model.Note;
 import org.routine_work.notepad.model.NoteTemplate;
 import org.routine_work.utils.Log;
@@ -70,6 +71,7 @@ class NoteDBHelper extends SQLiteOpenHelper
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
 	{
+		Log.v(LOG_TAG, "Hello");
 		Log.w(LOG_TAG, "Upgrading database from version " + oldVersion + " to "
 			+ newVersion + ".");
 
@@ -85,6 +87,7 @@ class NoteDBHelper extends SQLiteOpenHelper
 
 		// clear backup data
 		cleanupBackupData(db);
+		Log.v(LOG_TAG, "bye");
 	}
 
 	public void reindex(SQLiteDatabase db)
@@ -145,28 +148,32 @@ class NoteDBHelper extends SQLiteOpenHelper
 		Log.v(LOG_TAG, "Hello");
 
 		File notesBackupDir = context.getDir(BACKUP_DIR_NOTES, Context.MODE_PRIVATE);
-		if (oldVersion == 4)
+		if (oldVersion >= 12)
 		{
-			backupNotesVersion4(db, notesBackupDir);
+			backupNotesVersion12(db, notesBackupDir);
 		}
 		else if (oldVersion >= 5)
 		{
-			backupNotes(db, notesBackupDir);
+			backupNotesVersion5(db, notesBackupDir);
+		}
+		else if (oldVersion == 4)
+		{
+			backupNotesVersion4(db, notesBackupDir);
 		}
 
 		File noteTemplatesBackupDir = context.getDir(BACKUP_DIR_NOTE_TEMPLATES, Context.MODE_PRIVATE);
-		if (oldVersion == 7)
+		if (oldVersion >= 11)
 		{
-			backupNoteTemplatesVersion7(db, noteTemplatesBackupDir);
+			backupNoteTemplatesVersion11(db, noteTemplatesBackupDir);
 		}
 		else if (oldVersion >= 8)
 		{
 			backupNoteTemplatesVersion8(db, noteTemplatesBackupDir);
 		}
-		else if (oldVersion >= 11)
+		else if (oldVersion == 7)
 		{
-			backupNoteTemplatesVersion11(db, noteTemplatesBackupDir);
-		}
+			backupNoteTemplatesVersion7(db, noteTemplatesBackupDir);
+		} // if version < 7, note template table is not exist.
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -212,8 +219,10 @@ class NoteDBHelper extends SQLiteOpenHelper
 			int index = 0;
 			do
 			{
+				String noteUuid = UUID.randomUUID().toString();
 				Note note = new Note();
 				note.setId(cursor.getLong(idIndex));
+				note.setUuid(noteUuid);
 				note.setTitle(cursor.getString(titleIndex));
 				note.setContent(cursor.getString(contentIndex));
 				note.setTitleLocked(false);
@@ -242,7 +251,7 @@ class NoteDBHelper extends SQLiteOpenHelper
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void backupNotes(SQLiteDatabase db, File backupDirectory)
+	private void backupNotesVersion5(SQLiteDatabase db, File backupDirectory)
 	{
 		Log.v(LOG_TAG, "Hello");
 		Log.v(LOG_TAG, "backupDirectory => " + backupDirectory);
@@ -260,8 +269,67 @@ class NoteDBHelper extends SQLiteOpenHelper
 			int index = 0;
 			do
 			{
+
+				String noteUuid = UUID.randomUUID().toString();
 				Note note = new Note();
 				note.setId(cursor.getLong(idIndex));
+				note.setUuid(noteUuid);
+				note.setTitle(cursor.getString(titleIndex));
+				note.setContent(cursor.getString(contentIndex));
+				note.setTitleLocked(cursor.getInt(titleLockedIndex) == 1);
+				note.setAdded(cursor.getLong(dateAddedIndex));
+				note.setModified(cursor.getLong(dateModifiedIndex));
+
+				File noteFile = new File(backupDirectory, String.format("%08d", index++));
+				Log.d(LOG_TAG, "backup : noteFile => " + noteFile);
+				try
+				{
+					Note.writeNoteTo(note, noteFile);
+				}
+				catch (FileNotFoundException ex)
+				{
+					Log.e(LOG_TAG, "Note.writeNoteTo() Failed.", ex);
+				}
+				catch (IOException ex)
+				{
+					Log.e(LOG_TAG, "Note.writeNoteTo() Failed.", ex);
+				}
+			}
+			while (cursor.moveToNext());
+
+		}
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	/**
+	 * UUID column was added.
+	 *
+	 * @param db
+	 * @param backupDirectory
+	 */
+	private void backupNotesVersion12(SQLiteDatabase db, File backupDirectory)
+	{
+		Log.v(LOG_TAG, "Hello");
+		Log.v(LOG_TAG, "backupDirectory => " + backupDirectory);
+
+		Cursor cursor = db.query(Notes.TABLE_NAME, null, null, null, null, null, null);
+		if (cursor != null && cursor.moveToFirst())
+		{
+			int idIndex = cursor.getColumnIndex(NoteStore.Note.Columns._ID);
+			int uuidIndex = cursor.getColumnIndex(NoteStore.Note.Columns.UUID);
+			int titleIndex = cursor.getColumnIndex(NoteStore.Note.Columns.TITLE);
+			int contentIndex = cursor.getColumnIndex(NoteStore.Note.Columns.CONTENT);
+			int titleLockedIndex = cursor.getColumnIndex(NoteStore.Note.Columns.TITLE_LOCKED);
+			int dateAddedIndex = cursor.getColumnIndex(NoteStore.Note.Columns.DATE_ADDED);
+			int dateModifiedIndex = cursor.getColumnIndex(NoteStore.Note.Columns.DATE_MODIFIED);
+
+			int index = 0;
+			do
+			{
+				Note note = new Note();
+				note.setId(cursor.getLong(idIndex));
+				note.setUuid(cursor.getString(uuidIndex));
 				note.setTitle(cursor.getString(titleIndex));
 				note.setContent(cursor.getString(contentIndex));
 				note.setTitleLocked(cursor.getInt(titleLockedIndex) == 1);
@@ -444,6 +512,7 @@ class NoteDBHelper extends SQLiteOpenHelper
 				Note note = Note.readNoteFrom(noteFile);
 				ContentValues values = new ContentValues();
 				values.put(NoteStore.Note.Columns._ID, note.getId());
+				values.put(NoteStore.Note.Columns.UUID, note.getUuid());
 				values.put(NoteStore.Note.Columns.TITLE, note.getTitle());
 				values.put(NoteStore.Note.Columns.CONTENT, note.getContent());
 				values.put(NoteStore.Note.Columns.TITLE_LOCKED, note.isTitleLocked());

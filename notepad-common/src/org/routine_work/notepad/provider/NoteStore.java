@@ -50,11 +50,12 @@ public class NoteStore
 		public interface Columns extends BaseColumns
 		{
 
-			String DATE_ADDED = "date_added";
-			String DATE_MODIFIED = "date_modified";
+			String UUID = "uuid";
 			String TITLE = "title";
 			String CONTENT = "content";
 			String TITLE_LOCKED = "title_locked";
+			String DATE_ADDED = "date_added";
+			String DATE_MODIFIED = "date_modified";
 		}
 		public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/notes");
 		public static final String NOTE_LIST_CONTENT_TYPE = "vnd.android.cursor.dir/vnd.routine_work.note";

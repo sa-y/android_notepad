@@ -37,6 +37,7 @@ import android.provider.BaseColumns;
 import android.text.TextUtils;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import org.routine_work.notepad.provider.NoteStore.Note;
 import org.routine_work.notepad.provider.NoteStore.NoteTemplate;
 import org.routine_work.utils.Log;
@@ -299,6 +300,25 @@ public class NoteProvider extends ContentProvider
 	private Uri insertNote(Uri uri, ContentValues initialValues)
 	{
 		Uri newUri = null;
+		long now = System.currentTimeMillis();
+
+		if (initialValues.containsKey(NoteStore.Note.Columns.UUID) == false)
+		{
+			String uuidString = UUID.randomUUID().toString();
+			initialValues.put(NoteStore.Note.Columns.UUID, uuidString);
+		}
+		if (initialValues.containsKey(NoteStore.Note.Columns.TITLE_LOCKED) == false)
+		{
+			initialValues.put(NoteStore.Note.Columns.TITLE_LOCKED, false);
+		}
+		if (initialValues.containsKey(NoteStore.Note.Columns.DATE_ADDED) == false)
+		{
+			initialValues.put(NoteStore.Note.Columns.DATE_ADDED, now);
+		}
+		if (initialValues.containsKey(NoteStore.Note.Columns.DATE_MODIFIED) == false)
+		{
+			initialValues.put(NoteStore.Note.Columns.DATE_MODIFIED, now);
+		}
 
 		long rowID = noteDB.insert(Notes.TABLE_NAME, null, initialValues);
 		Log.d(LOG_TAG, "rowID => " + rowID);
@@ -311,6 +331,7 @@ public class NoteProvider extends ContentProvider
 		{
 			throw new SQLException("Failed to insert row into " + uri);
 		}
+
 		return newUri;
 	}
 

@@ -40,6 +40,7 @@ public class Note implements Serializable
 {
 
 	private long id = 0;
+	private String uuid = null;
 	private String title = "";
 	private String content = "";
 	private boolean titleLocked = false;
@@ -90,6 +91,22 @@ public class Note implements Serializable
 	public void setId(long id)
 	{
 		this.id = id;
+	}
+
+	/**
+	 * @return the UUID
+	 */
+	public String getUuid()
+	{
+		return uuid;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setUuid(String uuid)
+	{
+		this.uuid = uuid;
 	}
 
 	/**
@@ -175,13 +192,14 @@ public class Note implements Serializable
 	@Override
 	public int hashCode()
 	{
-		int hash = 5;
-		hash = 97 * hash + (int) (this.id ^ (this.id >>> 32));
-		hash = 97 * hash + (this.title != null ? this.title.hashCode() : 0);
-		hash = 97 * hash + (this.content != null ? this.content.hashCode() : 0);
-		hash = 97 * hash + (this.titleLocked ? 1 : 0);
-		hash = 97 * hash + (int) (this.added ^ (this.added >>> 32));
-		hash = 97 * hash + (int) (this.modified ^ (this.modified >>> 32));
+		int hash = 7;
+		hash = 31 * hash + (int) (this.id ^ (this.id >>> 32));
+		hash = 31 * hash + (this.uuid != null ? this.uuid.hashCode() : 0);
+		hash = 31 * hash + (this.title != null ? this.title.hashCode() : 0);
+		hash = 31 * hash + (this.content != null ? this.content.hashCode() : 0);
+		hash = 31 * hash + (this.titleLocked ? 1 : 0);
+		hash = 31 * hash + (int) (this.added ^ (this.added >>> 32));
+		hash = 31 * hash + (int) (this.modified ^ (this.modified >>> 32));
 		return hash;
 	}
 
@@ -189,50 +207,37 @@ public class Note implements Serializable
 	public boolean equals(Object obj)
 	{
 		if (obj == null)
-		{
 			return false;
-		}
 		if (getClass() != obj.getClass())
-		{
 			return false;
-		}
 		final Note other = (Note) obj;
 		if (this.id != other.id)
-		{
 			return false;
-		}
+		if ((this.uuid == null) ? (other.uuid != null) : !this.uuid.equals(other.uuid))
+			return false;
 		if ((this.title == null) ? (other.title != null) : !this.title.equals(other.title))
-		{
 			return false;
-		}
 		if ((this.content == null) ? (other.content != null) : !this.content.equals(other.content))
-		{
 			return false;
-		}
 		if (this.titleLocked != other.titleLocked)
-		{
 			return false;
-		}
 		if (this.added != other.added)
-		{
 			return false;
-		}
 		if (this.modified != other.modified)
-		{
 			return false;
-		}
 		return true;
 	}
 
 	@Override
 	public String toString()
 	{
-		return "Note{" + "id=" + id + ", title=" + title + ", content=" + content + ", titleLocked=" + titleLocked + ", added=" + added + ", modified=" + modified + '}';
+		return "Note{" + "id=" + id + ", uuid=" + uuid + ", title=" + title + ", content=" + content + ", titleLocked=" + titleLocked + ", added=" + added + ", modified=" + modified + '}';
 	}
 
 	public void copyFrom(Note other)
 	{
 		this.setId(other.getId());
+		this.setUuid(other.getUuid());
 		this.setTitle(other.getTitle());
 		this.setContent(other.getContent());
 		this.setTitleLocked(other.isTitleLocked());
