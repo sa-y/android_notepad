@@ -33,6 +33,6 @@ interface BackupConstants
 {
 
 	String BACKUP_DIR_NAME = "simple-notepad" + File.separator + "backup";
-	String BACKUP_FILE_DATE_FORMAT = "yyyyMMddThhmmss";
+	String BACKUP_FILE_DATE_FORMAT = "yyyyMMddTkkmmss";
 	String BACKUP_FILE_SUFFIX = ".sqlite";
 }

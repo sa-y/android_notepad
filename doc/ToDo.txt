@@ -12,6 +12,14 @@ notepad-app
   * ノート表示画面
   * ノート編集画面
 
+* ソート順の設定が反映していないバグを修正
+  * PickNoteActivity のソート順を修正
+  * DeleteNotesActivity のソート順を修正
+
+* ノート一覧画面でノート表示順を変更可能にする
+  * 現在のソート順をどのように表示するか？
+    * ノート一覧画面にヘッダをつけてそこに表示する？
+
 #* 汎用のインテントを受信してノート作成
 #  * text/* の SEND を受信するようにする？
 #  * 受信処理専用アクティビティを作成
@@ -27,12 +35,12 @@ notepad-app
 #    * 設定値を用意
 #    * 変更時のリスナーでコンポーネントの有効無効を変更
 
-* ノート一覧画面でノート表示順を変更可能にする
-  * 現在のソート順をどのように表示するか？
-    * ノート一覧画面にヘッダをつけてそこに表示する？
+#* バックアップファイルのファイル名の時刻部分のフォーマットを修正
+#  * 24時間じゃなくて12時間表記になっているような…
 
-* データ同期機能実装のためのデータベース構造の変更
-  * すべてのデバイスでユニークなノートIDが欲しい
+
+#* データ同期機能実装のためのデータベース構造の変更
+#  * すべてのデバイスでユニークなノートIDが欲しい
 #  * UUIDをつける？
 #    * ノート作成時にノート毎にUUIDを生成する
 #  * 削除をフラグにする
@@ -58,16 +66,29 @@ notepad-app
 #      * NoteProvider を修正
 #        * insertNote() を UUID がなければ生成するように修正
 
-* 削除処理を変更
-  * delete していたものを enabled = false にする処理に修正
-  * notepad-common
+#* 削除処理を変更
+#  * delete していたものを enabled = false にする処理に修正
+#  * notepad-common
 #    * NoteStore#deleteNotes(ContentResolver cr, Collection<Longo> idCollection) を修正
 #    * NoteStore#deleteNotes(ContentResolver cr, long[] ids) を修正
 #    * NoteStore#deleteNote(ContentResolver cr, Uri uri) を作成
+#  * notepad-app
+#    * NoteDetailActivity#deleteNote() を修正
+#  * notepad-app-level-11
+#    * DeleteNoteFragment#deleteNote() を修正
+
+* データ参照処理を修正
+  * enabled = true のものだけを表示するように修正
+  * notepad-common
+    * NoteStore#queryEnabledNotes(ContentResolver cr, Uri uri) を作成
   * notepad-app
-    * NoteDetailActivity#deleteNote() を修正
-  * notepad-app-level11
-    * DeleteNoteFragment#deleteNote() を修正
+    * PickNoteActivity#initializeListData() を修正
+    * DeleteNotesActivity#initializeListData() を修正
+    * NotepadActivity#updateContentWithUri() を修正
+  * notepad-app-level-11
+    * PickNoteActivity#onCreateLoader() を修正
+    * DeleteNotesFragments#onCreateLoader() を修正
+    * NoteListFragments#onCreateLoader() を修正
 
 
 notepad-app-level-11
@@ -85,9 +106,6 @@ notepad-common
 
 * TimeFormatUtils 修正
   * 西暦部分のないフォーマットにできないか？
-
-* バックアップファイルのファイル名の時刻部分のフォーマットを修正
-  * 24時間じゃなくて12時間表記になっているような…
 
 * NoteSearchQueryParser に日付記法とかもあってもいいかも
   * 書式
