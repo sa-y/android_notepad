@@ -24,6 +24,7 @@
 package org.routine_work.notepad.provider;
 
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -111,14 +112,18 @@ public class NoteStore
 
 	public static boolean isNoteItemUri(Context context, Uri uri)
 	{
+		return isNoteItemUri(context.getContentResolver(), uri);
+	}
+
+	public static boolean isNoteItemUri(ContentResolver cr, Uri uri)
+	{
 		boolean result = false;
 		Log.v(LOG_TAG, "Hello");
 		Log.d(LOG_TAG, "uri => " + uri);
 
 		if (uri != null)
 		{
-			ContentResolver contentResolver = context.getContentResolver();
-			String type = contentResolver.getType(uri);
+			String type = cr.getType(uri);
 			Log.v(LOG_TAG, "uri.type => " + type);
 			result = NoteStore.Note.NOTE_ITEM_CONTENT_TYPE.equals(type);
 		}
@@ -130,13 +135,18 @@ public class NoteStore
 
 	public static boolean isNoteTemplateItemUri(Context context, Uri uri)
 	{
+		return isNoteTemplateItemUri(context.getContentResolver(), uri);
+	}
+
+	public static boolean isNoteTemplateItemUri(ContentResolver cr, Uri uri)
+	{
 		boolean result = false;
 		Log.v(LOG_TAG, "Hello");
 		Log.d(LOG_TAG, "uri => " + uri);
 
 		if (uri != null)
 		{
-			String type = context.getContentResolver().getType(uri);
+			String type = cr.getType(uri);
 			Log.v(LOG_TAG, "type => " + type);
 			if (NoteStore.NoteTemplate.NOTE_TEMPLATE_ITEM_CONTENT_TYPE.equals(type))
 			{
@@ -223,6 +233,23 @@ public class NoteStore
 		return noteTemplateCount;
 	}
 
+	public static boolean deleteNote(ContentResolver cr, Uri uri)
+	{
+		boolean deleted = false;
+		Log.v(LOG_TAG, "Hello");
+
+		if (isNoteItemUri(cr, uri))
+		{
+			ContentValues values = new ContentValues();
+			values.put(Note.Columns.ENABLED, Boolean.FALSE);
+			int updateCount = cr.update(uri, values, null, null);
+			deleted = updateCount != 0;
+		}
+
+		Log.v(LOG_TAG, "Bye");
+		return deleted;
+	}
+
 	public static int deleteNotes(ContentResolver cr, Collection<Long> idCollection)
 	{
 		int deletedCount = 0;
@@ -232,7 +259,7 @@ public class NoteStore
 		{
 			StringBuilder where = new StringBuilder();
 			where.append(NoteStore.Note.Columns._ID);
-			where.append(" in (");
+			where.append(" IN (");
 			for (long id : idCollection)
 			{
 				where.append(id);
@@ -242,7 +269,9 @@ public class NoteStore
 			where.append(")");
 
 			Log.d(LOG_TAG, "where => " + where);
-			deletedCount = cr.delete(NoteStore.Note.CONTENT_URI, where.toString(), null);
+			ContentValues values = new ContentValues();
+			values.put(Note.Columns.ENABLED, Boolean.FALSE);
+			deletedCount = cr.update(Note.CONTENT_URI, values, where.toString(), null);
 		}
 
 		Log.v(LOG_TAG, "Bye");
@@ -256,9 +285,10 @@ public class NoteStore
 
 		if (ids != null && ids.length > 0)
 		{
+
 			StringBuilder where = new StringBuilder();
 			where.append(NoteStore.Note.Columns._ID);
-			where.append(" in (");
+			where.append(" IN (");
 			for (int i = ids.length - 1; i >= 0; i--)
 			{
 				where.append(ids[i]);
@@ -266,9 +296,11 @@ public class NoteStore
 			}
 			where.delete(where.length() - 2, where.length());
 			where.append(")");
-
 			Log.d(LOG_TAG, "where => " + where);
-			deletedCount = cr.delete(NoteStore.Note.CONTENT_URI, where.toString(), null);
+
+			ContentValues values = new ContentValues();
+			values.put(Note.Columns.ENABLED, Boolean.FALSE);
+			deletedCount = cr.update(Note.CONTENT_URI, values, where.toString(), null);
 		}
 
 		Log.v(LOG_TAG, "Bye");

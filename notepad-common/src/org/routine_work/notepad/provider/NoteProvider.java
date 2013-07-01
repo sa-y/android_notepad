@@ -127,7 +127,6 @@ public class NoteProvider extends ContentProvider
 			case NOTES_SUGGEST_SEARCH_ALL:
 				break;
 			case NOTES_ITEM_ALL:
-				uri.getQueryParameter("q");
 				Log.d(LOG_TAG, "*SEARCH_BY_WORD");
 				String q = uri.getQueryParameter("q");
 				Log.d(LOG_TAG, "q => " + q);

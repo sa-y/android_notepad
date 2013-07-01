@@ -1019,12 +1019,9 @@ public class NoteDetailActivity extends Activity
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		if (NoteStore.isNoteItemUri(this, currentNoteUri))
-		{
-			ContentResolver contentResolver = getContentResolver();
-			int deletedCount = contentResolver.delete(currentNoteUri, null, null);
-			Log.d(LOG_TAG, "deletedCount => " + deletedCount);
-		}
+		ContentResolver contentResolver = getContentResolver();
+		boolean deleted = NoteStore.deleteNote(contentResolver, currentNoteUri);
+		Log.d(LOG_TAG, "deleted => " + deleted);
 
 		Log.v(LOG_TAG, "Bye");
 	}

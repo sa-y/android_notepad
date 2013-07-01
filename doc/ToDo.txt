@@ -61,9 +61,9 @@ notepad-app
 * 削除処理を変更
   * delete していたものを enabled = false にする処理に修正
   * notepad-common
-    * NoteStore#deleteNotes(ContentResolver cr, Collection<Longo> idCollection) を修正
-    * NoteStore#deleteNotes(ContentResolver cr, long[] ids) を修正
-    * NoteStore#deleteNote(ContentResolver cr, Uri uri) を作成
+#    * NoteStore#deleteNotes(ContentResolver cr, Collection<Longo> idCollection) を修正
+#    * NoteStore#deleteNotes(ContentResolver cr, long[] ids) を修正
+#    * NoteStore#deleteNote(ContentResolver cr, Uri uri) を作成
   * notepad-app
     * NoteDetailActivity#deleteNote() を修正
   * notepad-app-level11
@@ -85,6 +85,9 @@ notepad-common
 
 * TimeFormatUtils 修正
   * 西暦部分のないフォーマットにできないか？
+
+* バックアップファイルのファイル名の時刻部分のフォーマットを修正
+  * 24時間じゃなくて12時間表記になっているような…
 
 * NoteSearchQueryParser に日付記法とかもあってもいいかも
   * 書式
