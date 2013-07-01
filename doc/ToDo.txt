@@ -77,18 +77,16 @@ notepad-app
 #  * notepad-app-level-11
 #    * DeleteNoteFragment#deleteNote() を修正
 
-* データ参照処理を修正
-  * enabled = true のものだけを表示するように修正
-  * notepad-common
-    * NoteStore#queryEnabledNotes(ContentResolver cr, Uri uri) を作成
-  * notepad-app
-    * PickNoteActivity#initializeListData() を修正
-    * DeleteNotesActivity#initializeListData() を修正
-    * NotepadActivity#updateContentWithUri() を修正
-  * notepad-app-level-11
-    * PickNoteActivity#onCreateLoader() を修正
-    * DeleteNotesFragments#onCreateLoader() を修正
-    * NoteListFragments#onCreateLoader() を修正
+#* データ参照処理を修正
+#  * enabled = true のものだけを表示するように修正
+#  * notepad-app
+#    * PickNoteActivity#initializeListData() を修正
+#    * DeleteNotesActivity#initializeListData() を修正
+#    * NotepadActivity#updateContentWithUri() を修正
+#  * notepad-app-level-11
+#    * PickNoteActivity#onCreateLoader() を修正
+#    * DeleteNotesFragments#onCreateLoader() を修正
+#    * NoteListFragments#onCreateLoader() を修正
 
 
 notepad-app-level-11

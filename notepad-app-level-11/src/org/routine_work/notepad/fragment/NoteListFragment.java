@@ -209,10 +209,15 @@ public class NoteListFragment extends ListFragment
 		Log.v(LOG_TAG, "Hello");
 		Log.d(LOG_TAG, "this.contentUri => " + this.contentUri);
 
+		String where = NoteStore.Note.Columns.ENABLED + " = ?";
+		String[] whereArgs =
+		{
+			"1"
+		};
 //		String sortOrder = NoteStore.Note.Columns.DATE_MODIFIED + " DESC";
 		String sortOrder = NotepadPreferenceUtils.getNoteListSortOrder(getActivity());
 		CursorLoader cursorLoader = new CursorLoader(getActivity(),
-			contentUri, null, null, null, sortOrder);
+			contentUri, null, where, whereArgs, sortOrder);
 
 		Log.v(LOG_TAG, "Bye");
 		return cursorLoader;

@@ -101,9 +101,14 @@ public class PickNoteActivity extends ListActivity
 	{
 		Log.v(LOG_TAG, "Hello");
 
+		String where = NoteStore.Note.Columns.ENABLED + " = ?";
+		String[] whereArgs =
+		{
+			"1"
+		};
 		String sortOrder = NoteStore.Note.Columns.DATE_MODIFIED + " DESC";
 		CursorLoader cursorLoader = new CursorLoader(this,
-			NoteStore.Note.CONTENT_URI, null, null, null, sortOrder);
+			NoteStore.Note.CONTENT_URI, null, where, whereArgs, sortOrder);
 
 		Log.v(LOG_TAG, "Bye");
 		return cursorLoader;

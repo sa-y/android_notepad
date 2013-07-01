@@ -713,7 +713,13 @@ public class NotepadActivity extends ListActivity
 		String sortOrder = NotepadPreferenceUtils.getNoteListSortOrder(this);
 		Log.d(LOG_TAG, "sortOrder => " + sortOrder);
 
-		Cursor newCursor = getContentResolver().query(contentUri, null, null, null, sortOrder);
+		String where = NoteStore.Note.Columns.ENABLED + " = ?";
+		String[] whereArgs =
+		{
+			"1",
+		};
+		ContentResolver cr = getContentResolver();
+		Cursor newCursor = cr.query(contentUri, null, where, whereArgs, sortOrder);
 		listAdapter.changeCursor(newCursor);
 
 		if (cursor != null)

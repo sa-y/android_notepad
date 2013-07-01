@@ -153,8 +153,13 @@ public class DeleteNotesActivity extends ListActivity
 	{
 		Log.v(LOG_TAG, "Hello");
 
+		String where = NoteStore.Note.Columns.ENABLED + " = ?";
+		String[] whereArgs =
+		{
+			"1"
+		};
 		ContentResolver cr = getContentResolver();
-		Cursor c = cr.query(NoteStore.Note.CONTENT_URI, null, null, null,
+		Cursor c = cr.query(NoteStore.Note.CONTENT_URI, null, where, whereArgs,
 			NoteStore.Note.Columns.DATE_MODIFIED + " DESC");
 		if (c != null && c.moveToFirst())
 		{
@@ -172,7 +177,6 @@ public class DeleteNotesActivity extends ListActivity
 		Log.v(LOG_TAG, "Hello");
 
 		List<Long> checkedIdList = new ArrayList<Long>();
-		ContentResolver cr = getContentResolver();
 		ListView listView = getListView();
 		SparseBooleanArray checkedItemPositions = listView.getCheckedItemPositions();
 		for (int i = checkedItemPositions.size() - 1; i >= 0; i--)
@@ -184,7 +188,7 @@ public class DeleteNotesActivity extends ListActivity
 				checkedIdList.add(id);
 			}
 		}
-		NoteStore.deleteNotes(cr, checkedIdList);
+		NoteStore.deleteNotes(getContentResolver(), checkedIdList);
 
 		Log.v(LOG_TAG, "Bye");
 	}
