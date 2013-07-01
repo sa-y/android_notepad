@@ -51,6 +51,7 @@ public class NoteStore
 		{
 
 			String UUID = "uuid";
+			String ENABLED = "enabled";
 			String TITLE = "title";
 			String CONTENT = "content";
 			String TITLE_LOCKED = "title_locked";

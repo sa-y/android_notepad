@@ -41,6 +41,7 @@ public class Note implements Serializable
 
 	private long id = 0;
 	private String uuid = null;
+	private boolean enabled = true;
 	private String title = "";
 	private String content = "";
 	private boolean titleLocked = false;
@@ -107,6 +108,16 @@ public class Note implements Serializable
 	public void setUuid(String uuid)
 	{
 		this.uuid = uuid;
+	}
+
+	public boolean isEnabled()
+	{
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled)
+	{
+		this.enabled = enabled;
 	}
 
 	/**
@@ -192,14 +203,15 @@ public class Note implements Serializable
 	@Override
 	public int hashCode()
 	{
-		int hash = 7;
-		hash = 31 * hash + (int) (this.id ^ (this.id >>> 32));
-		hash = 31 * hash + (this.uuid != null ? this.uuid.hashCode() : 0);
-		hash = 31 * hash + (this.title != null ? this.title.hashCode() : 0);
-		hash = 31 * hash + (this.content != null ? this.content.hashCode() : 0);
-		hash = 31 * hash + (this.titleLocked ? 1 : 0);
-		hash = 31 * hash + (int) (this.added ^ (this.added >>> 32));
-		hash = 31 * hash + (int) (this.modified ^ (this.modified >>> 32));
+		int hash = 5;
+		hash = 37 * hash + (int) (this.id ^ (this.id >>> 32));
+		hash = 37 * hash + (this.uuid != null ? this.uuid.hashCode() : 0);
+		hash = 37 * hash + (this.enabled ? 1 : 0);
+		hash = 37 * hash + (this.title != null ? this.title.hashCode() : 0);
+		hash = 37 * hash + (this.content != null ? this.content.hashCode() : 0);
+		hash = 37 * hash + (this.titleLocked ? 1 : 0);
+		hash = 37 * hash + (int) (this.added ^ (this.added >>> 32));
+		hash = 37 * hash + (int) (this.modified ^ (this.modified >>> 32));
 		return hash;
 	}
 
@@ -214,6 +226,8 @@ public class Note implements Serializable
 		if (this.id != other.id)
 			return false;
 		if ((this.uuid == null) ? (other.uuid != null) : !this.uuid.equals(other.uuid))
+			return false;
+		if (this.enabled != other.enabled)
 			return false;
 		if ((this.title == null) ? (other.title != null) : !this.title.equals(other.title))
 			return false;
@@ -231,13 +245,14 @@ public class Note implements Serializable
 	@Override
 	public String toString()
 	{
-		return "Note{" + "id=" + id + ", uuid=" + uuid + ", title=" + title + ", content=" + content + ", titleLocked=" + titleLocked + ", added=" + added + ", modified=" + modified + '}';
+		return "Note{" + "id=" + id + ", uuid=" + uuid + ", enabled=" + enabled + ", title=" + title + ", content=" + content + ", titleLocked=" + titleLocked + ", added=" + added + ", modified=" + modified + '}';
 	}
 
 	public void copyFrom(Note other)
 	{
 		this.setId(other.getId());
 		this.setUuid(other.getUuid());
+		this.setEnabled(other.isEnabled());
 		this.setTitle(other.getTitle());
 		this.setContent(other.getContent());
 		this.setTitleLocked(other.isTitleLocked());

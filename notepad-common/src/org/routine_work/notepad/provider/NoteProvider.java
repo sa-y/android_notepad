@@ -307,6 +307,10 @@ public class NoteProvider extends ContentProvider
 			String uuidString = UUID.randomUUID().toString();
 			initialValues.put(NoteStore.Note.Columns.UUID, uuidString);
 		}
+		if (initialValues.containsKey(NoteStore.Note.Columns.ENABLED) == false)
+		{
+			initialValues.put(NoteStore.Note.Columns.ENABLED, true);
+		}
 		if (initialValues.containsKey(NoteStore.Note.Columns.TITLE_LOCKED) == false)
 		{
 			initialValues.put(NoteStore.Note.Columns.TITLE_LOCKED, false);

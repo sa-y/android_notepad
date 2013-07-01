@@ -33,9 +33,11 @@ notepad-app
 
 * データ同期機能実装のためのデータベース構造の変更
   * すべてのデバイスでユニークなノートIDが欲しい
-  * UUIDをつける？
-    * ノート作成時にノート毎にUUIDを生成する
-#  * uuid カラムを追加
+#  * UUIDをつける？
+#    * ノート作成時にノート毎にUUIDを生成する
+#  * 削除をフラグにする
+#    * enabled カラムを追加
+#  * カラムを追加(uuid, state)
 #    * notepad-common
 #      * NoteStoreを修正
 #        * NoteStore.Note.Columns に UUID を追加
@@ -55,6 +57,17 @@ notepad-app
 #        * restoreNotes() 修正
 #      * NoteProvider を修正
 #        * insertNote() を UUID がなければ生成するように修正
+
+* 削除処理を変更
+  * delete していたものを enabled = false にする処理に修正
+  * notepad-common
+    * NoteStore#deleteNotes(ContentResolver cr, Collection<Longo> idCollection) を修正
+    * NoteStore#deleteNotes(ContentResolver cr, long[] ids) を修正
+    * NoteStore#deleteNote(ContentResolver cr, Uri uri) を作成
+  * notepad-app
+    * NoteDetailActivity#deleteNote() を修正
+  * notepad-app-level11
+    * DeleteNoteFragment#deleteNote() を修正
 
 
 notepad-app-level-11

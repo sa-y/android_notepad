@@ -110,6 +110,10 @@ class NoteDBHelper extends SQLiteOpenHelper
 		db.execSQL(Notes.CREATE_TABLE_SQL);
 		Log.w(LOG_TAG, "Notes.CREATE_TITLE_INDEX_SQL => " + Notes.CREATE_TITLE_INDEX_SQL);
 		db.execSQL(Notes.CREATE_TITLE_INDEX_SQL);
+		Log.w(LOG_TAG, "Notes.CREATE_UUID_INDEX_SQL => " + Notes.CREATE_UUID_INDEX_SQL);
+		db.execSQL(Notes.CREATE_UUID_INDEX_SQL);
+		Log.w(LOG_TAG, "Notes.CREATE_ENABLED_INDEX_SQL => " + Notes.CREATE_ENABLED_INDEX_SQL);
+		db.execSQL(Notes.CREATE_ENABLED_INDEX_SQL);
 		Log.w(LOG_TAG, "Notes.CREATE_CONTENT_INDEX_SQL => " + Notes.CREATE_CONTENT_INDEX_SQL);
 		db.execSQL(Notes.CREATE_CONTENT_INDEX_SQL);
 		Log.w(LOG_TAG, "Notes.CREATE_DATE_ADDED_INDEX_SQL => " + Notes.CREATE_DATE_ADDED_INDEX_SQL);
@@ -223,6 +227,7 @@ class NoteDBHelper extends SQLiteOpenHelper
 				Note note = new Note();
 				note.setId(cursor.getLong(idIndex));
 				note.setUuid(noteUuid);
+				note.setEnabled(true);
 				note.setTitle(cursor.getString(titleIndex));
 				note.setContent(cursor.getString(contentIndex));
 				note.setTitleLocked(false);
@@ -274,6 +279,7 @@ class NoteDBHelper extends SQLiteOpenHelper
 				Note note = new Note();
 				note.setId(cursor.getLong(idIndex));
 				note.setUuid(noteUuid);
+				note.setEnabled(true);
 				note.setTitle(cursor.getString(titleIndex));
 				note.setContent(cursor.getString(contentIndex));
 				note.setTitleLocked(cursor.getInt(titleLockedIndex) == 1);
@@ -303,7 +309,11 @@ class NoteDBHelper extends SQLiteOpenHelper
 	}
 
 	/**
-	 * UUID column was added.
+	 * The following columns were added.
+	 * <ul>
+	 * <li>uuid</li>
+	 * <li>enabled</li>
+	 * </ul>
 	 *
 	 * @param db
 	 * @param backupDirectory
@@ -318,6 +328,7 @@ class NoteDBHelper extends SQLiteOpenHelper
 		{
 			int idIndex = cursor.getColumnIndex(NoteStore.Note.Columns._ID);
 			int uuidIndex = cursor.getColumnIndex(NoteStore.Note.Columns.UUID);
+			int enabledIndex = cursor.getColumnIndex(NoteStore.Note.Columns.ENABLED);
 			int titleIndex = cursor.getColumnIndex(NoteStore.Note.Columns.TITLE);
 			int contentIndex = cursor.getColumnIndex(NoteStore.Note.Columns.CONTENT);
 			int titleLockedIndex = cursor.getColumnIndex(NoteStore.Note.Columns.TITLE_LOCKED);
@@ -330,6 +341,7 @@ class NoteDBHelper extends SQLiteOpenHelper
 				Note note = new Note();
 				note.setId(cursor.getLong(idIndex));
 				note.setUuid(cursor.getString(uuidIndex));
+				note.setEnabled(cursor.getInt(enabledIndex) == 1);
 				note.setTitle(cursor.getString(titleIndex));
 				note.setContent(cursor.getString(contentIndex));
 				note.setTitleLocked(cursor.getInt(titleLockedIndex) == 1);
@@ -513,6 +525,7 @@ class NoteDBHelper extends SQLiteOpenHelper
 				ContentValues values = new ContentValues();
 				values.put(NoteStore.Note.Columns._ID, note.getId());
 				values.put(NoteStore.Note.Columns.UUID, note.getUuid());
+				values.put(NoteStore.Note.Columns.ENABLED, note.isEnabled());
 				values.put(NoteStore.Note.Columns.TITLE, note.getTitle());
 				values.put(NoteStore.Note.Columns.CONTENT, note.getContent());
 				values.put(NoteStore.Note.Columns.TITLE_LOCKED, note.isTitleLocked());
