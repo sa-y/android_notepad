@@ -7,6 +7,8 @@
 * Fixed the space size in note list
 * Fixed a default value of the option for modified time visibility
 * Added text intent receiving function
+* Fixed a backup file name bug
+* Updated database schema
 
 
 1.0.5
