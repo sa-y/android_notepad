@@ -106,7 +106,8 @@ public class PickNoteActivity extends ListActivity
 		{
 			"1"
 		};
-		String sortOrder = NoteStore.Note.Columns.DATE_MODIFIED + " DESC";
+		String sortOrder = NotepadPreferenceUtils.getNoteListSortOrder(this);
+		Log.d(LOG_TAG, String.format("where => %s, whereArgs => %s, sortOrder => %s", where, whereArgs, sortOrder));
 		CursorLoader cursorLoader = new CursorLoader(this,
 			NoteStore.Note.CONTENT_URI, null, where, whereArgs, sortOrder);
 

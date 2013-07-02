@@ -204,7 +204,7 @@ public class NoteListFragment extends ListFragment
 	}
 
 	// BEGIN ---------- LoaderManager.LoaderCallbacks<Cursor> ----------
-	public Loader<Cursor> onCreateLoader(int i, Bundle bundle)
+	public Loader<Cursor> onCreateLoader(int id, Bundle bundle)
 	{
 		Log.v(LOG_TAG, "Hello");
 		Log.d(LOG_TAG, "this.contentUri => " + this.contentUri);
@@ -214,8 +214,8 @@ public class NoteListFragment extends ListFragment
 		{
 			"1"
 		};
-//		String sortOrder = NoteStore.Note.Columns.DATE_MODIFIED + " DESC";
 		String sortOrder = NotepadPreferenceUtils.getNoteListSortOrder(getActivity());
+		Log.d(LOG_TAG, String.format("where => %s, whereArgs => %s, sortOrder => %s", where, whereArgs, sortOrder));
 		CursorLoader cursorLoader = new CursorLoader(getActivity(),
 			contentUri, null, where, whereArgs, sortOrder);
 

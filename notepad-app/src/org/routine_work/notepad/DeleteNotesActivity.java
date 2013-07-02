@@ -158,12 +158,14 @@ public class DeleteNotesActivity extends ListActivity
 		{
 			"1"
 		};
+		String sortOrder = NotepadPreferenceUtils.getNoteListSortOrder(this);
+		Log.d(LOG_TAG, String.format("where => %s, whereArgs => %s, sortOrder => %s", where, whereArgs, sortOrder));
 		ContentResolver cr = getContentResolver();
-		Cursor c = cr.query(NoteStore.Note.CONTENT_URI, null, where, whereArgs,
-			NoteStore.Note.Columns.DATE_MODIFIED + " DESC");
-		if (c != null && c.moveToFirst())
+		Cursor newCursor = cr.query(NoteStore.Note.CONTENT_URI, null,
+			where, whereArgs, sortOrder);
+		if (newCursor != null && newCursor.moveToFirst())
 		{
-			cursor = c;
+			cursor = newCursor;
 		}
 
 		listAdapter = new NoteCursorAdapter(this, cursor, true);

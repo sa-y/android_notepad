@@ -709,15 +709,13 @@ public class NotepadActivity extends ListActivity
 		Log.v(LOG_TAG, "Hello");
 		Log.v(LOG_TAG, "contentUri => " + contentUri);
 
-//		String sortOrder = NoteStore.Note.Columns.DATE_MODIFIED + " DESC";
-		String sortOrder = NotepadPreferenceUtils.getNoteListSortOrder(this);
-		Log.d(LOG_TAG, "sortOrder => " + sortOrder);
-
 		String where = NoteStore.Note.Columns.ENABLED + " = ?";
 		String[] whereArgs =
 		{
 			"1",
 		};
+		String sortOrder = NotepadPreferenceUtils.getNoteListSortOrder(this);
+		Log.d(LOG_TAG, String.format("where => %s, whereArgs => %s, sortOrder => %s", where, whereArgs, sortOrder));
 		ContentResolver cr = getContentResolver();
 		Cursor newCursor = cr.query(contentUri, null, where, whereArgs, sortOrder);
 		listAdapter.changeCursor(newCursor);
