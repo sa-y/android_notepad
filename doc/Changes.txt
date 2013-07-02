@@ -9,6 +9,7 @@
 * Added text intent receiving function
 * Fixed a backup file name bug
 * Updated database schema
+* Fixed a sort order option bug
 
 
 1.0.5

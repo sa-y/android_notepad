@@ -16,10 +16,6 @@ notepad-app
   * 現在のソート順をどのように表示するか？
     * ノート一覧画面にヘッダをつけてそこに表示する？
 
-#* ソート順の設定が反映していないバグを修正
-#  * PickNoteActivity のソート順を修正
-#  * DeleteNotesActivity のソート順を修正
-
 
 notepad-app-level-11
 ====================
@@ -28,11 +24,6 @@ notepad-app-level-11
   * ScrollView の上端にいる場合に下にスワイプしたら表示？
 
 * NotepadPreferenceActivity をフラグメントにする？
-
-#* ソート順の設定が反映していないバグを修正
-#  * PickNoteActivity のソート順を修正
-#  * DeleteNotesFragments のソート順を修正
-
 
 notepad-common
 ==============
