@@ -62,6 +62,7 @@
 						<!-- <path>C:/Java/android-sdk</path> -->
 						<platform>11</platform>
 					</sdk>
+					<release>false</release>
 					<proguard>
 						<skip>true</skip>
 					</proguard>
@@ -168,7 +169,7 @@
 					 - Disable debug sign 
 					 - Enable zipalign
 					 - Enable proguard
-				 -->
+					 -->
 					<plugin>
 						<groupId>com.jayway.maven.plugins.android.generation2</groupId>
 						<artifactId>android-maven-plugin</artifactId>
@@ -188,6 +189,7 @@
 								<inputApk>${project.build.directory}/${project.artifactId}-${project.version}.apk</inputApk>
 								<outputApk>${project.build.directory}/${project.artifactId}-${project.version}-signed-aligned.apk</outputApk>
 							</zipalign>
+							<release>true</release>
 							<sign>
 								<debug>false</debug>
 							</sign>
