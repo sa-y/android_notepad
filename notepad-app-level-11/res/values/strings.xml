@@ -69,7 +69,7 @@
 	<string name="delete_note_template">Delete</string>
 
 	<!-- create note shortcut -->
-	<string name="new_shortcut_title">New Shortcut</string>
+	<string name="new_note_shortcut_title">Note Shortcut</string>
 	<string name="new_search_shortcut_title">New Search Shortcut</string>
 
 	<string name="search_query">Search Query</string>
