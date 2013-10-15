@@ -39,6 +39,7 @@
 			<intent-filter>
 				<action android:name="android.intent.action.SEARCH" />
 				<category android:name="android.intent.category.DEFAULT" />
+				<data android:mimeType="vnd.android.cursor.dir/vnd.routine_work.note" />
 			</intent-filter>
 
 			<meta-data android:name="android.app.searchable" android:resource="@xml/note_searchable"/>    
@@ -150,6 +151,17 @@
 			android:name=".shortcut.CreateNoteShortcutActivity"
 			android:icon="@drawable/ic_launcher_notepad_edit"
 			android:label="@string/new_shortcut_title"
+		>
+			<intent-filter>
+				<action android:name="android.intent.action.CREATE_SHORTCUT" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+
+		<activity
+			android:name=".shortcut.CreateSearchNoteShortcutActivity"
+			android:icon="@drawable/ic_launcher_notepad_edit"
+			android:label="@string/new_search_shortcut_title"
 		>
 			<intent-filter>
 				<action android:name="android.intent.action.CREATE_SHORTCUT" />

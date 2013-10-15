@@ -70,5 +70,10 @@
 
 	<!-- create note shortcut -->
 	<string name="new_shortcut_title">New Shortcut</string>
+	<string name="new_search_shortcut_title">New Search Shortcut</string>
+
+	<string name="search_query">Search Query</string>
 	<string name="shortcut_name">Shortcut Name</string>
+	<string name="no_search_query_message">Please input a search query.</string>
+	<string name="no_shortcut_name_message">Please input a shortcut name.</string>
 </resources>

@@ -70,5 +70,10 @@
 
 	<!-- create note shortcut -->
 	<string name="new_shortcut_title">新規ショートカット作成</string>
+	<string name="new_search_shortcut_title">検索ショートカット作成</string>
+
+	<string name="search_query">検索クエリー</string>
 	<string name="shortcut_name">ショートカット名</string>
+	<string name="no_search_query_message">検索クエリーを入力してください。</string>
+	<string name="no_shortcut_name_message">ショートカット名を入力してください。</string>
 </resources>
