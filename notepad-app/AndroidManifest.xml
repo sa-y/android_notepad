@@ -8,6 +8,7 @@
 >
 	<uses-sdk android:minSdkVersion="3" android:targetSdkVersion="4" />
 
+	<uses-feature android:name="android.hardware.touchscreen" android:required="false" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 	<application
