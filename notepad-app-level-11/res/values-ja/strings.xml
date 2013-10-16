@@ -50,8 +50,6 @@
 	<string name="add_new_note_template_title">新規テンプレート作成</string>
 	<string name="select_note_template_title">テンプレートを選択</string>
 
-	<string name="new_from_template_title">テンプレートから新規作成</string>
-
 	<!-- menu item label -->
 	<string name="new_note">新規</string>
 	<string name="edit_note">編集</string>
@@ -70,7 +68,10 @@
 
 	<!-- create note shortcut -->
 	<string name="new_note_shortcut_title">ノートのショートカット作成</string>
+	<string name="search_note_title">ノートを検索</string>
 	<string name="new_search_shortcut_title">検索のショートカット作成</string>
+	<string name="new_from_template_title">テンプレートから新規作成</string>
+	<string name="new_template_shortcut_title">テンプレートのショートカット作成</string>
 
 	<string name="search_query">検索クエリー</string>
 	<string name="shortcut_name">ショートカット名</string>

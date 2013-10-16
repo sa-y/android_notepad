@@ -50,24 +50,18 @@ public class CreateNoteTemplateShortcutActivity extends Activity
 		Log.setTraceMode(true);
 	}
 	private Uri noteTemplateUri;
-	// views
-	private EditText shortcutNameEditText;
 
-	/**
-	 * Called when the activity is first created.
-	 */
 	@Override
-	public void onCreate(Bundle savedInstanceState)
+	protected void onCreate(Bundle savedInstanceState)
 	{
 		Log.v(LOG_TAG, "Hello");
 		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.create_note_shortcut_activity);
+		setTitle(R.string.new_template_shortcut_title);
 
 		// init views
-		shortcutNameEditText = (EditText) findViewById(R.id.shortcut_name_edittext);
-
 		Button cancelButton = (Button) findViewById(R.id.cancel_button);
 		Button okButton = (Button) findViewById(R.id.ok_button);
 		cancelButton.setOnClickListener(this);
@@ -139,6 +133,7 @@ public class CreateNoteTemplateShortcutActivity extends Activity
 
 						if (templateName != null)
 						{
+							EditText shortcutNameEditText = (EditText) findViewById(R.id.shortcut_name_edittext);
 							shortcutNameEditText.setText(templateName);
 						}
 					}
@@ -169,6 +164,7 @@ public class CreateNoteTemplateShortcutActivity extends Activity
 
 		if (noteTemplateUri != null)
 		{
+			EditText shortcutNameEditText = (EditText) findViewById(R.id.shortcut_name_edittext);
 			String shortcutName = shortcutNameEditText.getText().toString();
 			Intent addOrEditNoteWithTemplateIntent = new Intent(Intent.ACTION_INSERT, noteTemplateUri);
 

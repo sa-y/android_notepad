@@ -31,7 +31,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import org.routine_work.notepad.R;
@@ -52,29 +51,18 @@ public class CreateNoteShortcutActivity extends Activity
 		Log.setTraceMode(true);
 	}
 	private Uri noteUri;
-	// views
-	private EditText shortcutNameEditText;
 
-	/**
-	 * Called when the activity is first created.
-	 */
 	@Override
-	public void onCreate(Bundle savedInstanceState)
+	protected void onCreate(Bundle savedInstanceState)
 	{
 		Log.v(LOG_TAG, "Hello");
 		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 
-		// When software keyboard was displayed, the window is adjust resize.
-		getWindow().setSoftInputMode(
-			WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN
-			| WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-
 		setContentView(R.layout.create_note_shortcut_activity);
+		setTitle(R.string.new_note_shortcut_title);
 
 		// init views
-		shortcutNameEditText = (EditText) findViewById(R.id.shortcut_name_edittext);
-
 		Button cancelButton = (Button) findViewById(R.id.cancel_button);
 		Button okButton = (Button) findViewById(R.id.ok_button);
 		cancelButton.setOnClickListener(this);
@@ -148,6 +136,7 @@ public class CreateNoteShortcutActivity extends Activity
 
 					if (noteTitle != null)
 					{
+						EditText shortcutNameEditText = (EditText) findViewById(R.id.shortcut_name_edittext);
 						shortcutNameEditText.setText(noteTitle);
 					}
 				}
@@ -174,6 +163,7 @@ public class CreateNoteShortcutActivity extends Activity
 
 		if (noteUri != null)
 		{
+			EditText shortcutNameEditText = (EditText) findViewById(R.id.shortcut_name_edittext);
 			String title = shortcutNameEditText.getText().toString();
 			Intent editNoteIntent = new Intent(Intent.ACTION_EDIT, noteUri);
 

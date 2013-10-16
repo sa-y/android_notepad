@@ -159,7 +159,7 @@
 
 		<activity
 			android:name=".shortcut.CreateSearchNoteShortcutActivity"
-			android:label="@string/new_search_shortcut_title"
+			android:label="@string/search_note_title"
 			android:icon="@drawable/ic_launcher_notepad_edit"
 		>
 			<intent-filter>

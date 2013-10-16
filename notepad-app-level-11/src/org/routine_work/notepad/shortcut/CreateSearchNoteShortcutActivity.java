@@ -30,7 +30,6 @@ import android.content.Intent.ShortcutIconResource;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -59,12 +58,8 @@ public class CreateSearchNoteShortcutActivity extends Activity
 		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 
-		// When software keyboard was displayed, the window is adjust resize.
-		getWindow().setSoftInputMode(
-			WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN
-			| WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-
 		setContentView(R.layout.create_search_note_shortcut_activity);
+		setTitle(R.string.new_search_shortcut_title);
 
 		// init views
 		Button cancelButton = (Button) findViewById(R.id.cancel_button);
