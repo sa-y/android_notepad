@@ -30,9 +30,11 @@ import android.content.Intent.ShortcutIconResource;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
@@ -163,8 +165,16 @@ public class CreateNoteShortcutActivity extends Activity
 
 		if (noteUri != null)
 		{
+			// Check shortcut name
 			EditText shortcutNameEditText = (EditText) findViewById(R.id.shortcut_name_edittext);
-			String title = shortcutNameEditText.getText().toString();
+			String shortcutName = shortcutNameEditText.getText().toString();
+			if (TextUtils.isEmpty(shortcutName))
+			{
+				Toast.makeText(this, R.string.no_shortcut_name_message, Toast.LENGTH_LONG).show();
+				return;
+			}
+
+			// Create shortcut
 			Intent editNoteIntent = new Intent(Intent.ACTION_EDIT, noteUri);
 
 			ShortcutIconResource shortcutIconResource = Intent.ShortcutIconResource.fromContext(this, R.drawable.ic_launcher_notepad_edit);
@@ -172,7 +182,7 @@ public class CreateNoteShortcutActivity extends Activity
 			Intent resultIntent = new Intent();
 			resultIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, editNoteIntent);
 			resultIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, shortcutIconResource);
-			resultIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, title);
+			resultIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, shortcutName);
 			setResult(Activity.RESULT_OK, resultIntent);
 			finish();
 		}
