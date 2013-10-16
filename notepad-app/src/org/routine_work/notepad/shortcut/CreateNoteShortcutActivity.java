@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2012 Masahiko, SAWAI <masahiko.sawai@gmail.com>.
+ * Copyright 2012-2013 Masahiko, SAWAI <masahiko.sawai@gmail.com>.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,9 +29,12 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
@@ -50,24 +53,21 @@ public class CreateNoteShortcutActivity extends Activity
 		Log.setTraceMode(true);
 	}
 	private Uri noteUri;
-	// views
-	private EditText shortcutNameEditText;
 
-	/**
-	 * Called when the activity is first created.
-	 */
 	@Override
-	public void onCreate(Bundle savedInstanceState)
+	protected void onCreate(Bundle savedInstanceState)
 	{
 		Log.v(LOG_TAG, "Hello");
 		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 
+		getWindow().setSoftInputMode(
+			WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN
+			| WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
 		setContentView(R.layout.create_note_shortcut_activity);
 
 		// init views
-		shortcutNameEditText = (EditText) findViewById(R.id.shortcut_name_edittext);
-
 		Button cancelButton = (Button) findViewById(R.id.cancel_button);
 		Button okButton = (Button) findViewById(R.id.ok_button);
 		cancelButton.setOnClickListener(this);
@@ -139,6 +139,7 @@ public class CreateNoteShortcutActivity extends Activity
 
 						if (noteTitle != null)
 						{
+							EditText shortcutNameEditText = (EditText) findViewById(R.id.shortcut_name_edittext);
 							shortcutNameEditText.setText(noteTitle);
 						}
 					}
@@ -170,15 +171,22 @@ public class CreateNoteShortcutActivity extends Activity
 
 		if (noteUri != null)
 		{
-			String title = shortcutNameEditText.getText().toString();
-			Intent editNoteIntent = new Intent(Intent.ACTION_EDIT, noteUri);
+			// Check shortcut name
+			EditText shortcutNameEditText = (EditText) findViewById(R.id.shortcut_name_edittext);
+			String shortcutName = shortcutNameEditText.getText().toString();
+			if (TextUtils.isEmpty(shortcutName))
+			{
+				Toast.makeText(this, R.string.no_shortcut_name_message, Toast.LENGTH_LONG).show();
+				return;
+			}
 
+			Intent editNoteIntent = new Intent(Intent.ACTION_EDIT, noteUri);
 			Intent.ShortcutIconResource shortcutIconResource = Intent.ShortcutIconResource.fromContext(this, R.drawable.ic_launcher_notepad_edit);
 
 			Intent resultIntent = new Intent();
 			resultIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, editNoteIntent);
 			resultIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, shortcutIconResource);
-			resultIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, title);
+			resultIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, shortcutName);
 			setResult(Activity.RESULT_OK, resultIntent);
 			finish();
 		}

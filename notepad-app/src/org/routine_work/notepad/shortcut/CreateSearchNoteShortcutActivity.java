@@ -59,6 +59,10 @@ public class CreateSearchNoteShortcutActivity extends Activity
 		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 
+		getWindow().setSoftInputMode(
+			WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN
+			| WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
 		setContentView(R.layout.create_search_note_shortcut_activity);
 
 		// init views
