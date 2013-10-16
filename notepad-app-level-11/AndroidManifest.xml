@@ -86,7 +86,6 @@
 				<category android:name="android.intent.category.DEFAULT" />
 				<data android:mimeType="vnd.android.cursor.dir/vnd.routine_work.note" />
 			</intent-filter>
-
 		</activity>
 
 		<activity
@@ -149,8 +148,8 @@
 		<!-- Activity : Create Shortcut -->
 		<activity
 			android:name=".shortcut.CreateNoteShortcutActivity"
+			android:label="@string/note"
 			android:icon="@drawable/ic_launcher_notepad_edit"
-			android:label="@string/new_note_shortcut_title"
 		>
 			<intent-filter>
 				<action android:name="android.intent.action.CREATE_SHORTCUT" />
@@ -160,8 +159,8 @@
 
 		<activity
 			android:name=".shortcut.CreateSearchNoteShortcutActivity"
-			android:icon="@drawable/ic_launcher_notepad_edit"
 			android:label="@string/new_search_shortcut_title"
+			android:icon="@drawable/ic_launcher_notepad_edit"
 		>
 			<intent-filter>
 				<action android:name="android.intent.action.CREATE_SHORTCUT" />
@@ -234,6 +233,7 @@
 		<provider
 			android:name=".provider.NoteProvider"
 			android:authorities="org.routine_work.notepad.noteprovider"
+			android:syncable="true"
 		/>
 
 		<!--
@@ -245,7 +245,4 @@
 
 	</application>
 
-	<!--
-	<uses-permission android:name="android.permission.INTERNET" />
-	-->
 </manifest> 

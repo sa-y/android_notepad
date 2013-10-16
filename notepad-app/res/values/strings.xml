@@ -44,6 +44,7 @@
 	<string name="edit_note_title">Edit Note</string>
 	<string name="add_new_note_title">New Note</string>
 	<string name="delete_note_title">Delete Note</string>
+	<string name="delete_notes_title">Delete Notes</string>
 	<string name="select_note_title">Select Note</string>
 	<string name="insert_note_title">Insert Note</string>
 
@@ -52,8 +53,6 @@
 	<string name="edit_note_template_title">Edit Template</string>
 	<string name="add_new_note_template_title">New Template</string>
 	<string name="select_note_template_title">Select Template</string>
-
-	<string name="new_from_template_title">New from Template</string>
 
 	<!-- menu item label -->
 	<string name="new_note">New</string>
@@ -73,7 +72,14 @@
 	<string name="delete_note_template">Delete</string>
 
 	<!-- create note shortcut -->
-	<string name="new_shortcut_title">New Shortcut</string>
-	<string name="shortcut_name">Shortcut Name</string>
+	<string name="new_note_shortcut_title">New Note Shortcut</string>
+	<string name="search_note_title">Search Note</string>
+	<string name="new_search_shortcut_title">New Search Shortcut</string>
+	<string name="new_from_template_title">New from Template</string>
+	<string name="new_template_shortcut_title">New Template Shortcut</string>
 
+	<string name="search_query">Search Query</string>
+	<string name="shortcut_name">Shortcut Name</string>
+	<string name="no_search_query_message">Please input a search query.</string>
+	<string name="no_shortcut_name_message">Please input a shortcut name.</string>
 </resources>

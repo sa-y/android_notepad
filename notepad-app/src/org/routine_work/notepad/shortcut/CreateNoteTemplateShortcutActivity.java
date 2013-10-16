@@ -32,6 +32,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
@@ -51,7 +52,6 @@ public class CreateNoteTemplateShortcutActivity extends Activity
 	}
 	private Uri noteTemplateUri;
 	// views
-	private EditText shortcutNameEditText;
 
 	/**
 	 * Called when the activity is first created.
@@ -65,9 +65,11 @@ public class CreateNoteTemplateShortcutActivity extends Activity
 
 		setContentView(R.layout.create_note_shortcut_activity);
 
-		// init views
-		shortcutNameEditText = (EditText) findViewById(R.id.shortcut_name_edittext);
+		// override title
+		TextView titleTextView = (TextView)findViewById(R.id.title_textview);
+		titleTextView.setText(R.string.new_template_shortcut_title);
 
+		// init views
 		Button cancelButton = (Button) findViewById(R.id.cancel_button);
 		Button okButton = (Button) findViewById(R.id.ok_button);
 		cancelButton.setOnClickListener(this);
@@ -139,6 +141,7 @@ public class CreateNoteTemplateShortcutActivity extends Activity
 
 						if (templateName != null)
 						{
+							EditText shortcutNameEditText = (EditText) findViewById(R.id.shortcut_name_edittext);
 							shortcutNameEditText.setText(templateName);
 						}
 					}
@@ -169,6 +172,7 @@ public class CreateNoteTemplateShortcutActivity extends Activity
 
 		if (noteTemplateUri != null)
 		{
+			EditText shortcutNameEditText = (EditText) findViewById(R.id.shortcut_name_edittext);
 			String shortcutName = shortcutNameEditText.getText().toString();
 			Intent addOrEditNoteWithTemplateIntent = new Intent(Intent.ACTION_INSERT, noteTemplateUri);
 

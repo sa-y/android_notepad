@@ -36,12 +36,22 @@
 			<intent-filter>
 				<action android:name="android.intent.action.SEARCH" />
 				<category android:name="android.intent.category.DEFAULT" />
+				<data android:mimeType="vnd.android.cursor.dir/vnd.routine_work.note" />
 			</intent-filter>
 
 			<meta-data android:name="android.app.searchable" android:resource="@xml/searchable"/>    
 		</activity>
 
-		<activity android:name=".DeleteNotesActivity" />
+		<activity
+			android:name=".DeleteNotesActivity"
+			android:label="@string/delete_notes_title"
+		>
+			<intent-filter>
+				<action android:name="android.intent.action.DELETE" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<data android:mimeType="vnd.android.cursor.dir/vnd.routine_work.note" />
+			</intent-filter>
+		</activity>
 
 		<activity
 			android:name=".AddNewNoteActivity"
@@ -82,7 +92,7 @@
 			<intent-filter>
 				<action android:name="android.intent.action.SEND" />
 				<category android:name="android.intent.category.DEFAULT" />
-				<data android:mimeType="text/plain" />
+				<data android:mimeType="text/*" />
 			</intent-filter>
 
 		</activity>
@@ -135,6 +145,18 @@
 		<!-- Activity : Create Shortcut -->
 		<activity 
 			android:name=".shortcut.CreateNoteShortcutActivity"
+			android:label="@string/note"
+			android:icon="@drawable/ic_launcher_notepad_edit"
+		>
+			<intent-filter>
+				<action android:name="android.intent.action.CREATE_SHORTCUT" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+
+		<activity
+			android:name=".shortcut.CreateSearchNoteShortcutActivity"
+			android:label="@string/search_note_title"
 			android:icon="@drawable/ic_launcher_notepad_edit"
 		>
 			<intent-filter>
