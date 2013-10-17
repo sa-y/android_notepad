@@ -122,7 +122,7 @@ public class CreateSearchNoteShortcutActivity extends Activity
 		Intent searchNoteIntent = new Intent(Intent.ACTION_SEARCH, NoteStore.Note.CONTENT_URI);
 		searchNoteIntent.putExtra(SearchManager.QUERY, searchQuery);
 
-		ShortcutIconResource shortcutIconResource = Intent.ShortcutIconResource.fromContext(this, R.drawable.ic_launcher_notepad_edit);
+		ShortcutIconResource shortcutIconResource = Intent.ShortcutIconResource.fromContext(this, R.drawable.ic_launcher_notepad_search);
 
 		Intent resultIntent = new Intent();
 		resultIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, searchNoteIntent);
