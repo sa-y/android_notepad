@@ -171,9 +171,14 @@ public class NoteTemplateListActivity extends ListActivity
 	{
 		Log.v(LOG_TAG, "Hello");
 
+		String where = NoteStore.Note.Columns.ENABLED + " = ?";
+		String[] whereArgs =
+		{
+			"1"
+		};
 		String sortOrder = NoteStore.NoteTemplate.Columns._ID + " ASC";
 		CursorLoader cursorLoader = new CursorLoader(this,
-			NoteStore.NoteTemplate.CONTENT_URI, null, null, null, sortOrder);
+			NoteStore.NoteTemplate.CONTENT_URI, null, where, whereArgs, sortOrder);
 
 		Log.v(LOG_TAG, "Bye");
 		return cursorLoader;
@@ -269,7 +274,9 @@ public class NoteTemplateListActivity extends ListActivity
 	{
 		Uri noteTemplateUri = ContentUris.withAppendedId(NoteStore.NoteTemplate.CONTENT_URI, id);
 		ContentResolver contentResolver = getContentResolver();
-		contentResolver.delete(noteTemplateUri, null, null);
+//		contentResolver.delete(noteTemplateUri, null, null);
+		boolean deleted = NoteStore.deleteNoteTemplate(contentResolver, noteTemplateUri);
+		Log.d(LOG_TAG, "deleted =>" + deleted);
 		listAdapter.notifyDataSetChanged();
 	}
 }

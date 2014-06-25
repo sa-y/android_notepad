@@ -349,7 +349,7 @@ public class NotepadActivity extends ListActivity
 		{
 			case R.id.add_new_note_menuitem:
 				Log.d(LOG_TAG, "add_new_note_menuitem is selected.");
-				startAddNewNoteActivity();
+				addNewNote();
 				break;
 			case R.id.delete_notes_menuitem:
 				Log.d(LOG_TAG, "delete_notes_menuitem is selected.");
@@ -392,7 +392,7 @@ public class NotepadActivity extends ListActivity
 				break;
 			case R.id.add_new_note_button:
 				Log.d(LOG_TAG, "add_new_note_buttonis clicked.");
-				startAddNewNoteActivity();
+				addNewNote();
 				break;
 			case R.id.search_button:
 				Log.d(LOG_TAG, "search_button is clicked.");
@@ -566,28 +566,22 @@ public class NotepadActivity extends ListActivity
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void startAddNewNoteActivity()
+	private void addNewNote()
 	{
 		Log.v(LOG_TAG, "Hello");
 
-//		Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
-//		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
-
-//		Intent intent = new Intent(this, AddNewNoteActivity.class);
-//		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
-
-		if (NoteStore.getNoteTemplateCount(getContentResolver()) == 0)
+		int noteTemplateCount = NoteStore.getNoteTemplateCount(getContentResolver());
+		if (noteTemplateCount >= 2)
 		{
-			// Add Blank Note
-			Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
-			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
-		}
-		else
-		{
-			// Select Note Template
 			showDialog(DIALOG_ID_NOTE_TEMPLATE_PICKER);
+		}
+		else if (noteTemplateCount == 1)
+		{
+			NoteUtils.startActivityForAddNewNoteWithFirstTemplate(this);
+		}
+		else if (noteTemplateCount == 0)
+		{
+			NoteUtils.startActivityForAddNewBlankNote(this);
 		}
 
 		Log.v(LOG_TAG, "Bye");

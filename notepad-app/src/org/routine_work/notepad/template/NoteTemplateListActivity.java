@@ -230,11 +230,7 @@ public class NoteTemplateListActivity extends ListActivity
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		if (cursor != null)
-		{
-			cursor.close();
-			cursor = null;
-		}
+		swapCursor(null);
 		super.onDestroy();
 
 		Log.v(LOG_TAG, "Bye");
@@ -266,18 +262,30 @@ public class NoteTemplateListActivity extends ListActivity
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void updateNoteTemplateData()
+	private void swapCursor(Cursor newCursor)
 	{
-		Log.v(LOG_TAG, "Hello");
-
-		ContentResolver cr = getContentResolver();
-		Cursor newCursor = cr.query(NoteStore.NoteTemplate.CONTENT_URI, null, null, null,
-			NoteStore.NoteTemplate.Columns._ID + " ASC");
 		listAdapter.changeCursor(newCursor);
 		if (cursor != null)
 		{
 			cursor.close();
 		}
+		cursor = newCursor;
+	}
+
+	private void updateNoteTemplateData()
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		String where = NoteStore.Note.Columns.ENABLED + " = ?";
+		String[] whereArgs =
+		{
+			"1"
+		};
+		ContentResolver cr = getContentResolver();
+		Cursor newCursor = cr.query(NoteStore.NoteTemplate.CONTENT_URI, null,
+			where, whereArgs,
+			NoteStore.NoteTemplate.Columns._ID + " ASC");
+		swapCursor(newCursor);
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -299,7 +307,10 @@ public class NoteTemplateListActivity extends ListActivity
 	{
 		Uri noteTemplateUri = ContentUris.withAppendedId(NoteStore.NoteTemplate.CONTENT_URI, id);
 		ContentResolver contentResolver = getContentResolver();
-		contentResolver.delete(noteTemplateUri, null, null);
+		//contentResolver.delete(noteTemplateUri, null, null);
+		boolean deleted = NoteStore.deleteNoteTemplate(contentResolver, noteTemplateUri);
+		Log.d(LOG_TAG, "deleted =>" + deleted);
 		listAdapter.notifyDataSetChanged();
 	}
+
 }

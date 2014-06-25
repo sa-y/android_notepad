@@ -177,7 +177,6 @@ public class NoteDetailActivity extends Activity
 
 //		noteTitleTextView.setOnClickListener(this);
 //		noteContentTextView.setOnClickListener(this);
-
 		registerForContextMenu(noteTitleTextView);
 		registerForContextMenu(noteContentTextView);
 
@@ -369,7 +368,7 @@ public class NoteDetailActivity extends Activity
 		{
 			case R.id.add_new_note_menuitem:
 				Log.d(LOG_TAG, "add_new_note_menuitem selected.");
-				startAddNewNoteActivity();
+				addNewNote();
 				break;
 			case R.id.edit_note_menuitem:
 				Log.d(LOG_TAG, "edit_note_menuitem selected.");
@@ -443,7 +442,7 @@ public class NoteDetailActivity extends Activity
 				break;
 			case R.id.add_new_note_button:
 				Log.d(LOG_TAG, "Add Button is clicked.");
-				startAddNewNoteActivity();
+				addNewNote();
 				break;
 			case R.id.delete_note_button:
 				Log.d(LOG_TAG, "Delete Button is clicked.");
@@ -697,7 +696,6 @@ public class NoteDetailActivity extends Activity
 		homeImageButton.requestFocus();
 
 		// load saved instance
-
 		Log.d(LOG_TAG, "intent.action => " + intent.getAction());
 		String newAction = intent.getAction();
 		if (newAction == null)
@@ -711,7 +709,6 @@ public class NoteDetailActivity extends Activity
 		{
 			newNoteUri = currentNoteUri;
 		}
-
 
 		Log.d(LOG_TAG, "newAction => " + newAction);
 		Log.d(LOG_TAG, "newNoteUri => " + newNoteUri);
@@ -742,7 +739,6 @@ public class NoteDetailActivity extends Activity
 			boolean extraTitleLocked = intent.getBooleanExtra(EXTRA_TITLE_LOCKED, false);
 			Log.d(LOG_TAG, "EXTRA_TITLE_LOCKED => " + extraTitleLocked);
 			currentNote.setTitleLocked(extraTitleLocked);
-
 
 			setTitle(R.string.add_new_note_title);
 			updateFocusedEditText();
@@ -1026,28 +1022,22 @@ public class NoteDetailActivity extends Activity
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void startAddNewNoteActivity()
+	private void addNewNote()
 	{
 		Log.v(LOG_TAG, "Hello");
 
-//		Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
-//		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
-
-//		Intent intent = new Intent(this, AddNewNoteActivity.class);
-//		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
-
-		if (NoteStore.getNoteTemplateCount(getContentResolver()) == 0)
+		int noteTemplateCount = NoteStore.getNoteTemplateCount(getContentResolver());
+		if (noteTemplateCount >= 2)
 		{
-			// Add Blank Note
-			Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
-			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
-		}
-		else
-		{
-			// Select Note Template
 			showDialog(DIALOG_ID_NOTE_TEMPLATE_PICKER);
+		}
+		else if (noteTemplateCount == 1)
+		{
+			NoteUtils.startActivityForAddNewNoteWithFirstTemplate(this);
+		}
+		else if (noteTemplateCount == 0)
+		{
+			NoteUtils.startActivityForAddNewBlankNote(this);
 		}
 
 		Log.v(LOG_TAG, "Bye");

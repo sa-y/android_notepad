@@ -81,7 +81,7 @@ public class NoteTemplatePickerDialog extends Dialog
 		Log.v(LOG_TAG, "Hello");
 		if (parent == listView)
 		{
-			NoteUtils.startNoteDetailActivityWithTemplate(getContext(), id);
+			NoteUtils.startActivityForAddNewNoteWithTemplate(getContext(), id);
 			dismiss();
 		}
 		Log.v(LOG_TAG, "Bye");
@@ -147,7 +147,12 @@ public class NoteTemplatePickerDialog extends Dialog
 		Log.v(LOG_TAG, "Hello");
 
 		ContentResolver cr = getContext().getContentResolver();
-		Cursor c = cr.query(NoteStore.NoteTemplate.CONTENT_URI, null, null, null,
+		String where = NoteStore.Note.Columns.ENABLED + " = ?";
+		String[] whereArgs =
+		{
+			"1"
+		};
+		Cursor c = cr.query(NoteStore.NoteTemplate.CONTENT_URI, null, where, whereArgs,
 			NoteStore.NoteTemplate.Columns._ID + " ASC");
 		if (c != null && c.moveToFirst())
 		{

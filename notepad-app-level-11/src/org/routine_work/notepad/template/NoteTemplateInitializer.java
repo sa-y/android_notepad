@@ -61,16 +61,19 @@ public class NoteTemplateInitializer extends IntentService
 			Log.d(LOG_TAG, "note template count is zero, insert initial template data.");
 			Resources resources = getResources();
 			ContentValues values = new ContentValues();
-			String name, title, content;
+			String name, uuid, title, content;
 			boolean titleLocked, editSameTitle;
 
 			// blank note template
 			name = resources.getString(R.string.template_blank_note_name);
+			uuid = resources.getString(R.string.template_blank_note_uuid);
 			title = resources.getString(R.string.template_blank_note_title);
 			content = resources.getString(R.string.template_blank_note_content);
 			titleLocked = resources.getBoolean(R.bool.template_blank_note_title_locked);
 			editSameTitle = resources.getBoolean(R.bool.template_blank_note_edit_same_title);
 			values.put(NoteStore.NoteTemplate.Columns.NAME, name);
+			values.put(NoteStore.NoteTemplate.Columns.UUID, uuid);
+			values.put(NoteStore.NoteTemplate.Columns.ENABLED, true);
 			values.put(NoteStore.NoteTemplate.Columns.TITLE, title);
 			values.put(NoteStore.NoteTemplate.Columns.CONTENT, content);
 			values.put(NoteStore.NoteTemplate.Columns.TITLE_LOCKED, titleLocked);
@@ -80,11 +83,14 @@ public class NoteTemplateInitializer extends IntentService
 			// quick note template
 			values.clear();
 			name = resources.getString(R.string.template_quick_note_name);
+			uuid = resources.getString(R.string.template_quick_note_uuid);
 			title = resources.getString(R.string.template_quick_note_title);
 			content = resources.getString(R.string.template_quick_note_content);
 			titleLocked = resources.getBoolean(R.bool.template_quick_note_title_locked);
 			editSameTitle = resources.getBoolean(R.bool.template_quick_note_edit_same_title);
 			values.put(NoteStore.NoteTemplate.Columns.NAME, name);
+			values.put(NoteStore.NoteTemplate.Columns.UUID, uuid);
+			values.put(NoteStore.NoteTemplate.Columns.ENABLED, true);
 			values.put(NoteStore.NoteTemplate.Columns.TITLE, title);
 			values.put(NoteStore.NoteTemplate.Columns.CONTENT, content);
 			values.put(NoteStore.NoteTemplate.Columns.TITLE_LOCKED, titleLocked);
@@ -94,11 +100,14 @@ public class NoteTemplateInitializer extends IntentService
 			// action log template
 			values.clear();
 			name = resources.getString(R.string.template_action_log_note_name);
+			uuid = resources.getString(R.string.template_action_log_note_uuid);
 			title = resources.getString(R.string.template_action_log_note_title);
 			content = resources.getString(R.string.template_action_log_note_content);
 			titleLocked = resources.getBoolean(R.bool.template_action_log_note_title_locked);
 			editSameTitle = resources.getBoolean(R.bool.template_action_log_note_edit_same_title);
 			values.put(NoteStore.NoteTemplate.Columns.NAME, name);
+			values.put(NoteStore.NoteTemplate.Columns.UUID, uuid);
+			values.put(NoteStore.NoteTemplate.Columns.ENABLED, true);
 			values.put(NoteStore.NoteTemplate.Columns.TITLE, title);
 			values.put(NoteStore.NoteTemplate.Columns.CONTENT, content);
 			values.put(NoteStore.NoteTemplate.Columns.TITLE_LOCKED, titleLocked);
@@ -108,11 +117,14 @@ public class NoteTemplateInitializer extends IntentService
 			// daily report template
 			values.clear();
 			name = resources.getString(R.string.template_daily_report_note_name);
+			uuid = resources.getString(R.string.template_daily_report_note_uuid);
 			title = resources.getString(R.string.template_daily_report_note_title);
 			content = resources.getString(R.string.template_daily_report_note_content);
 			titleLocked = resources.getBoolean(R.bool.template_daily_report_note_title_locked);
 			editSameTitle = resources.getBoolean(R.bool.template_daily_report_note_edit_same_title);
 			values.put(NoteStore.NoteTemplate.Columns.NAME, name);
+			values.put(NoteStore.NoteTemplate.Columns.UUID, uuid);
+			values.put(NoteStore.NoteTemplate.Columns.ENABLED, true);
 			values.put(NoteStore.NoteTemplate.Columns.TITLE, title);
 			values.put(NoteStore.NoteTemplate.Columns.CONTENT, content);
 			values.put(NoteStore.NoteTemplate.Columns.TITLE_LOCKED, titleLocked);
@@ -122,11 +134,14 @@ public class NoteTemplateInitializer extends IntentService
 			// diary template
 			values.clear();
 			name = resources.getString(R.string.template_diary_note_name);
+			uuid = resources.getString(R.string.template_diary_note_uuid);
 			title = resources.getString(R.string.template_diary_note_title);
 			content = resources.getString(R.string.template_diary_note_content);
 			titleLocked = resources.getBoolean(R.bool.template_diary_note_title_locked);
 			editSameTitle = resources.getBoolean(R.bool.template_diary_note_edit_same_title);
 			values.put(NoteStore.NoteTemplate.Columns.NAME, name);
+			values.put(NoteStore.NoteTemplate.Columns.UUID, uuid);
+			values.put(NoteStore.NoteTemplate.Columns.ENABLED, true);
 			values.put(NoteStore.NoteTemplate.Columns.TITLE, title);
 			values.put(NoteStore.NoteTemplate.Columns.CONTENT, content);
 			values.put(NoteStore.NoteTemplate.Columns.TITLE_LOCKED, titleLocked);

@@ -70,6 +70,8 @@ public class NoteStore
 		public interface Columns extends BaseColumns
 		{
 
+			String UUID = "uuid";
+			String ENABLED = "enabled";
 			String NAME = "name";
 			String TITLE = "title";
 			String CONTENT = "content";
@@ -197,10 +199,10 @@ public class NoteStore
 	}
 
 	/**
-	 * Get the number of notet emplates in NoteProvider.
+	 * Get the number of enabled note templates in NoteProvider.
 	 *
 	 * @param cr ContentResolver
-	 * @return the number of note templates in NoteProvider.
+	 * @return the number of enabled note templates in NoteProvider.
 	 */
 	public static int getNoteTemplateCount(ContentResolver cr)
 	{
@@ -211,7 +213,12 @@ public class NoteStore
 		{
 			"count(*) AS " + NoteTemplate.Columns._COUNT,
 		};
-		Cursor cursor = cr.query(NoteTemplate.CONTENT_URI, projection, null, null, null);
+		String where = NoteStore.Note.Columns.ENABLED + " = ?";
+		String[] whereArgs =
+		{
+			"1"
+		};
+		Cursor cursor = cr.query(NoteTemplate.CONTENT_URI, projection, where, whereArgs, null);
 		try
 		{
 			if (cursor.moveToFirst())
@@ -305,6 +312,23 @@ public class NoteStore
 
 		Log.v(LOG_TAG, "Bye");
 		return deletedCount;
+	}
+
+	public static boolean deleteNoteTemplate(ContentResolver cr, Uri uri)
+	{
+		boolean deleted = false;
+		Log.v(LOG_TAG, "Hello");
+
+		if (isNoteTemplateItemUri(cr, uri))
+		{
+			ContentValues values = new ContentValues();
+			values.put(Note.Columns.ENABLED, Boolean.FALSE);
+			int updateCount = cr.update(uri, values, null, null);
+			deleted = updateCount != 0;
+		}
+
+		Log.v(LOG_TAG, "Bye");
+		return deleted;
 	}
 
 	public static void reindex(Context context)

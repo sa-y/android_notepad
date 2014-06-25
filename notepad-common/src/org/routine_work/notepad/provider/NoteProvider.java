@@ -342,6 +342,16 @@ public class NoteProvider extends ContentProvider
 	{
 		Uri newUri = null;
 
+		if (initialValues.containsKey(NoteStore.NoteTemplate.Columns.UUID) == false)
+		{
+			String uuidString = UUID.randomUUID().toString();
+			initialValues.put(NoteStore.NoteTemplate.Columns.UUID, uuidString);
+		}
+		if (initialValues.containsKey(NoteStore.NoteTemplate.Columns.ENABLED) == false)
+		{
+			initialValues.put(NoteStore.NoteTemplate.Columns.ENABLED, true);
+		}
+
 		long rowID = noteDB.insert(NoteTemplates.TABLE_NAME, null, initialValues);
 		Log.d(LOG_TAG, "rowID => " + rowID);
 		if (rowID > 0)

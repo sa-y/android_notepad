@@ -80,12 +80,17 @@ interface NoteDBConstants
 		// CREATE SQL
 		String CREATE_TABLE_SQL = "CREATE TABLE " + TABLE_NAME + "("
 			+ "  " + NoteTemplate.Columns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT"
+			+ ", " + NoteTemplate.Columns.UUID + " TEXT NOT NULL"
+			+ ", " + NoteTemplate.Columns.ENABLED + " BOOLEAN NOT NULL"
 			+ ", " + NoteTemplate.Columns.NAME + " TEXT NOT NULL"
 			+ ", " + NoteTemplate.Columns.TITLE + " TEXT"
 			+ ", " + NoteTemplate.Columns.CONTENT + " TEXT"
 			+ ", " + NoteTemplate.Columns.TITLE_LOCKED + " BOOLEAN NOT NULL"
 			+ ", " + NoteTemplate.Columns.EDIT_SAME_TITLE + " BOOLEAN NOT NULL"
 			+ ");";
+		String CREATE_UUID_INDEX_SQL = "CREATE INDEX "
+			+ TABLE_NAME + "_" + NoteTemplate.Columns.UUID + "_index "
+			+ "ON " + TABLE_NAME + "(" + NoteTemplate.Columns.UUID + ");";
 		String CREATE_NAME_INDEX_SQL = "CREATE INDEX "
 			+ TABLE_NAME + "_" + NoteTemplate.Columns.NAME + "_index "
 			+ "ON " + TABLE_NAME + "(" + NoteTemplate.Columns.NAME + ");";

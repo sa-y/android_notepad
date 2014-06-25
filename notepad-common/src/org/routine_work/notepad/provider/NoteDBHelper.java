@@ -31,6 +31,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import org.routine_work.notepad.model.Note;
 import org.routine_work.notepad.model.NoteTemplate;
@@ -47,6 +49,7 @@ class NoteDBHelper extends SQLiteOpenHelper
 	private static final String LOG_TAG = "simple-notepad";
 	private static final String BACKUP_DIR_NOTES = "note_db_notes";
 	private static final String BACKUP_DIR_NOTE_TEMPLATES = "note_db_notetemplates";
+	private static final Map<Long, String> DEFAULT_NOTE_TEMPLATE_UUID_MAP = new HashMap<Long, String>();
 	private Context context;
 
 	static
@@ -54,6 +57,12 @@ class NoteDBHelper extends SQLiteOpenHelper
 		Log.setOutputLevel(Log.VERBOSE);
 		Log.setTraceMode(true);
 		Log.setIndentMode(true);
+		// Fixed UUID for initial note template
+		DEFAULT_NOTE_TEMPLATE_UUID_MAP.put(1L, "8547f52b-c15c-4a17-918a-a955607eaf64");
+		DEFAULT_NOTE_TEMPLATE_UUID_MAP.put(2L, "f5b9524e-5f29-4b9b-80b0-a6ab2b1c3c4b");
+		DEFAULT_NOTE_TEMPLATE_UUID_MAP.put(3L, "f0b82614-1426-4d97-b440-5b6bda615e48");
+		DEFAULT_NOTE_TEMPLATE_UUID_MAP.put(4L, "938c8104-0ee8-459d-befe-565ffa8f1a8e");
+		DEFAULT_NOTE_TEMPLATE_UUID_MAP.put(5L, "9e33835b-383a-4d14-a5d8-8536f784001f");
 	}
 
 	NoteDBHelper(Context context)
@@ -124,6 +133,8 @@ class NoteDBHelper extends SQLiteOpenHelper
 		// Note Templates Table
 		Log.w(LOG_TAG, "NoteTemplates.CREATE_TABLE_SQL => " + NoteTemplates.CREATE_TABLE_SQL);
 		db.execSQL(NoteTemplates.CREATE_TABLE_SQL);
+		Log.w(LOG_TAG, "NoteTemplates.CREATE_UUID_INDEX_SQL => " + NoteTemplates.CREATE_UUID_INDEX_SQL);
+		db.execSQL(NoteTemplates.CREATE_UUID_INDEX_SQL);
 		Log.w(LOG_TAG, "NoteTemplates.CREATE_NAME_INDEX_SQL => " + NoteTemplates.CREATE_NAME_INDEX_SQL);
 		db.execSQL(NoteTemplates.CREATE_NAME_INDEX_SQL);
 		Log.w(LOG_TAG, "NoteTemplates.CREATE_TITLE_INDEX_SQL => " + NoteTemplates.CREATE_TITLE_INDEX_SQL);
@@ -166,7 +177,11 @@ class NoteDBHelper extends SQLiteOpenHelper
 		}
 
 		File noteTemplatesBackupDir = context.getDir(BACKUP_DIR_NOTE_TEMPLATES, Context.MODE_PRIVATE);
-		if (oldVersion >= 11)
+		if (oldVersion >= 12)
+		{
+			backupNoteTemplatesVersion12(db, noteTemplatesBackupDir);
+		}
+		else if (oldVersion >= 11)
 		{
 			backupNoteTemplatesVersion11(db, noteTemplatesBackupDir);
 		}
@@ -200,8 +215,8 @@ class NoteDBHelper extends SQLiteOpenHelper
 
 		File notesBackupDir = context.getDir(BACKUP_DIR_NOTES, Context.MODE_PRIVATE);
 		File noteTemplatesBackupDir = context.getDir(BACKUP_DIR_NOTE_TEMPLATES, Context.MODE_PRIVATE);
-		clearBackupFiles(db, notesBackupDir);
-		clearBackupFiles(db, noteTemplatesBackupDir);
+		clearBackupFiles(notesBackupDir);
+		clearBackupFiles(noteTemplatesBackupDir);
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -386,8 +401,13 @@ class NoteDBHelper extends SQLiteOpenHelper
 			int index = 0;
 			do
 			{
+				long id = cursor.getLong(idIndex);
+				String uuid = generateNoteTemplateUuid(id);
+
 				NoteTemplate noteTemplate = new NoteTemplate();
-				noteTemplate.setId(cursor.getLong(idIndex));
+				noteTemplate.setId(id);
+				noteTemplate.setUuid(uuid);
+				noteTemplate.setEnabled(true);
 				noteTemplate.setName("");
 				noteTemplate.setTitle(cursor.getString(titleIndex));
 				noteTemplate.setContent(cursor.getString(contentIndex));
@@ -432,8 +452,13 @@ class NoteDBHelper extends SQLiteOpenHelper
 			int index = 0;
 			do
 			{
+				long id = cursor.getLong(idIndex);
+				String uuid = generateNoteTemplateUuid(id);
+
 				NoteTemplate noteTemplate = new NoteTemplate();
-				noteTemplate.setId(cursor.getLong(idIndex));
+				noteTemplate.setId(id);
+				noteTemplate.setUuid(uuid);
+				noteTemplate.setEnabled(true);
 				noteTemplate.setName(cursor.getString(nameIndex));
 				noteTemplate.setTitle(cursor.getString(titleIndex));
 				noteTemplate.setContent(cursor.getString(contentIndex));
@@ -480,8 +505,65 @@ class NoteDBHelper extends SQLiteOpenHelper
 			int index = 0;
 			do
 			{
+				long id = cursor.getLong(idIndex);
+				String uuid = generateNoteTemplateUuid(id);
+
+				NoteTemplate noteTemplate = new NoteTemplate();
+				noteTemplate.setId(id);
+				noteTemplate.setUuid(uuid);
+				noteTemplate.setEnabled(true);
+				noteTemplate.setName(cursor.getString(nameIndex));
+				noteTemplate.setTitle(cursor.getString(titleIndex));
+				noteTemplate.setContent(cursor.getString(contentIndex));
+				noteTemplate.setTitleLocked(cursor.getInt(titleLockedIndex) == 1);
+				noteTemplate.setEditSameTitle(cursor.getInt(editSameTitleIndex) == 1);
+
+				File noteFile = new File(backupDirectory, String.format("%08d", index++));
+				Log.d(LOG_TAG, "backup : noteFile => " + noteFile);
+				try
+				{
+					NoteTemplate.writeNoteTo(noteTemplate, noteFile);
+				}
+				catch (FileNotFoundException ex)
+				{
+					Log.e(LOG_TAG, "Note.writeNoteTo() Failed.", ex);
+				}
+				catch (IOException ex)
+				{
+					Log.e(LOG_TAG, "Note.writeNoteTo() Failed.", ex);
+				}
+			}
+			while (cursor.moveToNext());
+
+		}
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	private void backupNoteTemplatesVersion12(SQLiteDatabase db, File backupDirectory)
+	{
+		Log.v(LOG_TAG, "Hello");
+		Log.v(LOG_TAG, "backupDirectory => " + backupDirectory);
+
+		Cursor cursor = db.query(NoteTemplates.TABLE_NAME, null, null, null, null, null, null);
+		if (cursor != null && cursor.moveToFirst())
+		{
+			int idIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns._ID);
+			int uuidIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.UUID);
+			int enabledIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.ENABLED);
+			int nameIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.NAME);
+			int titleIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.TITLE);
+			int contentIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.CONTENT);
+			int titleLockedIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.TITLE_LOCKED);
+			int editSameTitleIndex = cursor.getColumnIndex(NoteStore.NoteTemplate.Columns.EDIT_SAME_TITLE);
+
+			int index = 0;
+			do
+			{
 				NoteTemplate noteTemplate = new NoteTemplate();
 				noteTemplate.setId(cursor.getLong(idIndex));
+				noteTemplate.setUuid(cursor.getString(uuidIndex));
+				noteTemplate.setEnabled(cursor.getInt(enabledIndex) == 1);
 				noteTemplate.setName(cursor.getString(nameIndex));
 				noteTemplate.setTitle(cursor.getString(titleIndex));
 				noteTemplate.setContent(cursor.getString(contentIndex));
@@ -514,39 +596,43 @@ class NoteDBHelper extends SQLiteOpenHelper
 	{
 		Log.v(LOG_TAG, "Hello");
 		Log.v(LOG_TAG, "backupDirectory => " + backupDirectory);
-		File[] listFiles = backupDirectory.listFiles();
-
-		for (File noteFile : listFiles)
+		if (backupDirectory.isDirectory() && backupDirectory.canRead())
 		{
-			try
+			File[] listFiles = backupDirectory.listFiles();
+			if (listFiles != null)
 			{
-				Log.d(LOG_TAG, "restore : noteFile => " + noteFile);
-				Note note = Note.readNoteFrom(noteFile);
-				ContentValues values = new ContentValues();
-				values.put(NoteStore.Note.Columns._ID, note.getId());
-				values.put(NoteStore.Note.Columns.UUID, note.getUuid());
-				values.put(NoteStore.Note.Columns.ENABLED, note.isEnabled());
-				values.put(NoteStore.Note.Columns.TITLE, note.getTitle());
-				values.put(NoteStore.Note.Columns.CONTENT, note.getContent());
-				values.put(NoteStore.Note.Columns.TITLE_LOCKED, note.isTitleLocked());
-				values.put(NoteStore.Note.Columns.DATE_ADDED, note.getAdded());
-				values.put(NoteStore.Note.Columns.DATE_MODIFIED, note.getModified());
-				db.insert(Notes.TABLE_NAME, null, values);
-			}
-			catch (FileNotFoundException ex)
-			{
-				Log.e(LOG_TAG, "Note.readNoteFrom() Failed.", ex);
-			}
-			catch (IOException ex)
-			{
-				Log.e(LOG_TAG, "Note.readNoteFrom() Failed.", ex);
-			}
-			catch (ClassNotFoundException ex)
-			{
-				Log.e(LOG_TAG, "Note.readNoteFrom() Failed.", ex);
+				for (File noteFile : listFiles)
+				{
+					try
+					{
+						Log.d(LOG_TAG, "restore : noteFile => " + noteFile);
+						Note note = Note.readNoteFrom(noteFile);
+						ContentValues values = new ContentValues();
+						values.put(NoteStore.Note.Columns._ID, note.getId());
+						values.put(NoteStore.Note.Columns.UUID, note.getUuid());
+						values.put(NoteStore.Note.Columns.ENABLED, note.isEnabled());
+						values.put(NoteStore.Note.Columns.TITLE, note.getTitle());
+						values.put(NoteStore.Note.Columns.CONTENT, note.getContent());
+						values.put(NoteStore.Note.Columns.TITLE_LOCKED, note.isTitleLocked());
+						values.put(NoteStore.Note.Columns.DATE_ADDED, note.getAdded());
+						values.put(NoteStore.Note.Columns.DATE_MODIFIED, note.getModified());
+						db.insert(Notes.TABLE_NAME, null, values);
+					}
+					catch (FileNotFoundException ex)
+					{
+						Log.e(LOG_TAG, "Note.readNoteFrom() Failed.", ex);
+					}
+					catch (IOException ex)
+					{
+						Log.e(LOG_TAG, "Note.readNoteFrom() Failed.", ex);
+					}
+					catch (ClassNotFoundException ex)
+					{
+						Log.e(LOG_TAG, "Note.readNoteFrom() Failed.", ex);
+					}
+				}
 			}
 		}
-
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -555,52 +641,73 @@ class NoteDBHelper extends SQLiteOpenHelper
 	{
 		Log.v(LOG_TAG, "Hello");
 		Log.v(LOG_TAG, "backupDirectory => " + backupDirectory);
-		File[] listFiles = backupDirectory.listFiles();
-
-		for (File noteTemplateFile : listFiles)
+		if (backupDirectory.isDirectory() && backupDirectory.canRead())
 		{
-			try
+			File[] listFiles = backupDirectory.listFiles();
+			if (listFiles != null)
 			{
-				Log.d(LOG_TAG, "restore : noteTemplateFile => " + noteTemplateFile);
-				NoteTemplate noteTemplate = NoteTemplate.readNoteFrom(noteTemplateFile);
-				ContentValues values = new ContentValues();
-				values.put(NoteStore.NoteTemplate.Columns._ID, noteTemplate.getId());
-				values.put(NoteStore.NoteTemplate.Columns.NAME, noteTemplate.getName());
-				values.put(NoteStore.NoteTemplate.Columns.TITLE, noteTemplate.getTitle());
-				values.put(NoteStore.NoteTemplate.Columns.CONTENT, noteTemplate.getContent());
-				values.put(NoteStore.NoteTemplate.Columns.TITLE_LOCKED, noteTemplate.isTitleLocked());
-				values.put(NoteStore.NoteTemplate.Columns.EDIT_SAME_TITLE, noteTemplate.isEditSameTitle());
-				db.insert(NoteTemplates.TABLE_NAME, null, values);
-			}
-			catch (FileNotFoundException ex)
-			{
-				Log.e(LOG_TAG, "Note.readNoteFrom() Failed.", ex);
-			}
-			catch (IOException ex)
-			{
-				Log.e(LOG_TAG, "Note.readNoteFrom() Failed.", ex);
-			}
-			catch (ClassNotFoundException ex)
-			{
-				Log.e(LOG_TAG, "Note.readNoteFrom() Failed.", ex);
+				for (File noteTemplateFile : listFiles)
+				{
+					try
+					{
+						Log.d(LOG_TAG, "restore : noteTemplateFile => " + noteTemplateFile);
+						NoteTemplate noteTemplate = NoteTemplate.readNoteFrom(noteTemplateFile);
+						ContentValues values = new ContentValues();
+						values.put(NoteStore.NoteTemplate.Columns._ID, noteTemplate.getId());
+						values.put(NoteStore.NoteTemplate.Columns.UUID, noteTemplate.getUuid());
+						values.put(NoteStore.NoteTemplate.Columns.ENABLED, noteTemplate.isEnabled());
+						values.put(NoteStore.NoteTemplate.Columns.NAME, noteTemplate.getName());
+						values.put(NoteStore.NoteTemplate.Columns.TITLE, noteTemplate.getTitle());
+						values.put(NoteStore.NoteTemplate.Columns.CONTENT, noteTemplate.getContent());
+						values.put(NoteStore.NoteTemplate.Columns.TITLE_LOCKED, noteTemplate.isTitleLocked());
+						values.put(NoteStore.NoteTemplate.Columns.EDIT_SAME_TITLE, noteTemplate.isEditSameTitle());
+						db.insert(NoteTemplates.TABLE_NAME, null, values);
+					}
+					catch (FileNotFoundException ex)
+					{
+						Log.e(LOG_TAG, "Note.readNoteFrom() Failed.", ex);
+					}
+					catch (IOException ex)
+					{
+						Log.e(LOG_TAG, "Note.readNoteFrom() Failed.", ex);
+					}
+					catch (ClassNotFoundException ex)
+					{
+						Log.e(LOG_TAG, "Note.readNoteFrom() Failed.", ex);
+					}
+				}
 			}
 		}
-
 
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void clearBackupFiles(SQLiteDatabase db, File backupDirectory)
+	private void clearBackupFiles(File backupDirectory)
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		File[] listFiles = backupDirectory.listFiles();
-		for (File backupFile : listFiles)
+		if (backupDirectory != null && backupDirectory.isDirectory())
 		{
-			Log.d(LOG_TAG, "Delete : backupFile => " + backupFile);
-			backupFile.delete();
+			File[] listFiles = backupDirectory.listFiles();
+			for (File backupFile : listFiles)
+			{
+				Log.d(LOG_TAG, "Delete : backupFile => " + backupFile);
+				backupFile.delete();
+			}
 		}
 
 		Log.v(LOG_TAG, "Bye");
+	}
+
+	static String generateNoteTemplateUuid(long id)
+	{
+		String uuid = DEFAULT_NOTE_TEMPLATE_UUID_MAP.get(id);
+
+		if (uuid == null)
+		{
+			uuid = UUID.randomUUID().toString();
+		}
+
+		return uuid;
 	}
 }

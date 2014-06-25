@@ -40,6 +40,8 @@ public class NoteTemplate implements Serializable
 {
 
 	private long id;
+	private String uuid = null;
+	private boolean enabled = true;
 	private String name;
 	private String title;
 	private String content;
@@ -79,6 +81,8 @@ public class NoteTemplate implements Serializable
 	public void copyFrom(NoteTemplate other)
 	{
 		this.setId(other.getId());
+		this.setUuid(other.getUuid());
+		this.setEnabled(other.isEnabled());
 		this.setName(other.getName());
 		this.setTitle(other.getTitle());
 		this.setContent(other.getContent());
@@ -90,12 +94,14 @@ public class NoteTemplate implements Serializable
 	public int hashCode()
 	{
 		int hash = 3;
-		hash = 19 * hash + (int) (this.id ^ (this.id >>> 32));
-		hash = 19 * hash + (this.name != null ? this.name.hashCode() : 0);
-		hash = 19 * hash + (this.title != null ? this.title.hashCode() : 0);
-		hash = 19 * hash + (this.content != null ? this.content.hashCode() : 0);
-		hash = 19 * hash + (this.titleLocked ? 1 : 0);
-		hash = 19 * hash + (this.isEditSameTitle() ? 1 : 0);
+		hash = 53 * hash + (int) (this.id ^ (this.id >>> 32));
+		hash = 53 * hash + (this.uuid != null ? this.uuid.hashCode() : 0);
+		hash = 53 * hash + (this.enabled ? 1 : 0);
+		hash = 53 * hash + (this.name != null ? this.name.hashCode() : 0);
+		hash = 53 * hash + (this.title != null ? this.title.hashCode() : 0);
+		hash = 53 * hash + (this.content != null ? this.content.hashCode() : 0);
+		hash = 53 * hash + (this.titleLocked ? 1 : 0);
+		hash = 53 * hash + (this.editSameTitle ? 1 : 0);
 		return hash;
 	}
 
@@ -115,6 +121,14 @@ public class NoteTemplate implements Serializable
 		{
 			return false;
 		}
+		if ((this.uuid == null) ? (other.uuid != null) : !this.uuid.equals(other.uuid))
+		{
+			return false;
+		}
+		if (this.enabled != other.enabled)
+		{
+			return false;
+		}
 		if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name))
 		{
 			return false;
@@ -131,7 +145,7 @@ public class NoteTemplate implements Serializable
 		{
 			return false;
 		}
-		if (this.isEditSameTitle() != other.isEditSameTitle())
+		if (this.editSameTitle != other.editSameTitle)
 		{
 			return false;
 		}
@@ -141,7 +155,7 @@ public class NoteTemplate implements Serializable
 	@Override
 	public String toString()
 	{
-		return "NoteTemplate{" + "id=" + id + ", name=" + name + ", title=" + title + ", content=" + content + ", titleLocked=" + titleLocked + ", editSameTitle=" + isEditSameTitle() + '}';
+		return "NoteTemplate{" + "id=" + id + ", uuid=" + uuid + ", enabled=" + enabled + ", name=" + name + ", title=" + title + ", content=" + content + ", titleLocked=" + titleLocked + ", editSameTitle=" + editSameTitle + '}';
 	}
 
 	/**
@@ -158,6 +172,26 @@ public class NoteTemplate implements Serializable
 	public void setId(long id)
 	{
 		this.id = id;
+	}
+
+	public String getUuid()
+	{
+		return uuid;
+	}
+
+	public void setUuid(String uuid)
+	{
+		this.uuid = uuid;
+	}
+
+	public boolean isEnabled()
+	{
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled)
+	{
+		this.enabled = enabled;
 	}
 
 	/**

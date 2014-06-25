@@ -56,6 +56,7 @@ import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.template.NoteTemplateInitializer;
 import org.routine_work.notepad.template.NoteTemplatePickerDialogFragment;
 import org.routine_work.notepad.utils.NoteSearchQueryParser;
+import org.routine_work.notepad.utils.NoteUtils;
 import org.routine_work.notepad.utils.NotepadConstants;
 import org.routine_work.utils.IMEUtils;
 import org.routine_work.utils.Log;
@@ -268,7 +269,6 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		Log.d(LOG_TAG, "requestCode => " + requestCode);
 		Log.d(LOG_TAG, "resultCode => " + resultCode);
 
-
 		if ((requestCode == REQUEST_CODE_ADD_NOTE)
 			|| (requestCode == REQUEST_CODE_EDIT_NOTE))
 		{
@@ -414,19 +414,20 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 	{
 		Log.v(LOG_TAG, "Hello");
 
-//		Intent intent = new Intent(this, AddNewNoteActivity.class);
-//		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
-
-		if (NoteStore.getNoteTemplateCount(getContentResolver()) == 0)
-		{
-			Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
-			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
-		}
-		else
+		int noteTemplateCount = NoteStore.getNoteTemplateCount(getContentResolver());
+		Log.d(LOG_TAG, "noteTemplateCount => " + noteTemplateCount);
+		if (noteTemplateCount >= 2)
 		{
 			NoteTemplatePickerDialogFragment dialogFragment = new NoteTemplatePickerDialogFragment();
 			dialogFragment.show(getFragmentManager(), FT_NOTE_TEMPLATE_PICKER);
+		}
+		else if (noteTemplateCount == 1)
+		{
+			NoteUtils.startActivityForAddNewNoteWithFirstTemplate(this);
+		}
+		else
+		{
+			NoteUtils.startNoteDetailActivityForResult(this, REQUEST_CODE_ADD_NOTE);
 		}
 
 		Log.v(LOG_TAG, "Bye");

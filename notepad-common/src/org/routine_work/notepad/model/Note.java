@@ -103,7 +103,7 @@ public class Note implements Serializable
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param uuid the id to set
 	 */
 	public void setUuid(String uuid)
 	{

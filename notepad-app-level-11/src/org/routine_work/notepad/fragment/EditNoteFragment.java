@@ -604,16 +604,21 @@ public class EditNoteFragment extends Fragment
 //		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
 
 		saveNote();
-		if (NoteStore.getNoteTemplateCount(getActivity().getContentResolver()) == 0)
-		{
-			Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
-			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
-		}
-		else
+
+		int noteTemplateCount = NoteStore.getNoteTemplateCount(getActivity().getContentResolver());
+		Log.d(LOG_TAG, "noteTemplateCount => " + noteTemplateCount);
+		if (noteTemplateCount >= 2)
 		{
 			NoteTemplatePickerDialogFragment dialogFragment = new NoteTemplatePickerDialogFragment();
 			dialogFragment.show(getFragmentManager(), FT_NOTE_TEMPLATE_PICKER);
+		}
+		else if (noteTemplateCount == 1)
+		{
+			NoteUtils.startActivityForAddNewNoteWithFirstTemplate(getActivity());
+		}
+		else
+		{
+			NoteUtils.startNoteDetailActivityForResult(getActivity(), REQUEST_CODE_ADD_NOTE);
 		}
 
 		Log.v(LOG_TAG, "Bye");

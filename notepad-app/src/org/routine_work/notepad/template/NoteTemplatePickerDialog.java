@@ -83,7 +83,7 @@ public class NoteTemplatePickerDialog extends Dialog
 		Log.v(LOG_TAG, "Hello");
 		if (parent == listView)
 		{
-			NoteUtils.startNoteDetailActivityWithTemplate(getContext(), id);
+			NoteUtils.startActivityForAddNewNoteWithTemplate(getContext(), id);
 			dismiss();
 		}
 		Log.v(LOG_TAG, "Bye");
@@ -112,7 +112,7 @@ public class NoteTemplatePickerDialog extends Dialog
 
 		// init List Adapter
 		listAdapter = new SimpleCursorAdapter(getContext(),
-			android.R.layout.simple_list_item_1, cursor,
+			android.R.layout.simple_list_item_1, null,
 			NOTE_TEMPLATE_LIST_MAPPING_FROM,
 			NOTE_TEMPLATE_LIST_MAPPING_TO);
 
@@ -148,8 +148,14 @@ public class NoteTemplatePickerDialog extends Dialog
 	{
 		Log.v(LOG_TAG, "Hello");
 
+		String where = NoteStore.Note.Columns.ENABLED + " = ?";
+		String[] whereArgs =
+		{
+			"1"
+		};
 		ContentResolver cr = getContext().getContentResolver();
-		Cursor c = cr.query(NoteStore.NoteTemplate.CONTENT_URI, null, null, null,
+		Cursor c = cr.query(NoteStore.NoteTemplate.CONTENT_URI, null,
+			where, whereArgs,
 			NoteStore.NoteTemplate.Columns._ID + " ASC");
 		if (c != null && c.moveToFirst())
 		{
