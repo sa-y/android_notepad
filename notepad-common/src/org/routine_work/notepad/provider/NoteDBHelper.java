@@ -702,12 +702,14 @@ class NoteDBHelper extends SQLiteOpenHelper
 	static String generateNoteTemplateUuid(long id)
 	{
 		String uuid = DEFAULT_NOTE_TEMPLATE_UUID_MAP.get(id);
+		Log.d(LOG_TAG, "note template : id => " + id);
 
 		if (uuid == null)
 		{
 			uuid = UUID.randomUUID().toString();
 		}
 
+		Log.d(LOG_TAG, "uuid => " + uuid);
 		return uuid;
 	}
 }

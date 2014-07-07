@@ -120,9 +120,9 @@ public class NoteProvider extends ContentProvider
 		{
 			case NOTES_SUGGEST_SEARCH_BY_WORD:
 				Log.d(LOG_TAG, "*SEARCH_BY_WORD");
-				String queryWord = uri.getLastPathSegment().trim();
-				Log.d(LOG_TAG, "queryWord => " + queryWord);
-				setUpQueryByWord(qb, queryWord);
+				String queryPhrase = uri.getLastPathSegment();
+				Log.d(LOG_TAG, "queryPhrase => " + queryPhrase);
+				setUpQueryByPhrase(qb, queryPhrase);
 				break;
 			case NOTES_SUGGEST_SEARCH_ALL:
 				break;
@@ -130,7 +130,7 @@ public class NoteProvider extends ContentProvider
 				Log.d(LOG_TAG, "*SEARCH_BY_WORD");
 				String q = uri.getQueryParameter("q");
 				Log.d(LOG_TAG, "q => " + q);
-				setUpQueryByWord(qb, q);
+				setUpQueryByPhrase(qb, q);
 				break;
 			case NOTES_ITEM_BY_ID:
 				qb.appendWhere(Note.Columns._ID + "=" + uri.getPathSegments().get(1));
@@ -147,6 +147,7 @@ public class NoteProvider extends ContentProvider
 		String limit = getLimitParameter(uri);
 		Log.v(LOG_TAG, "limit => " + limit);
 
+		Log.v(LOG_TAG, "query => " + qb.buildQuery(projection, selection, selectionArgs, null, null, sort, limit));
 		Cursor cursor = qb.query(noteDB, projection, selection, selectionArgs,
 			null, null, sort, limit);
 		Log.v(LOG_TAG, "cursor => " + cursor);
@@ -411,16 +412,27 @@ public class NoteProvider extends ContentProvider
 		return limit;
 	}
 
-	private static void setUpQueryByWord(SQLiteQueryBuilder queryBuilder, String queryWord)
+	private static void setUpQueryByPhrase(SQLiteQueryBuilder queryBuilder, String searchPhrase)
 	{
-		if (!TextUtils.isEmpty(queryWord))
+		if (!TextUtils.isEmpty(searchPhrase))
 		{
-			queryWord = "%" + queryWord + "%";
-			queryBuilder.appendWhere(Note.Columns.TITLE + " LIKE ");
-			queryBuilder.appendWhereEscapeString(queryWord);
-			queryBuilder.appendWhere(" OR ");
-			queryBuilder.appendWhere(Note.Columns.CONTENT + " LIKE ");
-			queryBuilder.appendWhereEscapeString(queryWord);
+			String[] words = searchPhrase.trim().split("\\s+");
+			for (int i = 0; i < words.length; i++)
+			{
+				String word = "%" + words[i] + "%";
+				queryBuilder.appendWhere("(");
+				queryBuilder.appendWhere(Note.Columns.TITLE + " LIKE ");
+				queryBuilder.appendWhereEscapeString(word);
+				queryBuilder.appendWhere(" OR ");
+				queryBuilder.appendWhere(Note.Columns.CONTENT + " LIKE ");
+				queryBuilder.appendWhereEscapeString(word);
+				queryBuilder.appendWhere(")");
+				if (i < words.length - 1)
+				{
+					queryBuilder.appendWhere(" AND ");
+				}
+			}
 		}
 	}
+
 }
