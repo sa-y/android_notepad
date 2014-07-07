@@ -35,6 +35,13 @@
 					<groupId>com.jayway.maven.plugins.android.generation2</groupId>
 					<artifactId>android-maven-plugin</artifactId>
 					<version>3.8.2</version>
+					<dependencies>
+						<dependency>
+							<groupId>net.sf.proguard</groupId>
+							<artifactId>proguard-base</artifactId>
+							<version>4.11</version>
+						</dependency>
+					</dependencies>
 				</plugin>
 
 				<!-- mvn compile -->
