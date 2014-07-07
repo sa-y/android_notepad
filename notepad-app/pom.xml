@@ -166,10 +166,10 @@
 					</plugin>
 
 					<!-- 
-					 - Disable debug sign 
-					 - Enable zipalign
-					 - Enable proguard
-					 -->
+					- Disable debug sign 
+					- Enable zipalign
+					- Enable proguard
+					-->
 					<plugin>
 						<groupId>com.jayway.maven.plugins.android.generation2</groupId>
 						<artifactId>android-maven-plugin</artifactId>
@@ -184,7 +184,7 @@
 						</executions>
 						<configuration>
 							<zipalign>
-								<skip>false</skip>
+								<skip>true</skip>
 								<verbose>true</verbose>
 								<inputApk>${project.build.directory}/${project.artifactId}-${project.version}.apk</inputApk>
 								<outputApk>${project.build.directory}/${project.artifactId}-${project.version}-signed-aligned.apk</outputApk>
@@ -196,6 +196,10 @@
 							<proguard>
 								<skip>false</skip>
 								<config>proguard.cfg</config>
+								<jvmArguments>
+									<jvmArgument>-Xms256m</jvmArgument>
+									<jvmArgument>-Xmx512m</jvmArgument>
+								</jvmArguments>
 							</proguard>
 						</configuration>
 					</plugin>
