@@ -44,6 +44,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.*;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
+import java.util.Arrays;
 import org.routine_work.notepad.prefs.NotepadPreferenceActivity;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteDBOptimizer;
@@ -709,7 +710,7 @@ public class NotepadActivity extends ListActivity
 			"1",
 		};
 		String sortOrder = NotepadPreferenceUtils.getNoteListSortOrder(this);
-		Log.d(LOG_TAG, String.format("where => %s, whereArgs => %s, sortOrder => %s", where, whereArgs, sortOrder));
+		Log.d(LOG_TAG, String.format("where => %s, whereArgs => %s, sortOrder => %s", where, Arrays.toString(whereArgs), sortOrder));
 		ContentResolver cr = getContentResolver();
 		Cursor newCursor = cr.query(contentUri, null, where, whereArgs, sortOrder);
 		listAdapter.changeCursor(newCursor);

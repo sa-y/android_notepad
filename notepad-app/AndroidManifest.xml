@@ -214,10 +214,10 @@
 			android:label="@string/initialize_preference_title"
 		/>
 
-		<activity
-			android:name=".prefs.AboutAppActivity" 
-			android:label="@string/about_app_title"
-		/>
+		<!-- About App Activities -->
+		<activity android:name=".about.AppVersionActivity" />
+		<activity android:name=".about.AppStoreActivity" />
+		<activity android:name=".about.AppManagementActivity" />
 
 		<!-- Activity : Debug -->
 		<activity android:name=".debug.DebugFunctionActivity" />

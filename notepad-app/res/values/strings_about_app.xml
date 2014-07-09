@@ -2,10 +2,17 @@
 <resources>
 	<string name="about_app_title">About App</string>
 	<string name="about_app_summary">Infomation about this application</string>
+
+	<string name="application_version_title">Version Infomation</string>
+	<string name="application_version_summary">Show the version infomation about this application.</string>
+	<string name="application_store_title">Application Store</string>
+	<string name="application_store_summary">Open the page about this application in store.</string>
+	<string name="application_management_title">Application Management</string>
+	<string name="application_management_summary">Open the screen to manage this application.</string>
+
+	<!-- AppVersionActivity -->
 	<string name="version">Version</string>
 	<string name="build_time">Build Time</string>
 	<string name="build_time_format">yyyyMMdd-kkmmss</string>
-	<string name="application_store">Application Store</string>
-	<string name="application_management">Application Management</string>
-	<string name="open">Open</string>
+
 </resources>
