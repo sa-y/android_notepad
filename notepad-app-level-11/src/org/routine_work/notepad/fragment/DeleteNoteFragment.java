@@ -67,7 +67,7 @@ public class DeleteNoteFragment extends NoteDetailFragment implements NotepadCon
 		Log.v(LOG_TAG, "Hello");
 
 		super.onCreateOptionsMenu(menu, menuInflater);
-		menuInflater.inflate(R.menu.delete_cancel_option_menu, menu);
+		menuInflater.inflate(R.menu.delete_option_menu, menu);
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -80,12 +80,6 @@ public class DeleteNoteFragment extends NoteDetailFragment implements NotepadCon
 
 		switch (item.getItemId())
 		{
-			case R.id.cancel_menuitem:
-				Log.d(LOG_TAG, "cancel_menuitem");
-				getActivity().setResult(Activity.RESULT_CANCELED);
-				getActivity().finish();
-				result = true;
-				break;
 			case R.id.delete_note_menuitem:
 				Log.d(LOG_TAG, "delete_note_menuitem");
 				deleteNote();

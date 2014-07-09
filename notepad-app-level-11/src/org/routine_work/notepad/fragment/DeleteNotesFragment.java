@@ -78,12 +78,6 @@ public class DeleteNotesFragment extends ListFragment
 		super.onActivityCreated(savedInstanceState);
 
 		// Init list adapter
-//		NoteListItemViewBinder noteListItemViewBinder = new NoteListItemViewBinder(getActivity());
-//		noteListItemViewBinder.setCheckboxVisible(true);
-//		listAdapter = new SimpleCursorAdapter(getActivity(),
-//			R.layout.note_list_item, null,
-//			NOTE_LIST_MAPPING_FROM, NOTE_LIST_MAPPING_TO);
-//		listAdapter.setViewBinder(noteListItemViewBinder);
 		listAdapter = new NoteCursorAdapter(getActivity(), null, true);
 		setListAdapter(listAdapter);
 
@@ -102,7 +96,7 @@ public class DeleteNotesFragment extends ListFragment
 		Log.v(LOG_TAG, "Hello");
 
 		super.onCreateOptionsMenu(menu, menuInflater);
-		menuInflater.inflate(R.menu.delete_cancel_option_menu, menu);
+		menuInflater.inflate(R.menu.delete_option_menu, menu);
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -115,11 +109,6 @@ public class DeleteNotesFragment extends ListFragment
 
 		switch (item.getItemId())
 		{
-			case R.id.cancel_menuitem:
-				Log.d(LOG_TAG, "cancel_menuitem");
-				getActivity().setResult(Activity.RESULT_CANCELED);
-				getActivity().finish();
-				break;
 			case R.id.delete_note_menuitem:
 				Log.d(LOG_TAG, "delete_note_menuitem");
 				deleteCheckedNotes();

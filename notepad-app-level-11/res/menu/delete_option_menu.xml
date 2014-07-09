@@ -8,12 +8,4 @@
 		android:numericShortcut="1"
 		android:alphabeticShortcut="d"
 	/>
-	<item
-		android:id="@+id/cancel_menuitem"
-		android:title="@android:string/cancel"
-		android:icon="@android:drawable/ic_menu_close_clear_cancel"
-		android:showAsAction="always|withText"
-		android:numericShortcut="2"
-		android:alphabeticShortcut="c"
-	/>
 </menu>
