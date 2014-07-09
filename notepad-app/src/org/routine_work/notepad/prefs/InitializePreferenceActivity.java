@@ -38,7 +38,7 @@ public class InitializePreferenceActivity extends Activity implements OnClickLis
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		setTheme(NotepadPreferenceUtils.getTheme(this));
+//		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.initialize_preference_activity);
 

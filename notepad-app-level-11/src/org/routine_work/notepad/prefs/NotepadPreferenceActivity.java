@@ -53,7 +53,7 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		setTheme(NotepadPreferenceUtils.getTheme(this));
+//		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.notepad_preference);
 

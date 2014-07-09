@@ -63,16 +63,16 @@ public class PickBackupFileActivity extends ListActivity
 		android.R.id.text1,
 	};
 	// instances
-	private List<Map<String, String>> backupFileDataList = new ArrayList<Map<String, String>>();
+	private final FilenameFilter backupFilenameFilter = new BackupFilenameFilter();
+	private final List<Map<String, String>> backupFileDataList = new ArrayList<Map<String, String>>();
 	private SimpleAdapter simpleAdapter;
-	private FilenameFilter backupFilenameFilter = new BackupFilenameFilter();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		setTheme(NotepadPreferenceUtils.getTheme(this));
+//		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pick_backup_file_activity);
 

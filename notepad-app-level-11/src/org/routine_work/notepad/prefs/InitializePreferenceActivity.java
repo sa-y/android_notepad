@@ -35,13 +35,10 @@ public class InitializePreferenceActivity extends Activity implements OnClickLis
 
 	public static final String LOG_TAG = "simple-battery-logger";
 
-	/**
-	 * Called when the activity is first created.
-	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		setTheme(NotepadPreferenceUtils.getTheme(this));
+//		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.initialize_preference_activity);
 

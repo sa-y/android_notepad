@@ -49,7 +49,7 @@ public class BackupDatabaseActivity extends Activity
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		setTheme(NotepadPreferenceUtils.getTheme(this));
+//		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.backup_database_activity);
 
