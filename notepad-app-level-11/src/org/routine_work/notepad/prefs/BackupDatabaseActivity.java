@@ -24,6 +24,7 @@
 package org.routine_work.notepad.prefs;
 
 import android.app.Activity;
+import android.media.MediaScannerConnection;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.format.DateFormat;
@@ -107,6 +108,11 @@ public class BackupDatabaseActivity extends Activity
 				inputChannel.transferTo(0, inputChannel.size(), outputChannel);
 				inputChannel.close();
 				outputChannel.close();
+
+				MediaScannerConnection.scanFile(this, new String[]
+				{
+					backupFilePath.getAbsolutePath()
+				}, null, null);
 			}
 			catch (IOException ex)
 			{
