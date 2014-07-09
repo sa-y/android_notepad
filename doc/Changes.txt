@@ -10,6 +10,10 @@
 * Fixed a backup file name bug
 * Updated database schema
 * Fixed a sort order option bug
+* Added icons for xxhdpi and xxhdpi 
+* Added multi word search support
+* Added search shortcut support
+* Removed cancel action item from delete note(s) activity
 
 
 1.0.5
