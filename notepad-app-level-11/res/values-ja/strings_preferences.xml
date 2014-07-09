@@ -17,8 +17,8 @@
 	<!-- ActionBar : Auto Hide -->
 	<string name="actionbar_auto_hide_port_title">自動非表示（縦画面）</string>
 	<string name="actionbar_auto_hide_land_title">自動非表示（横画面）</string>
-	<string name="actionbar_auto_hide_summary_on">ノート編集時にアクションバーが自動的に非表示になります。</string>
-	<string name="actionbar_auto_hide_summary_off">ノート編集時にアクションバーが常に表示されます。</string>
+	<string name="actionbar_auto_hide_summary_on">ノート編集時にアクションバーを自動的に非表示にします。</string>
+	<string name="actionbar_auto_hide_summary_off">ノート編集時にアクションバーを常に表示します。</string>
 
 	<!-- Layout Category -->
 	<string name="layout_category_title">配置</string>
@@ -34,7 +34,7 @@
 	<string name="note_list_item_modified_time_visibility_port_title">更新日時を表示（縦画面）</string>
 	<string name="note_list_item_modified_time_visibility_land_title">更新日時を表示（横画面）</string>
 	<string name="note_list_item_modified_time_visibility_summary_on">ノート一覧画面で更新日時を表示します。</string>
-	<string name="note_list_item_modified_time_visibility_summary_off">ノート一覧画面で更新日時を非表示にします。</string>
+	<string name="note_list_item_modified_time_visibility_summary_off">ノート一覧画面で更新日時を表示しません。</string>
 	<!-- Note List : Content Text Lines -->
 	<string name="note_list_item_content_lines_port_title">本文の行数（縦画面）</string>
 	<string name="note_list_item_content_lines_land_title">本文の行数（横画面）</string>
