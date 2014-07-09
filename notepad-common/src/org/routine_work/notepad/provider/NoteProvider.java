@@ -35,6 +35,7 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.provider.BaseColumns;
 import android.text.TextUtils;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -145,9 +146,12 @@ public class NoteProvider extends ContentProvider
 		}
 
 		String limit = getLimitParameter(uri);
+
+		Log.v(LOG_TAG, "selection => " + selection);
+		Log.v(LOG_TAG, "selectionArgs => " + Arrays.toString(selectionArgs));
+		Log.v(LOG_TAG, "sort => " + sort);
 		Log.v(LOG_TAG, "limit => " + limit);
 
-		Log.v(LOG_TAG, "query => " + qb.buildQuery(projection, selection, selectionArgs, null, null, sort, limit));
 		Cursor cursor = qb.query(noteDB, projection, selection, selectionArgs,
 			null, null, sort, limit);
 		Log.v(LOG_TAG, "cursor => " + cursor);
