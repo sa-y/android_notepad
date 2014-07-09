@@ -6,13 +6,14 @@
 	android:layout_gravity="center"
 >
 	<TextView 
-		android:layout_width="fill_parent"
+		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_margin="@dimen/about_app_info_item_margin"
+		android:layout_gravity="center"
 		android:gravity="center"
 		android:text="@string/app_name"
 		android:textSize="@dimen/about_app_name_textSize"
-		android:textColor="?android:attr/textColorPrimary"
+		android:textColor="?android:textColorPrimary"
 	/>
 
 	<TextView 
@@ -23,7 +24,7 @@
 		android:layout_gravity="center"
 		android:text="X.X.XX"
 		android:textSize="@dimen/about_app_version_textSize"
-		android:textColor="?android:attr/textColorPrimary"
+		android:textColor="?android:textColorPrimary"
 	/>
 
 	<LinearLayout
@@ -48,23 +49,5 @@
 			android:textSize="@dimen/about_app_label_textSize"
 		/>
 	</LinearLayout>
-
-	<Button 
-		android:id="@+id/open_application_store_button"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_margin="@dimen/about_app_info_item_margin"
-		android:layout_gravity="center_horizontal"
-		android:text="@string/application_store"
-	/>
-
-	<Button 
-		android:id="@+id/open_application_management_button"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_margin="@dimen/about_app_info_item_margin"
-		android:layout_gravity="center_horizontal"
-		android:text="@string/application_management"
-	/>
 
 </LinearLayout>

@@ -154,14 +154,40 @@
 			/>
 		</PreferenceScreen>
 		<PreferenceScreen
+			android:key="about_app_screen"
 			android:title="@string/about_app_title"
 			android:summary="@string/about_app_summary"
 		>
+			<PreferenceScreen
+				android:title="@string/application_version_title"
+				android:summary="@string/application_version_summary"
+			>
 			<intent
 				android:action="android.intent.action.MAIN"
 				android:targetPackage="org.routine_work.notepad"
-				android:targetClass="org.routine_work.notepad.prefs.AboutAppActivity"
+					android:targetClass="org.routine_work.notepad.about.AppVersionActivity"
 			/>
+		</PreferenceScreen>
+			<PreferenceScreen
+				android:title="@string/application_store_title"
+				android:summary="@string/application_store_summary"
+			>
+				<intent
+					android:action="android.intent.action.MAIN"
+					android:targetPackage="org.routine_work.notepad"
+					android:targetClass="org.routine_work.notepad.about.AppStoreActivity"
+				/>
+			</PreferenceScreen>
+			<PreferenceScreen
+				android:title="@string/application_management_title"
+				android:summary="@string/application_management_summary"
+			>
+				<intent
+					android:action="android.intent.action.MAIN"
+					android:targetPackage="org.routine_work.notepad"
+					android:targetClass="org.routine_work.notepad.about.AppManagementActivity"
+				/>
+			</PreferenceScreen>
 		</PreferenceScreen>
 	</PreferenceCategory>
 

@@ -215,9 +215,18 @@
 		/>
 
 		<!-- About App Activities -->
-		<activity android:name=".about.AppVersionActivity" />
-		<activity android:name=".about.AppStoreActivity" />
-		<activity android:name=".about.AppManagementActivity" />
+		<activity
+			android:name=".about.AppVersionActivity"
+			android:label="@string/application_version_title"
+		/>
+		<activity
+			android:name=".about.AppStoreActivity"
+			android:label="@string/application_store_title"
+		/>
+		<activity
+			android:name=".about.AppManagementActivity"
+			android:label="@string/application_management_title"
+		/>
 
 		<!-- Activity : Debug -->
 		<activity android:name=".debug.DebugFunctionActivity" />

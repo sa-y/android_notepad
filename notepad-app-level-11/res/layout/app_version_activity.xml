@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:paddingTop="@dimen/about_app_paddingTop"
-	android:paddingBottom="@dimen/about_app_paddingBottom"
-	android:paddingRight="@dimen/about_app_paddingRight"
-	android:paddingLeft="@dimen/about_app_paddingLeft"
+<FrameLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/body"
 >
 	<LinearLayout
 		android:orientation="vertical"
@@ -21,11 +17,12 @@
 			android:layout_gravity="center_horizontal"
 			android:padding="@dimen/about_app_icon_frame_padding"
 		>
-			<include layout="@layout/about_app_icon" />
+			<include layout="@layout/app_version_icon" />
 		</FrameLayout>
 
 		<!-- separator line -->
-		<View style="@style/hline"
+		<View
+			style="@style/hline"
 			android:layout_margin="10dip"
 		/>
 
@@ -37,8 +34,9 @@
 			android:layout_gravity="center_horizontal"
 			android:padding="@dimen/about_app_info_frame_padding"
 		>
-			<include layout="@layout/about_app_info" />
+			<include layout="@layout/app_version_info" />
 		</FrameLayout>
-	</LinearLayout>
-</FrameLayout>
 
+	</LinearLayout>
+
+</FrameLayout>
