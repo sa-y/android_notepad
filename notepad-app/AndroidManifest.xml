@@ -192,6 +192,7 @@
 		<activity
 			android:name=".prefs.NotepadPreferenceActivity"
 			android:label="@string/preferences_title"
+			android:theme="@style/Theme.Notepad.Preferences"
 		/>
 
 		<activity

@@ -1,176 +1,191 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-	<PreferenceCategory android:title="@string/theme_category_title" >
-		<ListPreference
-			android:key="@string/notepad_theme_key"
-			android:defaultValue="@string/notepad_theme_default_value"
-			android:title="@string/notepad_theme"
-			android:dialogTitle="@string/notepad_theme_title"
-			android:entries="@array/notepad_theme_entries"
-			android:entryValues="@array/notepad_theme_values"
-		/>
-	</PreferenceCategory>
-
-	<PreferenceCategory android:title="@string/actionbar_category_title" >
-		<CheckBoxPreference
-			android:key="@string/actionbar_auto_hide_port_key"
-			android:defaultValue="@bool/actionbar_auto_hide_port_default_value"
-			android:title="@string/actionbar_auto_hide_port_title"
-			android:summaryOn="@string/actionbar_auto_hide_summary_on"
-			android:summaryOff="@string/actionbar_auto_hide_summary_off"
-		/>
-		<CheckBoxPreference
-			android:key="@string/actionbar_auto_hide_land_key"
-			android:defaultValue="@bool/actionbar_auto_hide_land_default_value"
-			android:title="@string/actionbar_auto_hide_land_title"
-			android:summaryOn="@string/actionbar_auto_hide_summary_on"
-			android:summaryOff="@string/actionbar_auto_hide_summary_off"
-		/>
-	</PreferenceCategory>
-
-	<PreferenceCategory android:title="@string/note_list_category_title" >
-		<CheckBoxPreference
-			android:key="@string/note_list_item_modified_time_visibility_port_key"
-			android:defaultValue="@bool/note_list_item_modified_time_visibility_port_default_value"
-			android:title="@string/note_list_item_modified_time_visibility_port_title"
-			android:summaryOn="@string/note_list_item_modified_time_visibility_summary_on"
-			android:summaryOff="@string/note_list_item_modified_time_visibility_summary_off"
-		/>
-		<CheckBoxPreference
-			android:key="@string/note_list_item_modified_time_visibility_land_key"
-			android:defaultValue="@bool/note_list_item_modified_time_visibility_land_default_value"
-			android:title="@string/note_list_item_modified_time_visibility_land_title"
-			android:summaryOn="@string/note_list_item_modified_time_visibility_summary_on"
-			android:summaryOff="@string/note_list_item_modified_time_visibility_summary_off"
-		/>
-		<ListPreference
-			android:key="@string/note_list_item_content_lines_port_key"
-			android:defaultValue="@string/note_list_item_content_lines_port_default_value"
-			android:title="@string/note_list_item_content_lines_port_title"
-			android:dialogTitle="@string/note_list_item_content_lines_port_title"
-			android:summary="@string/note_list_item_content_lines_summary"
-			android:entries="@array/note_list_item_content_lines_values"
-			android:entryValues="@array/note_list_item_content_lines_values"
-		/>
-		<ListPreference
-			android:key="@string/note_list_item_content_lines_land_key"
-			android:defaultValue="@string/note_list_item_content_lines_land_default_value"
-			android:title="@string/note_list_item_content_lines_land_title"
-			android:dialogTitle="@string/note_list_item_content_lines_land_title"
-			android:summary="@string/note_list_item_content_lines_summary"
-			android:entries="@array/note_list_item_content_lines_values"
-			android:entryValues="@array/note_list_item_content_lines_values"
-		/>
-		<!-- note list sort order -->
-		<ListPreference
-			android:key="@string/note_list_sort_order_key"
-			android:defaultValue="@string/note_list_sort_order_default_value"
-			android:title="@string/note_list_sort_order_title"
-			android:dialogTitle="@string/note_list_sort_order_title"
-			android:entries="@array/note_list_sort_order_entries"
-			android:entryValues="@array/note_list_sort_order_values"
-		/>
-	</PreferenceCategory>
-
-	<PreferenceCategory android:title="@string/note_autolink_category_title" >
-		<CheckBoxPreference
-			android:key="@string/note_title_autolink_key"
-			android:defaultValue="@bool/note_title_autolink_default_value"
-			android:title="@string/note_title_autolink_title"
-			android:summaryOn="@string/note_title_autolink_summary_on"
-			android:summaryOff="@string/note_title_autolink_summary_off"
-		/>
-		<CheckBoxPreference
-			android:key="@string/note_content_autolink_key"
-			android:defaultValue="@bool/note_content_autolink_default_value"
-			android:title="@string/note_content_autolink_title"
-			android:summaryOn="@string/note_content_autolink_summary_on"
-			android:summaryOff="@string/note_content_autolink_summary_off"
-		/>
-	</PreferenceCategory>
-
-	<PreferenceCategory android:title="@string/share_data_category_title" >
-		<CheckBoxPreference
-			android:key="@string/receive_text_key"
-			android:defaultValue="@bool/receive_text_default_value"
-			android:title="@string/receive_text_title"
-			android:summaryOn="@string/receive_text_summary_on"
-			android:summaryOff="@string/receive_text_summary_off"
-		/>
-	</PreferenceCategory>
-
-	<PreferenceCategory android:title="@string/backup_and_restore" >
-		<PreferenceScreen
-			android:title="@string/backup_data_title"
-			android:summary="@string/backup_data_summary"
-		>
-			<intent
-				android:action="android.intent.action.MAIN"
-				android:targetPackage="org.routine_work.notepad"
-				android:targetClass="org.routine_work.notepad.prefs.BackupDatabaseActivity"
+	<PreferenceScreen 
+		android:key="display_screen"
+		android:title="@string/display_screen_title"
+	>
+		<PreferenceCategory android:title="@string/theme_category_title" >
+			<ListPreference
+				android:key="@string/notepad_theme_key"
+				android:defaultValue="@string/notepad_theme_default_value"
+				android:title="@string/notepad_theme"
+				android:dialogTitle="@string/notepad_theme_title"
+				android:entries="@array/notepad_theme_entries"
+				android:entryValues="@array/notepad_theme_values"
 			/>
-		</PreferenceScreen>
-		<PreferenceScreen
-			android:title="@string/restore_data_title"
-			android:summary="@string/restore_data_summary"
-		>
-			<intent
-				android:action="android.intent.action.MAIN"
-				android:targetPackage="org.routine_work.notepad"
-				android:targetClass="org.routine_work.notepad.prefs.RestoreDatabaseActivity"
-			/>
-		</PreferenceScreen>
-	</PreferenceCategory>
+		</PreferenceCategory>
 
-	<PreferenceCategory android:title="@string/etc" >
-		<PreferenceScreen
-			android:title="@string/initialize_preference_title"
-			android:summary="@string/initialize_preference_summary"
-		>
-			<intent
-				android:action="android.intent.action.MAIN"
-				android:targetPackage="org.routine_work.notepad"
-				android:targetClass="org.routine_work.notepad.prefs.InitializePreferenceActivity"
+		<PreferenceCategory android:title="@string/actionbar_category_title" >
+			<CheckBoxPreference
+				android:key="@string/actionbar_auto_hide_port_key"
+				android:defaultValue="@bool/actionbar_auto_hide_port_default_value"
+				android:title="@string/actionbar_auto_hide_port_title"
+				android:summaryOn="@string/actionbar_auto_hide_summary_on"
+				android:summaryOff="@string/actionbar_auto_hide_summary_off"
 			/>
-		</PreferenceScreen>
-		<PreferenceScreen 
-			android:key="about_app_screen"
-			android:title="@string/about_app_title"
-			android:summary="@string/about_app_summary"
-		>
+			<CheckBoxPreference
+				android:key="@string/actionbar_auto_hide_land_key"
+				android:defaultValue="@bool/actionbar_auto_hide_land_default_value"
+				android:title="@string/actionbar_auto_hide_land_title"
+				android:summaryOn="@string/actionbar_auto_hide_summary_on"
+				android:summaryOff="@string/actionbar_auto_hide_summary_off"
+			/>
+		</PreferenceCategory>
+
+		<PreferenceCategory android:title="@string/note_list_category_title" >
+			<CheckBoxPreference
+				android:key="@string/note_list_item_modified_time_visibility_port_key"
+				android:defaultValue="@bool/note_list_item_modified_time_visibility_port_default_value"
+				android:title="@string/note_list_item_modified_time_visibility_port_title"
+				android:summaryOn="@string/note_list_item_modified_time_visibility_summary_on"
+				android:summaryOff="@string/note_list_item_modified_time_visibility_summary_off"
+			/>
+			<CheckBoxPreference
+				android:key="@string/note_list_item_modified_time_visibility_land_key"
+				android:defaultValue="@bool/note_list_item_modified_time_visibility_land_default_value"
+				android:title="@string/note_list_item_modified_time_visibility_land_title"
+				android:summaryOn="@string/note_list_item_modified_time_visibility_summary_on"
+				android:summaryOff="@string/note_list_item_modified_time_visibility_summary_off"
+			/>
+			<ListPreference
+				android:key="@string/note_list_item_content_lines_port_key"
+				android:defaultValue="@string/note_list_item_content_lines_port_default_value"
+				android:title="@string/note_list_item_content_lines_port_title"
+				android:dialogTitle="@string/note_list_item_content_lines_port_title"
+				android:summary="@string/note_list_item_content_lines_summary"
+				android:entries="@array/note_list_item_content_lines_values"
+				android:entryValues="@array/note_list_item_content_lines_values"
+			/>
+			<ListPreference
+				android:key="@string/note_list_item_content_lines_land_key"
+				android:defaultValue="@string/note_list_item_content_lines_land_default_value"
+				android:title="@string/note_list_item_content_lines_land_title"
+				android:dialogTitle="@string/note_list_item_content_lines_land_title"
+				android:summary="@string/note_list_item_content_lines_summary"
+				android:entries="@array/note_list_item_content_lines_values"
+				android:entryValues="@array/note_list_item_content_lines_values"
+			/>
+			<!-- note list sort order -->
+			<ListPreference
+				android:key="@string/note_list_sort_order_key"
+				android:defaultValue="@string/note_list_sort_order_default_value"
+				android:title="@string/note_list_sort_order_title"
+				android:dialogTitle="@string/note_list_sort_order_title"
+				android:entries="@array/note_list_sort_order_entries"
+				android:entryValues="@array/note_list_sort_order_values"
+			/>
+		</PreferenceCategory>
+
+		<PreferenceCategory android:title="@string/note_autolink_category_title" >
+			<CheckBoxPreference
+				android:key="@string/note_title_autolink_key"
+				android:defaultValue="@bool/note_title_autolink_default_value"
+				android:title="@string/note_title_autolink_title"
+				android:summaryOn="@string/note_title_autolink_summary_on"
+				android:summaryOff="@string/note_title_autolink_summary_off"
+			/>
+			<CheckBoxPreference
+				android:key="@string/note_content_autolink_key"
+				android:defaultValue="@bool/note_content_autolink_default_value"
+				android:title="@string/note_content_autolink_title"
+				android:summaryOn="@string/note_content_autolink_summary_on"
+				android:summaryOff="@string/note_content_autolink_summary_off"
+			/>
+		</PreferenceCategory>
+	</PreferenceScreen>
+
+	<PreferenceScreen 
+		android:key="share_data_screen"
+		android:title="@string/share_data_screen_title"
+	>
+		<PreferenceCategory android:title="@string/share_data_category_title" >
+			<CheckBoxPreference
+				android:key="@string/receive_text_key"
+				android:defaultValue="@bool/receive_text_default_value"
+				android:title="@string/receive_text_title"
+				android:summaryOn="@string/receive_text_summary_on"
+				android:summaryOff="@string/receive_text_summary_off"
+			/>
+		</PreferenceCategory>
+	</PreferenceScreen>
+
+	<PreferenceScreen 
+		android:key="backup_and_reset_screen"
+		android:title="@string/backup_and_reset"
+	>
+		<PreferenceCategory android:title="@string/backup_and_restore" >
 			<PreferenceScreen
-				android:title="@string/application_version_title"
-				android:summary="@string/application_version_summary"
+				android:title="@string/backup_data_title"
+				android:summary="@string/backup_data_summary"
 			>
 				<intent
 					android:action="android.intent.action.MAIN"
 					android:targetPackage="org.routine_work.notepad"
-					android:targetClass="org.routine_work.notepad.about.AppVersionActivity"
+					android:targetClass="org.routine_work.notepad.prefs.BackupDatabaseActivity"
 				/>
 			</PreferenceScreen>
 			<PreferenceScreen
-				android:title="@string/application_store_title"
-				android:summary="@string/application_store_summary"
+				android:title="@string/restore_data_title"
+				android:summary="@string/restore_data_summary"
 			>
 				<intent
 					android:action="android.intent.action.MAIN"
 					android:targetPackage="org.routine_work.notepad"
-					android:targetClass="org.routine_work.notepad.about.AppStoreActivity"
+					android:targetClass="org.routine_work.notepad.prefs.RestoreDatabaseActivity"
 				/>
 			</PreferenceScreen>
+		</PreferenceCategory>
+
+		<PreferenceCategory android:title="@string/reset_category_title" >
 			<PreferenceScreen
-				android:title="@string/application_management_title"
-				android:summary="@string/application_management_summary"
+				android:title="@string/initialize_preference_title"
+				android:summary="@string/initialize_preference_summary"
 			>
 				<intent
 					android:action="android.intent.action.MAIN"
 					android:targetPackage="org.routine_work.notepad"
-					android:targetClass="org.routine_work.notepad.about.AppManagementActivity"
+					android:targetClass="org.routine_work.notepad.prefs.InitializePreferenceActivity"
 				/>
 			</PreferenceScreen>
+		</PreferenceCategory>
+	</PreferenceScreen>
+
+	<PreferenceScreen 
+		android:key="about_app_screen"
+		android:title="@string/about_app_title"
+	>
+		<PreferenceScreen
+			android:title="@string/application_version_title"
+			android:summary="@string/application_version_summary"
+		>
+			<intent
+				android:action="android.intent.action.MAIN"
+				android:targetPackage="org.routine_work.notepad"
+				android:targetClass="org.routine_work.notepad.about.AppVersionActivity"
+			/>
 		</PreferenceScreen>
-	</PreferenceCategory>
+		<PreferenceScreen
+			android:title="@string/application_store_title"
+			android:summary="@string/application_store_summary"
+		>
+			<intent
+				android:action="android.intent.action.MAIN"
+				android:targetPackage="org.routine_work.notepad"
+				android:targetClass="org.routine_work.notepad.about.AppStoreActivity"
+			/>
+		</PreferenceScreen>
+		<PreferenceScreen
+			android:title="@string/application_management_title"
+			android:summary="@string/application_management_summary"
+		>
+			<intent
+				android:action="android.intent.action.MAIN"
+				android:targetPackage="org.routine_work.notepad"
+				android:targetClass="org.routine_work.notepad.about.AppManagementActivity"
+			/>
+		</PreferenceScreen>
+	</PreferenceScreen>
 
 	<!--
 	<PreferenceCategory android:title="Debug" >
