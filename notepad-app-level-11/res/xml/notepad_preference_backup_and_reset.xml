@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+	<PreferenceCategory android:title="@string/backup_and_restore_category_title" >
+		<PreferenceScreen
+			android:title="@string/backup_data_title"
+			android:summary="@string/backup_data_summary"
+		>
+			<intent
+				android:action="android.intent.action.MAIN"
+				android:targetPackage="org.routine_work.notepad"
+				android:targetClass="org.routine_work.notepad.prefs.BackupDatabaseActivity"
+			/>
+		</PreferenceScreen>
+		<PreferenceScreen
+			android:title="@string/restore_data_title"
+			android:summary="@string/restore_data_summary"
+		>
+			<intent
+				android:action="android.intent.action.MAIN"
+				android:targetPackage="org.routine_work.notepad"
+				android:targetClass="org.routine_work.notepad.prefs.RestoreDatabaseActivity"
+			/>
+		</PreferenceScreen>
+	</PreferenceCategory>
+
+	<PreferenceCategory android:title="@string/reset_category_title" >
+		<PreferenceScreen
+			android:title="@string/initialize_preference_title"
+			android:summary="@string/initialize_preference_summary"
+		>
+			<intent
+				android:action="android.intent.action.MAIN"
+				android:targetPackage="org.routine_work.notepad"
+				android:targetClass="org.routine_work.notepad.prefs.InitializePreferenceActivity"
+			/>
+		</PreferenceScreen>
+	</PreferenceCategory>
+
+</PreferenceScreen>

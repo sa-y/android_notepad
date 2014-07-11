@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+	<PreferenceCategory android:title="@string/share_data_category_title" >
+		<CheckBoxPreference
+			android:key="@string/receive_text_key"
+			android:defaultValue="@bool/receive_text_default_value"
+			android:title="@string/receive_text_title"
+			android:summaryOn="@string/receive_text_summary_on"
+			android:summaryOff="@string/receive_text_summary_off"
+		/>
+	</PreferenceCategory>
+
+</PreferenceScreen>

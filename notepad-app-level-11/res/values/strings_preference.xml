@@ -2,98 +2,107 @@
 <!-- This file is made every languages -->
 <resources>
 
-	<string name="preferences">Preferences</string>
-	<string name="preferences_title">Preferences</string>
+	<string name="preferences">Settings</string>
+	<string name="preferences_title">Settings</string>
 
+	<!-- ############################################################ -->
+	<!-- Display Screen -->
+	<string name="display_screen_title">Display</string>
 	<!-- Theme Category -->
 	<string name="theme_category_title">Theme</string>
-	<string name="notepad_theme">Notepad Theme</string>
-	<string name="notepad_theme_title">Notepad Theme</string>
-	<string name="dark_theme">Dark Theme</string>
-	<string name="light_theme">Light Theme</string>
+	<string name="notepad_theme">Notepad theme</string>
+	<string name="notepad_theme_title">Notepad theme</string>
+	<string name="dark_theme">Dark theme</string>
+	<string name="light_theme">Light theme</string>
 
 	<!-- ActionBar Category -->
-	<string name="actionbar_category_title">Action Bar</string>
+	<string name="actionbar_category_title">Action bar</string>
 	<!-- ActionBar : Auto Hide -->
-	<string name="actionbar_auto_hide_port_title">Auto Hide in Portrait</string>
-	<string name="actionbar_auto_hide_land_title">Auto Hide in Landscape</string>
-	<string name="actionbar_auto_hide_summary_on">The Action Bar is hidden during editing note automatically.</string>
-	<string name="actionbar_auto_hide_summary_off">The Action Bar is always displayed during note editing.</string>
+	<string name="actionbar_auto_hide_port_title">Auto hide in portrait</string>
+	<string name="actionbar_auto_hide_land_title">Auto hide in landscape</string>
+	<string name="actionbar_auto_hide_summary_on">The action bar is hidden during editing note automatically.</string>
+	<string name="actionbar_auto_hide_summary_off">The action bar is always displayed during note editing.</string>
 
 	<!-- Layout Category -->
 	<string name="layout_category_title">Layout</string>
 	<!-- Layout : Note List -->
-	<string name="note_list_layout_port_title">Note List Layout in Portrait</string>
-	<string name="note_list_layout_land_title">Note List Layout in Landscape</string>
-	<string name="single_pane">Single Pane</string>
-	<string name="wide_two_pane">Two Pane</string>
+	<string name="note_list_layout_port_title">Note list layout in portrait</string>
+	<string name="note_list_layout_land_title">Note list layout in landscape</string>
+	<string name="single_pane">Single pane</string>
+	<string name="wide_two_pane">Two pane</string>
 
 	<!-- Note List Category -->
-	<string name="note_list_category_title">Note List</string>
+	<string name="note_list_category_title">Note list</string>
 	<!-- Note List : Modified Time Visibility -->
-	<string name="note_list_item_modified_time_visibility_port_title">Modified Time in Portrait</string>
-	<string name="note_list_item_modified_time_visibility_land_title">Modified Time in Landscape</string>
+	<string name="note_list_item_modified_time_visibility_port_title">Modified time in portrait</string>
+	<string name="note_list_item_modified_time_visibility_land_title">Modified time in landscape</string>
 	<string name="note_list_item_modified_time_visibility_summary_on">The modified time is visible in note list.</string>
 	<string name="note_list_item_modified_time_visibility_summary_off">The modified time is not visible in note list.</string>
 	<!-- Note List : Content Text Lines -->
-	<string name="note_list_item_content_lines_port_title">Text Lines in Portrait</string>
-	<string name="note_list_item_content_lines_land_title">Text Lines in Landscape</string>
-	<string name="note_list_item_content_lines_summary">%1$s Lines</string>
+	<string name="note_list_item_content_lines_port_title">Text lines in portrait</string>
+	<string name="note_list_item_content_lines_land_title">Text lines in landscape</string>
+	<string name="note_list_item_content_lines_summary">%1$s lines</string>
 
 	<!-- Note List : Sort Order -->
-	<string name="note_list_sort_order_title" >Sort Order</string>
+	<string name="note_list_sort_order_title" >Sort order</string>
 	<!-- Note List : Sort Order Entries -->
-	<string name="note_list_sort_order_entry_title_asc" >Title Ascending</string>
-	<string name="note_list_sort_order_entry_title_desc" >Title Descending</string>
-	<string name="note_list_sort_order_entry_date_modified_asc" >Modified Ascending</string>
-	<string name="note_list_sort_order_entry_date_modified_desc" >Modified Descending</string>
+	<string name="note_list_sort_order_entry_title_asc" >Title ascending</string>
+	<string name="note_list_sort_order_entry_title_desc" >Title descending</string>
+	<string name="note_list_sort_order_entry_date_modified_asc" >Modified ascending</string>
+	<string name="note_list_sort_order_entry_date_modified_desc" >Modified descending</string>
 	<!--
 	<string name="note_list_sort_order_entry_date_added_asc" >created ascending</string>
 	<string name="note_list_sort_order_entry_date_added_desc" >created descending</string>
 	-->
 
 	<!-- Auto Link Category -->
-	<string name="note_autolink_category_title">Auto Link</string>
+	<string name="note_autolink_category_title">Auto link</string>
 	<!-- Auto Link : Note Title -->
-	<string name="note_title_autolink_title">Auto Link in Title</string>
+	<string name="note_title_autolink_title">Auto link in title</string>
 	<string name="note_title_autolink_summary_on">The URL and the E-mail in the title are linked automatically.</string>
 	<string name="note_title_autolink_summary_off">The URL and the E-mail in the title are not linked.</string>
 	<!-- Auto Link : Note Content -->
-	<string name="note_content_autolink_title">Auto Link in Text</string>
+	<string name="note_content_autolink_title">Auto link in text</string>
 	<string name="note_content_autolink_summary_on">The URL and the E-mail in the text are linked automatically.</string>
 	<string name="note_content_autolink_summary_off">The URL and the E-mail in the text are not linked.</string>
 
+	<!-- ############################################################ -->
+	<!-- Share Data Screen -->
+	<string name="share_data_screen_title">Share data</string>
 	<!-- Share Data Category -->
-	<string name="share_data_category_title">Share Data</string>
+	<string name="share_data_category_title">Share data</string>
 	<!-- Receive Text -->
-	<string name="receive_text_title">Receive Text</string>
+	<string name="receive_text_title">Receive text</string>
 	<string name="receive_text_summary_on">The text intent receiving is enabled.</string>
 	<string name="receive_text_summary_off">The text intent receiving is disabled.</string>
 
+	<!-- ############################################################ -->
+	<!-- Backup and Reset Screen -->
+	<string name="backup_and_reset_screen_title">Backup &amp; reset</string>
 	<!-- Backup and Restore Category -->
-	<string name="backup_and_restore">Back up &amp; Restore</string>
+	<string name="backup_and_restore_category_title">Backup &amp; restore</string>
 	<!-- Backup Data -->
-	<string name="backup_data">Backup Data</string>
-	<string name="backup_data_title">Backup Data</string>
+	<string name="backup_data">Backup data</string>
+	<string name="backup_data_title">Backup data</string>
 	<string name="backup_data_summary">All notes and templates are backed up.</string>
 	<string name="backup_data_confirm_message">All notes and templates will be backed up to the external storage.</string>
 	<!-- Restore Data -->
-	<string name="restore_data">Restore Data</string>
-	<string name="restore_data_title">Restore Data</string>
+	<string name="restore_data">Restore data</string>
+	<string name="restore_data_title">Restore data</string>
 	<string name="restore_data_summary">All notes and templates are restored from backup file.</string>
 	<string name="restore_data_confirm_message">The current notes and templates are deleted, 
 		And all data will be restored from backup file in the external storage. 
 		This application will be finished to reflect the change of note data.
 	</string>
 	<!-- Pick Backup File -->
-	<string name="select_backup_file_title">Select Backup File</string>
-	<string name="no_backup_file">No Backup File</string>
+	<string name="select_backup_file_title">Select backup file</string>
+	<string name="no_backup_file">No backup file</string>
 
-	<!-- Etc Category -->
-	<string name="etc">Etc</string>
+	<!-- Reset Category -->
+	<string name="reset_category_title">Reset</string>
 	<!-- Initialize Preferences -->
-	<string name="initialize_preference">Initialize Preferences</string>
-	<string name="initialize_preference_title">Initialize Preferences</string>
+	<string name="initialize_preference">Initialize preferences</string>
+	<string name="initialize_preference_title">Initialize preferences</string>
 	<string name="initialize_preference_summary">All preference values are initialized.</string>
 	<string name="initialize_preference_confirm_message">All the preference values will be initialized by default value. The current data are deleted.</string>
 

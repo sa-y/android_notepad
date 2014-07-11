@@ -94,7 +94,7 @@ public class DebugFunctionActivity extends ListActivity
 	class CreateTestNoteTask extends AsyncTask<Void, Void, Boolean>
 	{
 
-		private static final int DATA_COUNT = 100;
+		private static final int DATA_COUNT = 1000;
 
 		@Override
 		protected Boolean doInBackground(Void... arg0)

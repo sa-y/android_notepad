@@ -12,24 +12,7 @@
 		/>
 	</PreferenceCategory>
 
-	<PreferenceCategory android:title="@string/actionbar_category_title" >
-		<CheckBoxPreference
-			android:key="@string/actionbar_auto_hide_port_key"
-			android:defaultValue="@bool/actionbar_auto_hide_port_default_value"
-			android:title="@string/actionbar_auto_hide_port_title"
-			android:summaryOn="@string/actionbar_auto_hide_summary_on"
-			android:summaryOff="@string/actionbar_auto_hide_summary_off"
-		/>
-		<CheckBoxPreference
-			android:key="@string/actionbar_auto_hide_land_key"
-			android:defaultValue="@bool/actionbar_auto_hide_land_default_value"
-			android:title="@string/actionbar_auto_hide_land_title"
-			android:summaryOn="@string/actionbar_auto_hide_summary_on"
-			android:summaryOff="@string/actionbar_auto_hide_summary_off"
-		/>
-	</PreferenceCategory>
-
-	<PreferenceCategory android:title="@string/layout_category_title" >
+	<PreferenceCategory android:title="@string/note_list_category_title" >
 		<ListPreference
 			android:key="@string/note_list_layout_port_key"
 			android:defaultValue="@string/note_list_layout_port_default_value"
@@ -46,9 +29,6 @@
 			android:entries="@array/note_list_layout_entries"
 			android:entryValues="@array/note_list_layout_values"
 		/>
-	</PreferenceCategory>
-
-	<PreferenceCategory android:title="@string/note_list_category_title" >
 		<CheckBoxPreference
 			android:key="@string/note_list_item_modified_time_visibility_port_key"
 			android:defaultValue="@bool/note_list_item_modified_time_visibility_port_default_value"
@@ -109,101 +89,21 @@
 		/>
 	</PreferenceCategory>
 
-	<PreferenceCategory android:title="@string/share_data_category_title" >
+	<PreferenceCategory android:title="@string/actionbar_category_title" >
 		<CheckBoxPreference
-			android:key="@string/receive_text_key"
-			android:defaultValue="@bool/receive_text_default_value"
-			android:title="@string/receive_text_title"
-			android:summaryOn="@string/receive_text_summary_on"
-			android:summaryOff="@string/receive_text_summary_off"
+			android:key="@string/actionbar_auto_hide_port_key"
+			android:defaultValue="@bool/actionbar_auto_hide_port_default_value"
+			android:title="@string/actionbar_auto_hide_port_title"
+			android:summaryOn="@string/actionbar_auto_hide_summary_on"
+			android:summaryOff="@string/actionbar_auto_hide_summary_off"
+		/>
+		<CheckBoxPreference
+			android:key="@string/actionbar_auto_hide_land_key"
+			android:defaultValue="@bool/actionbar_auto_hide_land_default_value"
+			android:title="@string/actionbar_auto_hide_land_title"
+			android:summaryOn="@string/actionbar_auto_hide_summary_on"
+			android:summaryOff="@string/actionbar_auto_hide_summary_off"
 		/>
 	</PreferenceCategory>
-
-	<PreferenceCategory android:title="@string/backup_and_restore" >
-		<PreferenceScreen
-			android:title="@string/backup_data_title"
-			android:summary="@string/backup_data_summary"
-		>
-			<intent
-				android:action="android.intent.action.MAIN"
-				android:targetPackage="org.routine_work.notepad"
-				android:targetClass="org.routine_work.notepad.prefs.BackupDatabaseActivity"
-			/>
-		</PreferenceScreen>
-		<PreferenceScreen
-			android:title="@string/restore_data_title"
-			android:summary="@string/restore_data_summary"
-		>
-			<intent
-				android:action="android.intent.action.MAIN"
-				android:targetPackage="org.routine_work.notepad"
-				android:targetClass="org.routine_work.notepad.prefs.RestoreDatabaseActivity"
-			/>
-		</PreferenceScreen>
-	</PreferenceCategory>
-
-	<PreferenceCategory android:title="@string/etc" >
-		<PreferenceScreen
-			android:title="@string/initialize_preference_title"
-			android:summary="@string/initialize_preference_summary"
-		>
-			<intent
-				android:action="android.intent.action.MAIN"
-				android:targetPackage="org.routine_work.notepad"
-				android:targetClass="org.routine_work.notepad.prefs.InitializePreferenceActivity"
-			/>
-		</PreferenceScreen>
-		<PreferenceScreen
-			android:key="about_app_screen"
-			android:title="@string/about_app_title"
-			android:summary="@string/about_app_summary"
-		>
-			<PreferenceScreen
-				android:title="@string/application_version_title"
-				android:summary="@string/application_version_summary"
-			>
-			<intent
-				android:action="android.intent.action.MAIN"
-				android:targetPackage="org.routine_work.notepad"
-					android:targetClass="org.routine_work.notepad.about.AppVersionActivity"
-			/>
-		</PreferenceScreen>
-			<PreferenceScreen
-				android:title="@string/application_store_title"
-				android:summary="@string/application_store_summary"
-			>
-				<intent
-					android:action="android.intent.action.MAIN"
-					android:targetPackage="org.routine_work.notepad"
-					android:targetClass="org.routine_work.notepad.about.AppStoreActivity"
-				/>
-			</PreferenceScreen>
-			<PreferenceScreen
-				android:title="@string/application_management_title"
-				android:summary="@string/application_management_summary"
-			>
-				<intent
-					android:action="android.intent.action.MAIN"
-					android:targetPackage="org.routine_work.notepad"
-					android:targetClass="org.routine_work.notepad.about.AppManagementActivity"
-				/>
-			</PreferenceScreen>
-		</PreferenceScreen>
-	</PreferenceCategory>
-
-	<!--
-	<PreferenceCategory android:title="Debug" >
-		<PreferenceScreen
-			android:title="Debug"
-			android:summary="Debug functions"
-		>
-			<intent
-				android:action="android.intent.action.MAIN"
-				android:targetPackage="org.routine_work.notepad"
-				android:targetClass="org.routine_work.notepad.debug.DebugFunctionActivity"
-			/>
-		</PreferenceScreen>
-	</PreferenceCategory>
-	-->
 
 </PreferenceScreen>

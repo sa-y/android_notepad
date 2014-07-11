@@ -71,7 +71,7 @@ public class PickBackupFileActivity extends ListActivity
 	{
 		Log.v(LOG_TAG, "Hello");
 
-//		setTheme(NotepadPreferenceUtils.getTheme(this));
+		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pick_backup_file_activity);
 

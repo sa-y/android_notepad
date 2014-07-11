@@ -70,7 +70,7 @@ public class RestoreDatabaseActivity extends Activity implements OnClickListener
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-//		setTheme(NotepadPreferenceUtils.getTheme(this));
+		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.restore_database_activity);
 

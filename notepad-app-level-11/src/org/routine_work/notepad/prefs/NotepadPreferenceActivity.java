@@ -23,18 +23,14 @@
  */
 package org.routine_work.notepad.prefs;
 
-import android.content.ComponentName;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.preference.ListPreference;
 import android.preference.PreferenceActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import java.util.List;
 import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
-import org.routine_work.notepad.ReceiveTextActivity;
 import org.routine_work.utils.Log;
 
 /**
@@ -42,39 +38,30 @@ import org.routine_work.utils.Log;
  * @author sawai
  */
 public class NotepadPreferenceActivity extends PreferenceActivity
-	implements SharedPreferences.OnSharedPreferenceChangeListener
 {
 
 	private static final String LOG_TAG = "simple-notepad";
-	private SharedPreferences sharedPreferences;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		Log.v(LOG_TAG, "Hello");
 
-//		setTheme(NotepadPreferenceUtils.getTheme(this));
+		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
-		addPreferencesFromResource(R.xml.notepad_preference);
-
-		sharedPreferences = getPreferenceManager().getSharedPreferences();
 
 		Log.v(LOG_TAG, "Bye");
 	}
 
 	@Override
-	protected void onResume()
+	public void onBuildHeaders(List<Header> target)
 	{
-		super.onResume();
-		updateSummary();
-		sharedPreferences.registerOnSharedPreferenceChangeListener(this);
-	}
+		Log.v(LOG_TAG, "Hello");
 
-	@Override
-	protected void onPause()
-	{
-		sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
-		super.onPause();
+		super.onBuildHeaders(target);
+		loadHeadersFromResource(R.xml.notepad_preference_header, target);
+
+		Log.v(LOG_TAG, "Bye");
 	}
 
 	@Override
@@ -104,110 +91,4 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 		return result;
 	}
 
-	public void onSharedPreferenceChanged(SharedPreferences prefs, String key)
-	{
-		Log.v(LOG_TAG, "Hello");
-		Log.i(LOG_TAG, "shared preference " + key + " is changed.");
-
-		String receiveTextKey = getString(R.string.receive_text_key);
-		if (key.equals(receiveTextKey))
-		{
-			// update component enable/disable
-			boolean defaultValue = getResources().getBoolean(R.bool.receive_text_default_value);
-			boolean receiveTextEnabled = prefs.getBoolean(key, defaultValue);
-			int newState;
-
-			if (receiveTextEnabled)
-			{
-				newState = PackageManager.COMPONENT_ENABLED_STATE_ENABLED;
-				Log.d(LOG_TAG, "Enable ReceiveTextActivity component");
-			}
-			else
-			{
-				newState = PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
-				Log.d(LOG_TAG, "Disable ReceiveTextActivity component");
-			}
-
-			PackageManager packageManager = getPackageManager();
-			ComponentName componentName = new ComponentName(this, ReceiveTextActivity.class);
-			packageManager.setComponentEnabledSetting(componentName, newState, PackageManager.DONT_KILL_APP); // dont stop
-		}
-		else
-		{
-			updateSummary();
-		}
-
-		Log.v(LOG_TAG, "Bye");
-	}
-
-	private void updateSummary()
-	{
-		String prefKey;
-		String prefValueString;
-		CharSequence summary;
-		ListPreference listPreference;
-
-		// Theme
-		prefKey = getString(R.string.notepad_theme_key);
-		listPreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
-		summary = listPreference.getEntry();
-		listPreference.setSummary(summary);
-
-		// Layout
-		final String noteListLayoutPortKey = getString(R.string.note_list_layout_port_key);
-		final String noteListLayoutLandKey = getString(R.string.note_list_layout_land_key);
-		final String noteListLayoutPortDefaultValue = getString(R.string.note_list_layout_port_default_value);
-		final String noteListLayoutLandDefaultValue = getString(R.string.note_list_layout_land_default_value);
-
-		String noteListLayoutPortValue = sharedPreferences.getString(noteListLayoutPortKey, noteListLayoutPortDefaultValue);
-		Log.v(LOG_TAG, "noteListLayoutPortDefaultValue => " + noteListLayoutPortDefaultValue);
-		summary = getLayoutName(noteListLayoutPortValue);
-		Log.v(LOG_TAG, "summary => " + summary);
-		ListPreference noteListLayoutPortPreference = (ListPreference) getPreferenceScreen().findPreference(noteListLayoutPortKey);
-		Log.v(LOG_TAG, "noteListLayoutPortPreference => " + noteListLayoutPortPreference);
-		noteListLayoutPortPreference.setSummary(summary);
-
-		String noteListLayoutLandValue = sharedPreferences.getString(noteListLayoutLandKey, noteListLayoutLandDefaultValue);
-		summary = getLayoutName(noteListLayoutLandValue);
-		ListPreference noteListLayoutLandPreference = (ListPreference) getPreferenceScreen().findPreference(noteListLayoutLandKey);
-		noteListLayoutLandPreference.setSummary(summary);
-
-		// Text Lines in Portrait
-		prefKey = getString(R.string.note_list_item_content_lines_port_key);
-		listPreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
-		prefValueString = listPreference.getEntry().toString();
-		summary = getString(R.string.note_list_item_content_lines_summary, prefValueString);
-		listPreference.setSummary(summary);
-
-		// Text Lines in Landscape
-		prefKey = getString(R.string.note_list_item_content_lines_land_key);
-		listPreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
-		prefValueString = listPreference.getEntry().toString();
-		summary = getString(R.string.note_list_item_content_lines_summary, prefValueString);
-		listPreference.setSummary(summary);
-
-		// Sort Order
-		prefKey = getString(R.string.note_list_sort_order_key);
-		listPreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
-		summary = listPreference.getEntry();
-		listPreference.setSummary(summary);
-	}
-
-	private String getLayoutName(String layoutValue)
-	{
-		final String noteListLayoutSingle = getString(R.string.note_list_layout_single_value);
-		final String noteListLayoutWideTwo = getString(R.string.note_list_layout_wide_two_value);
-		String name = null;
-
-		if (noteListLayoutSingle.equals(layoutValue))
-		{
-			name = getString(R.string.single_pane);
-		}
-		else if (noteListLayoutWideTwo.equals(layoutValue))
-		{
-			name = getString(R.string.wide_two_pane);
-		}
-
-		return name;
-	}
 }
