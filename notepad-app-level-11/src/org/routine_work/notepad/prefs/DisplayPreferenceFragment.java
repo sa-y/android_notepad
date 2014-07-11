@@ -41,9 +41,13 @@ public class DisplayPreferenceFragment extends PreferenceFragment
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
+		Log.v(LOG_TAG, "Hello");
+
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.notepad_preference_display);
 		sharedPreferences = getPreferenceManager().getSharedPreferences();
+
+		Log.v(LOG_TAG, "Bye");
 	}
 
 	@Override
@@ -51,7 +55,7 @@ public class DisplayPreferenceFragment extends PreferenceFragment
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+		sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
 		super.onPause();
 
 		Log.v(LOG_TAG, "Bye");
@@ -81,73 +85,82 @@ public class DisplayPreferenceFragment extends PreferenceFragment
 
 	private void updateSummary()
 	{
-		String prefKey;
-		String prefValueString;
-		CharSequence summary;
-		ListPreference listPreference;
+		Log.v(LOG_TAG, "Hello");
+		Log.v(LOG_TAG, "isAdded() => " + isAdded());
+		Log.v(LOG_TAG, "isVisible() => " + isVisible());
 
-		// Theme
-		prefKey = getString(R.string.notepad_theme_key);
-		listPreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
-		if (listPreference != null)
+		if (isAdded())
 		{
-			summary = listPreference.getEntry();
-			listPreference.setSummary(summary);
-		}
 
-		// Layout
-		final String noteListLayoutPortKey = getString(R.string.note_list_layout_port_key);
-		final String noteListLayoutLandKey = getString(R.string.note_list_layout_land_key);
+			String prefKey;
+			String prefValueString;
+			CharSequence summary;
+			ListPreference listPreference;
 
-		ListPreference noteListLayoutPortPreference = (ListPreference) getPreferenceScreen().findPreference(noteListLayoutPortKey);
-		Log.v(LOG_TAG, "noteListLayoutPortPreference => " + noteListLayoutPortPreference);
-		if (noteListLayoutPortPreference != null)
-		{
-			final String noteListLayoutPortDefaultValue = getString(R.string.note_list_layout_port_default_value);
-			String noteListLayoutPortValue = sharedPreferences.getString(noteListLayoutPortKey, noteListLayoutPortDefaultValue);
-			Log.v(LOG_TAG, "noteListLayoutPortDefaultValue => " + noteListLayoutPortDefaultValue);
-			summary = getLayoutName(noteListLayoutPortValue);
-			Log.v(LOG_TAG, "summary => " + summary);
-			noteListLayoutPortPreference.setSummary(summary);
-		}
+			// Theme
+			prefKey = getString(R.string.notepad_theme_key);
+			listPreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
+			if (listPreference != null)
+			{
+				summary = listPreference.getEntry();
+				listPreference.setSummary(summary);
+			}
 
-		ListPreference noteListLayoutLandPreference = (ListPreference) getPreferenceScreen().findPreference(noteListLayoutLandKey);
-		if (noteListLayoutLandPreference != null)
-		{
-			final String noteListLayoutLandDefaultValue = getString(R.string.note_list_layout_land_default_value);
-			String noteListLayoutLandValue = sharedPreferences.getString(noteListLayoutLandKey, noteListLayoutLandDefaultValue);
-			summary = getLayoutName(noteListLayoutLandValue);
-			noteListLayoutLandPreference.setSummary(summary);
-		}
+			// Layout
+			final String noteListLayoutPortKey = getString(R.string.note_list_layout_port_key);
+			final String noteListLayoutLandKey = getString(R.string.note_list_layout_land_key);
 
-		// Text Lines in Portrait
-		prefKey = getString(R.string.note_list_item_content_lines_port_key);
-		listPreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
-		if (listPreference != null)
-		{
-			prefValueString = listPreference.getEntry().toString();
-			summary = getString(R.string.note_list_item_content_lines_summary, prefValueString);
-			listPreference.setSummary(summary);
-		}
+			ListPreference noteListLayoutPortPreference = (ListPreference) getPreferenceScreen().findPreference(noteListLayoutPortKey);
+			Log.v(LOG_TAG, "noteListLayoutPortPreference => " + noteListLayoutPortPreference);
+			if (noteListLayoutPortPreference != null)
+			{
+				final String noteListLayoutPortDefaultValue = getString(R.string.note_list_layout_port_default_value);
+				String noteListLayoutPortValue = sharedPreferences.getString(noteListLayoutPortKey, noteListLayoutPortDefaultValue);
+				Log.v(LOG_TAG, "noteListLayoutPortDefaultValue => " + noteListLayoutPortDefaultValue);
+				summary = getLayoutName(noteListLayoutPortValue);
+				Log.v(LOG_TAG, "summary => " + summary);
+				noteListLayoutPortPreference.setSummary(summary);
+			}
 
-		// Text Lines in Landscape
-		prefKey = getString(R.string.note_list_item_content_lines_land_key);
-		listPreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
-		if (listPreference != null)
-		{
-			prefValueString = listPreference.getEntry().toString();
-			summary = getString(R.string.note_list_item_content_lines_summary, prefValueString);
-			listPreference.setSummary(summary);
-		}
+			ListPreference noteListLayoutLandPreference = (ListPreference) getPreferenceScreen().findPreference(noteListLayoutLandKey);
+			if (noteListLayoutLandPreference != null)
+			{
+				final String noteListLayoutLandDefaultValue = getString(R.string.note_list_layout_land_default_value);
+				String noteListLayoutLandValue = sharedPreferences.getString(noteListLayoutLandKey, noteListLayoutLandDefaultValue);
+				summary = getLayoutName(noteListLayoutLandValue);
+				noteListLayoutLandPreference.setSummary(summary);
+			}
 
-		// Sort Order
-		prefKey = getString(R.string.note_list_sort_order_key);
-		listPreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
-		if (listPreference != null)
-		{
-			summary = listPreference.getEntry();
-			listPreference.setSummary(summary);
+			// Text Lines in Portrait
+			prefKey = getString(R.string.note_list_item_content_lines_port_key);
+			listPreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
+			if (listPreference != null)
+			{
+				prefValueString = listPreference.getEntry().toString();
+				summary = getString(R.string.note_list_item_content_lines_summary, prefValueString);
+				listPreference.setSummary(summary);
+			}
+
+			// Text Lines in Landscape
+			prefKey = getString(R.string.note_list_item_content_lines_land_key);
+			listPreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
+			if (listPreference != null)
+			{
+				prefValueString = listPreference.getEntry().toString();
+				summary = getString(R.string.note_list_item_content_lines_summary, prefValueString);
+				listPreference.setSummary(summary);
+			}
+
+			// Sort Order
+			prefKey = getString(R.string.note_list_sort_order_key);
+			listPreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
+			if (listPreference != null)
+			{
+				summary = listPreference.getEntry();
+				listPreference.setSummary(summary);
+			}
 		}
+		Log.v(LOG_TAG, "Hello");
 	}
 
 	private String getLayoutName(String layoutValue)

@@ -84,6 +84,9 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 			case R.id.quit_menuitem:
 				NotepadActivity.quitApplication(this);
 				break;
+			case android.R.id.home:
+				NotepadActivity.goHomeActivity(this);
+				break;
 			default:
 				result = super.onOptionsItemSelected(item);
 		}

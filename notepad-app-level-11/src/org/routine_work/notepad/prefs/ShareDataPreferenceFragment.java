@@ -58,7 +58,7 @@ public class ShareDataPreferenceFragment extends PreferenceFragment
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+		sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
 		super.onPause();
 
 		Log.v(LOG_TAG, "Bye");
