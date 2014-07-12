@@ -27,7 +27,6 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.os.Environment;
 import android.text.format.DateFormat;
-import android.widget.Toast;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -93,7 +92,6 @@ public class BackupDatabaseService extends IntentService
 		{
 			String message = "The external storage is not mounted.";
 			Log.e(LOG_TAG, message + " externalStorageState => " + externalStorageState);
-			Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 		}
 	}
 

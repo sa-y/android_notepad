@@ -72,7 +72,6 @@
 	<!-- Share Data Category -->
 	<string name="share_data_category_title">データ共有</string>
 	<!-- Receive Text -->
-	<string name="receive_text_category_title">テキストの受け取り</string>
 	<string name="receive_text_title">テキストの受け取り</string>
 	<string name="receive_text_summary_on">テキストデータを受け取って新規ノートとして追加できます。</string>
 	<string name="receive_text_summary_off">テキストデータの受け取り機能は無効です。</string>
@@ -87,6 +86,8 @@
 	<string name="backup_data_title">データをバックアップ</string>
 	<string name="backup_data_summary">すべてのノートとテンプレートのデータをバックアップします。</string>
 	<string name="backup_data_confirm_message">すべてのノートとテンプレートが外部ストレージにバックアップされます。</string>
+	<string name="backup_data_completed_message">ノートとテンプレートのバックアップが完了しました。</string>
+	<string name="external_storage_not_mountted">外部ストレージが接続されていません。</string>
 	<!-- Restore Notes -->
 	<string name="restore_data">データを復元</string>
 	<string name="restore_data_title">データを復元</string>

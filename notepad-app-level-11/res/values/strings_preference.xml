@@ -86,6 +86,8 @@
 	<string name="backup_data_title">Backup data</string>
 	<string name="backup_data_summary">All notes and templates are backed up.</string>
 	<string name="backup_data_confirm_message">All notes and templates will be backed up to the external storage.</string>
+	<string name="backup_data_completed_message">All notes and templates were backed up.</string>
+	<string name="external_storage_not_mountted">The external storage is not mounted.</string>
 	<!-- Restore Data -->
 	<string name="restore_data">Restore data</string>
 	<string name="restore_data_title">Restore data</string>

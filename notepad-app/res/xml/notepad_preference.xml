@@ -112,9 +112,9 @@
 
 	<PreferenceScreen 
 		android:key="backup_and_reset_screen"
-		android:title="@string/backup_and_reset"
+		android:title="@string/backup_and_reset_screen_title"
 	>
-		<PreferenceCategory android:title="@string/backup_and_restore" >
+		<PreferenceCategory android:title="@string/backup_and_restore_category_title" >
 			<PreferenceScreen
 				android:title="@string/backup_data_title"
 				android:summary="@string/backup_data_summary"

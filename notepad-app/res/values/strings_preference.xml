@@ -2,8 +2,8 @@
 <!-- This file is made every languages -->
 <resources>
 
-	<string name="preferences">Preferences</string>
-	<string name="preferences_title">Preferences</string>
+	<string name="preferences">Settings</string>
+	<string name="preferences_title">Settings</string>
 
 	<!-- ############################################################ -->
 	<!-- Display Screen -->
@@ -71,14 +71,16 @@
 
 	<!-- ############################################################ -->
 	<!-- Backup and Reset Screen -->
-	<string name="backup_and_reset">Backup &amp; reset</string>
+	<string name="backup_and_reset_screen_title">Backup &amp; reset</string>
 	<!-- Backup and Restore Category -->
-	<string name="backup_and_restore">Backup &amp; restore</string>
+	<string name="backup_and_restore_category_title">Backup &amp; restore</string>
 	<!-- Backup Data -->
 	<string name="backup_data">Backup data</string>
 	<string name="backup_data_title">Backup data</string>
 	<string name="backup_data_summary">All notes and templates are backed up.</string>
 	<string name="backup_data_confirm_message">All notes and templates will be backed up to the external storage.</string>
+	<string name="backup_data_completed_message">All notes and templates were backed up.</string>
+	<string name="external_storage_not_mountted">The external storage is not mounted.</string>
 	<!-- Restore Data -->
 	<string name="restore_data">Restore data</string>
 	<string name="restore_data_title">Restore data</string>

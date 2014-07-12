@@ -71,14 +71,16 @@
 
 	<!-- ############################################################ -->
 	<!-- Backup and Reset Screen -->
-	<string name="backup_and_reset">バックアップとリセット</string>
+	<string name="backup_and_reset_screen_title">バックアップとリセット</string>
 	<!-- Backup and Restore Category -->
-	<string name="backup_and_restore">バックアップと復元</string>
+	<string name="backup_and_restore_category_title">バックアップと復元</string>
 	<!-- Backup Notes -->
 	<string name="backup_data">データをバックアップ</string>
 	<string name="backup_data_title">データをバックアップ</string>
 	<string name="backup_data_summary">すべてのノートとテンプレートのデータをバックアップします。</string>
 	<string name="backup_data_confirm_message">すべてのノートとテンプレートが外部ストレージにバックアップされます。</string>
+	<string name="backup_data_completed_message">ノートとテンプレートのバックアップが完了しました。</string>
+	<string name="external_storage_not_mountted">外部ストレージが接続されていません。</string>
 	<!-- Restore Notes -->
 	<string name="restore_data">データを復元</string>
 	<string name="restore_data_title">データを復元</string>
