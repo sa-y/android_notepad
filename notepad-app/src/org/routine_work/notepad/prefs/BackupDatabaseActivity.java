@@ -24,24 +24,16 @@
 package org.routine_work.notepad.prefs;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.Toast;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.channels.FileChannel;
 import org.routine_work.notepad.R;
-import org.routine_work.notepad.provider.NoteStore;
 
 public class BackupDatabaseActivity extends Activity
-	implements OnClickListener, BackupConstants
+	implements OnClickListener
 {
 
 	private static final String LOG_TAG = "simple-notepad";
@@ -49,6 +41,7 @@ public class BackupDatabaseActivity extends Activity
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
+		Log.v(LOG_TAG, "Hello");
 //		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.backup_database_activity);
@@ -57,6 +50,7 @@ public class BackupDatabaseActivity extends Activity
 		okButton.setOnClickListener(this);
 		Button cancelButton = (Button) findViewById(R.id.cancel_button);
 		cancelButton.setOnClickListener(this);
+		Log.v(LOG_TAG, "Bye");
 	}
 
 	@Override
@@ -66,7 +60,7 @@ public class BackupDatabaseActivity extends Activity
 		switch (id)
 		{
 			case R.id.ok_button:
-				backupDatabaseFile();
+				startBackupDatabaseService();
 				setResult(RESULT_OK);
 				finish();
 				break;
@@ -77,47 +71,13 @@ public class BackupDatabaseActivity extends Activity
 		}
 	}
 
-	private void backupDatabaseFile()
+	private void startBackupDatabaseService()
 	{
-		File databaseFilePath = NoteStore.getNoteDatabasePath(this);
-		Log.d(LOG_TAG, "databaseFilePath => " + databaseFilePath);
+		Log.v(LOG_TAG, "Hello");
 
-		String backupFileName = DateFormat.format(BACKUP_FILE_DATE_FORMAT, System.currentTimeMillis()) + BACKUP_FILE_SUFFIX;
-		File backupDirPath = Environment.getExternalStorageDirectory();
-		backupDirPath = new File(backupDirPath, BACKUP_DIR_NAME);
-		Log.d(LOG_TAG, "backupDirPath => " + backupDirPath);
-		File backupFilePath = new File(backupDirPath, backupFileName);
-		Log.d(LOG_TAG, "backupFilePath => " + backupFilePath);
+		Intent backDatabaseIntent = new Intent(this, BackupDatabaseService.class);
+		startService(backDatabaseIntent);
 
-		String externalStorageState = Environment.getExternalStorageState();
-		if (Environment.MEDIA_MOUNTED.equals(externalStorageState))
-		{
-			try
-			{
-				if (backupDirPath.exists() == false)
-				{
-					Log.i(LOG_TAG, "Create backup directory. backupDirPath => " + backupDirPath);
-					boolean mkdirs = backupDirPath.mkdirs();
-					Log.d(LOG_TAG, "mkdirs => " + mkdirs);
-				}
-
-				Log.i(LOG_TAG, "Backup database " + databaseFilePath + " to " + backupFilePath);
-				FileChannel inputChannel = new FileInputStream(databaseFilePath).getChannel();
-				FileChannel outputChannel = new FileOutputStream(backupFilePath).getChannel();
-				inputChannel.transferTo(0, inputChannel.size(), outputChannel);
-				inputChannel.close();
-				outputChannel.close();
-			}
-			catch (IOException ex)
-			{
-				Log.e(LOG_TAG, "The database file copying is failed.", ex);
-			}
-		}
-		else
-		{
-			String message = "The external storage is not mounted.";
-			Log.e(LOG_TAG, message + "externalStorageState => " + externalStorageState);
-			Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-		}
+		Log.v(LOG_TAG, "Bye");
 	}
 }

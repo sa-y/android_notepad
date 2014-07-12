@@ -239,6 +239,8 @@
 
 		<service android:name=".provider.NoteDBOptimizer" />
 
+		<service android:name=".prefs.BackupDatabaseService" />
+
 		<!-- Provider : Notes & Templates Content Provider  -->
 		<provider
 			android:name=".provider.NoteProvider"
