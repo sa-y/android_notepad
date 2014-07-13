@@ -26,7 +26,9 @@ package org.routine_work.notepad.prefs;
 import android.app.IntentService;
 import android.content.Intent;
 import android.os.Environment;
+import android.os.Handler;
 import android.text.format.DateFormat;
+import android.widget.Toast;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -41,10 +43,12 @@ public class BackupDatabaseService extends IntentService
 {
 
 	private static final String LOG_TAG = "simple-notepad";
+	private Handler handler;
 
 	public BackupDatabaseService(String name)
 	{
 		super(name);
+		handler = new Handler();
 	}
 
 	public BackupDatabaseService()
@@ -83,6 +87,14 @@ public class BackupDatabaseService extends IntentService
 				inputChannel.transferTo(0, inputChannel.size(), outputChannel);
 				inputChannel.close();
 				outputChannel.close();
+				handler.post(new Runnable()
+				{
+
+					public void run()
+					{
+						Toast.makeText(BackupDatabaseService.this, R.string.backup_data_completed_message, Toast.LENGTH_LONG).show();
+					}
+				});
 			}
 			catch (IOException ex)
 			{
@@ -92,6 +104,14 @@ public class BackupDatabaseService extends IntentService
 		else
 		{
 			Log.e(LOG_TAG, "The external storage is not mounted. : externalStorageState => " + externalStorageState);
+			handler.post(new Runnable()
+			{
+
+				public void run()
+				{
+					Toast.makeText(BackupDatabaseService.this, R.string.external_storage_not_mountted, Toast.LENGTH_LONG).show();
+				}
+			});
 		}
 	}
 
