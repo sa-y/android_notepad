@@ -45,6 +45,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
+import java.util.Arrays;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
@@ -59,7 +60,6 @@ public class NoteListFragment extends ListFragment
 {
 
 	private static final String LOG_TAG = "simple-notepad";
-	private boolean narrowLayout = false;
 	private NoteCursorAdapter listAdapter;
 	private Uri contentUri;
 	private NoteControlCallback noteControlCallback;
@@ -67,11 +67,6 @@ public class NoteListFragment extends ListFragment
 	public NoteListFragment()
 	{
 		this.contentUri = NoteStore.Note.CONTENT_URI;
-	}
-
-	public void setNarrowLayout(boolean narrowLayout)
-	{
-		this.narrowLayout = narrowLayout;
 	}
 
 	@Override
@@ -215,7 +210,7 @@ public class NoteListFragment extends ListFragment
 			"1"
 		};
 		String sortOrder = NotepadPreferenceUtils.getNoteListSortOrder(getActivity());
-		Log.d(LOG_TAG, String.format("where => %s, whereArgs => %s, sortOrder => %s", where, whereArgs, sortOrder));
+		Log.d(LOG_TAG, String.format("where => %s, whereArgs => %s, sortOrder => %s", where, Arrays.toString(whereArgs), sortOrder));
 		CursorLoader cursorLoader = new CursorLoader(getActivity(),
 			contentUri, null, where, whereArgs, sortOrder);
 
