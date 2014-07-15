@@ -224,48 +224,49 @@ public class NotepadActivity extends ListActivity
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data)
-	{
-		Log.v(LOG_TAG, "Hello");
-		Log.d(LOG_TAG, "requestCode => " + requestCode);
-		Log.d(LOG_TAG, "resultCode => " + resultCode);
+	/*
+	 @Override
+	 protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	 {
+	 Log.v(LOG_TAG, "Hello");
+	 Log.d(LOG_TAG, "requestCode => " + requestCode);
+	 Log.d(LOG_TAG, "resultCode => " + resultCode);
 
-		switch (requestCode)
-		{
-			case REQUEST_CODE_ADD_NOTE:
-				Log.d(LOG_TAG, "Add new note is done.");
-				if (resultCode == RESULT_OK)
-				{
-					updateContentWithUri(NoteStore.Note.CONTENT_URI);
-				}
-				break;
-			case REQUEST_CODE_EDIT_NOTE:
-				Log.d(LOG_TAG, "Edit note is done.");
-				if (resultCode == RESULT_OK)
-				{
-					updateContentWithUri(NoteStore.Note.CONTENT_URI);
-				}
-				break;
-			case REQUEST_CODE_DELETE_NOTE:
-				Log.d(LOG_TAG, "Edit note is done.");
-				if (resultCode == RESULT_OK)
-				{
-					updateContentWithUri(NoteStore.Note.CONTENT_URI);
-				}
-				break;
-			case REQUEST_CODE_DELETE_NOTES:
-				Log.d(LOG_TAG, "Delete notes is done.");
-				if (resultCode == RESULT_OK)
-				{
-					updateContentWithUri(NoteStore.Note.CONTENT_URI);
-				}
-				break;
-		}
+	 switch (requestCode)
+	 {
+	 case REQUEST_CODE_ADD_NOTE:
+	 Log.d(LOG_TAG, "Add new note is done.");
+	 if (resultCode == RESULT_OK)
+	 {
+	 updateContentWithUri(NoteStore.Note.CONTENT_URI);
+	 }
+	 break;
+	 case REQUEST_CODE_EDIT_NOTE:
+	 Log.d(LOG_TAG, "Edit note is done.");
+	 if (resultCode == RESULT_OK)
+	 {
+	 updateContentWithUri(NoteStore.Note.CONTENT_URI);
+	 }
+	 break;
+	 case REQUEST_CODE_DELETE_NOTE:
+	 Log.d(LOG_TAG, "Delete note is done.");
+	 if (resultCode == RESULT_OK)
+	 {
+	 updateContentWithUri(NoteStore.Note.CONTENT_URI);
+	 }
+	 break;
+	 case REQUEST_CODE_DELETE_NOTES:
+	 Log.d(LOG_TAG, "Delete notes is done.");
+	 if (resultCode == RESULT_OK)
+	 {
+	 updateContentWithUri(NoteStore.Note.CONTENT_URI);
+	 }
+	 break;
+	 }
 
-		Log.v(LOG_TAG, "Bye");
-	}
-
+	 Log.v(LOG_TAG, "Bye");
+	 }
+	 */
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo)
 	{

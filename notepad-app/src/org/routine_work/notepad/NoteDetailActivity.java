@@ -621,7 +621,6 @@ public class NoteDetailActivity extends Activity
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
-		// 蟄舌い繧ｯ繝�ぅ繝薙ユ繧｣繧�FLAG_ACTIVITY_CLEAR_TOP 縺ｧ襍ｷ蜍輔☆繧九°繧峨％縺薙↓縺ｯ譚･縺ｪ縺�
 		Log.v(LOG_TAG, "Hello");
 
 		if (requestCode == REQUEST_CODE_EDIT_NOTE)
