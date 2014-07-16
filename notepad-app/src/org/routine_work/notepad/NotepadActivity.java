@@ -70,6 +70,7 @@ public class NotepadActivity extends ListActivity
 
 	private static final String LOG_TAG = "simple-notepad";
 	private static final String ACTION_QUIT = NotepadConstants.class.getPackage().getName() + ".QUIT";
+	private static final String SAVE_KEY_ACTION_MODE = "ACTION_MODE";
 	private static final int ACTION_MODE_NORMAL = 0;
 	private static final int ACTION_MODE_SEARCH = 1;
 	private static final int DIALOG_ID_NOTE_TEMPLATE_PICKER = 0;
@@ -154,7 +155,14 @@ public class NotepadActivity extends ListActivity
 		listView.setOnItemClickListener(this);
 		registerForContextMenu(listView);
 
-		initializeWithIntent(getIntent());
+		if (savedInstanceState == null)
+		{
+			initializeWithIntent(getIntent());
+		}
+		else
+		{
+			initializeWithSavedInstance(savedInstanceState);
+		}
 
 		if (isFinishing() == false)
 		{
@@ -222,6 +230,17 @@ public class NotepadActivity extends ListActivity
 		super.onDestroy();
 
 		Log.v(LOG_TAG, "Bye");
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState)
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		super.onSaveInstanceState(outState);
+		outState.putInt(SAVE_KEY_ACTION_MODE, actionMode);
+
+		Log.v(LOG_TAG, "bye");
 	}
 
 	/*
@@ -564,6 +583,16 @@ public class NotepadActivity extends ListActivity
 			setActionMode(ACTION_MODE_NORMAL);
 			searchEditText.setText(null);
 		}
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	private void initializeWithSavedInstance(Bundle savedInstanceState)
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		int savedActionMode = savedInstanceState.getInt(SAVE_KEY_ACTION_MODE);
+		setActionMode(savedActionMode);
 
 		Log.v(LOG_TAG, "Bye");
 	}
