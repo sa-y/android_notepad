@@ -163,7 +163,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		Log.v(LOG_TAG, "Hello");
 
 		super.onResume();
-		reloadNoteList(); // Is this need?
+//		reloadNoteList(); // Is this need?
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -240,9 +240,6 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 			case R.id.delete_notes_menuitem:
 				startDeleteNotes();
 				break;
-//			case R.id.search_notes_menuitem:
-//				onSearchRequested();
-//				break;
 			case R.id.templates_menuitem:
 				startTemplateListActivity();
 				break;
@@ -272,7 +269,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		if ((requestCode == REQUEST_CODE_ADD_NOTE)
 			|| (requestCode == REQUEST_CODE_EDIT_NOTE))
 		{
-			reloadNoteList();
+//			reloadNoteList();
 			closeNoteDetailFragment();
 		}
 		else if ((requestCode == REQUEST_CODE_DELETE_NOTE)
@@ -280,7 +277,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		{
 			if (resultCode == RESULT_OK)
 			{
-				reloadNoteList();
+//				reloadNoteList();
 				closeNoteDetailFragment();
 			}
 		}
@@ -353,7 +350,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		setEnableDetailView(true);
+		setDetailViewEnabled(true);
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -363,7 +360,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		setEnableDetailView(false);
+		setDetailViewEnabled(false);
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -546,7 +543,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void setEnableDetailView(boolean detailViewEnabled)
+	private void setDetailViewEnabled(boolean detailViewEnabled)
 	{
 		int listVisibility = View.VISIBLE;
 		int detailVisibility = View.GONE;
