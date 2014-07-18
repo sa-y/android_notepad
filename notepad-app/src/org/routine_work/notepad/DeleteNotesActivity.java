@@ -35,6 +35,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
@@ -159,7 +160,8 @@ public class DeleteNotesActivity extends ListActivity
 			"1"
 		};
 		String sortOrder = NotepadPreferenceUtils.getNoteListSortOrder(this);
-		Log.d(LOG_TAG, String.format("where => %s, whereArgs => %s, sortOrder => %s", where, whereArgs, sortOrder));
+		Log.d(LOG_TAG, String.format("where => %s, whereArgs => %s, sortOrder => %s",
+			where, Arrays.toString(whereArgs), sortOrder));
 		ContentResolver cr = getContentResolver();
 		Cursor newCursor = cr.query(NoteStore.Note.CONTENT_URI, null,
 			where, whereArgs, sortOrder);

@@ -163,7 +163,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		Log.v(LOG_TAG, "Hello");
 
 		super.onResume();
-		reloadNoteList();
+		reloadNoteList(); // Is this need?
 
 		Log.v(LOG_TAG, "Bye");
 	}
