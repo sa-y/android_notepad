@@ -169,14 +169,10 @@ public class NoteUtils implements NotepadConstants
 				String title = expandTemplate(titleTemplate, templateContextMap);
 				String content = expandTemplate(contentTemplate, templateContextMap);
 
-				Uri noteUri;
+				Uri noteUri = null;
 				if (editSameTitle)
 				{
 					noteUri = searchNoteByTitle(context, title);
-				}
-				else
-				{
-					noteUri = null;
 				}
 				Log.d(LOG_TAG, "noteUri => " + noteUri);
 
@@ -226,10 +222,13 @@ public class NoteUtils implements NotepadConstants
 		if (!TextUtils.isEmpty(title))
 		{
 			ContentResolver contentResolver = context.getContentResolver();
-			final String selection = NoteStore.Note.Columns.TITLE + " = ? ";
+			final String selection = NoteStore.Note.Columns.TITLE + " = ? "
+				+ " AND "
+				+ NoteStore.Note.Columns.ENABLED + " = ? ";
 			final String[] selectionArgs = new String[]
 			{
-				title
+				title,
+				"1"
 			};
 			Cursor cursor = contentResolver.query(NoteStore.Note.CONTENT_URI, null,
 				selection, selectionArgs, null);
