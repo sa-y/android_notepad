@@ -123,9 +123,12 @@ public class NoteProvider extends ContentProvider
 				Log.d(LOG_TAG, "*SEARCH_BY_WORD");
 				String queryPhrase = uri.getLastPathSegment();
 				Log.d(LOG_TAG, "queryPhrase => " + queryPhrase);
+				setUpQueryByEnabled(qb, true);
+				qb.appendWhere(" AND ");
 				setUpQueryByPhrase(qb, queryPhrase);
 				break;
 			case NOTES_SUGGEST_SEARCH_ALL:
+				setUpQueryByEnabled(qb, true);
 				break;
 			case NOTES_ITEM_ALL:
 				Log.d(LOG_TAG, "*SEARCH_BY_WORD");
@@ -134,12 +137,12 @@ public class NoteProvider extends ContentProvider
 				setUpQueryByPhrase(qb, q);
 				break;
 			case NOTES_ITEM_BY_ID:
-				qb.appendWhere(Note.Columns._ID + "=" + uri.getPathSegments().get(1));
+				setUpQueryByNoteId(qb, uri.getPathSegments().get(1));
 				break;
 			case NOTE_TEMPLATES_ITEM_ALL:
 				break;
 			case NOTE_TEMPLATES_ITEM_BY_ID:
-				qb.appendWhere(NoteTemplate.Columns._ID + "=" + uri.getPathSegments().get(1));
+				setUpQueryByNoteTemplateId(qb, uri.getPathSegments().get(1));
 				break;
 			default:
 				throw new IllegalArgumentException("Unsupported URI: " + uri);
@@ -437,6 +440,30 @@ public class NoteProvider extends ContentProvider
 				}
 			}
 		}
+	}
+
+	private static void setUpQueryByEnabled(SQLiteQueryBuilder queryBuilder, boolean enabled)
+	{
+		queryBuilder.appendWhere("(");
+		queryBuilder.appendWhere(Note.Columns.ENABLED + " = ");
+		queryBuilder.appendWhereEscapeString(enabled ? "1" : "0");
+		queryBuilder.appendWhere(")");
+	}
+
+	private void setUpQueryByNoteId(SQLiteQueryBuilder queryBuilder, String id)
+	{
+		queryBuilder.appendWhere("(");
+		queryBuilder.appendWhere(Note.Columns._ID + " = ");
+		queryBuilder.appendWhereEscapeString(id);
+		queryBuilder.appendWhere(")");
+	}
+
+	private void setUpQueryByNoteTemplateId(SQLiteQueryBuilder queryBuilder, String templateId)
+	{
+		queryBuilder.appendWhere("(");
+		queryBuilder.appendWhere(NoteTemplate.Columns._ID + " = ");
+		queryBuilder.appendWhereEscapeString(templateId);
+		queryBuilder.appendWhere(")");
 	}
 
 }

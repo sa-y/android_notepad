@@ -3,10 +3,14 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:label="@string/search_note_label"
 	android:hint="@string/search_note_hint"
+	android:inputType="text"
+	android:imeOptions="actionSearch"
 	android:searchSuggestAuthority="org.routine_work.notepad.noteprovider"
 	android:searchSuggestIntentAction="android.intent.action.VIEW"
 	android:includeInGlobalSearch="true"
 	android:searchSettingsDescription="@string/search_note_description"
+	android:queryAfterZeroResults="true"
+	android:voiceSearchMode="showVoiceSearchButton|launchRecognizer"
 />
 
 <!--
