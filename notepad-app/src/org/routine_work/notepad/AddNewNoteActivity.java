@@ -62,7 +62,7 @@ public class AddNewNoteActivity extends Activity implements NotepadConstants
 		// create note or select template
 		if (noteTemplateUri != null)
 		{
-			NoteUtils.startActivityForAddNewNoteWithTemplate(this, noteTemplateUri);
+			NoteUtils.startActivityToAddNewNoteWithTemplate(this, noteTemplateUri);
 			finish();
 		}
 		else
@@ -75,12 +75,12 @@ public class AddNewNoteActivity extends Activity implements NotepadConstants
 			}
 			else if (noteTemplateCount == 1)
 			{
-				NoteUtils.startActivityForAddNewNoteWithFirstTemplate(this);
+				NoteUtils.startActivityToAddNewNoteWithFirstTemplate(this);
 				finish();
 			}
 			else
 			{
-				NoteUtils.startActivityForAddNewBlankNote(this);
+				NoteUtils.startActivityToAddNewBlankNote(this);
 				finish();
 			}
 		}
@@ -95,7 +95,7 @@ public class AddNewNoteActivity extends Activity implements NotepadConstants
 			if (resultCode == RESULT_OK)
 			{
 				Uri noteTemplateUri = data.getData();
-				NoteUtils.startActivityForAddNewNoteWithTemplate(this, noteTemplateUri);
+				NoteUtils.startActivityToAddNewNoteWithTemplate(this, noteTemplateUri);
 			}
 			setResult(resultCode);
 			finish();

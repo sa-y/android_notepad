@@ -81,7 +81,7 @@ public class NoteTemplatePickerDialog extends Dialog
 		Log.v(LOG_TAG, "Hello");
 		if (parent == listView)
 		{
-			NoteUtils.startActivityForAddNewNoteWithTemplate(getContext(), id);
+			NoteUtils.startActivityToAddNewNoteWithTemplate(getOwnerActivity(), id);
 			dismiss();
 		}
 		Log.v(LOG_TAG, "Bye");

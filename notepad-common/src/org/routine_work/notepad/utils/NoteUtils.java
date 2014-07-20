@@ -93,44 +93,25 @@ public class NoteUtils implements NotepadConstants
 	 * Start NoteDetailActivity for editing new blank note.
 	 *
 	 * @param activity
-	 * @param requestCode
 	 */
-	public static void startNoteDetailActivityForResult(Activity activity, int requestCode)
+	public static void startActivityToAddNewBlankNote(Activity activity)
 	{
 		Log.v(LOG_TAG, "Hello");
 
 		Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		activity.startActivityForResult(intent, requestCode);
+		activity.startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
 
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	/**
-	 * Start NoteDetailActivity without note template
-	 *
-	 * Start NoteDetailActivity for editing new blank note.
-	 *
-	 * @param context
-	 */
-	public static void startActivityForAddNewBlankNote(Context context)
-	{
-		Log.v(LOG_TAG, "Hello");
-
-		Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
-		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		context.startActivity(intent);
-
-		Log.v(LOG_TAG, "Bye");
-	}
-
-	public static void startActivityForAddNewNoteWithTemplate(Context context, long noteTemplateId)
+	public static void startActivityToAddNewNoteWithTemplate(Activity activity, long noteTemplateId)
 	{
 		Uri noteTemplateUri = ContentUris.withAppendedId(NoteStore.NoteTemplate.CONTENT_URI, noteTemplateId);
-		NoteUtils.startActivityForAddNewNoteWithTemplate(context, noteTemplateUri);
+		NoteUtils.startActivityToAddNewNoteWithTemplate(activity, noteTemplateUri);
 	}
 
-	public static void startActivityForAddNewNoteWithTemplate(Context context, Uri noteTemplateUri)
+	public static void startActivityToAddNewNoteWithTemplate(Activity activity, Uri noteTemplateUri)
 	{
 		Log.v(LOG_TAG, "Hello");
 
@@ -145,7 +126,7 @@ public class NoteUtils implements NotepadConstants
 			};
 		}
 
-		Cursor cursor = context.getContentResolver().query(noteTemplateUri,
+		Cursor cursor = activity.getContentResolver().query(noteTemplateUri,
 			null, where, whereArgs, null);
 		try
 		{
@@ -163,8 +144,8 @@ public class NoteUtils implements NotepadConstants
 
 				Map<String, String> templateContextMap = new HashMap<String, String>();
 				Date now = new Date();
-				templateContextMap.put("date", DateFormat.getDateFormat(context).format(now));
-				templateContextMap.put("time", DateFormat.getTimeFormat(context).format(now));
+				templateContextMap.put("date", DateFormat.getDateFormat(activity).format(now));
+				templateContextMap.put("time", DateFormat.getTimeFormat(activity).format(now));
 
 				String title = expandTemplate(titleTemplate, templateContextMap);
 				String content = expandTemplate(contentTemplate, templateContextMap);
@@ -172,7 +153,7 @@ public class NoteUtils implements NotepadConstants
 				Uri noteUri = null;
 				if (editSameTitle)
 				{
-					noteUri = searchNoteByTitle(context, title);
+					noteUri = searchNoteByTitle(activity, title);
 				}
 				Log.d(LOG_TAG, "noteUri => " + noteUri);
 
@@ -183,7 +164,7 @@ public class NoteUtils implements NotepadConstants
 					Intent intent = new Intent(Intent.ACTION_EDIT, noteUri);
 					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					intent.putExtra(EXTRA_TEXT, content);
-					context.startActivity(intent);
+					activity.startActivityForResult(intent, REQUEST_CODE_EDIT_NOTE);
 				}
 				else
 				{
@@ -194,7 +175,7 @@ public class NoteUtils implements NotepadConstants
 					intent.putExtra(EXTRA_TITLE, title);
 					intent.putExtra(EXTRA_TEXT, content);
 					intent.putExtra(EXTRA_TITLE_LOCKED, titleLocked);
-					context.startActivity(intent);
+					activity.startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
 				}
 			}
 		}
@@ -208,9 +189,9 @@ public class NoteUtils implements NotepadConstants
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	public static void startActivityForAddNewNoteWithFirstTemplate(Context context)
+	public static void startActivityToAddNewNoteWithFirstTemplate(Activity activity)
 	{
-		NoteUtils.startActivityForAddNewNoteWithTemplate(context, NoteStore.NoteTemplate.CONTENT_URI);
+		NoteUtils.startActivityToAddNewNoteWithTemplate(activity, NoteStore.NoteTemplate.CONTENT_URI);
 	}
 
 	public static Uri searchNoteByTitle(Context context, String title)

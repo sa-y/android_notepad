@@ -420,11 +420,11 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		}
 		else if (noteTemplateCount == 1)
 		{
-			NoteUtils.startActivityForAddNewNoteWithFirstTemplate(this);
+			NoteUtils.startActivityToAddNewNoteWithFirstTemplate(this);
 		}
 		else
 		{
-			NoteUtils.startNoteDetailActivityForResult(this, REQUEST_CODE_ADD_NOTE);
+			NoteUtils.startActivityToAddNewBlankNote(this);
 		}
 
 		Log.v(LOG_TAG, "Bye");

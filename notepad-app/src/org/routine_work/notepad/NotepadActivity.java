@@ -608,11 +608,11 @@ public class NotepadActivity extends ListActivity
 		}
 		else if (noteTemplateCount == 1)
 		{
-			NoteUtils.startActivityForAddNewNoteWithFirstTemplate(this);
+			NoteUtils.startActivityToAddNewNoteWithFirstTemplate(this);
 		}
 		else if (noteTemplateCount == 0)
 		{
-			NoteUtils.startActivityForAddNewBlankNote(this);
+			NoteUtils.startActivityToAddNewBlankNote(this);
 		}
 
 		Log.v(LOG_TAG, "Bye");

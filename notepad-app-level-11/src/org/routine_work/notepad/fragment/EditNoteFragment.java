@@ -127,7 +127,6 @@ public class EditNoteFragment extends Fragment
 			}
 		}
 
-
 		Log.v(LOG_TAG, "Bye");
 	}
 
@@ -436,7 +435,6 @@ public class EditNoteFragment extends Fragment
 		Log.v(LOG_TAG, "Hello");
 
 //		setNoteContents("", "", false);
-
 		Log.v(LOG_TAG, "Bye");
 	}
 	// END ---------- LoaderManager.LoaderCallbacks<Cursor> ----------
@@ -602,7 +600,6 @@ public class EditNoteFragment extends Fragment
 
 //		Intent intent = new Intent(getActivity(), AddNewNoteActivity.class);
 //		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
-
 		saveNote();
 
 		int noteTemplateCount = NoteStore.getNoteTemplateCount(getActivity().getContentResolver());
@@ -614,11 +611,11 @@ public class EditNoteFragment extends Fragment
 		}
 		else if (noteTemplateCount == 1)
 		{
-			NoteUtils.startActivityForAddNewNoteWithFirstTemplate(getActivity());
+			NoteUtils.startActivityToAddNewNoteWithFirstTemplate(getActivity());
 		}
 		else
 		{
-			NoteUtils.startNoteDetailActivityForResult(getActivity(), REQUEST_CODE_ADD_NOTE);
+			NoteUtils.startActivityToAddNewBlankNote(getActivity());
 		}
 
 		Log.v(LOG_TAG, "Bye");
