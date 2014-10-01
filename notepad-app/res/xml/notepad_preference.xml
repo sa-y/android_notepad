@@ -16,23 +16,6 @@
 			/>
 		</PreferenceCategory>
 
-		<PreferenceCategory android:title="@string/actionbar_category_title" >
-			<CheckBoxPreference
-				android:key="@string/actionbar_auto_hide_port_key"
-				android:defaultValue="@bool/actionbar_auto_hide_port_default_value"
-				android:title="@string/actionbar_auto_hide_port_title"
-				android:summaryOn="@string/actionbar_auto_hide_summary_on"
-				android:summaryOff="@string/actionbar_auto_hide_summary_off"
-			/>
-			<CheckBoxPreference
-				android:key="@string/actionbar_auto_hide_land_key"
-				android:defaultValue="@bool/actionbar_auto_hide_land_default_value"
-				android:title="@string/actionbar_auto_hide_land_title"
-				android:summaryOn="@string/actionbar_auto_hide_summary_on"
-				android:summaryOff="@string/actionbar_auto_hide_summary_off"
-			/>
-		</PreferenceCategory>
-
 		<PreferenceCategory android:title="@string/note_list_category_title" >
 			<CheckBoxPreference
 				android:key="@string/note_list_item_modified_time_visibility_port_key"
@@ -94,20 +77,37 @@
 			/>
 		</PreferenceCategory>
 
-		<PreferenceCategory android:title="@string/edit_note_category_title" >
+		<PreferenceCategory android:title="@string/actionbar_category_title" >
 			<CheckBoxPreference
-				android:key="@string/edit_note_title_capitalization_key"
-				android:defaultValue="@bool/edit_note_title_capitalization_default_value"
-				android:title="@string/edit_note_title_capitalization_title"
-				android:summaryOn="@string/edit_note_title_capitalization_summary_on"
-				android:summaryOff="@string/edit_note_title_capitalization_summary_off"
+				android:key="@string/actionbar_auto_hide_port_key"
+				android:defaultValue="@bool/actionbar_auto_hide_port_default_value"
+				android:title="@string/actionbar_auto_hide_port_title"
+				android:summaryOn="@string/actionbar_auto_hide_summary_on"
+				android:summaryOff="@string/actionbar_auto_hide_summary_off"
 			/>
 			<CheckBoxPreference
-				android:key="@string/edit_note_content_capitalization_key"
-				android:defaultValue="@bool/edit_note_content_capitalization_default_value"
-				android:title="@string/edit_note_content_capitalization_title"
-				android:summaryOn="@string/edit_note_content_capitalization_summary_on"
-				android:summaryOff="@string/edit_note_content_capitalization_summary_off"
+				android:key="@string/actionbar_auto_hide_land_key"
+				android:defaultValue="@bool/actionbar_auto_hide_land_default_value"
+				android:title="@string/actionbar_auto_hide_land_title"
+				android:summaryOn="@string/actionbar_auto_hide_summary_on"
+				android:summaryOff="@string/actionbar_auto_hide_summary_off"
+			/>
+		</PreferenceCategory>
+
+		<PreferenceCategory android:title="@string/capitalization_category_title" >
+			<CheckBoxPreference
+				android:key="@string/capitalization_title_key"
+				android:defaultValue="@bool/capitalization_title_default_value"
+				android:title="@string/capitalization_title_title"
+				android:summaryOn="@string/capitalization_title_summary_on"
+				android:summaryOff="@string/capitalization_title_summary_off"
+			/>
+			<CheckBoxPreference
+				android:key="@string/capitalization_content_key"
+				android:defaultValue="@bool/capitalization_content_default_value"
+				android:title="@string/capitalization_content_title"
+				android:summaryOn="@string/capitalization_content_summary_on"
+				android:summaryOff="@string/capitalization_content_summary_off"
 			/>
 		</PreferenceCategory>
 	</PreferenceScreen>

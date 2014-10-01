@@ -252,8 +252,8 @@ public class NotepadPreferenceUtils
 
 		SharedPreferences sharedPreferences = getSharedPreferences(context);
 		Resources resources = context.getResources();
-		String key = resources.getString(R.string.edit_note_title_capitalization_key);
-		boolean defaultValue = resources.getBoolean(R.bool.edit_note_title_capitalization_default_value);
+		String key = resources.getString(R.string.capitalization_title_key);
+		boolean defaultValue = resources.getBoolean(R.bool.capitalization_title_default_value);
 		noteTitleCapitalization = sharedPreferences.getBoolean(key, defaultValue);
 
 		Log.d(LOG_TAG, "noteTitleCapitalization => " + noteTitleCapitalization);
@@ -268,8 +268,8 @@ public class NotepadPreferenceUtils
 
 		SharedPreferences sharedPreferences = getSharedPreferences(context);
 		Resources resources = context.getResources();
-		String key = resources.getString(R.string.edit_note_content_capitalization_key);
-		boolean defaultValue = resources.getBoolean(R.bool.edit_note_content_capitalization_default_value);
+		String key = resources.getString(R.string.capitalization_content_key);
+		boolean defaultValue = resources.getBoolean(R.bool.capitalization_content_default_value);
 		noteContentCapitalization = sharedPreferences.getBoolean(key, defaultValue);
 
 		Log.d(LOG_TAG, "noteContentCapitalization => " + noteContentCapitalization);
