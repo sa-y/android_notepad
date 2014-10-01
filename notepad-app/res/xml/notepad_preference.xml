@@ -93,6 +93,23 @@
 				android:summaryOff="@string/note_content_autolink_summary_off"
 			/>
 		</PreferenceCategory>
+
+		<PreferenceCategory android:title="@string/edit_note_category_title" >
+			<CheckBoxPreference
+				android:key="@string/edit_note_title_capitalization_key"
+				android:defaultValue="@bool/edit_note_title_capitalization_default_value"
+				android:title="@string/edit_note_title_capitalization_title"
+				android:summaryOn="@string/edit_note_title_capitalization_summary_on"
+				android:summaryOff="@string/edit_note_title_capitalization_summary_off"
+			/>
+			<CheckBoxPreference
+				android:key="@string/edit_note_content_capitalization_key"
+				android:defaultValue="@bool/edit_note_content_capitalization_default_value"
+				android:title="@string/edit_note_content_capitalization_title"
+				android:summaryOn="@string/edit_note_content_capitalization_summary_on"
+				android:summaryOff="@string/edit_note_content_capitalization_summary_off"
+			/>
+		</PreferenceCategory>
 	</PreferenceScreen>
 
 	<PreferenceScreen 

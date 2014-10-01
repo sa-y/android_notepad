@@ -245,6 +245,38 @@ public class NotepadPreferenceUtils
 		return noteContentAutoLink;
 	}
 
+	public static boolean getNoteTitleCapitalization(Context context)
+	{
+		boolean noteTitleCapitalization;
+		Log.v(LOG_TAG, "Hello");
+
+		SharedPreferences sharedPreferences = getSharedPreferences(context);
+		Resources resources = context.getResources();
+		String key = resources.getString(R.string.edit_note_title_capitalization_key);
+		boolean defaultValue = resources.getBoolean(R.bool.edit_note_title_capitalization_default_value);
+		noteTitleCapitalization = sharedPreferences.getBoolean(key, defaultValue);
+
+		Log.d(LOG_TAG, "noteTitleCapitalization => " + noteTitleCapitalization);
+		Log.v(LOG_TAG, "Bye");
+		return noteTitleCapitalization;
+	}
+
+	public static boolean getNoteContentCapitalization(Context context)
+	{
+		boolean noteContentCapitalization;
+		Log.v(LOG_TAG, "Hello");
+
+		SharedPreferences sharedPreferences = getSharedPreferences(context);
+		Resources resources = context.getResources();
+		String key = resources.getString(R.string.edit_note_content_capitalization_key);
+		boolean defaultValue = resources.getBoolean(R.bool.edit_note_content_capitalization_default_value);
+		noteContentCapitalization = sharedPreferences.getBoolean(key, defaultValue);
+
+		Log.d(LOG_TAG, "noteContentCapitalization => " + noteContentCapitalization);
+		Log.v(LOG_TAG, "Bye");
+		return noteContentCapitalization;
+	}
+
 	public static int incrementQuitCount(Context context)
 	{
 		final String QUIT_COUNT_KEY = "QUIT_COUNT";

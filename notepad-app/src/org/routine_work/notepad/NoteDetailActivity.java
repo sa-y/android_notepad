@@ -35,6 +35,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.ClipboardManager;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.util.Linkify;
 import android.view.*;
@@ -252,6 +253,20 @@ public class NoteDetailActivity extends Activity
 		Log.d(LOG_TAG, "noteTitleEditText.text => " + noteTitleEditText.getText().toString());
 		Log.d(LOG_TAG, "noteContentEditText.text => " + noteContentEditText.getText().toString());
 		Log.d(LOG_TAG, "------------------------------------------------------------");
+
+		int noteTitleInputType = InputType.TYPE_CLASS_TEXT;
+		if (NotepadPreferenceUtils.getNoteTitleCapitalization(this))
+		{
+			noteTitleInputType |= InputType.TYPE_TEXT_FLAG_CAP_SENTENCES;
+		}
+		noteTitleEditText.setInputType(noteTitleInputType);
+
+		int noteContentInputType = InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE;
+		if (NotepadPreferenceUtils.getNoteContentCapitalization(this))
+		{
+			noteContentInputType |= InputType.TYPE_TEXT_FLAG_CAP_SENTENCES;
+		}
+		noteContentEditText.setInputType(noteContentInputType);
 
 		Log.v(LOG_TAG, "Bye");
 	}

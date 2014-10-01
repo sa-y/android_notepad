@@ -50,6 +50,17 @@
 	<string name="note_content_autolink_summary_on">The URL and the E-mail in the text are linked automatically.</string>
 	<string name="note_content_autolink_summary_off">The URL and the E-mail in the text are not linked.</string>
 
+	<!-- Edit Note Category -->
+	<string name="edit_note_category_title">Edit Note</string>
+	<!-- Edit Note : Title Capitalization -->
+	<string name="edit_note_title_capitalization_title">Title Capitalization</string>
+	<string name="edit_note_title_capitalization_summary_on">The capitalization of the title is enabled.</string>
+	<string name="edit_note_title_capitalization_summary_off">The capitalization of the title is disabled.</string>
+	<!-- Edit Note : Content Capitalization -->
+	<string name="edit_note_content_capitalization_title">Content Capitalization</string>
+	<string name="edit_note_content_capitalization_summary_on">The capitalization of the content is enabled.</string>
+	<string name="edit_note_content_capitalization_summary_off">The capitalization of the content is disabled.</string>
+
 	<!-- ActionBar Category -->
 	<string name="actionbar_category_title">Action bar</string>
 	<!-- ActionBar : Auto Hide -->
