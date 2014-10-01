@@ -154,6 +154,22 @@ public class NoteDetailActivity extends Activity
 		noteContentEditText.setOnFocusChangeListener(this);
 		noteContentEditText.setOnClickListener(this);
 
+		// Update capitalization mode of the note title 
+		int noteTitleInputType = InputType.TYPE_CLASS_TEXT;
+		if (NotepadPreferenceUtils.getNoteTitleCapitalization(this))
+		{
+			noteTitleInputType |= InputType.TYPE_TEXT_FLAG_CAP_SENTENCES;
+		}
+		noteTitleEditText.setInputType(noteTitleInputType);
+
+		// Update capitalization mode of the note content 
+		int noteContentInputType = InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE;
+		if (NotepadPreferenceUtils.getNoteContentCapitalization(this))
+		{
+			noteContentInputType |= InputType.TYPE_TEXT_FLAG_CAP_SENTENCES;
+		}
+		noteContentEditText.setInputType(noteContentInputType);
+
 		// View Mode
 		noteViewContainer = (ViewGroup) findViewById(R.id.note_view_container);
 		noteTitleTextView = (TextView) findViewById(R.id.note_title_textview);
@@ -253,20 +269,6 @@ public class NoteDetailActivity extends Activity
 		Log.d(LOG_TAG, "noteTitleEditText.text => " + noteTitleEditText.getText().toString());
 		Log.d(LOG_TAG, "noteContentEditText.text => " + noteContentEditText.getText().toString());
 		Log.d(LOG_TAG, "------------------------------------------------------------");
-
-		int noteTitleInputType = InputType.TYPE_CLASS_TEXT;
-		if (NotepadPreferenceUtils.getNoteTitleCapitalization(this))
-		{
-			noteTitleInputType |= InputType.TYPE_TEXT_FLAG_CAP_SENTENCES;
-		}
-		noteTitleEditText.setInputType(noteTitleInputType);
-
-		int noteContentInputType = InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE;
-		if (NotepadPreferenceUtils.getNoteContentCapitalization(this))
-		{
-			noteContentInputType |= InputType.TYPE_TEXT_FLAG_CAP_SENTENCES;
-		}
-		noteContentEditText.setInputType(noteContentInputType);
 
 		Log.v(LOG_TAG, "Bye");
 	}
