@@ -15,14 +15,6 @@
 	<string name="dark_theme">暗いテーマ</string>
 	<string name="light_theme">明るいテーマ</string>
 
-	<!-- ActionBar Category -->
-	<string name="actionbar_category_title">アクションバー</string>
-	<!-- ActionBar : Auto Hide -->
-	<string name="actionbar_auto_hide_port_title">自動非表示（縦画面）</string>
-	<string name="actionbar_auto_hide_land_title">自動非表示（横画面）</string>
-	<string name="actionbar_auto_hide_summary_on">ノート編集時にアクションバーを自動的に非表示にします。</string>
-	<string name="actionbar_auto_hide_summary_off">ノート編集時にアクションバーを常に表示します。</string>
-
 	<!-- Layout Category -->
 	<string name="layout_category_title">配置</string>
 	<!-- Layout : Note List -->
@@ -65,6 +57,26 @@
 	<string name="note_content_autolink_title">本文内の自動リンク</string>
 	<string name="note_content_autolink_summary_on">ノートの本文内のURLやメールアドレスを自動的にリンクにします。</string>
 	<string name="note_content_autolink_summary_off">ノートの本文内のURLやメールアドレスをリンクにしません。</string>
+
+	<!-- ActionBar Category -->
+	<string name="actionbar_category_title">アクションバー</string>
+	<!-- ActionBar : Auto Hide -->
+	<string name="actionbar_auto_hide_port_title">自動非表示（縦画面）</string>
+	<string name="actionbar_auto_hide_land_title">自動非表示（横画面）</string>
+	<string name="actionbar_auto_hide_summary_on">ノート編集時にアクションバーを自動的に非表示にします。</string>
+	<string name="actionbar_auto_hide_summary_off">ノート編集時にアクションバーを常に表示します。</string>
+
+	<!-- Capitalization Category -->
+	<string name="capitalization_category_title">大文字化</string>
+	<!-- Capitalization : Note Title -->
+	<string name="capitalization_title_title">タイトルの大文字化</string>
+	<string name="capitalization_title_summary_on">タイトルの最初の文字を大文字にします。</string>
+	<string name="capitalization_title_summary_off">タイトルの最初の文字を大文字にしません。</string>
+	<!-- Capitalization : Note Content -->
+	<string name="capitalization_content_title">本文の大文字化</string>
+	<string name="capitalization_content_summary_on">文の最初の文字を大文字にします。</string>
+	<string name="capitalization_content_summary_off">文の最初の文字を大文字にしません。</string>
+
 
 	<!-- ############################################################ -->
 	<!-- Share Data Screen -->

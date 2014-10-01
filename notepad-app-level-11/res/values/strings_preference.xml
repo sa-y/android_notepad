@@ -15,14 +15,6 @@
 	<string name="dark_theme">Dark theme</string>
 	<string name="light_theme">Light theme</string>
 
-	<!-- ActionBar Category -->
-	<string name="actionbar_category_title">Action bar</string>
-	<!-- ActionBar : Auto Hide -->
-	<string name="actionbar_auto_hide_port_title">Auto hide in portrait</string>
-	<string name="actionbar_auto_hide_land_title">Auto hide in landscape</string>
-	<string name="actionbar_auto_hide_summary_on">The action bar is hidden during editing note automatically.</string>
-	<string name="actionbar_auto_hide_summary_off">The action bar is always displayed during note editing.</string>
-
 	<!-- Layout Category -->
 	<string name="layout_category_title">Layout</string>
 	<!-- Layout : Note List -->
@@ -65,6 +57,26 @@
 	<string name="note_content_autolink_title">Auto link in text</string>
 	<string name="note_content_autolink_summary_on">The URL and the E-mail in the text are linked automatically.</string>
 	<string name="note_content_autolink_summary_off">The URL and the E-mail in the text are not linked.</string>
+
+	<!-- ActionBar Category -->
+	<string name="actionbar_category_title">Action bar</string>
+	<!-- ActionBar : Auto Hide -->
+	<string name="actionbar_auto_hide_port_title">Auto hide in portrait</string>
+	<string name="actionbar_auto_hide_land_title">Auto hide in landscape</string>
+	<string name="actionbar_auto_hide_summary_on">The action bar is hidden during editing note automatically.</string>
+	<string name="actionbar_auto_hide_summary_off">The action bar is always displayed during note editing.</string>
+
+	<!-- Capitalization Category -->
+	<string name="capitalization_category_title">Capitalization</string>
+	<!-- Capitalization : Note Title -->
+	<string name="capitalization_title_title">Title Capitalization</string>
+	<string name="capitalization_title_summary_on">The capitalization of the title is enabled.</string>
+	<string name="capitalization_title_summary_off">The capitalization of the title is disabled.</string>
+	<!-- Capitalization : Note Content -->
+	<string name="capitalization_content_title">Content Capitalization</string>
+	<string name="capitalization_content_summary_on">The capitalization of the content is enabled.</string>
+	<string name="capitalization_content_summary_off">The capitalization of the content is disabled.</string>
+
 
 	<!-- ############################################################ -->
 	<!-- Share Data Screen -->

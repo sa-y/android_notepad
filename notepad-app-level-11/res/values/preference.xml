@@ -16,10 +16,6 @@
 		<item>@string/notepad_theme_light_value</item>
 	</string-array>
 
-	<!-- ActionBar -->
-	<string name="actionbar_auto_hide_port_key" >actionbar_auto_hide_port</string>
-	<string name="actionbar_auto_hide_land_key" >actionbar_auto_hide_land</string>
-
 	<!-- Layout -->
 	<string name="note_list_layout_port_key" >note_list_layout_port</string>
 	<string name="note_list_layout_land_key" >note_list_layout_land</string>
@@ -92,6 +88,20 @@
 	<!-- Auto Link : Note Content -->
 	<string name="note_content_autolink_key" >note_content_autolink</string>
 	<bool name="note_content_autolink_default_value" >true</bool>
+
+	<!-- ActionBar Category -->
+	<!-- ActionBar : Portlaint -->
+	<string name="actionbar_auto_hide_port_key" >actionbar_auto_hide_port</string>
+	<!-- ActionBar : Landscape -->
+	<string name="actionbar_auto_hide_land_key" >actionbar_auto_hide_land</string>
+
+	<!-- Capitalization Category -->
+	<!-- Capitalization : Note Title -->
+	<string name="capitalization_title_key" >capitalization_title</string>
+	<bool name="capitalization_title_default_value" >false</bool>
+	<!-- Capitalization : Note Content -->
+	<string name="capitalization_content_key" >capitalization_content</string>
+	<bool name="capitalization_content_default_value" >false</bool>
 
 	<!-- Share Data Category -->
 	<!-- Share Data : Receive Text -->

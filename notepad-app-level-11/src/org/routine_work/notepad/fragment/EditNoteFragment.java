@@ -34,12 +34,12 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -161,6 +161,22 @@ public class EditNoteFragment extends Fragment
 
 		noteTitleLockImageButton.setOnClickListener(this);
 		noteTitleUnlockImageButton.setOnClickListener(this);
+
+		// Update capitalization mode of the note title 
+		int noteTitleInputType = InputType.TYPE_CLASS_TEXT;
+		if (NotepadPreferenceUtils.getNoteTitleCapitalization(this.getActivity()))
+		{
+			noteTitleInputType |= InputType.TYPE_TEXT_FLAG_CAP_SENTENCES;
+		}
+		noteTitleEditText.setInputType(noteTitleInputType);
+
+		// Update capitalization mode of the note content 
+		int noteContentInputType = InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE;
+		if (NotepadPreferenceUtils.getNoteContentCapitalization(this.getActivity()))
+		{
+			noteContentInputType |= InputType.TYPE_TEXT_FLAG_CAP_SENTENCES;
+		}
+		noteContentEditText.setInputType(noteContentInputType);
 
 		updateNoteEditTexts();
 		updateNoteTitleLockedViews();

@@ -106,4 +106,20 @@
 		/>
 	</PreferenceCategory>
 
+	<PreferenceCategory android:title="@string/capitalization_category_title" >
+		<CheckBoxPreference
+			android:key="@string/capitalization_title_key"
+			android:defaultValue="@bool/capitalization_title_default_value"
+			android:title="@string/capitalization_title_title"
+			android:summaryOn="@string/capitalization_title_summary_on"
+			android:summaryOff="@string/capitalization_title_summary_off"
+		/>
+		<CheckBoxPreference
+			android:key="@string/capitalization_content_key"
+			android:defaultValue="@bool/capitalization_content_default_value"
+			android:title="@string/capitalization_content_title"
+			android:summaryOn="@string/capitalization_content_summary_on"
+			android:summaryOff="@string/capitalization_content_summary_off"
+		/>
+	</PreferenceCategory>
 </PreferenceScreen>

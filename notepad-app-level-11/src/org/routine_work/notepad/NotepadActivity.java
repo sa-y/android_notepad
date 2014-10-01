@@ -174,7 +174,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		Log.v(LOG_TAG, "Hello");
 
 		int quitCount = NotepadPreferenceUtils.incrementQuitCount(this);
-		if (quitCount % 10 == 0)
+		if (quitCount % 64 == 0)
 		{
 			Intent noteDBOptimizerIntent = new Intent(this, NoteDBOptimizer.class);
 			startService(noteDBOptimizerIntent);
