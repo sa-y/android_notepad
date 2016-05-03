@@ -20,9 +20,9 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>android</groupId>
+			<groupId>com.google.android</groupId>
 			<artifactId>android</artifactId>
-			<version>3.0_r2</version>
+			<version>4.1.1.4</version>
 			<!--
 			<version>1.5_r3</version>
 			<version>1.5_r4</version>
@@ -60,7 +60,7 @@
 					<sdk>
 						<path>${env.ANDROID_HOME}</path>
 						<!-- <path>C:/Java/android-sdk</path> -->
-						<platform>11</platform>
+						<platform>23</platform>
 					</sdk>
 					<release>false</release>
 					<proguard>

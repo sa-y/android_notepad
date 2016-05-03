@@ -61,7 +61,7 @@
 					<sdk>
 						<path>${env.ANDROID_HOME}</path>
 						<!-- <path>C:/Java/android-sdk</path> -->
-						<platform>10</platform>
+						<platform>23</platform>
 					</sdk>
 					<release>false</release>
 					<proguard>

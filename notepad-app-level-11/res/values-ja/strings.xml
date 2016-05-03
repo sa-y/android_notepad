@@ -60,6 +60,8 @@
 
 	<string name="copy_note_title">タイトルをコピー</string>
 	<string name="copy_note_content">本文をコピー</string>
+	<string name="copy_note_title_done">タイトルをコピーしました。</string>
+	<string name="copy_note_content_done">本文をコピーしました。</string>
 
 	<string name="templates">テンプレート</string>
 	<string name="add_new_note_template">追加</string>

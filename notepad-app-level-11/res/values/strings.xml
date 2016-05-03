@@ -60,6 +60,8 @@
 
 	<string name="copy_note_title">Copy Title</string>
 	<string name="copy_note_content">Copy Text</string>
+	<string name="copy_note_title_done">The title has copied.</string>
+	<string name="copy_note_content_done">The text has copied.</string>
 
 	<string name="templates">Templates</string>
 	<string name="add_new_note_template">Add</string>

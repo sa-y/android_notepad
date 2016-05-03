@@ -45,6 +45,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
+import android.widget.Toast;
 import java.util.Arrays;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
@@ -54,37 +55,32 @@ import org.routine_work.notepad.utils.NotepadConstants;
 import org.routine_work.utils.Log;
 
 public class NoteListFragment extends ListFragment
-	implements NotepadConstants,
-	LoaderManager.LoaderCallbacks<Cursor>,
-	AbsListView.MultiChoiceModeListener
-{
+		implements NotepadConstants,
+		LoaderManager.LoaderCallbacks<Cursor>,
+		AbsListView.MultiChoiceModeListener {
 
 	private static final String LOG_TAG = "simple-notepad";
 	private NoteCursorAdapter listAdapter;
 	private Uri contentUri;
 	private NoteControlCallback noteControlCallback;
 
-	public NoteListFragment()
-	{
+	public NoteListFragment() {
 		this.contentUri = NoteStore.Note.CONTENT_URI;
 	}
 
 	@Override
-	public void onAttach(Activity activity)
-	{
+	public void onAttach(Activity activity) {
 		Log.v(LOG_TAG, "Hello");
 		super.onAttach(activity);
 
-		if (activity instanceof NoteControlCallback)
-		{
+		if (activity instanceof NoteControlCallback) {
 			noteControlCallback = (NoteControlCallback) activity;
 		}
 		Log.v(LOG_TAG, "Bye");
 	}
 
 	@Override
-	public void onCreate(Bundle savedInstanceState)
-	{
+	public void onCreate(Bundle savedInstanceState) {
 		Log.v(LOG_TAG, "Hello");
 
 		super.onCreate(savedInstanceState);
@@ -95,8 +91,7 @@ public class NoteListFragment extends ListFragment
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-		Bundle savedInstanceState)
-	{
+			Bundle savedInstanceState) {
 		Log.v(LOG_TAG, "Hello");
 
 		View v = inflater.inflate(R.layout.note_list_fragment, container, false);
@@ -106,8 +101,7 @@ public class NoteListFragment extends ListFragment
 	}
 
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState)
-	{
+	public void onActivityCreated(Bundle savedInstanceState) {
 		Log.v(LOG_TAG, "Hello");
 		super.onActivityCreated(savedInstanceState);
 
@@ -127,8 +121,7 @@ public class NoteListFragment extends ListFragment
 	}
 
 	@Override
-	public void onDestroy()
-	{
+	public void onDestroy() {
 		Log.v(LOG_TAG, "Hello");
 
 		super.onDestroy();
@@ -138,13 +131,11 @@ public class NoteListFragment extends ListFragment
 
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
-		ContextMenuInfo menuInfo)
-	{
+			ContextMenuInfo menuInfo) {
 		Log.v(LOG_TAG, "Hello");
 
 		super.onCreateContextMenu(menu, v, menuInfo);
-		if (v == getListView())
-		{
+		if (v == getListView()) {
 			MenuInflater menuInflater = getActivity().getMenuInflater();
 			menuInflater.inflate(R.menu.note_list_context_menu, menu);
 		}
@@ -153,16 +144,13 @@ public class NoteListFragment extends ListFragment
 	}
 
 	@Override
-	public boolean onContextItemSelected(MenuItem item)
-	{
+	public boolean onContextItemSelected(MenuItem item) {
 		boolean result = false;
 		Log.v(LOG_TAG, "Hello");
 
 		AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo();
-		if (menuInfo != null)
-		{
-			switch (item.getItemId())
-			{
+		if (menuInfo != null) {
+			switch (item.getItemId()) {
 				case R.id.delete_note_menuitem:
 					deleteNote(menuInfo.id);
 					result = true;
@@ -173,12 +161,18 @@ public class NoteListFragment extends ListFragment
 				case R.id.share_note_menuitem:
 					NoteUtils.shareNote(getActivity(), menuInfo.id);
 					break;
+				case R.id.copy_note_title_menuitem:
+					NoteUtils.copyNoteTitleToClipboard(getActivity(), menuInfo.id);
+					Toast.makeText(getActivity(), R.string.copy_note_title_done, Toast.LENGTH_SHORT).show();
+					break;
+				case R.id.copy_note_content_menuitem:
+					NoteUtils.copyNoteContentToClipboard(getActivity(), menuInfo.id);
+					Toast.makeText(getActivity(), R.string.copy_note_content_done, Toast.LENGTH_SHORT).show();
+					break;
 				default:
 					result = super.onContextItemSelected(item);
 			}
-		}
-		else
-		{
+		} else {
 			result = super.onContextItemSelected(item);
 		}
 
@@ -187,8 +181,7 @@ public class NoteListFragment extends ListFragment
 	}
 
 	@Override
-	public void onListItemClick(ListView l, View v, int position, long id)
-	{
+	public void onListItemClick(ListView l, View v, int position, long id) {
 		Log.v(LOG_TAG, "Hello");
 
 		super.onListItemClick(l, v, position, id);
@@ -199,35 +192,32 @@ public class NoteListFragment extends ListFragment
 	}
 
 	// BEGIN ---------- LoaderManager.LoaderCallbacks<Cursor> ----------
-	public Loader<Cursor> onCreateLoader(int id, Bundle bundle)
-	{
+	public Loader<Cursor> onCreateLoader(int id, Bundle bundle) {
 		Log.v(LOG_TAG, "Hello");
 		Log.d(LOG_TAG, "this.contentUri => " + this.contentUri);
 
 		String where = NoteStore.Note.Columns.ENABLED + " = ?";
-		String[] whereArgs =
-		{
-			"1"
-		};
+		String[] whereArgs
+				= {
+					"1"
+				};
 		String sortOrder = NotepadPreferenceUtils.getNoteListSortOrder(getActivity());
 		Log.d(LOG_TAG, String.format("where => %s, whereArgs => %s, sortOrder => %s", where, Arrays.toString(whereArgs), sortOrder));
 		CursorLoader cursorLoader = new CursorLoader(getActivity(),
-			contentUri, null, where, whereArgs, sortOrder);
+				contentUri, null, where, whereArgs, sortOrder);
 
 		Log.v(LOG_TAG, "Bye");
 		return cursorLoader;
 	}
 
-	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor)
-	{
+	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
 		Log.v(LOG_TAG, "Hello");
 		Log.d(LOG_TAG, "cursor => " + cursor);
 		listAdapter.swapCursor(cursor);
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	public void onLoaderReset(Loader<Cursor> loader)
-	{
+	public void onLoaderReset(Loader<Cursor> loader) {
 		Log.v(LOG_TAG, "Hello");
 		listAdapter.swapCursor(null);
 		Log.v(LOG_TAG, "Bye");
@@ -235,14 +225,12 @@ public class NoteListFragment extends ListFragment
 	// END ---------- LoaderManager.LoaderCallbacks<Cursor> ----------
 
 	// BEGIN ---------- AbsListView.MultiChoiceModeListener
-	public void onItemCheckedStateChanged(ActionMode actionMode, int position, long id, boolean checked)
-	{
+	public void onItemCheckedStateChanged(ActionMode actionMode, int position, long id, boolean checked) {
 		Log.v(LOG_TAG, "Hello");
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	public boolean onCreateActionMode(ActionMode actionMode, Menu menu)
-	{
+	public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
 		Log.v(LOG_TAG, "Hello");
 
 		MenuInflater menuInflater = getActivity().getMenuInflater();
@@ -253,8 +241,7 @@ public class NoteListFragment extends ListFragment
 		return true;
 	}
 
-	public boolean onPrepareActionMode(ActionMode actionMode, Menu menu)
-	{
+	public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
 		boolean result = false;
 		Log.v(LOG_TAG, "Hello");
 		listAdapter.setCheckable(true);
@@ -262,13 +249,11 @@ public class NoteListFragment extends ListFragment
 		return result;
 	}
 
-	public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem)
-	{
+	public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
 		boolean result = true;
 		Log.v(LOG_TAG, "Hello");
 
-		switch (menuItem.getItemId())
-		{
+		switch (menuItem.getItemId()) {
 			case R.id.delete_note_menuitem:
 				deleteCheckedNotes();
 				actionMode.finish();
@@ -282,16 +267,14 @@ public class NoteListFragment extends ListFragment
 		return result;
 	}
 
-	public void onDestroyActionMode(ActionMode actionMode)
-	{
+	public void onDestroyActionMode(ActionMode actionMode) {
 		Log.v(LOG_TAG, "Hello");
 		listAdapter.setCheckable(false);
 		Log.v(LOG_TAG, "Bye");
 	}
 	// END ---------- AbsListView.MultiChoiceModeListener
 
-	public void setContentUri(Uri contentUri)
-	{
+	public void setContentUri(Uri contentUri) {
 		Log.v(LOG_TAG, "Hello");
 		Log.d(LOG_TAG, "contentUri => " + contentUri);
 
@@ -301,8 +284,7 @@ public class NoteListFragment extends ListFragment
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	public void reload()
-	{
+	public void reload() {
 		Log.v(LOG_TAG, "Hello");
 
 		getLoaderManager().restartLoader(NOTE_LOADER_ID, null, this);
@@ -310,25 +292,21 @@ public class NoteListFragment extends ListFragment
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void deleteNote(long id)
-	{
+	private void deleteNote(long id) {
 		Log.v(LOG_TAG, "Hello");
 
 		Uri noteUri = ContentUris.withAppendedId(NoteStore.Note.CONTENT_URI, id);
-		if (noteControlCallback != null)
-		{
+		if (noteControlCallback != null) {
 			noteControlCallback.startDeleteNote(noteUri);
 		}
 
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void showNoteDetail(long id)
-	{
+	private void showNoteDetail(long id) {
 		Log.v(LOG_TAG, "Hello");
 
-		if (noteControlCallback != null)
-		{
+		if (noteControlCallback != null) {
 			Uri noteUri = ContentUris.withAppendedId(NoteStore.Note.CONTENT_URI, id);
 			noteControlCallback.startViewNote(noteUri);
 		}
@@ -336,28 +314,24 @@ public class NoteListFragment extends ListFragment
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void editNote(long id)
-	{
+	private void editNote(long id) {
 		Log.v(LOG_TAG, "Hello");
 
 		Uri noteUri = ContentUris.withAppendedId(NoteStore.Note.CONTENT_URI, id);
-		if (noteControlCallback != null)
-		{
+		if (noteControlCallback != null) {
 			noteControlCallback.startEditNote(noteUri);
 		}
 
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void deleteCheckedNotes()
-	{
+	private void deleteCheckedNotes() {
 		Log.v(LOG_TAG, "Hello");
 
 		ContentResolver cr = getActivity().getContentResolver();
 		ListView listView = getListView();
 		long[] checkItemIds = listView.getCheckItemIds();
-		for (int i = checkItemIds.length - 1; i >= 0; i--)
-		{
+		for (int i = checkItemIds.length - 1; i >= 0; i--) {
 			long id = checkItemIds[i];
 			Log.d(LOG_TAG, "delete note. i => " + i + ", id => " + id);
 			Uri noteUri = ContentUris.withAppendedId(NoteStore.Note.CONTENT_URI, id);
