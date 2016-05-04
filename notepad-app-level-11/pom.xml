@@ -51,10 +51,10 @@
 	</dependencies>
 
 	<build>
-		<sourceDirectory>src</sourceDirectory>
+		<sourceDirectory>src/main/java/</sourceDirectory>
 		<plugins>
 			<plugin>
-				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+				<groupId>com.simpligility.maven.plugins</groupId>
 				<artifactId>android-maven-plugin</artifactId>
 				<configuration>
 					<sdk>
@@ -115,7 +115,7 @@
 		<!-- mvn resources:resources -->
 		<resources>
 			<resource>
-				<directory>res</directory>
+				<directory>src/main/res/</directory>
 				<filtering>false</filtering>
 				<includes>
 					<include>**/*.properties</include>
@@ -166,12 +166,12 @@
 					</plugin>
 
 					<!-- 
-					 - Disable debug sign 
-					 - Enable zipalign
-					 - Enable proguard
-					 -->
+					- Disable debug sign 
+					- Enable zipalign
+					- Enable proguard
+					-->
 					<plugin>
-						<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+						<groupId>com.simpligility.maven.plugins</groupId>
 						<artifactId>android-maven-plugin</artifactId>
 						<executions>
 							<execution>
