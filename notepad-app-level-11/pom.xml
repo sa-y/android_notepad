@@ -8,21 +8,21 @@
 	<groupId>org.routine_work</groupId>
 	<artifactId>notepad-app-level-11</artifactId>
 	<packaging>apk</packaging>
-	<version>1.0.8</version>
+	<version>1.0.9</version>
 	<name>Notepad App Level 11</name>
 
 	<parent>
 		<groupId>org.routine_work</groupId>
 		<artifactId>notepad-project</artifactId>
-		<version>1.0.8</version>
+		<version>1.0.9</version>
 	</parent>
 
 	<dependencies>
 
 		<dependency>
-			<groupId>com.google.android</groupId>
+			<groupId>android</groupId>
 			<artifactId>android</artifactId>
-			<version>4.1.1.4</version>
+			<version>6.0_r3</version>
 			<!--
 			<version>1.5_r3</version>
 			<version>1.5_r4</version>
@@ -39,7 +39,7 @@
 		<dependency>
 			<groupId>org.routine_work</groupId>
 			<artifactId>notepad-common</artifactId>
-			<version>1.0.8</version>
+			<version>1.0.9</version>
 			<scope>compile</scope>
 		</dependency>
 

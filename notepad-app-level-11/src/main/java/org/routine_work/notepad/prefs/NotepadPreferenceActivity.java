@@ -23,6 +23,8 @@
  */
 package org.routine_work.notepad.prefs;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.view.Menu;
@@ -37,14 +39,12 @@ import org.routine_work.utils.Log;
  *
  * @author sawai
  */
-public class NotepadPreferenceActivity extends PreferenceActivity
-{
+public class NotepadPreferenceActivity extends PreferenceActivity {
 
 	private static final String LOG_TAG = "simple-notepad";
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
+	protected void onCreate(Bundle savedInstanceState) {
 		Log.v(LOG_TAG, "Hello");
 
 		setTheme(NotepadPreferenceUtils.getTheme(this));
@@ -54,8 +54,7 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 	}
 
 	@Override
-	public void onBuildHeaders(List<Header> target)
-	{
+	public void onBuildHeaders(List<Header> target) {
 		Log.v(LOG_TAG, "Hello");
 
 		super.onBuildHeaders(target);
@@ -65,8 +64,7 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
+	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater menuInflater = getMenuInflater();
 		menuInflater.inflate(R.menu.quit_option_menu, menu);
 
@@ -74,13 +72,11 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
-	{
+	public boolean onOptionsItemSelected(MenuItem item) {
 		boolean result = true;
 
 		int itemId = item.getItemId();
-		switch (itemId)
-		{
+		switch (itemId) {
 			case R.id.quit_menuitem:
 				NotepadActivity.quitApplication(this);
 				break;
@@ -91,6 +87,31 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 				result = super.onOptionsItemSelected(item);
 		}
 
+		return result;
+	}
+
+	private static final String[] VALID_FRAGMENT_NAMES = {
+		"org.routine_work.notepad.prefs.DisplayPreferenceFragment",
+		"org.routine_work.notepad.prefs.ShareDataPreferenceFragment",
+		"org.routine_work.notepad.prefs.BackupAndResetPreferenceFragment",
+		"org.routine_work.notepad.prefs.AboutAppPreferenceFragment"
+	};
+
+	@Override
+	@TargetApi(Build.VERSION_CODES.KITKAT)
+	protected boolean isValidFragment(String fragmentName) {
+		boolean result = false;
+		Log.v(LOG_TAG, "Hello");
+		Log.v(LOG_TAG, "fragmentName => " + fragmentName);
+
+		for (String validFragmentName : VALID_FRAGMENT_NAMES) {
+			if (validFragmentName.equals(fragmentName)) {
+				result = true;
+				break;
+			}
+		}
+		Log.v(LOG_TAG, "result => " + result);
+		Log.v(LOG_TAG, "Bye");
 		return result;
 	}
 

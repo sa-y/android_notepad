@@ -2,8 +2,8 @@
 <manifest
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	package="org.routine_work.notepad"
-	android:versionCode="24"
-	android:versionName="1.0.8"
+	android:versionCode="26"
+	android:versionName="1.0.9"
 	android:installLocation="auto"
 >
 	<uses-sdk android:minSdkVersion="3" android:targetSdkVersion="4" />
