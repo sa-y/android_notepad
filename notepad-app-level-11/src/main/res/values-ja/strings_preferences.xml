@@ -100,6 +100,7 @@
 	<string name="backup_data_confirm_message">すべてのノートとテンプレートが外部ストレージにバックアップされます。</string>
 	<string name="backup_data_completed_message">ノートとテンプレートのバックアップが完了しました。</string>
 	<string name="external_storage_not_mountted">外部ストレージが接続されていません。</string>
+	<string name="request_permission_rationale_external_storage">バックアップ作成と復元のために、外部ストレージへの読み書きに対して許可が必要です。</string>
 	<!-- Restore Notes -->
 	<string name="restore_data">データを復元</string>
 	<string name="restore_data_title">データを復元</string>

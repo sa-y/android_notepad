@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
+	style="@style/body"
 >
 	<ListView
 		android:id="@android:id/list"
@@ -18,4 +17,10 @@
 		android:layout_gravity="center"
 		android:text="@string/no_backup_file"
 	/>
+	<FrameLayout
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+	>
+		<include layout="@layout/request_permission_rationale_external_storage" />
+	</FrameLayout>
 </FrameLayout>

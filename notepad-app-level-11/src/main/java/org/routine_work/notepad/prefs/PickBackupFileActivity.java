@@ -23,10 +23,13 @@
  */
 package org.routine_work.notepad.prefs;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -47,28 +50,37 @@ import org.routine_work.utils.Log;
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
 public class PickBackupFileActivity extends ListActivity
-	implements AdapterView.OnItemClickListener, NotepadConstants, BackupConstants
-{
+		implements AdapterView.OnItemClickListener, NotepadConstants, BackupConstants {
 
 	private static final String LOG_TAG = "simple-notepad";
+	private static final int REQUEST_EXTERNAL_STORAGE_PERMISSION = 1001;
 	private static final String MAPPING_KEY_FILE_PATH = "FILE";
 	private static final String MAPPING_KEY_FILE_NAME = "BASENAME";
-	private static final String[] MAPPING_FROM = new String[]
-	{
-		MAPPING_KEY_FILE_NAME,
-	};
-	private static final int[] MAPPING_TO = new int[]
-	{
-		android.R.id.text1,
-	};
+	private static final String[] MAPPING_FROM = new String[]{
+		MAPPING_KEY_FILE_NAME,};
+	private static final int[] MAPPING_TO = new int[]{
+		android.R.id.text1,};
 	// instances
 	private final FilenameFilter backupFilenameFilter = new BackupFilenameFilter();
 	private final List<Map<String, String>> backupFileDataList = new ArrayList<Map<String, String>>();
 	private SimpleAdapter simpleAdapter;
 
 	@Override
-	public void onCreate(Bundle savedInstanceState)
-	{
+	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+		Log.v(LOG_TAG, "Hello");
+
+		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+		if (requestCode == REQUEST_EXTERNAL_STORAGE_PERMISSION) {
+			if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+				enableRestoreFunction();
+			}
+		}
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
 		Log.v(LOG_TAG, "Hello");
 
 		setTheme(NotepadPreferenceUtils.getTheme(this));
@@ -78,37 +90,47 @@ public class PickBackupFileActivity extends ListActivity
 		// initialize title
 		Intent intent = getIntent();
 		String title = intent.getStringExtra(Intent.EXTRA_TITLE);
-		if (title != null)
-		{
+		if (title != null) {
 			setTitle(title);
 		}
 
 		// initialize list adapter
 		simpleAdapter = new SimpleAdapter(this, backupFileDataList,
-			android.R.layout.simple_list_item_1,
-			MAPPING_FROM, MAPPING_TO);
+				android.R.layout.simple_list_item_1,
+				MAPPING_FROM, MAPPING_TO);
 		setListAdapter(simpleAdapter);
 
 		ListView listView = getListView();
 		listView.setOnItemClickListener(this);
 
+		if (Build.VERSION.SDK_INT >= 23) { // Android 6.0  or later
+			if (PermissionUtils.hasExternalStoragePermission(this) == false) {
+				this.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_EXTERNAL_STORAGE_PERMISSION);
+			}
+		}
+
 		Log.v(LOG_TAG, "Bye");
 	}
 
 	@Override
-	protected void onResume()
-	{
+	protected void onResume() {
 		Log.v(LOG_TAG, "Hello");
 		super.onResume();
 
 		updateListData();
+		if (PermissionUtils.hasExternalStoragePermission(this)) { // Android 6.0  or later
+			Log.v(LOG_TAG, "hasReadStoragePermission() : true");
+			enableRestoreFunction();
+		} else {
+			Log.v(LOG_TAG, "hasReadStoragePermission() : false");
+			disableRestoreFunction();
+		}
 
 		Log.v(LOG_TAG, "Bye");
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> av, View view, int position, long id)
-	{
+	public void onItemClick(AdapterView<?> av, View view, int position, long id) {
 		Log.v(LOG_TAG, "Hello");
 
 		Map<String, String> backupFileData = backupFileDataList.get(position);
@@ -125,25 +147,20 @@ public class PickBackupFileActivity extends ListActivity
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private synchronized void updateListData()
-	{
+	private synchronized void updateListData() {
 		Log.v(LOG_TAG, "Hello");
 
 		String externalStorageState = Environment.getExternalStorageState();
-		if (externalStorageState.equals(Environment.MEDIA_MOUNTED))
-		{
+		if (externalStorageState.equals(Environment.MEDIA_MOUNTED)) {
 			File backupDirPath = Environment.getExternalStorageDirectory();
 			backupDirPath = new File(backupDirPath, BACKUP_DIR_NAME);
 			Log.d(LOG_TAG, "backupDirPath => " + backupDirPath);
 
-			if (backupDirPath.exists() && backupDirPath.canRead())
-			{
+			if (backupDirPath.exists() && backupDirPath.canRead()) {
 				File[] listFiles = backupDirPath.listFiles(backupFilenameFilter);
-				if (listFiles != null)
-				{
+				if (listFiles != null) {
 					backupFileDataList.clear();
-					for (File file : listFiles)
-					{
+					for (File file : listFiles) {
 						Map<String, String> backupFileData = new HashMap<String, String>();
 						backupFileData.put(MAPPING_KEY_FILE_PATH, file.getAbsolutePath());
 						backupFileData.put(MAPPING_KEY_FILE_NAME, file.getName());
@@ -154,26 +171,31 @@ public class PickBackupFileActivity extends ListActivity
 			}
 		}
 
-		if (simpleAdapter != null)
-		{
+		if (simpleAdapter != null) {
 			simpleAdapter.notifyDataSetChanged();
 		}
 
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	class BackupFilenameFilter implements FilenameFilter
-	{
+	private void disableRestoreFunction() {
+		View rationaleView = findViewById(R.id.request_permission_rationale_external_storage_view);
+		rationaleView.setVisibility(View.VISIBLE);
+	}
 
-		public boolean accept(File dir, String name)
-		{
+	private void enableRestoreFunction() {
+		View rationaleView = findViewById(R.id.request_permission_rationale_external_storage_view);
+		rationaleView.setVisibility(View.GONE);
+	}
+
+	class BackupFilenameFilter implements FilenameFilter {
+
+		public boolean accept(File dir, String name) {
 			boolean result = false;
-			if (name.endsWith(BACKUP_FILE_SUFFIX))
-			{
+			if (name.endsWith(BACKUP_FILE_SUFFIX)) {
 				String basename = name.substring(0, name.length() - BACKUP_FILE_SUFFIX.length());
 				Log.d(LOG_TAG, "basename => " + basename);
-				if (basename.length() >= BACKUP_FILE_DATE_FORMAT.length())
-				{
+				if (basename.length() >= BACKUP_FILE_DATE_FORMAT.length()) {
 					result = true;
 				}
 			}

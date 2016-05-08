@@ -6,15 +6,24 @@
 	android:layout_height="fill_parent"
 	android:orientation="vertical"
 >
-	<TextView
+	<LinearLayout 
+		android:orientation="vertical"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_weight="1"
 		android:padding="4dip"
-		android:text="@string/restore_data_confirm_message"
-		android:textColor="?android:attr/textColorPrimary"
-		android:textSize="18sp"
-	/>
+	>
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="0"
+			android:padding="4dip"
+			android:text="@string/restore_data_confirm_message"
+			android:textColor="?android:attr/textColorPrimary"
+			android:textSize="18sp"
+		/>
+		<include layout="@layout/request_permission_rationale_external_storage" />
+	</LinearLayout>
 
 	<View style="@style/hline" />
 

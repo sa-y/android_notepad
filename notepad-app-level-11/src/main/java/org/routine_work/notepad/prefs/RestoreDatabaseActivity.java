@@ -23,15 +23,18 @@
  */
 package org.routine_work.notepad.prefs;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.io.File;
 import java.io.FileInputStream;
@@ -42,8 +45,7 @@ import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.provider.NoteStore;
 
-public class RestoreDatabaseActivity extends Activity implements OnClickListener
-{
+public class RestoreDatabaseActivity extends Activity implements OnClickListener {
 
 	private static final String LOG_TAG = "simple-notepad";
 	private static final String SAVE_KEY_BACKUP_FILE_PATH = "backupFilePath";
@@ -51,11 +53,9 @@ public class RestoreDatabaseActivity extends Activity implements OnClickListener
 	private static final int REUQEST_CODE_PICK_BACKUP_FILE = 1;
 
 	@Override
-	public void onClick(View view)
-	{
+	public void onClick(View view) {
 		int id = view.getId();
-		switch (id)
-		{
+		switch (id) {
 			case R.id.ok_button:
 				restoreDatabaseFile();
 				NotepadActivity.quitApplication(this);
@@ -68,29 +68,23 @@ public class RestoreDatabaseActivity extends Activity implements OnClickListener
 	}
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
+	protected void onCreate(Bundle savedInstanceState) {
 		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.restore_database_activity);
 
-		if (savedInstanceState != null)
-		{
+		if (savedInstanceState != null) {
 			backupFilePath = savedInstanceState.getString(SAVE_KEY_BACKUP_FILE_PATH);
-		}
-		else
-		{
+		} else {
 			Intent intent = getIntent();
 			Uri data = intent.getData();
-			if (data != null)
-			{
+			if (data != null) {
 				backupFilePath = data.getPath();
 			}
 		}
 		Log.d(LOG_TAG, "backupFilePath => " + backupFilePath);
 
-		if (backupFilePath == null)
-		{
+		if (backupFilePath == null) {
 			Intent pickBackupFileIntent = new Intent(this, PickBackupFileActivity.class);
 			startActivityForResult(pickBackupFileIntent, REUQEST_CODE_PICK_BACKUP_FILE);
 		}
@@ -104,20 +98,26 @@ public class RestoreDatabaseActivity extends Activity implements OnClickListener
 	}
 
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data)
-	{
-		switch (requestCode)
-		{
+	protected void onResume() {
+		super.onResume(); //To change body of generated methods, choose Tools | Templates.
+		if (PermissionUtils.hasExternalStoragePermission(this)) { // Android 6.0  or later
+			enableRestoreFunction();
+		} else {
+			disableRestoreFunction();
+		}
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (requestCode) {
 			case REUQEST_CODE_PICK_BACKUP_FILE:
-				if (resultCode == RESULT_OK)
-				{
+				if (resultCode == RESULT_OK) {
 					Uri uri = data.getData();
 					backupFilePath = uri.getPath();
 				}
 				Log.d(LOG_TAG, "backupFilePath => " + backupFilePath);
 
-				if (backupFilePath == null)
-				{
+				if (backupFilePath == null) {
 					setResult(RESULT_CANCELED);
 					finish();
 				}
@@ -128,46 +128,56 @@ public class RestoreDatabaseActivity extends Activity implements OnClickListener
 	}
 
 	@Override
-	protected void onSaveInstanceState(Bundle outState)
-	{
+	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		outState.putString(SAVE_KEY_BACKUP_FILE_PATH, backupFilePath);
 	}
 
-	private void restoreDatabaseFile()
-	{
+	private void restoreDatabaseFile() {
 		Log.d(LOG_TAG, "backupFilePath => " + backupFilePath);
-		if (backupFilePath == null)
-		{
+		if (backupFilePath == null) {
 			Log.e(LOG_TAG, "backup file path is null, the restore was canceled.");
 			return;
 		}
 
 		String externalStorageState = Environment.getExternalStorageState();
-		if (Environment.MEDIA_MOUNTED.equals(externalStorageState))
-		{
+		if (Environment.MEDIA_MOUNTED.equals(externalStorageState)) {
 			File databaseFilePath = NoteStore.getNoteDatabasePath(this);
 			Log.d(LOG_TAG, "databaseFilePath => " + databaseFilePath);
 
-			try
-			{
+			try {
 				Log.i(LOG_TAG, "Restore database " + backupFilePath + " to " + databaseFilePath);
 				FileChannel inputChannel = new FileInputStream(backupFilePath).getChannel();
 				FileChannel outputChannel = new FileOutputStream(databaseFilePath).getChannel();
 				inputChannel.transferTo(0, inputChannel.size(), outputChannel);
 				inputChannel.close();
 				outputChannel.close();
-			}
-			catch (IOException ex)
-			{
+			} catch (IOException ex) {
 				Log.e(LOG_TAG, "The database file copying is failed.", ex);
 			}
-		}
-		else
-		{
+		} else {
 			String message = "The external storage is not mounted.";
 			Log.e(LOG_TAG, message + "externalStorageState => " + externalStorageState);
 			Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 		}
+	}
+
+	private void disableRestoreFunction() {
+		View rationaleView = findViewById(R.id.request_permission_rationale_external_storage_view);
+		rationaleView.setVisibility(View.VISIBLE);
+
+		Button okButton = (Button) findViewById(R.id.ok_button);
+		okButton.setEnabled(false);
+
+	}
+
+	private void enableRestoreFunction() {
+		// remove permission rationale
+		View rationaleView = findViewById(R.id.request_permission_rationale_external_storage_view);
+		rationaleView.setVisibility(View.GONE);
+
+		// enable ok button
+		Button okButton = (Button) findViewById(R.id.ok_button);
+		okButton.setEnabled(true);
 	}
 }

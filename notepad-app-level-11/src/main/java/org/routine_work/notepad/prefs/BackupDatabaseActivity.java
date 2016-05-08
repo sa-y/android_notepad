@@ -23,24 +23,41 @@
  */
 package org.routine_work.notepad.prefs;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 import org.routine_work.notepad.R;
+import org.routine_work.utils.Log;
 
 public class BackupDatabaseActivity extends Activity
-	implements OnClickListener, BackupConstants
-{
+		implements OnClickListener, BackupConstants {
 
 	private static final String LOG_TAG = "simple-notepad";
+	private final int REQUEST_EXTERNAL_STORAGE_PERMISSION = 1001;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState)
-	{
+	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+		Log.v(LOG_TAG, "Hello");
+
+		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+		if (requestCode == REQUEST_EXTERNAL_STORAGE_PERMISSION) {
+			if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+				enableBackupFunction();
+			}
+		}
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
 		Log.v(LOG_TAG, "Hello");
 		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
@@ -48,17 +65,38 @@ public class BackupDatabaseActivity extends Activity
 
 		Button okButton = (Button) findViewById(R.id.ok_button);
 		okButton.setOnClickListener(this);
+		okButton.setEnabled(false);
 		Button cancelButton = (Button) findViewById(R.id.cancel_button);
 		cancelButton.setOnClickListener(this);
+
+		if (Build.VERSION.SDK_INT >= 23) { // Android 6.0  or later
+			if (PermissionUtils.hasExternalStoragePermission(this) == false) {
+				this.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_EXTERNAL_STORAGE_PERMISSION);
+			}
+		}
 		Log.v(LOG_TAG, "Bye");
 	}
 
 	@Override
-	public void onClick(View view)
-	{
+	protected void onResume() {
+		super.onResume();
+		Log.v(LOG_TAG, "Hello");
+
+		if (PermissionUtils.hasExternalStoragePermission(this)) { // Android 6.0  or later
+			Log.v(LOG_TAG, "hasWriteStoragePermission() : true");
+			enableBackupFunction();
+		} else {
+			Log.v(LOG_TAG, "hasWriteStoragePermission() : false");
+			disableBackupFunction();
+		}
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	@Override
+	public void onClick(View view) {
 		int id = view.getId();
-		switch (id)
-		{
+		switch (id) {
 			case R.id.ok_button:
 				startBackupDatabaseService();
 				setResult(RESULT_OK);
@@ -71,13 +109,31 @@ public class BackupDatabaseActivity extends Activity
 		}
 	}
 
-	private void startBackupDatabaseService()
-	{
+	private void enableBackupFunction() {
+		Button okButton = (Button) findViewById(R.id.ok_button);
+		okButton.setEnabled(true);
+
+		View rationaleView =  findViewById(R.id.request_permission_rationale_external_storage_view);
+		rationaleView.setVisibility(View.GONE);
+	}
+
+	private void disableBackupFunction() {
+		Button okButton = (Button) findViewById(R.id.ok_button);
+		okButton.setEnabled(false);
+
+		View rationaleView =  findViewById(R.id.request_permission_rationale_external_storage_view);
+		rationaleView.setVisibility(View.VISIBLE);
+	}
+
+	private void startBackupDatabaseService() {
 		Log.v(LOG_TAG, "Hello");
 
-		Intent backDatabaseIntent = new Intent(this, BackupDatabaseService.class);
-		startService(backDatabaseIntent);
+		if (PermissionUtils.hasExternalStoragePermission(this)) { // re check
+			Intent backDatabaseIntent = new Intent(this, BackupDatabaseService.class);
+			startService(backDatabaseIntent);
+		}
 
 		Log.v(LOG_TAG, "Bye");
 	}
+
 }

@@ -100,6 +100,7 @@
 	<string name="backup_data_confirm_message">All notes and templates will be backed up to the external storage.</string>
 	<string name="backup_data_completed_message">All notes and templates were backed up.</string>
 	<string name="external_storage_not_mountted">The external storage is not mounted.</string>
+	<string name="request_permission_rationale_external_storage">To back up and restore, access permission to the external storage is required.</string>
 	<!-- Restore Data -->
 	<string name="restore_data">Restore data</string>
 	<string name="restore_data_title">Restore data</string>
