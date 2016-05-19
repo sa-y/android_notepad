@@ -47,6 +47,20 @@
 	<string name="note_list_sort_order_entry_date_added_desc" >created descending</string>
 	-->
 
+	<!-- Note Detail Category -->
+	<string name="note_detail_category_title">Note View and Edit</string>
+	<!-- Note Detail : Font Size -->
+	<string name="note_detail_font_size_port">Font size in portrait</string>
+	<string name="note_detail_font_size_land">Font size in landscape</string>
+	<string name="note_detail_font_size__port_title">Font size in portrait</string>
+	<string name="note_detail_font_size__land_title">Font size in landscape</string>
+	<!-- Note Detail : Font Size Entries-->
+	<string name="note_detail_font_size_tiny">Tiny</string>
+	<string name="note_detail_font_size_small">Small</string>
+	<string name="note_detail_font_size_normal">Normal</string>
+	<string name="note_detail_font_size_large">Large</string>
+	<string name="note_detail_font_size_huge">Huge</string>
+
 	<!-- Auto Link Category -->
 	<string name="note_autolink_category_title">Auto link</string>
 	<!-- Auto Link : Note Title -->

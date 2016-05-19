@@ -63,6 +63,8 @@ public class NoteDetailActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.note_detail_activity);
 
+		NotepadActivity.enableHomeButton(this);
+
 		// When software keyboard was displayed, the window is adjust resize.
 //		getWindow().setSoftInputMode(
 //			WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
@@ -73,10 +75,7 @@ public class NoteDetailActivity extends Activity
 		getWindow().setSoftInputMode(
 			WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
-		Log.v(LOG_TAG,
-			"Hi!");
 		Intent intent = getIntent();
-
 		if (savedInstanceState != null)
 		{
 			initWithSavedInstance(savedInstanceState);

@@ -209,6 +209,8 @@ public class NoteTemplateListActivity extends ListActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.note_template_list_activity);
 
+		NotepadActivity.enableHomeButton(this);
+
 		listAdapter = new SimpleCursorAdapter(this,
 			android.R.layout.simple_list_item_1, null,
 			NOTE_TEMPLATE_LIST_MAPPING_FROM, NOTE_TEMPLATE_LIST_MAPPING_TO);

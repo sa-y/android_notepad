@@ -26,6 +26,7 @@ package org.routine_work.notepad;
 
 import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -36,6 +37,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -107,6 +109,22 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		Log.v(LOG_TAG, "Bye");
 	}
 
+	public static void enableHomeButton(Activity activity)
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		if (Build.VERSION.SDK_INT >= 14)
+		{ // Android 4.0  or later
+			ActionBar actionBar = activity.getActionBar();
+			if (actionBar != null)
+			{
+				actionBar.setHomeButtonEnabled(true);
+			}
+		}
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -115,6 +133,8 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.notepad_activity);
+
+		NotepadActivity.enableHomeButton(this);
 
 		initializeNoteTemplateData();
 

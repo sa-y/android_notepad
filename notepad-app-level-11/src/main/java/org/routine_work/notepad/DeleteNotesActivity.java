@@ -23,7 +23,9 @@
  */
 package org.routine_work.notepad;
 
+import android.app.ActionBar;
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -43,6 +45,8 @@ public class DeleteNotesActivity extends Activity implements NotepadConstants
 		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.delete_notes_activity);
+
+		NotepadActivity.enableHomeButton(this);
 	}
 
 	@Override

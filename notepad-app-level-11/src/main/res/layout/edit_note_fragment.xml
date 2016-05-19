@@ -22,6 +22,7 @@
 				android:id="@+id/note_title_edittext"
 				android:inputType="text"
 				android:hint="@string/title"
+				android:textSize="18sp"
 			/>
 			<ImageButton
 				android:id="@+id/note_title_lock_button"
@@ -57,6 +58,7 @@
 			android:inputType="textMultiLine"
 			android:gravity="left|top"
 			android:hint="@string/text"
+			android:textSize="18sp"
 		/>
 	</LinearLayout>
 </ScrollView>

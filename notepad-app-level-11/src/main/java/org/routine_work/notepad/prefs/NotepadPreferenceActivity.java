@@ -49,6 +49,7 @@ public class NotepadPreferenceActivity extends PreferenceActivity {
 
 		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
+		NotepadActivity.enableHomeButton(this);
 
 		Log.v(LOG_TAG, "Bye");
 	}

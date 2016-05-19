@@ -32,11 +32,13 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import org.routine_work.notepad.R;
+import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.utils.NotepadConstants;
 import org.routine_work.utils.Log;
@@ -157,6 +159,21 @@ public class NoteDetailFragment extends Fragment
 		{
 			noteDetailEventCallback.onNoteDetailStarted();
 		}
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	@Override
+	public void onResume()
+	{
+		Log.v(LOG_TAG, "Hello");
+		super.onResume();
+
+		int fontSize = NotepadPreferenceUtils.getNoteDetailFontSize(this.getActivity());
+		int fontSizeDefault = NotepadPreferenceUtils.getNoteDetailFontSizeDefault(this.getActivity());
+		int titleFontSize = (fontSize > fontSizeDefault) ? fontSize : fontSizeDefault;
+		noteTitleTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, titleFontSize);
+		noteContentTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
 
 		Log.v(LOG_TAG, "Bye");
 	}

@@ -72,6 +72,25 @@
 		/>
 	</PreferenceCategory>
 
+	<PreferenceCategory android:title="@string/note_detail_category_title" >
+		<ListPreference
+			android:key="@string/note_detail_font_size_port_key"
+			android:defaultValue="@string/note_detail_font_size_port_default_value"
+			android:title="@string/note_detail_font_size_port"
+			android:dialogTitle="@string/note_detail_font_size__port_title"
+			android:entries="@array/note_detail_font_size_entries"
+			android:entryValues="@array/note_detail_font_size_values"
+		/>
+		<ListPreference
+			android:key="@string/note_detail_font_size_land_key"
+			android:defaultValue="@string/note_detail_font_size_land_default_value"
+			android:title="@string/note_detail_font_size_land"
+			android:dialogTitle="@string/note_detail_font_size__land_title"
+			android:entries="@array/note_detail_font_size_entries"
+			android:entryValues="@array/note_detail_font_size_values"
+		/>
+	</PreferenceCategory>
+
 	<PreferenceCategory android:title="@string/note_autolink_category_title" >
 		<CheckBoxPreference
 			android:key="@string/note_title_autolink_key"

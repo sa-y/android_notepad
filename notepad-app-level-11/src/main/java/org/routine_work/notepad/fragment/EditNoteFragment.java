@@ -41,6 +41,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -226,6 +227,21 @@ public class EditNoteFragment extends Fragment
 		}
 
 		super.onStop();
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	@Override
+	public void onResume()
+	{
+		Log.v(LOG_TAG, "Hello");
+		super.onResume();
+
+		int fontSize = NotepadPreferenceUtils.getNoteDetailFontSize(this.getActivity());
+		int fontSizeDefault = NotepadPreferenceUtils.getNoteDetailFontSizeDefault(this.getActivity());
+		int titleFontSize = (fontSize > fontSizeDefault) ? fontSize : fontSizeDefault;
+		noteTitleEditText.setTextSize(TypedValue.COMPLEX_UNIT_SP, titleFontSize);
+		noteContentEditText.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
 
 		Log.v(LOG_TAG, "Bye");
 	}

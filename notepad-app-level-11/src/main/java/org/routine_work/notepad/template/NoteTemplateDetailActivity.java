@@ -174,8 +174,9 @@ public class NoteTemplateDetailActivity extends ListActivity
 
 		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.note_template_detail_activity);
+
+		NotepadActivity.enableHomeButton(this);
 
 		noteTemplateDetailListAdapter = new NoteTemplateDetailListAdapter();
 		setListAdapter(noteTemplateDetailListAdapter);

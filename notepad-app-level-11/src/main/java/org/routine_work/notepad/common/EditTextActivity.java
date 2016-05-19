@@ -57,6 +57,8 @@ public class EditTextActivity extends Activity
 		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 
+		NotepadActivity.enableHomeButton(this);
+
 		getWindow().setSoftInputMode(
 			WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE
 			| WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
