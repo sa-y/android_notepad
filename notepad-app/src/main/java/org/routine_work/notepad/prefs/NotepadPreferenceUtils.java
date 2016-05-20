@@ -245,6 +245,81 @@ public class NotepadPreferenceUtils
 		return noteContentAutoLink;
 	}
 
+	public static int getNoteDetailFontSize(Context context)
+	{
+		int fontSize = 18;
+		int keyId;
+		int defaultValueId;
+		Log.v(LOG_TAG, "Hello");
+
+		SharedPreferences sharedPreferences = getSharedPreferences(context);
+		Resources resources = context.getResources();
+		Configuration configuration = resources.getConfiguration();
+		switch (configuration.orientation)
+		{
+			case Configuration.ORIENTATION_LANDSCAPE:
+				keyId = R.string.note_detail_font_size_land_key;
+				defaultValueId = R.string.note_detail_font_size_land_default_value;
+				break;
+			default:
+				keyId = R.string.note_detail_font_size_port_key;
+				defaultValueId = R.string.note_detail_font_size_port_default_value;
+				break;
+		}
+
+		String key = resources.getString(keyId);
+		String defaultValue = resources.getString(defaultValueId);
+		String value = sharedPreferences.getString(key, defaultValue);
+		Log.d(LOG_TAG, "value => " + value);
+		try
+		{
+			fontSize = Integer.parseInt(value);
+		}
+		catch (NumberFormatException e)
+		{
+			Log.e(LOG_TAG, "Integer.parseInt(" + value + ") is failed.");
+		}
+
+		Log.d(LOG_TAG, "fontSize => " + fontSize);
+		Log.v(LOG_TAG, "Bye");
+		return fontSize;
+	}
+
+	public static int getNoteDetailFontSizeDefault(Context context)
+	{
+		int noteDefailFontSizeDefault = 18;
+		int defaultValueId;
+		Log.v(LOG_TAG, "Hello");
+
+		Resources resources = context.getResources();
+
+		Configuration configuration = resources.getConfiguration();
+		switch (configuration.orientation)
+		{
+			case Configuration.ORIENTATION_LANDSCAPE:
+				defaultValueId = R.string.note_detail_font_size_land_default_value;
+				break;
+			default:
+				defaultValueId = R.string.note_detail_font_size_port_default_value;
+				break;
+		}
+
+		String defaultValue = resources.getString(defaultValueId);
+		Log.d(LOG_TAG, "defaultValue => " + defaultValue);
+		try
+		{
+			noteDefailFontSizeDefault = Integer.parseInt(defaultValue);
+		}
+		catch (NumberFormatException e)
+		{
+			Log.e(LOG_TAG, "Integer.parseInt(" + defaultValue + ") is failed.");
+		}
+
+		Log.d(LOG_TAG, "fontSize => " + noteDefailFontSizeDefault);
+		Log.v(LOG_TAG, "Bye");
+		return noteDefailFontSizeDefault;
+	}
+
 	public static boolean getNoteTitleCapitalization(Context context)
 	{
 		boolean noteTitleCapitalization;

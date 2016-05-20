@@ -38,6 +38,7 @@ import android.text.ClipboardManager;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.util.Linkify;
+import android.util.TypedValue;
 import android.view.*;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnFocusChangeListener;
@@ -260,6 +261,15 @@ public class NoteDetailActivity extends Activity
 //		loadNoteFromContentProvider();
 //		bindNoteToViews();
 //		originalNote.copyFrom(currentNote);
+
+		int fontSize = NotepadPreferenceUtils.getNoteDetailFontSize(this);
+		int fontSizeDefault = NotepadPreferenceUtils.getNoteDetailFontSizeDefault(this);
+		int titleFontSize = (fontSize > fontSizeDefault) ? fontSize : fontSizeDefault;
+
+		noteTitleEditText.setTextSize(TypedValue.COMPLEX_UNIT_SP, titleFontSize);
+		noteContentEditText.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+		noteTitleTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, titleFontSize);
+		noteContentTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
 
 		Log.d(LOG_TAG, "------------------------------------------------------------");
 		Log.d(LOG_TAG, "currentAction => " + currentAction);

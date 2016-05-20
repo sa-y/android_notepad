@@ -172,5 +172,23 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 		listPreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
 		summary = listPreference.getEntry();
 		listPreference.setSummary(summary);
+
+		// Note Detail : Font Size in Portrait
+		prefKey = getString(R.string.note_detail_font_size_port_key);
+		listPreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
+		if (listPreference != null)
+		{
+			summary = listPreference.getEntry();
+			listPreference.setSummary(summary);
+		}
+
+		// Note Detail : Font Size in Landscape
+		prefKey = getString(R.string.note_detail_font_size_land_key);
+		listPreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
+		if (listPreference != null)
+		{
+			summary = listPreference.getEntry();
+			listPreference.setSummary(summary);
+		}
 	}
 }
