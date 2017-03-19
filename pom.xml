@@ -7,7 +7,7 @@
 	<groupId>org.routine_work</groupId>
 	<artifactId>notepad-project</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.11</version>
+	<version>1.0.13</version>
 	<name>Notepad Project</name>
 	<url>http://sourceforge.jp/users/say/pf/android_notepad/scm/</url>
 

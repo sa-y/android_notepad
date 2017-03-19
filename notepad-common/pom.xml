@@ -8,13 +8,13 @@
 	<groupId>org.routine_work</groupId>
 	<artifactId>notepad-common</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.12</version>
+	<version>1.0.13</version>
 	<name>Notepad Common Library</name>
 
 	<parent>
 		<groupId>org.routine_work</groupId>
 		<artifactId>notepad-project</artifactId>
-		<version>1.0.12</version>
+		<version>1.0.13</version>
 	</parent>
 
 	<dependencies>
