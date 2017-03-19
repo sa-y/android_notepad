@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:orientation="vertical"
+			  android:layout_width="fill_parent"
+			  android:layout_height="fill_parent"
+			  android:orientation="vertical"
 >
-	<LinearLayout style="@style/actionbar" >
+	<!-- ActionBar Normal Mode -->
+	<LinearLayout
+		style="@style/actionbar" 
+		android:id="@+id/actionbar_container"
+	>
 		<ImageButton
 			style="@style/actionbar_left_button" 
 			android:id="@+id/home_button"
 			android:src="?attr/ic_home"
 		/>
-		<!-- View Mode -->
 		<TextView
 			style="@style/actionbar_title"
 			android:id="@+id/title_textview"
@@ -27,20 +30,31 @@
 			android:src="?attr/ic_add"
 		/>
 
-		<!-- Search Mode -->
+	</LinearLayout>
+
+	<!-- ActionBar Search Mode -->
+	<LinearLayout
+		style="@style/actionbar"
+		android:id="@+id/search_mode_actionbar_container"
+		android:visibility="gone"
+	>
+		<ImageButton
+			style="@style/actionbar_left_button" 
+			android:id="@+id/cancel_search_button"
+			android:src="?attr/ic_ok"
+		/>
+
 		<EditText
 			style="@style/actionbar_edittext" 
 			android:id="@+id/search_edittext"
 			android:hint="@string/search_note_hint"
 			android:inputType="text"
-			android:visibility="gone"
 			android:imeOptions="actionSearch"
 		/>
 		<ImageButton
 			style="@style/actionbar_right_button" 
-			android:id="@+id/cancel_search_button"
+			android:id="@+id/clear_search_word_button"
 			android:src="?attr/ic_clear"
-			android:visibility="gone"
 		/>
 	</LinearLayout>
 

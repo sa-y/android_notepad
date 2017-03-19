@@ -219,31 +219,6 @@ public class NoteDetailFragment extends Fragment
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	public void loadNote()
-	{
-		Log.v(LOG_TAG, "Hello");
-
-		LoaderManager loaderManager = getLoaderManager();
-		Loader loader = loaderManager.getLoader(NOTE_LOADER_ID);
-		Log.d(LOG_TAG, "loader => " + loader);
-
-		String type = getActivity().getContentResolver().getType(noteUri);
-		Log.d(LOG_TAG, "noteUri => " + noteUri);
-		Log.d(LOG_TAG, "type => " + type);
-		if (NoteStore.Note.NOTE_ITEM_CONTENT_TYPE.equals(type))
-		{
-			loaderManager.restartLoader(NOTE_LOADER_ID, null, this);
-			Log.d(LOG_TAG, "restartLoader()");
-		}
-		else
-		{
-			loaderManager.destroyLoader(NOTE_LOADER_ID);
-			Log.d(LOG_TAG, "destroyLoader()");
-		}
-
-		Log.v(LOG_TAG, "Bye");
-	}
-
 	// BEGIN ---------- LoaderManager.LoaderCallbacks<Cursor> ----------
 	public Loader<Cursor> onCreateLoader(int i, Bundle bundle)
 	{

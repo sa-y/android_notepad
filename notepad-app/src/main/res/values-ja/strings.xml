@@ -36,6 +36,10 @@
 	<string name="search_note_label">Notepad</string>
 	<string name="search_note_hint">ノートを検索</string>
 	<string name="search_note_description">ノートを検索します。</string>
+	<string name="find_word_hint">単語を検索</string>
+    <plurals name="found_word_count_message">  
+        <item quantity="other">%1$d か所ありました</item>  
+    </plurals>  
 
 	<!-- activity title -->
 	<string name="note_list_title">ノート一覧</string>
@@ -62,6 +66,7 @@
 	<string name="share_note">共有</string>
 	<string name="delete_notes">ノートを削除</string>
 	<string name="search_note">検索</string>
+	<string name="find_word">単語検索</string>
 
 	<string name="copy_note_title">タイトルをコピー</string>
 	<string name="copy_note_content">本文をコピー</string>

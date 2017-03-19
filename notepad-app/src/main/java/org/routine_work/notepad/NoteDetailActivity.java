@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2012 Masahiko, SAWAI <masahiko.sawai@gmail.com>.
+ * Copyright 2012-2017 Masahiko, SAWAI <masahiko.sawai@gmail.com>.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,11 +30,14 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.ClipboardManager;
+import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.util.Linkify;
@@ -42,8 +45,10 @@ import android.util.TypedValue;
 import android.view.*;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnFocusChangeListener;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import org.routine_work.notepad.model.Note;
@@ -52,6 +57,7 @@ import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.template.NoteTemplatePickerDialog;
 import org.routine_work.notepad.utils.NoteUtils;
 import org.routine_work.notepad.utils.NotepadConstants;
+import org.routine_work.notepad.utils.TextViewFindWordContext;
 import org.routine_work.utils.IMEUtils;
 import org.routine_work.utils.Log;
 
@@ -65,6 +71,7 @@ public class NoteDetailActivity extends Activity
 	View.OnClickListener,
 	OnFocusChangeListener,
 	DialogInterface.OnClickListener,
+	TextView.OnEditorActionListener,
 	NotepadConstants
 {
 
@@ -74,9 +81,35 @@ public class NoteDetailActivity extends Activity
 	private static final String SAVE_KEY_CURRENT_ACTION = "currentAction";
 	private static final String SAVE_KEY_CURRENT_NOTE = "currentNote";
 	private static final String SAVE_KEY_ORIGINAL_NOTE = "originalNote";
+	private static final String SAVE_KEY_ACTION_MODE = "ACTION_MODE";
+	private static final int ACTION_MODE_NORMAL = 0;
+	private static final int ACTION_MODE_FIND_WORD = 1;
+	private static final int[][][] ACTION_ITEM_VISIBILITY =
+	{
+		{ // ACTION_MODE_NORMAL
+			{ // GONE
+				R.id.find_word_mode_actionbar_container,
+			},
+			{ // VISIBLE
+				R.id.actionbar_container,
+			}
+		},
+		{ // ACTION_MODE_SEARCH
+			{ // GONE
+				R.id.actionbar_container,
+			},
+			{ // VISIBLE
+				R.id.find_word_mode_actionbar_container,
+			}
+		}
+	};
 	private static final int DIALOG_ID_LOCK = 0;
 	private static final int DIALOG_ID_UNLOCK = 1;
 	private static final int DIALOG_ID_NOTE_TEMPLATE_PICKER = 2;
+	// instance
+	private int actionMode = -1;
+	// Mode View : Find Word
+	private final TextViewFindWordContext findWordContext = new TextViewFindWordContext();
 	// ActionBar items
 	private ViewGroup actionBarContainer;
 	private TextView titleTextView;
@@ -84,6 +117,13 @@ public class NoteDetailActivity extends Activity
 	private ImageButton addNewNoteImageButton;
 	private ImageButton editNoteImageButton;
 	private ImageButton deleteNoteImageButton;
+
+	// Find Word Mode ActionBar items
+	private ImageButton cancelFindWordButton;
+	private EditText findWordEditText;
+	private ImageButton findPrevButton;
+	private ImageButton findNextButton;
+
 	// Mode Edit
 	private ViewGroup noteEditContainer;
 	private EditText noteTitleEditText;
@@ -91,7 +131,7 @@ public class NoteDetailActivity extends Activity
 	private ImageButton noteTitleUnlockImageButton;
 	private EditText noteContentEditText;
 	// Mode View
-	private ViewGroup noteViewContainer;
+	private ScrollView noteViewScrollView;
 	private TextView noteTitleTextView;
 	private TextView noteContentTextView;
 	// Dialogs
@@ -123,6 +163,10 @@ public class NoteDetailActivity extends Activity
 
 		setContentView(R.layout.note_detail_activity);
 
+		initFindWordContextColors();
+
+		setActionMode(ACTION_MODE_NORMAL);
+
 		// configuration
 		actionBarAutoHide = NotepadPreferenceUtils.getActionBarAutoHide(this);
 		Log.d(LOG_TAG, "actionBarAutoHide => " + actionBarAutoHide);
@@ -141,6 +185,18 @@ public class NoteDetailActivity extends Activity
 		addNewNoteImageButton.setOnClickListener(this);
 		editNoteImageButton.setOnClickListener(this);
 		deleteNoteImageButton.setOnClickListener(this);
+
+		// Find Word Mode ActionBar Items
+		cancelFindWordButton = (ImageButton) findViewById(R.id.cancel_find_word_button);
+		findWordEditText = (EditText) findViewById(R.id.find_word_edittext);
+		findPrevButton = (ImageButton) findViewById(R.id.find_prev_button);
+		findNextButton = (ImageButton) findViewById(R.id.find_next_button);
+
+		findWordEditText.setOnEditorActionListener(this);
+		findWordEditText.setOnFocusChangeListener(this);
+		cancelFindWordButton.setOnClickListener(this);
+		findPrevButton.setOnClickListener(this);
+		findNextButton.setOnClickListener(this);
 
 		// Edit Mode
 		noteEditContainer = (ViewGroup) findViewById(R.id.note_edit_container);
@@ -172,7 +228,7 @@ public class NoteDetailActivity extends Activity
 		noteContentEditText.setInputType(noteContentInputType);
 
 		// View Mode
-		noteViewContainer = (ViewGroup) findViewById(R.id.note_view_container);
+		noteViewScrollView = (ScrollView) findViewById(R.id.note_view_scrollview);
 		noteTitleTextView = (TextView) findViewById(R.id.note_title_textview);
 		if (NotepadPreferenceUtils.getNoteTitleAutoLink(this))
 		{
@@ -227,6 +283,7 @@ public class NoteDetailActivity extends Activity
 		outState.putParcelable(SAVE_KEY_CURRENT_NOTE_URI, currentNoteUri);
 		outState.putSerializable(SAVE_KEY_CURRENT_NOTE, currentNote);
 		outState.putSerializable(SAVE_KEY_ORIGINAL_NOTE, originalNote);
+		outState.putInt(SAVE_KEY_ACTION_MODE, actionMode);
 		Log.v(LOG_TAG, "Bye");
 	}
 
@@ -333,6 +390,7 @@ public class NoteDetailActivity extends Activity
 		menuInflater.inflate(R.menu.edit_note_option_menu, menu);
 		menuInflater.inflate(R.menu.delete_note_option_menu, menu);
 		menuInflater.inflate(R.menu.share_note_option_menu, menu);
+		menuInflater.inflate(R.menu.find_word_option_menu, menu);
 		menuInflater.inflate(R.menu.actionbar_visibility_option_menu, menu);
 		menuInflater.inflate(R.menu.quit_menu, menu);
 
@@ -350,6 +408,7 @@ public class NoteDetailActivity extends Activity
 		MenuItem editNoteMenuItem = menu.findItem(R.id.edit_note_menuitem);
 		MenuItem deleteNoteMenuItem = menu.findItem(R.id.delete_note_menuitem);
 		MenuItem shareNoteMenuItem = menu.findItem(R.id.share_note_menuitem);
+		MenuItem findWordMenuItem = menu.findItem(R.id.find_word_menuitem);
 		MenuItem showActionBarMenuItem = menu.findItem(R.id.show_actionbar_menuitem);
 		MenuItem hideActionBarMenuItem = menu.findItem(R.id.hide_actionbar_menuitem);
 		if (Intent.ACTION_VIEW.equals(currentAction))
@@ -358,6 +417,7 @@ public class NoteDetailActivity extends Activity
 			editNoteMenuItem.setVisible(true);
 			deleteNoteMenuItem.setVisible(true);
 			shareNoteMenuItem.setVisible(true);
+			findWordMenuItem.setVisible(true);
 			showActionBarMenuItem.setVisible(false);
 			hideActionBarMenuItem.setVisible(false);
 		}
@@ -367,6 +427,7 @@ public class NoteDetailActivity extends Activity
 			editNoteMenuItem.setVisible(false);
 			deleteNoteMenuItem.setVisible(false);
 			shareNoteMenuItem.setVisible(true);
+			findWordMenuItem.setVisible(false);
 			showActionBarMenuItem.setVisible(!isActionBarVisible());
 			hideActionBarMenuItem.setVisible(isActionBarVisible());
 		}
@@ -376,6 +437,7 @@ public class NoteDetailActivity extends Activity
 			editNoteMenuItem.setVisible(false);
 			deleteNoteMenuItem.setVisible(false);
 			shareNoteMenuItem.setVisible(false);
+			findWordMenuItem.setVisible(false);
 			showActionBarMenuItem.setVisible(false);
 			hideActionBarMenuItem.setVisible(false);
 		}
@@ -409,6 +471,10 @@ public class NoteDetailActivity extends Activity
 				Log.d(LOG_TAG, "share_note_menuitem selected.");
 				shareCurrentNote();
 				break;
+			case R.id.find_word_menuitem:
+				Log.d(LOG_TAG, "find_word_menuitem selected.");
+				enterFindWordMode();
+				break;
 			case R.id.show_actionbar_menuitem:
 				Log.d(LOG_TAG, "show_actionbar_menuitem selected.");
 				showActionBar();
@@ -440,9 +506,17 @@ public class NoteDetailActivity extends Activity
 		if (keyCode == KeyEvent.KEYCODE_BACK)
 		{
 			Log.v(LOG_TAG, "KEYCODE_BACK is down.");
-			setResultByModifiedFlag();
-			finish();
-			result = true;
+			if (actionMode == ACTION_MODE_FIND_WORD)
+			{
+				leaveFindWordMode();
+				result = true;
+			}
+			else
+			{
+				setResultByModifiedFlag();
+				finish();
+				result = true;
+			}
 		}
 		else
 		{
@@ -511,6 +585,18 @@ public class NoteDetailActivity extends Activity
 				Log.d(LOG_TAG, "note_content_textview is clicked.");
 //				startEditNoteActivity();
 				break;
+			case R.id.cancel_find_word_button:
+				Log.d(LOG_TAG, "Cancel Find Word Button is clicked.");
+				leaveFindWordMode();
+				break;
+			case R.id.find_prev_button:
+				Log.d(LOG_TAG, "Find Prev Word Button is clicked.");
+				findPrevWord();
+				break;
+			case R.id.find_next_button:
+				Log.d(LOG_TAG, "Find Next Word Button is clicked.");
+				findNextWord();
+				break;
 		}
 
 		Log.v(LOG_TAG, "Bye");
@@ -532,6 +618,15 @@ public class NoteDetailActivity extends Activity
 				menuInflater.inflate(R.menu.note_content_context_menu, menu);
 				break;
 			default:
+		}
+
+		if (Intent.ACTION_VIEW.equals(currentAction) == false)
+		{
+			MenuItem findWordMenuItem = menu.findItem(R.id.find_word_menuitem);
+			if (findWordMenuItem != null)
+			{
+				findWordMenuItem.setVisible(false);
+			}
 		}
 
 		Log.v(LOG_TAG, "Bye");
@@ -556,6 +651,10 @@ public class NoteDetailActivity extends Activity
 			case R.id.copy_note_content_menuitem:
 				Log.d(LOG_TAG, "copy_note_content_menuitem selected.");
 				copyNoteContentToClipboard();
+				break;
+			case R.id.find_word_menuitem:
+				Log.d(LOG_TAG, "find_word_menuitem selected.");
+				enterFindWordMode();
 				break;
 			default:
 				result = super.onContextItemSelected(item);
@@ -620,6 +719,17 @@ public class NoteDetailActivity extends Activity
 					}
 				}
 				break;
+			case R.id.find_word_edittext:
+				if (hasFocus)
+				{
+					Log.d(LOG_TAG, "find_word_edittext has focus.");
+					IMEUtils.showSoftKeyboardWindow(this, v);
+				}
+				else
+				{
+					IMEUtils.hideSoftKeyboardWindow(this, v);
+				}
+				break;
 		}
 
 		Log.v(LOG_TAG, "Bye");
@@ -643,6 +753,20 @@ public class NoteDetailActivity extends Activity
 		{
 			titleTextView.setText(title);
 		}
+	}
+
+	@Override
+	public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent)
+	{
+		boolean result = false;
+
+		if (actionId == EditorInfo.IME_ACTION_SEARCH)
+		{
+			findWord(textView.getText());
+			result = true;
+		}
+
+		return result;
 	}
 
 	@Override
@@ -700,6 +824,13 @@ public class NoteDetailActivity extends Activity
 		}
 
 		updateViews();
+
+		int savedActionMode = savedInstanceState.getInt(SAVE_KEY_ACTION_MODE, ACTION_MODE_NORMAL);
+		Log.v(LOG_TAG, "savedActionMode => " + savedActionMode);
+		if (savedActionMode == ACTION_MODE_FIND_WORD)
+		{
+			enterFindWordMode();
+		}
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -876,6 +1007,39 @@ public class NoteDetailActivity extends Activity
 		Log.d(LOG_TAG, "------------------------------------------------------------");
 
 		Log.v(LOG_TAG, "Bye");
+	}
+
+	private void initFindWordContextColors()
+	{
+		// Init findWordContext text backgound color
+		Resources.Theme theme = getTheme();
+		TypedValue outValue = new TypedValue();
+		theme.resolveAttribute(R.attr.foundWordBackgroundColor, outValue, true);
+		Log.v(LOG_TAG, "foundWordBackgroundColor => " + Integer.toHexString(outValue.data));
+		if (outValue.type == TypedValue.TYPE_INT_COLOR_ARGB8)
+		{
+			findWordContext.setFoundWordBackgroundColor(outValue.data);
+		}
+		theme.resolveAttribute(R.attr.foundWordForegroundColor, outValue, true);
+		Log.v(LOG_TAG, "foundWordForegroundColor => " + Integer.toHexString(outValue.data));
+		if (outValue.type == TypedValue.TYPE_INT_COLOR_ARGB8)
+		{
+			findWordContext.setFoundWordForegroundColor(outValue.data);
+		}
+
+		theme.resolveAttribute(R.attr.selectedWordBackgroundColor, outValue, true);
+		Log.v(LOG_TAG, "selectedWordBackgroundColor => " + Integer.toHexString(outValue.data));
+		if (outValue.type == TypedValue.TYPE_INT_COLOR_ARGB8)
+		{
+			findWordContext.setSelectedWordBackgroundColor(outValue.data);
+		}
+
+		theme.resolveAttribute(R.attr.selectedWordForegroundColor, outValue, true);
+		Log.v(LOG_TAG, "selectedWordForegroundColor => " + Integer.toHexString(outValue.data));
+		if (outValue.type == TypedValue.TYPE_INT_COLOR_ARGB8)
+		{
+			findWordContext.setSelectedWordForegroundColor(outValue.data);
+		}
 	}
 
 	private void showActionBar()
@@ -1149,7 +1313,7 @@ public class NoteDetailActivity extends Activity
 		if (Intent.ACTION_EDIT.equals(currentAction))
 		{
 			noteEditContainer.setVisibility(View.VISIBLE);
-			noteViewContainer.setVisibility(View.GONE);
+			noteViewScrollView.setVisibility(View.GONE);
 
 			updateNoteEditTexts();
 			updateNoteTitleLockedViews();
@@ -1158,7 +1322,7 @@ public class NoteDetailActivity extends Activity
 		else
 		{
 			noteEditContainer.setVisibility(View.GONE);
-			noteViewContainer.setVisibility(View.VISIBLE);
+			noteViewScrollView.setVisibility(View.VISIBLE);
 
 			updateNoteTextViews();
 		}
@@ -1185,7 +1349,9 @@ public class NoteDetailActivity extends Activity
 		}
 		if (noteContentTextView != null)
 		{
-			noteContentTextView.setText(currentNote.getContent());
+			//noteContentTextView.setText(currentNote.getContent());
+			findWordContext.setContentText(currentNote.getContent());
+			noteContentTextView.setText(findWordContext.getSpannable());
 		}
 	}
 
@@ -1309,4 +1475,147 @@ public class NoteDetailActivity extends Activity
 		ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
 		clipboardManager.setText(noteContentTextView.getText());
 	}
+
+	private void enterFindWordMode()
+	{
+		Log.d(LOG_TAG, "Hello");
+
+		if (actionMode != ACTION_MODE_FIND_WORD)
+		{
+			setActionMode(ACTION_MODE_FIND_WORD);
+			IMEUtils.requestKeyboardFocus(findWordEditText);
+		}
+
+		Log.d(LOG_TAG, "Bye");
+	}
+
+	private void leaveFindWordMode()
+	{
+		Log.d(LOG_TAG, "Hello");
+
+		if (actionMode != ACTION_MODE_NORMAL)
+		{
+			setActionMode(ACTION_MODE_NORMAL);
+			findWordEditText.setText("");
+			findWordContext.setTargetWord("");
+			updateFindWordViews();
+		}
+
+		Log.d(LOG_TAG, "Bye");
+	}
+
+	private void setActionMode(int newActionMode)
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		if (actionMode != newActionMode)
+		{
+			actionMode = newActionMode;
+			Log.d(LOG_TAG, "update actionMode => " + actionMode);
+			int[] goneViewIds = ACTION_ITEM_VISIBILITY[actionMode][0];
+			for (int i = 0; i < goneViewIds.length; i++)
+			{
+				View view = findViewById(goneViewIds[i]);
+				if (view != null)
+				{
+					view.setVisibility(View.GONE);
+				}
+			}
+			int[] visibleViewIds = ACTION_ITEM_VISIBILITY[actionMode][1];
+			for (int i = 0; i < visibleViewIds.length; i++)
+			{
+				View view = findViewById(visibleViewIds[i]);
+				if (view != null)
+				{
+					view.setVisibility(View.VISIBLE);
+				}
+			}
+
+		}
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	private void updateFindWordViews()
+	{
+		this.noteContentTextView.setText(this.findWordContext.getSpannable());
+
+		int selectedWordLineNumber = this.findWordContext.getSelectedWordLineNumber();
+		if (selectedWordLineNumber >= 0)
+		{
+			Rect rect = new Rect();
+			noteContentTextView.getLineBounds(selectedWordLineNumber, rect);
+			noteViewScrollView.scrollTo(rect.left, rect.top - noteContentTextView.getLineHeight());
+		}
+	}
+
+	private void findWord()
+	{
+		if (actionMode == ACTION_MODE_FIND_WORD)
+		{
+			CharSequence targetWord = findWordEditText.getText();
+			if (TextUtils.isEmpty(targetWord) == false)
+			{
+				findWord(findWordEditText.getText());
+			}
+		}
+	}
+
+	private void findWord(CharSequence targetWord)
+	{
+		if (actionMode == ACTION_MODE_FIND_WORD)
+		{
+			this.findWordContext.setTargetWord(targetWord);
+			updateFindWordViews();
+
+			// Show found count message in Toast
+			int yOffset = (int) (this.getResources().getDisplayMetrics().density * 50.0f);
+			int foundCount = this.findWordContext.getFoundWordCount();
+			String foundMessage = getResources().getQuantityString(R.plurals.found_word_count_message, foundCount, foundCount);
+			Toast toast = Toast.makeText(this, foundMessage, Toast.LENGTH_LONG);
+			toast.setGravity(Gravity.TOP, 0, yOffset);
+			toast.show();
+
+			IMEUtils.hideSoftKeyboardWindow(this, findWordEditText);
+		}
+	}
+
+	private void findPrevWord()
+	{
+		if (actionMode == ACTION_MODE_FIND_WORD)
+		{
+			String currentTargetWord = this.findWordContext.getTargetWord();
+			String newTargetWord = this.findWordEditText.getText().toString();
+
+			if (TextUtils.isEmpty(currentTargetWord) || currentTargetWord.equals(newTargetWord) == false)
+			{
+				findWord();
+			}
+			else
+			{
+				this.findWordContext.prevWord();
+				updateFindWordViews();
+			}
+		}
+	}
+
+	private void findNextWord()
+	{
+		if (ACTION_MODE_FIND_WORD == actionMode)
+		{
+			String currentTargetWord = this.findWordContext.getTargetWord();
+			String newTargetWord = this.findWordEditText.getText().toString();
+
+			if (TextUtils.isEmpty(currentTargetWord) || currentTargetWord.equals(newTargetWord) == false)
+			{
+				findWord();
+			}
+			else
+			{
+				this.findWordContext.nextWord();
+				updateFindWordViews();
+			}
+		}
+	}
+
 }

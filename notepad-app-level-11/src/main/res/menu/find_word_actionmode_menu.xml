@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item
+		android:id="@+id/find_word_action_menuitem"
+		android:title="@string/find_word"
+		android:icon="@android:drawable/ic_menu_search"
+		android:actionLayout="@layout/find_word_actionview"
+		android:showAsAction="always"
+	/>
+	<item
+		android:id="@+id/prev_word_menuitem"
+		android:title="@string/prev_word"
+		android:icon="?attr/ic_prev"
+		android:showAsAction="always"
+		android:numericShortcut="1"
+		android:alphabeticShortcut="p"
+	/>
+	<item
+		android:id="@+id/next_word_menuitem"
+		android:title="@string/next_word"
+		android:icon="?attr/ic_next"
+		android:showAsAction="always"
+		android:numericShortcut="1"
+		android:alphabeticShortcut="n"
+	/>
+</menu>

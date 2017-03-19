@@ -5,7 +5,7 @@
 	android:layout_height="fill_parent"
 	android:orientation="vertical"
 >
-	<!-- action bar -->
+	<!-- ActionBar Normal Mode -->
 	<LinearLayout
 		style="@style/actionbar"
 		android:id="@+id/actionbar_container"
@@ -34,6 +34,38 @@
 			style="@style/actionbar_right_button" 
 			android:id="@+id/edit_note_button"
 			android:src="?attr/ic_edit"
+		/>
+
+	</LinearLayout>
+
+	<!-- ActionBar Find Word Mode -->
+	<LinearLayout
+		style="@style/actionbar"
+		android:id="@+id/find_word_mode_actionbar_container"
+		android:visibility="gone"
+	>
+		<ImageButton
+			style="@style/actionbar_left_button" 
+			android:id="@+id/cancel_find_word_button"
+			android:src="?attr/ic_ok"
+		/>
+		<EditText
+			style="@style/actionbar_edittext" 
+			android:id="@+id/find_word_edittext"
+			android:hint="@string/find_word_hint"
+			android:inputType="text"
+			android:singleLine="true"
+			android:imeOptions="actionSearch"
+		/>
+		<ImageButton
+			style="@style/actionbar_right_button" 
+			android:id="@+id/find_prev_button"
+			android:src="?attr/ic_prev"
+		/>
+		<ImageButton
+			style="@style/actionbar_right_button" 
+			android:id="@+id/find_next_button"
+			android:src="?attr/ic_next"
 		/>
 	</LinearLayout>
 

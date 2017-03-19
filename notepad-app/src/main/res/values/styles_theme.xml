@@ -19,6 +19,8 @@
 
 	<!-- Dark Theme -->
 	<style name="Theme.Notepad.Dark" parent="@android:style/Theme.NoTitleBar" >
+		<item name="android:textColorPrimary">@color/primary_text_holo_dark</item>
+		<item name="android:textColorSecondary">@color/secondary_text_holo_dark</item>
 		<item name="android:editTextStyle">@style/Widget.Holo.Dark.EditText</item>
 		<item name="android:listViewStyle">@style/Widget.Notepad.ListView</item>
 
@@ -31,10 +33,19 @@
 		<item name="ic_ok">@drawable/ic_ok_dark</item>
 		<item name="ic_lock">@drawable/ic_lock_dark</item>
 		<item name="ic_unlock">@drawable/ic_unlock_dark</item>
+		<item name="ic_prev">@drawable/ic_prev_dark</item>
+		<item name="ic_next">@drawable/ic_next_dark</item>
+
+		<item name="foundWordBackgroundColor">#CC00BB88</item>
+		<item name="foundWordForegroundColor">#FFEEEEEE</item>
+		<item name="selectedWordBackgroundColor">#CC00EEBB</item>
+		<item name="selectedWordForegroundColor">#FFFFFFFF</item>
 	</style>
 
 	<!-- Light Theme -->
 	<style name="Theme.Notepad.Light" parent="@android:style/Theme.Light.NoTitleBar" >
+		<item name="android:textColorPrimary">@color/primary_text_holo_light</item>
+		<item name="android:textColorSecondary">@color/secondary_text_holo_light</item>
 		<item name="android:editTextStyle">@style/Widget.Holo.Light.EditText</item>
 		<item name="android:listViewStyle">@style/Widget.Notepad.ListView</item>
 
@@ -61,6 +72,13 @@
 		<item name="ic_ok">@drawable/ic_ok_light</item>
 		<item name="ic_lock">@drawable/ic_lock_light</item>
 		<item name="ic_unlock">@drawable/ic_unlock_light</item>
+		<item name="ic_prev">@drawable/ic_prev_light</item>
+		<item name="ic_next">@drawable/ic_next_light</item>
+
+		<item name="foundWordBackgroundColor">#CC00BB88</item>
+		<item name="foundWordForegroundColor">#FF111111</item>
+		<item name="selectedWordBackgroundColor">#CC00EEBB</item>
+		<item name="selectedWordForegroundColor">#FF000000</item>
 	</style>
 
 	<!-- Dialog Theme -->

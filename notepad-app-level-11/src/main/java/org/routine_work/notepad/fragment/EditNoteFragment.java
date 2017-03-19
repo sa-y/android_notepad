@@ -32,11 +32,13 @@ import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.InputType;
@@ -134,12 +136,34 @@ public class EditNoteFragment extends Fragment
 	@Override
 	public void onAttach(Activity activity)
 	{
-		Log.v(LOG_TAG, "Hello");
-
 		super.onAttach(activity);
+		Log.v(LOG_TAG, "Hello");
+		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1)
+		{
+			return;
+		}
+
 		if (activity instanceof NoteDetailEventCallback)
 		{
 			noteDetailEventCallback = (NoteDetailEventCallback) activity;
+		}
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	@Override
+	public void onAttach(Context context)
+	{
+		super.onAttach(context);
+		Log.v(LOG_TAG, "Hello");
+		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1)
+		{
+			return;
+		}
+
+		if (context instanceof NoteDetailEventCallback)
+		{
+			noteDetailEventCallback = (NoteDetailEventCallback) context;
 		}
 
 		Log.v(LOG_TAG, "Bye");
@@ -711,6 +735,7 @@ public class EditNoteFragment extends Fragment
 			{
 				noteTitleLockImageButton.setVisibility(View.VISIBLE);
 				noteTitleUnlockImageButton.setVisibility(View.GONE);
+
 			}
 		}
 	}

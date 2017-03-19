@@ -7,6 +7,6 @@
 		android:showAsAction="ifRoom|withText"
 		android:alphabeticShortcut="s"
 		android:menuCategory="container"
-		android:orderInCategory="3"
+		android:orderInCategory="4"
 	/>
 </menu>

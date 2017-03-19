@@ -1,7 +1,7 @@
 1.0.12
 ======
 
-* Added find word function in in note viewer
+* Added find word functino in note viewer
 
 1.0.11
 ======

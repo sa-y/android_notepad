@@ -36,6 +36,11 @@
 	<string name="search_note_label">Notepad</string>
 	<string name="search_note_hint">Search note</string>
 	<string name="search_note_description">Search note</string>
+	<string name="find_word_hint">Find word</string>
+    <plurals name="found_word_count_message">  
+        <item quantity="one">%1$d occurrence found</item>  
+        <item quantity="other">%1$d occurrences found</item>  
+    </plurals>  
 
 	<!-- activity title -->
 	<string name="note_list_title">Note List</string>
@@ -62,6 +67,7 @@
 	<string name="share_note">Share</string>
 	<string name="delete_notes">Delete Notes</string>
 	<string name="search_note">Search</string>
+	<string name="find_word">Find Word</string>
 
 	<string name="copy_note_title">Copy Title</string>
 	<string name="copy_note_content">Copy Text</string>
@@ -84,4 +90,5 @@
 	<string name="shortcut_name">Shortcut Name</string>
 	<string name="no_search_query_message">Please input a search query.</string>
 	<string name="no_shortcut_name_message">Please input a shortcut name.</string>
+
 </resources>

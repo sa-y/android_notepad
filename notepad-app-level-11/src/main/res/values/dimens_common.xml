@@ -15,4 +15,7 @@
 	<dimen name="list_item_paddingRight">4dip</dimen>
 	<dimen name="list_item_paddingTop">4dip</dimen>
 	<dimen name="list_item_paddingBottom">4dip</dimen>
+
+	<!-- find word EditText -->
+	<dimen name="find_word_edittext_layout_width">160dip</dimen>
 </resources>

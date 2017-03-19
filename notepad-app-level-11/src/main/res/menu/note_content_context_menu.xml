@@ -13,4 +13,11 @@
 		android:numericShortcut="2"
 		android:alphabeticShortcut="e"
 	/>
+	<item
+		android:id="@+id/find_word_menuitem"
+		android:title="@string/find_word"
+		android:icon="@android:drawable/ic_menu_search"
+		android:numericShortcut="3"
+		android:alphabeticShortcut="f"
+	/>
 </menu>

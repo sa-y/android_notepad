@@ -40,12 +40,20 @@ public class IMEUtils
 
 	public static void showSoftKeyboardWindow(Context context, View view)
 	{
+		if (context == null || view == null)
+		{
+			return;
+		}
 		InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
 		inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
 	}
 
 	public static void hideSoftKeyboardWindow(Context context, View view)
 	{
+		if (context == null || view == null)
+		{
+			return;
+		}
 		InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
 		inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
 	}
@@ -57,6 +65,10 @@ public class IMEUtils
 
 	public static void requestSoftKeyboardWindow(Context context, View view, long delayInMillis)
 	{
+		if (context == null || view == null)
+		{
+			return;
+		}
 		final Context targetContext = context;
 		final View targetView = view;
 		new Handler().postDelayed(new Runnable()
@@ -79,6 +91,11 @@ public class IMEUtils
 
 	public static void requestKeyboardFocus(EditText editText, long delayInMillis)
 	{
+		if (editText == null)
+		{
+			return;
+		}
+
 		final EditText targetEditText = editText;
 		new Handler().postDelayed(new Runnable()
 		{
@@ -97,6 +114,11 @@ public class IMEUtils
 
 	public static void requestKeyboardFocusByClick(EditText editText, long delayInMillis)
 	{
+		if (editText == null)
+		{
+			return;
+		}
+
 		final EditText targetEditText = editText;
 		new Handler().postDelayed(new Runnable()
 		{

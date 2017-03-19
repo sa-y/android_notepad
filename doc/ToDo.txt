@@ -3,19 +3,10 @@ notepad-app
 ===========
 
 * NoteDetailActivity のリファクタリング
-  * NoteDetailViewer
-  * NoteDetailEditor
-
-* フォントサイズのカスタマイズ
-  * 必要か？
-  * ノート一覧画面
-  * ノート表示画面
-  * ノート編集画面
-
-* ノート一覧画面でノート表示順を変更可能にする
-  * 現在のソート順をどのように表示するか？
-    * ノート一覧画面にヘッダをつけてそこに表示する？
-
+  * Activity を分離するのはダメなのか？
+    * ViewNoteActivity
+    * EditNoteActivity
+    * DeleteNoteActivity
 
 notepad-app-level-11
 ====================
@@ -23,6 +14,7 @@ notepad-app-level-11
 * アクションバー自動非表示時にジェスチャーで表示できるようにする
   * ScrollView の上端にいる場合に下にスワイプしたら表示？
     -> 実装できたが動作がいまいち…
+
 
 * NotepadPreferenceActivity をフラグメントにする？
 

@@ -62,10 +62,11 @@ import org.routine_work.utils.Log;
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
 public class NotepadActivity extends ListActivity
-		implements View.OnClickListener, OnItemClickListener,
-		TextView.OnEditorActionListener, OnFocusChangeListener,
-		SharedPreferences.OnSharedPreferenceChangeListener,
-		NotepadConstants {
+	implements View.OnClickListener, OnItemClickListener,
+	TextView.OnEditorActionListener, OnFocusChangeListener,
+	SharedPreferences.OnSharedPreferenceChangeListener,
+	NotepadConstants
+{
 
 	private static final String LOG_TAG = "simple-notepad";
 	private static final String ACTION_QUIT = NotepadConstants.class.getPackage().getName() + ".QUIT";
@@ -74,23 +75,25 @@ public class NotepadActivity extends ListActivity
 	private static final int ACTION_MODE_SEARCH = 1;
 	private static final int DIALOG_ID_NOTE_TEMPLATE_PICKER = 0;
 	private static final int[][][] ACTION_ITEM_VISIBILITY
-			= {
-				{ // ACTION_MODE_NORMAL
-					{ // GONE
-						R.id.search_edittext,
-						R.id.cancel_search_button,},
-					{ // VISIBLE
-						R.id.title_textview,
-						R.id.add_new_note_button,
-						R.id.search_button,},},
-				{ // ACTION_MODE_SEARCH
-					{ // GONE
-						R.id.title_textview,
-						R.id.add_new_note_button,
-						R.id.search_button,},
-					{ // VISIBLE
-						R.id.search_edittext,
-						R.id.cancel_search_button,},},};
+		=
+		{
+			{ // ACTION_MODE_NORMAL
+				{ // GONE
+					R.id.search_mode_actionbar_container,
+				},
+				{ // VISIBLE
+					R.id.actionbar_container,
+				},
+			},
+			{ // ACTION_MODE_SEARCH
+				{ // GONE
+					R.id.actionbar_container,
+				},
+				{ // VISIBLE
+					R.id.search_mode_actionbar_container,
+				},
+			},
+		};
 	// instances
 	private int actionMode = -1;
 	private NoteCursorAdapter listAdapter;
@@ -98,19 +101,22 @@ public class NotepadActivity extends ListActivity
 	private EditText searchEditText;
 	private NoteTemplatePickerDialog noteTemplatePickerDialog;
 
-	static {
+	static
+	{
 		Log.setOutputLevel(Log.VERBOSE);
 		Log.setTraceMode(true);
 		Log.setIndentMode(true);
 	}
 
-	public static void goHomeActivity(Context context) {
+	public static void goHomeActivity(Context context)
+	{
 		Intent homeIntent = new Intent(Intent.ACTION_VIEW, NoteStore.Note.CONTENT_URI);
 		homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		context.startActivity(homeIntent);
 	}
 
-	public static void quitApplication(Context context) {
+	public static void quitApplication(Context context)
+	{
 		Intent quitIntent = new Intent(context, NotepadActivity.class);
 		quitIntent.setAction(ACTION_QUIT);
 		quitIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -118,7 +124,8 @@ public class NotepadActivity extends ListActivity
 	}
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		Log.v(LOG_TAG, "Hello");
 
 		setTheme(NotepadPreferenceUtils.getTheme(this));
@@ -143,13 +150,17 @@ public class NotepadActivity extends ListActivity
 		listView.setOnItemClickListener(this);
 		registerForContextMenu(listView);
 
-		if (savedInstanceState == null) {
+		if (savedInstanceState == null)
+		{
 			initializeWithIntent(getIntent());
-		} else {
+		}
+		else
+		{
 			initializeWithSavedInstance(savedInstanceState);
 		}
 
-		if (isFinishing() == false) {
+		if (isFinishing() == false)
+		{
 			ImageButton homeImageButton = (ImageButton) findViewById(R.id.home_button);
 			homeImageButton.setOnClickListener(this);
 			ImageButton addImageButton = (ImageButton) findViewById(R.id.add_new_note_button);
@@ -158,6 +169,8 @@ public class NotepadActivity extends ListActivity
 			searchImageButton.setOnClickListener(this);
 			ImageButton cancelSearchImageButton = (ImageButton) findViewById(R.id.cancel_search_button);
 			cancelSearchImageButton.setOnClickListener(this);
+			ImageButton clearSearchWordButton = (ImageButton) findViewById(R.id.clear_search_word_button);
+			clearSearchWordButton.setOnClickListener(this);
 
 			SharedPreferences sharedPreferences = NotepadPreferenceUtils.getSharedPreferences(this);
 			sharedPreferences.registerOnSharedPreferenceChangeListener(this);
@@ -167,7 +180,8 @@ public class NotepadActivity extends ListActivity
 	}
 
 	@Override
-	protected void onNewIntent(Intent intent) {
+	protected void onNewIntent(Intent intent)
+	{
 		Log.v(LOG_TAG, "Hello");
 
 		super.onNewIntent(intent);
@@ -177,30 +191,35 @@ public class NotepadActivity extends ListActivity
 	}
 
 	@Override
-	protected void onResume() {
+	protected void onResume()
+	{
 		Log.v(LOG_TAG, "Hello");
 		super.onResume();
 		Log.v(LOG_TAG, "Bye");
 	}
 
 	@Override
-	protected void onPause() {
+	protected void onPause()
+	{
 		Log.v(LOG_TAG, "Hello");
 		super.onPause();
 		Log.v(LOG_TAG, "Bye");
 	}
 
 	@Override
-	protected void onDestroy() {
+	protected void onDestroy()
+	{
 		Log.v(LOG_TAG, "Hello");
 
-		if (cursor != null) {
+		if (cursor != null)
+		{
 			cursor.close();
 			cursor = null;
 		}
 
 		int quitCount = NotepadPreferenceUtils.incrementQuitCount(this);
-		if (quitCount % 64 == 0) {
+		if (quitCount % 64 == 0)
+		{
 			Intent noteDBOptimizerIntent = new Intent(this, NoteDBOptimizer.class);
 			startService(noteDBOptimizerIntent);
 		}
@@ -211,7 +230,8 @@ public class NotepadActivity extends ListActivity
 	}
 
 	@Override
-	protected void onSaveInstanceState(Bundle outState) {
+	protected void onSaveInstanceState(Bundle outState)
+	{
 		Log.v(LOG_TAG, "Hello");
 
 		super.onSaveInstanceState(outState);
@@ -264,7 +284,8 @@ public class NotepadActivity extends ListActivity
 	 }
 	 */
 	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo)
+	{
 		Log.v(LOG_TAG, "Hello");
 		super.onCreateContextMenu(menu, v, menuInfo);
 
@@ -275,14 +296,17 @@ public class NotepadActivity extends ListActivity
 	}
 
 	@Override
-	public boolean onContextItemSelected(MenuItem item) {
+	public boolean onContextItemSelected(MenuItem item)
+	{
 		boolean result = true;
 		Log.v(LOG_TAG, "Hello");
 		Log.v(LOG_TAG, "Bye");
 
 		AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo();
-		if (menuInfo != null) {
-			switch (item.getItemId()) {
+		if (menuInfo != null)
+		{
+			switch (item.getItemId())
+			{
 				case R.id.view_note_menuitem:
 					startViewNoteActivityById(menuInfo.id);
 					break;
@@ -306,14 +330,17 @@ public class NotepadActivity extends ListActivity
 				default:
 					result = super.onContextItemSelected(item);
 			}
-		} else {
+		}
+		else
+		{
 			result = super.onContextItemSelected(item);
 		}
 
 		return result;
 	}
 
-	public void onItemClick(AdapterView<?> parentView, View view, int position, long id) {
+	public void onItemClick(AdapterView<?> parentView, View view, int position, long id)
+	{
 		Log.v(LOG_TAG, "Hello");
 
 		Log.d(LOG_TAG, "clicked item position => " + position);
@@ -325,7 +352,8 @@ public class NotepadActivity extends ListActivity
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
 		Log.v(LOG_TAG, "Hello");
 
 		MenuInflater menuInflater = getMenuInflater();
@@ -341,12 +369,14 @@ public class NotepadActivity extends ListActivity
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
 		boolean result = true;
 		Log.v(LOG_TAG, "Hello");
 
 		int itemId = item.getItemId();
-		switch (itemId) {
+		switch (itemId)
+		{
 			case R.id.add_new_note_menuitem:
 				Log.d(LOG_TAG, "add_new_note_menuitem is selected.");
 				addNewNote();
@@ -379,11 +409,13 @@ public class NotepadActivity extends ListActivity
 		return result;
 	}
 
-	public void onClick(View view) {
+	public void onClick(View view)
+	{
 		Log.v(LOG_TAG, "Hello");
 
 		int viewId = view.getId();
-		switch (viewId) {
+		switch (viewId)
+		{
 			case R.id.home_button:
 				Log.d(LOG_TAG, "home_button is clicked.");
 				cancelSearchMode();
@@ -400,21 +432,29 @@ public class NotepadActivity extends ListActivity
 				Log.d(LOG_TAG, "cancel_search_button is clicked.");
 				cancelSearchMode();
 				break;
+			case R.id.clear_search_word_button:
+				Log.d(LOG_TAG, "clear_search_word_button is clicked.");
+				searchEditText.setText(null);
+				break;
 		}
 
 		Log.v(LOG_TAG, "Bye");
 	}
 
 	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{
 		boolean result;
 		Log.v(LOG_TAG, "Hello");
 
 		if ((keyCode == KeyEvent.KEYCODE_BACK)
-				&& (actionMode != ACTION_MODE_NORMAL)) {
+			&& (actionMode != ACTION_MODE_NORMAL))
+		{
 			cancelSearchMode();
 			result = true;
-		} else {
+		}
+		else
+		{
 			result = super.onKeyDown(keyCode, event);
 		}
 
@@ -423,11 +463,13 @@ public class NotepadActivity extends ListActivity
 	}
 
 	@Override
-	protected Dialog onCreateDialog(int id) {
+	protected Dialog onCreateDialog(int id)
+	{
 		Dialog dialog = null;
 		Log.v(LOG_TAG, "Hello");
 
-		switch (id) {
+		switch (id)
+		{
 			case DIALOG_ID_NOTE_TEMPLATE_PICKER:
 				dialog = getNoteTemplatePickerDialog();
 				break;
@@ -439,21 +481,28 @@ public class NotepadActivity extends ListActivity
 	}
 
 	// TextView.OnEditorActionListener
-	public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-		if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+	public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
+	{
+		if (actionId == EditorInfo.IME_ACTION_SEARCH)
+		{
 			IMEUtils.hideSoftKeyboardWindow(this, v);
 		}
 		return true;
 	}
 
-	public void onFocusChange(View v, boolean hasFocus) {
+	public void onFocusChange(View v, boolean hasFocus)
+	{
 		Log.v(LOG_TAG, "Hello");
 
-		if (v.getId() == R.id.search_edittext) {
-			if (hasFocus) {
+		if (v.getId() == R.id.search_edittext)
+		{
+			if (hasFocus)
+			{
 				Log.d(LOG_TAG, "search_edittext has focus.");
 				IMEUtils.showSoftKeyboardWindow(this, v);
-			} else {
+			}
+			else
+			{
 				Log.d(LOG_TAG, "search_edittext has focus.");
 				IMEUtils.hideSoftKeyboardWindow(this, v);
 			}
@@ -462,12 +511,14 @@ public class NotepadActivity extends ListActivity
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+	public void onSharedPreferenceChanged(SharedPreferences prefs, String key)
+	{
 		Log.v(LOG_TAG, "Hello");
 		Log.d(LOG_TAG, "shared preference " + key + " is changed.");
 
 		String noteListSortOrderKey = getString(R.string.note_list_sort_order_key);
-		if (noteListSortOrderKey.equals(key)) {
+		if (noteListSortOrderKey.equals(key))
+		{
 			Log.d(LOG_TAG, "sort order is changed, update note list with new sort order.");
 			String queryString = searchEditText.getText().toString();
 			updateContentWithQuery(queryString);
@@ -476,7 +527,8 @@ public class NotepadActivity extends ListActivity
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void initializeWithIntent(Intent intent) {
+	private void initializeWithIntent(Intent intent)
+	{
 		Log.v(LOG_TAG, "Hello");
 
 		Log.d(LOG_TAG, "------------------------------");
@@ -488,23 +540,31 @@ public class NotepadActivity extends ListActivity
 
 		String queryString = null;
 		String action = intent.getAction();
-		if (ACTION_QUIT.equals(action)) {
+		if (ACTION_QUIT.equals(action))
+		{
 			finish();
-		} else if (Intent.ACTION_SEARCH.equals(action)) {
+		}
+		else if (Intent.ACTION_SEARCH.equals(action))
+		{
 			queryString = intent.getStringExtra(SearchManager.QUERY);
-		} else if (Intent.ACTION_VIEW.equals(action)) {
+		}
+		else if (Intent.ACTION_VIEW.equals(action))
+		{
 			int flags = intent.getFlags();
 			Log.v(LOG_TAG, "flags => 0x" + Integer.toHexString(flags));
 
-			if ((flags & Intent.FLAG_ACTIVITY_NEW_TASK) != 0) {
+			if ((flags & Intent.FLAG_ACTIVITY_NEW_TASK) != 0)
+			{
 				Log.d(LOG_TAG, "flags includes FLAG_ACTIVITY_NEW_TASK");
 
 				boolean processed = false;
 				Uri data = intent.getData();
-				if (data != null) {
+				if (data != null)
+				{
 					ContentResolver contentResolver = getContentResolver();
 					String type = contentResolver.getType(data);
-					if (NoteStore.Note.NOTE_ITEM_CONTENT_TYPE.equals(type)) {
+					if (NoteStore.Note.NOTE_ITEM_CONTENT_TYPE.equals(type))
+					{
 						Log.d(LOG_TAG, "open note : data => " + data);
 						String idString = data.getLastPathSegment();
 						queryString = "id:" + idString;
@@ -512,20 +572,27 @@ public class NotepadActivity extends ListActivity
 					}
 				}
 
-				if (!processed) {
+				if (!processed)
+				{
 					queryString = intent.getStringExtra(SearchManager.QUERY);
 				}
 			}
 		}
 
-		if (queryString != null) {
+		if (queryString != null)
+		{
 			enterSearchMode();
-			if (TextUtils.isEmpty(queryString.trim())) {
+			if (TextUtils.isEmpty(queryString.trim()))
+			{
 				searchEditText.setText(null);
-			} else {
+			}
+			else
+			{
 				searchEditText.setText(queryString);
 			}
-		} else {
+		}
+		else
+		{
 			setActionMode(ACTION_MODE_NORMAL);
 			searchEditText.setText(null);
 		}
@@ -533,7 +600,8 @@ public class NotepadActivity extends ListActivity
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void initializeWithSavedInstance(Bundle savedInstanceState) {
+	private void initializeWithSavedInstance(Bundle savedInstanceState)
+	{
 		Log.v(LOG_TAG, "Hello");
 
 		int savedActionMode = savedInstanceState.getInt(SAVE_KEY_ACTION_MODE);
@@ -542,22 +610,29 @@ public class NotepadActivity extends ListActivity
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void addNewNote() {
+	private void addNewNote()
+	{
 		Log.v(LOG_TAG, "Hello");
 
 		int noteTemplateCount = NoteStore.getNoteTemplateCount(getContentResolver());
-		if (noteTemplateCount >= 2) {
+		if (noteTemplateCount >= 2)
+		{
 			showDialog(DIALOG_ID_NOTE_TEMPLATE_PICKER);
-		} else if (noteTemplateCount == 1) {
+		}
+		else if (noteTemplateCount == 1)
+		{
 			NoteUtils.startActivityToAddNewNoteWithFirstTemplate(this);
-		} else if (noteTemplateCount == 0) {
+		}
+		else if (noteTemplateCount == 0)
+		{
 			NoteUtils.startActivityToAddNewBlankNote(this);
 		}
 
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void startViewNoteActivityById(long id) {
+	private void startViewNoteActivityById(long id)
+	{
 		Log.v(LOG_TAG, "Hello");
 
 		Uri uri = ContentUris.withAppendedId(NoteStore.Note.CONTENT_URI, id);
@@ -567,7 +642,8 @@ public class NotepadActivity extends ListActivity
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void startEditNoteActivityById(long id) {
+	private void startEditNoteActivityById(long id)
+	{
 		Log.v(LOG_TAG, "Hello");
 
 		Uri uri = ContentUris.withAppendedId(NoteStore.Note.CONTENT_URI, id);
@@ -577,7 +653,8 @@ public class NotepadActivity extends ListActivity
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void startDeleteNoteActivityById(long id) {
+	private void startDeleteNoteActivityById(long id)
+	{
 		Log.v(LOG_TAG, "Hello");
 
 		Uri uri = ContentUris.withAppendedId(NoteStore.Note.CONTENT_URI, id);
@@ -587,7 +664,8 @@ public class NotepadActivity extends ListActivity
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void startDeleteNotesActivity() {
+	private void startDeleteNotesActivity()
+	{
 		Log.v(LOG_TAG, "Hello");
 
 		Intent intent = new Intent(this, DeleteNotesActivity.class);
@@ -596,7 +674,8 @@ public class NotepadActivity extends ListActivity
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void startPreferencesActivity() {
+	private void startPreferencesActivity()
+	{
 		Log.v(LOG_TAG, "Hello");
 
 		Intent intent = new Intent(this, NotepadPreferenceActivity.class);
@@ -605,7 +684,8 @@ public class NotepadActivity extends ListActivity
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void startTemplateListActivity() {
+	private void startTemplateListActivity()
+	{
 		Log.v(LOG_TAG, "Hello");
 
 		Intent intent = new Intent(Intent.ACTION_VIEW, NoteStore.NoteTemplate.CONTENT_URI);
@@ -614,23 +694,29 @@ public class NotepadActivity extends ListActivity
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void setActionMode(int newActionMode) {
+	private void setActionMode(int newActionMode)
+	{
 		Log.v(LOG_TAG, "Hello");
 
-		if (actionMode != newActionMode) {
+		if (actionMode != newActionMode)
+		{
 			actionMode = newActionMode;
 			Log.d(LOG_TAG, "update actionMode => " + actionMode);
 			int[] goneViewIds = ACTION_ITEM_VISIBILITY[actionMode][0];
-			for (int i = 0; i < goneViewIds.length; i++) {
+			for (int i = 0; i < goneViewIds.length; i++)
+			{
 				View view = findViewById(goneViewIds[i]);
-				if (view != null) {
+				if (view != null)
+				{
 					view.setVisibility(View.GONE);
 				}
 			}
 			int[] visibleViewIds = ACTION_ITEM_VISIBILITY[actionMode][1];
-			for (int i = 0; i < visibleViewIds.length; i++) {
+			for (int i = 0; i < visibleViewIds.length; i++)
+			{
 				View view = findViewById(visibleViewIds[i]);
-				if (view != null) {
+				if (view != null)
+				{
 					view.setVisibility(View.VISIBLE);
 				}
 			}
@@ -640,35 +726,41 @@ public class NotepadActivity extends ListActivity
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void updateContentWithQuery(String queryString) {
+	private void updateContentWithQuery(String queryString)
+	{
 		Log.v(LOG_TAG, "Hello");
 		Log.v(LOG_TAG, "queryString => " + queryString);
 
 		Uri contentUri = NoteSearchQueryParser.parseQuery(queryString);
 		Log.v(LOG_TAG, "contentUri => " + contentUri);
 
-		if (contentUri != null) {
+		if (contentUri != null)
+		{
 			updateContentWithUri(contentUri);
 		}
 
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void updateContentWithUri(Uri contentUri) {
+	private void updateContentWithUri(Uri contentUri)
+	{
 		Log.v(LOG_TAG, "Hello");
 		Log.v(LOG_TAG, "contentUri => " + contentUri);
 
 		String where = NoteStore.Note.Columns.ENABLED + " = ?";
 		String[] whereArgs
-				= {
-					"1",};
+			=
+			{
+				"1",
+			};
 		String sortOrder = NotepadPreferenceUtils.getNoteListSortOrder(this);
 		Log.d(LOG_TAG, String.format("where => %s, whereArgs => %s, sortOrder => %s", where, Arrays.toString(whereArgs), sortOrder));
 		ContentResolver cr = getContentResolver();
 		Cursor newCursor = cr.query(contentUri, null, where, whereArgs, sortOrder);
 		listAdapter.changeCursor(newCursor);
 
-		if (cursor != null) {
+		if (cursor != null)
+		{
 			cursor.close();
 		}
 		cursor = newCursor;
@@ -676,35 +768,44 @@ public class NotepadActivity extends ListActivity
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void cancelSearchMode() {
-		if (actionMode != ACTION_MODE_NORMAL) {
+	private void cancelSearchMode()
+	{
+		if (actionMode != ACTION_MODE_NORMAL)
+		{
 			searchEditText.setText(null);
 			getListView().requestFocus();
 			setActionMode(ACTION_MODE_NORMAL);
 		}
 	}
 
-	private void enterSearchMode() {
-		if (actionMode != ACTION_MODE_SEARCH) {
+	private void enterSearchMode()
+	{
+		if (actionMode != ACTION_MODE_SEARCH)
+		{
 			setActionMode(ACTION_MODE_SEARCH);
 			IMEUtils.requestKeyboardFocus(searchEditText);
 //			searchEditText.requestFocus();
 		}
 	}
 
-	private Dialog getNoteTemplatePickerDialog() {
-		if (noteTemplatePickerDialog == null) {
+	private Dialog getNoteTemplatePickerDialog()
+	{
+		if (noteTemplatePickerDialog == null)
+		{
 			noteTemplatePickerDialog = new NoteTemplatePickerDialog(this);
 		}
 		return noteTemplatePickerDialog;
 	}
 
-	private void initializeNoteTemplateData() {
-		if (NotepadPreferenceUtils.isTemplateDataInitialized(this) == false) {
+	private void initializeNoteTemplateData()
+	{
+		if (NotepadPreferenceUtils.isTemplateDataInitialized(this) == false)
+		{
 			NotepadPreferenceUtils.setTemplateDataInitialized(this, true);
 			int noteTemplateCount = NoteStore.getNoteTemplateCount(getContentResolver());
 			Log.d(LOG_TAG, "noteTemplateCount => " + noteTemplateCount);
-			if (noteTemplateCount == 0) {
+			if (noteTemplateCount == 0)
+			{
 				Log.d(LOG_TAG, "start NoteTemplateInitializer");
 				Intent noteTeplateInitializerIntent = new Intent(this, NoteTemplateInitializer.class);
 				startService(noteTeplateInitializerIntent);
@@ -712,14 +813,17 @@ public class NotepadActivity extends ListActivity
 		}
 	}
 
-	class SearchEditTextWatcher implements TextWatcher {
+	class SearchEditTextWatcher implements TextWatcher
+	{
 
-		public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+		public void beforeTextChanged(CharSequence s, int start, int count, int after)
+		{
 			Log.v(LOG_TAG, "Hello");
 			Log.v(LOG_TAG, "Bye");
 		}
 
-		public void onTextChanged(CharSequence s, int start, int before, int count) {
+		public void onTextChanged(CharSequence s, int start, int before, int count)
+		{
 			Log.v(LOG_TAG, "Hello");
 
 			updateContentWithQuery(s.toString());
@@ -727,7 +831,8 @@ public class NotepadActivity extends ListActivity
 			Log.v(LOG_TAG, "Bye");
 		}
 
-		public void afterTextChanged(Editable s) {
+		public void afterTextChanged(Editable s)
+		{
 			Log.v(LOG_TAG, "Hello");
 			Log.v(LOG_TAG, "Bye");
 		}
