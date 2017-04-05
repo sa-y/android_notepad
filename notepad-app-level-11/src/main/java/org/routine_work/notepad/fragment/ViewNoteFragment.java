@@ -397,12 +397,12 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 
 	private void findPrevWord()
 	{
-		if (findWordActionMode != null)
+		if (findWordActionMode != null && findWordEditText != null)
 		{
 			String currentTargetWord = this.findWordContext.getTargetWord();
-			String newTargetWord = this.findWordEditText.getText().toString();
+			CharSequence newTargetWord = this.findWordEditText.getText();
 
-			if (TextUtils.isEmpty(currentTargetWord) || currentTargetWord.equals(newTargetWord) == false)
+			if (TextUtils.isEmpty(currentTargetWord) || TextUtils.equals(currentTargetWord, newTargetWord) == false)
 			{
 				findWord();
 			}
@@ -416,12 +416,12 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 
 	private void findNextWord()
 	{
-		if (findWordActionMode != null)
+		if (findWordActionMode != null && findWordEditText != null)
 		{
 			String currentTargetWord = this.findWordContext.getTargetWord();
-			String newTargetWord = this.findWordEditText.getText().toString();
+			CharSequence newTargetWord = this.findWordEditText.getText();
 
-			if (TextUtils.isEmpty(currentTargetWord) || currentTargetWord.equals(newTargetWord) == false)
+			if (TextUtils.isEmpty(currentTargetWord) || TextUtils.equals(currentTargetWord, newTargetWord) == false)
 			{
 				findWord();
 			}
