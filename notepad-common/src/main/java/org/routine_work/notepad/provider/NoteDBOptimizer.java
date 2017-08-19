@@ -54,8 +54,7 @@ public class NoteDBOptimizer extends IntentService
 	protected void onHandleIntent(Intent intent)
 	{
 		Log.v(LOG_TAG, "Hello");
-		NoteStore.vacuum(this);
-		NoteStore.reindex(this);
+		NoteStore.reindexAndVacuum(this);
 		Log.v(LOG_TAG, "Bye");
 	}
 }

@@ -331,6 +331,24 @@ public class NoteStore
 		return deleted;
 	}
 
+	public static void reindexAndVacuum(Context context)
+	{
+		NoteDBHelper helper = new NoteDBHelper(context);
+		SQLiteDatabase writableDatabase = helper.getWritableDatabase();
+		if (writableDatabase != null)
+		{
+			try
+			{
+				helper.reindex(writableDatabase);
+				helper.vacuum(writableDatabase);
+			}
+			finally
+			{
+				writableDatabase.close();
+			}
+		}
+	}
+
 	public static void reindex(Context context)
 	{
 		NoteDBHelper helper = new NoteDBHelper(context);
