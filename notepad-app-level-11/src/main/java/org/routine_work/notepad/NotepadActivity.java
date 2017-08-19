@@ -69,6 +69,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 {
 
 	public static final String ACTION_QUIT = NotepadActivity.class.getPackage().getName() + ".ACTION_QUIT";
+	private static final int DB_OPTIMIZER_COUNT = 128;
 	private static final String FT_NOTE_DETAIL = "FT_NOTE_DETAIL";
 	private static final String FT_NOTE_TEMPLATE_PICKER = "FT_NOTE_TEMPLATE_PICKER";
 	private static final String LOG_TAG = "simple-notepad";
@@ -194,7 +195,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		Log.v(LOG_TAG, "Hello");
 
 		int quitCount = NotepadPreferenceUtils.incrementQuitCount(this);
-		if (quitCount % 64 == 0)
+		if ((quitCount % DB_OPTIMIZER_COUNT) == 0)
 		{
 			Intent noteDBOptimizerIntent = new Intent(this, NoteDBOptimizer.class);
 			startService(noteDBOptimizerIntent);
