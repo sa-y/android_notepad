@@ -241,7 +241,7 @@ public class NoteDetailActivity extends Activity
 				editNoteFragment = new EditNoteFragment();
 				FragmentTransaction ft = fm.beginTransaction();
 				ft.replace(R.id.note_detail_container, editNoteFragment, FT_NOTE_EDIT);
-				ft.commit();
+				ft.commitAllowingStateLoss();
 			}
 			Log.d(LOG_TAG, "editNoteFragment => " + editNoteFragment);
 			Log.d(LOG_TAG, "editNoteFragment.noteUri => " + editNoteFragment.getNoteUri());
@@ -322,7 +322,7 @@ public class NoteDetailActivity extends Activity
 				deleteNoteFragment = new DeleteNoteFragment();
 				FragmentTransaction ft = fm.beginTransaction();
 				ft.replace(R.id.note_detail_container, deleteNoteFragment, FT_NOTE_DELETE);
-				ft.commit();
+				ft.commitAllowingStateLoss();
 			}
 
 			Log.d(LOG_TAG, "Delete newNoteUri => " + newNoteUri);

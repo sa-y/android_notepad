@@ -648,7 +648,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 				FragmentTransaction ft = fm.beginTransaction();
 				ft.add(R.id.note_detail_container, viewNoteFragment, FT_NOTE_DETAIL);
 				ft.addToBackStack(null);
-				ft.commit();
+				ft.commitAllowingStateLoss();
 
 				viewNoteFragment.setNoteUri(noteUri);
 			}
