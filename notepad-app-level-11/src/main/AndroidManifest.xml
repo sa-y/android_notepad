@@ -6,7 +6,7 @@
 	android:versionName="1.0.13"
 	android:installLocation="auto"
 >
-	<uses-sdk android:minSdkVersion="11" android:targetSdkVersion="25" />
+	<uses-sdk android:minSdkVersion="11" android:targetSdkVersion="25" /> <!-- Android 7.1 -->
 
 	<uses-feature android:name="android.hardware.touchscreen" android:required="false" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -18,6 +18,8 @@
 		android:debuggable="false"
 	>
 		<!--
+		android:resizeableActivity="true"
+		android:supportsPictureInPicture="true"
 		android:uiOptions="splitActionBarWhenNarrow"
 		-->
 

@@ -227,6 +227,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 
 		searchView.setOnQueryTextListener(this);
 		searchView.setOnCloseListener(this);
+		Log.v(LOG_TAG, "initialQueryString => " + initialQueryString);
 		if (!TextUtils.isEmpty(initialQueryString))
 		{
 			searchView.setIconified(false);
@@ -249,8 +250,19 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 			case android.R.id.home:
 				if (searchView != null)
 				{
-					searchView.setQuery(null, false);
-					searchView.setIconified(true);
+					Log.v(LOG_TAG, "seachView.isShown() => " + searchView.isShown());
+					Log.v(LOG_TAG, "seachView.isIconified() => " + searchView.isIconified());
+					if (searchView.isShown() && !searchView.isIconified())
+					{
+						if (!TextUtils.isEmpty(searchView.getQuery()))
+						{
+							Log.v(LOG_TAG, "Clear searchView query");
+							searchView.setQuery(null, false);
+							reloadNoteList();
+						}
+						Log.v(LOG_TAG, "Iconify seachView");
+						searchView.setIconified(true);
+					}
 				}
 				closeNoteDetailFragment();
 				break;
@@ -311,13 +323,15 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		boolean result;
 		Log.v(LOG_TAG, "Hello");
 
-		if ((keyCode == KeyEvent.KEYCODE_BACK)
-			&& searchView.isIconified() == false)
+		Log.v(LOG_TAG, "searchView.isIconified() =>  " + searchView.isIconified()); // androud 4 : true, androud 7 : false
+		Log.v(LOG_TAG, "searchView.isShown() =>  " + searchView.isShown());
+
+		if ((keyCode == KeyEvent.KEYCODE_BACK) && searchView.isShown() && !searchView.isIconified())
 		{
+			Log.v(LOG_TAG, "Close SeachView");
 			searchView.setQuery(null, false);
 			searchView.setIconified(true);
 			result = true;
-
 		}
 		else
 		{
@@ -327,8 +341,8 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		Log.v(LOG_TAG, "Bye");
 		return result;
 	}
-
 	// BEGIN ---------- SeachView.OnCloseListener ----------
+
 	public boolean onClose()
 	{
 		Log.v(LOG_TAG, "Hello");
@@ -358,7 +372,11 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		doSeachWithQueryText(queryText);
+		doSearchWithQueryText(queryText);
+		if (TextUtils.isEmpty(queryText) == false && searchView != null && searchView.isIconified())
+		{
+			searchView.setIconified(false);
+		}
 
 		Log.v(LOG_TAG, "Bye");
 		return true;
@@ -545,7 +563,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void doSeachWithQueryText(String queryString)
+	private void doSearchWithQueryText(String queryString)
 	{
 		Log.v(LOG_TAG, "Hello");
 		Log.v(LOG_TAG, "queryString => " + queryString);

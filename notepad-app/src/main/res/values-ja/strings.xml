@@ -37,9 +37,9 @@
 	<string name="search_note_hint">ノートを検索</string>
 	<string name="search_note_description">ノートを検索します。</string>
 	<string name="find_word_hint">単語を検索</string>
-    <plurals name="found_word_count_message">  
-        <item quantity="other">%1$d か所ありました</item>  
-    </plurals>  
+	<plurals name="found_word_count_message">
+		<item quantity="other">%1$d か所ありました</item>
+	</plurals>
 
 	<!-- activity title -->
 	<string name="note_list_title">ノート一覧</string>
