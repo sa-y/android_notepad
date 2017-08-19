@@ -374,9 +374,13 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		Log.v(LOG_TAG, "Hello");
 
 		doSearchWithQueryText(queryText);
+		Log.v(LOG_TAG, "queryText => " + queryText);
+		Log.v(LOG_TAG, "searchView.isShown() => " + searchView.isShown());
+		Log.v(LOG_TAG, "searchView.isIconified() => " + searchView.isIconified());
 		if (TextUtils.isEmpty(queryText) == false && searchView != null && searchView.isIconified())
 		{
 			searchView.setIconified(false);
+			searchView.clearFocus();
 		}
 
 		Log.v(LOG_TAG, "Bye");
