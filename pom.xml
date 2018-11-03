@@ -7,7 +7,7 @@
 	<groupId>org.routine_work</groupId>
 	<artifactId>notepad-project</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.14</version>
+	<version>1.0.15</version>
 	<name>Notepad Project</name>
 	<url>http://sourceforge.jp/users/say/pf/android_notepad/scm/</url>
 
@@ -34,13 +34,13 @@
 				<plugin>
 					<groupId>com.simpligility.maven.plugins</groupId>
 					<artifactId>android-maven-plugin</artifactId>
-					<version>4.4.1</version> <!-- use latest release -->
+					<version>4.5.0</version> <!-- use latest release -->
 					<extensions>true</extensions>
 					<dependencies>
 						<dependency>
 							<groupId>net.sf.proguard</groupId>
 							<artifactId>proguard-base</artifactId>
-							<version>5.2.1</version>
+							<version>6.0.3</version>
 						</dependency>
 					</dependencies>
 				</plugin>
@@ -50,7 +50,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.5.1</version>
+					<version>3.8.0</version>
 
 					<configuration>
 						<source>1.5</source>
@@ -74,7 +74,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-assembly-plugin</artifactId>
-					<version>2.6</version>
+					<version>3.1.0</version>
 
 					<configuration>
 						<descriptorRefs>
@@ -99,13 +99,13 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-project-info-reports-plugin</artifactId>
-					<version>2.9</version>
+					<version>3.0.0</version>
 				</plugin>
 
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>2.10.3</version>
+					<version>3.0.1</version>
 
 					<configuration>
 						<locale>en</locale>
@@ -121,7 +121,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-site-plugin</artifactId>
-					<version>3.5.1</version>
+					<version>3.7.1</version>
 
 					<configuration>
 						<locales>en</locales>

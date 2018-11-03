@@ -22,7 +22,7 @@ site :
 
 #################### project
 dist : 
-	mvn assembly:assembly
+	mvn assembly:single
 
 clean : 
 	mvn $@
