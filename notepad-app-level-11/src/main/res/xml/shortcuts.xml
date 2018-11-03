@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<!-- Add New Note Shortcut -->
+	<shortcut
+		android:shortcutId="addNewNoteShortcut"
+		android:enabled="true"
+		android:icon="@drawable/ic_shortcut_add"
+		android:shortcutShortLabel="@string/new_note"
+		android:shortcutLongLabel="@string/add_new_note_title"
+		android:shortcutDisabledMessage="@string/new_note_shortcut_disabled">
+
+		<intent
+			android:action="android.intent.action.INSERT"
+			android:targetPackage="org.routine_work.notepad"
+			android:targetClass="org.routine_work.notepad.AddNewNoteActivity" />
+	</shortcut>
+
+</shortcuts>

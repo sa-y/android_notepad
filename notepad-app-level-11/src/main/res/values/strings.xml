@@ -88,4 +88,7 @@
 	<string name="shortcut_name">Shortcut Name</string>
 	<string name="no_search_query_message">Please input a search query.</string>
 	<string name="no_shortcut_name_message">Please input a shortcut name.</string>
+
+	<!-- app shortcut -->
+	<string name="new_note_shortcut_disabled">Disable New Note Shortcut</string>
 </resources>

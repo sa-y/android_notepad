@@ -86,4 +86,7 @@
 	<string name="shortcut_name">ショートカット名</string>
 	<string name="no_search_query_message">検索クエリーを入力してください。</string>
 	<string name="no_shortcut_name_message">ショートカット名を入力してください。</string>
+
+	<!-- app shortcut -->
+	<string name="new_note_shortcut_disabled">新規ノート作成ショートカットを無効にしました。</string>
 </resources>
