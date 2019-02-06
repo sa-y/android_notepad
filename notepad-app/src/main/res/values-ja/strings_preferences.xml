@@ -42,8 +42,6 @@
 	<!-- Note Detail Category -->
 	<string name="note_detail_category_title">ノートの表示と編集</string>
 	<!-- Note Detail : Font Size -->
-	<string name="note_detail_font_size">フォントサイズ</string>
-	<string name="note_detail_font_size_title">フォントサイズ</string>
 	<string name="note_detail_font_size_port">フォントサイズ（縦画面）</string>
 	<string name="note_detail_font_size_land">フォントサイズ（横画面）</string>
 	<string name="note_detail_font_size__port_title">フォントサイズ（縦画面）</string>
