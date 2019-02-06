@@ -73,18 +73,26 @@
 	<string name="note_detail_font_size_land_default_value" >18</string>
 
 	<string-array name="note_detail_font_size_entries">
-		<item>@string/note_detail_font_size_tiny</item>
-		<item>@string/note_detail_font_size_small</item>
-		<item>@string/note_detail_font_size_normal</item>
-		<item>@string/note_detail_font_size_large</item>
-		<item>@string/note_detail_font_size_huge</item>
+		<item>@string/note_detail_font_size_10</item>
+		<item>@string/note_detail_font_size_12</item>
+		<item>@string/note_detail_font_size_14</item>
+		<item>@string/note_detail_font_size_16</item>
+		<item>@string/note_detail_font_size_18</item>
+		<item>@string/note_detail_font_size_20</item>
+		<item>@string/note_detail_font_size_22</item>
+		<item>@string/note_detail_font_size_24</item>
+		<item>@string/note_detail_font_size_26</item>
 	</string-array>
 
 	<string-array name="note_detail_font_size_values">
 		<item>10</item>
+		<item>12</item>
 		<item>14</item>
+		<item>16</item>
 		<item>18</item>
+		<item>20</item>
 		<item>22</item>
+		<item>24</item>
 		<item>26</item>
 	</string-array>
 

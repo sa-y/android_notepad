@@ -49,11 +49,15 @@
 	<string name="note_detail_font_size__port_title">フォントサイズ（縦画面）</string>
 	<string name="note_detail_font_size__land_title">フォントサイズ（横画面）</string>
 	<!-- Note Detail : Font Size Entries-->
-	<string name="note_detail_font_size_tiny">極小</string>
-	<string name="note_detail_font_size_small">小</string>
-	<string name="note_detail_font_size_normal">中</string>
-	<string name="note_detail_font_size_large">大</string>
-	<string name="note_detail_font_size_huge">極大</string>
+	<string name="note_detail_font_size_10">10 (極小)</string>
+	<string name="note_detail_font_size_12">12 </string>
+	<string name="note_detail_font_size_14">14 (小)</string>
+	<string name="note_detail_font_size_16">16 </string>
+	<string name="note_detail_font_size_18">18 (中)</string>
+	<string name="note_detail_font_size_20">20</string>
+	<string name="note_detail_font_size_22">22 (大)</string>
+	<string name="note_detail_font_size_24">24</string>
+	<string name="note_detail_font_size_26">26 (極大)</string>
 
 	<!-- Auto Link Category -->
 	<string name="note_autolink_category_title">自動リンク</string>
