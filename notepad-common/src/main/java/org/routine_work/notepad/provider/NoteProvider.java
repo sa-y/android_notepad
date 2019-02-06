@@ -44,7 +44,7 @@ import org.routine_work.notepad.provider.NoteStore.NoteTemplate;
 import org.routine_work.utils.Log;
 
 public class NoteProvider extends ContentProvider
-	implements NoteDBConstants
+		implements NoteDBConstants
 {
 
 	private static final String LOG_TAG = "simple-notepad";
@@ -72,14 +72,14 @@ public class NoteProvider extends ContentProvider
 
 		SUGGESTION_PROJECTION_MAP = new HashMap<String, String>();
 		SUGGESTION_PROJECTION_MAP.put(SearchManager.SUGGEST_COLUMN_TEXT_1,
-			Note.Columns.TITLE + " AS " + SearchManager.SUGGEST_COLUMN_TEXT_1);
+				Note.Columns.TITLE + " AS " + SearchManager.SUGGEST_COLUMN_TEXT_1);
 		SUGGESTION_PROJECTION_MAP.put(SearchManager.SUGGEST_COLUMN_TEXT_2,
-			Note.Columns.CONTENT + " AS " + SearchManager.SUGGEST_COLUMN_TEXT_2);
+				Note.Columns.CONTENT + " AS " + SearchManager.SUGGEST_COLUMN_TEXT_2);
 		SUGGESTION_PROJECTION_MAP.put(SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID,
-			Note.Columns._ID + " AS " + SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID);
+				Note.Columns._ID + " AS " + SearchManager.SUGGEST_COLUMN_INTENT_DATA_ID);
 		SUGGESTION_PROJECTION_MAP.put(Note.Columns._ID, Note.Columns._ID);
 		SUGGESTION_PROJECTION_MAP.put(SearchManager.SUGGEST_COLUMN_INTENT_DATA,
-			"'" + NoteStore.Note.CONTENT_URI + "'" + " AS " + SearchManager.SUGGEST_COLUMN_INTENT_DATA);
+				"'" + NoteStore.Note.CONTENT_URI + "'" + " AS " + SearchManager.SUGGEST_COLUMN_INTENT_DATA);
 	}
 
 	@Override
@@ -93,7 +93,7 @@ public class NoteProvider extends ContentProvider
 
 	@Override
 	public Cursor query(Uri uri, String[] projection,
-		String selection, String[] selectionArgs, String sort)
+			String selection, String[] selectionArgs, String sort)
 	{
 		Log.v(LOG_TAG, "Hello");
 		Log.d(LOG_TAG, "query uri => " + uri);
@@ -137,12 +137,12 @@ public class NoteProvider extends ContentProvider
 				setUpQueryByPhrase(qb, q);
 				break;
 			case NOTES_ITEM_BY_ID:
-				setUpQueryByNoteId(qb, uri.getPathSegments().get(1));
+				setUpQueryByNoteId(qb, getResourceId(uri));
 				break;
 			case NOTE_TEMPLATES_ITEM_ALL:
 				break;
 			case NOTE_TEMPLATES_ITEM_BY_ID:
-				setUpQueryByNoteTemplateId(qb, uri.getPathSegments().get(1));
+				setUpQueryByNoteTemplateId(qb, getResourceId(uri));
 				break;
 			default:
 				throw new IllegalArgumentException("Unsupported URI: " + uri);
@@ -156,7 +156,7 @@ public class NoteProvider extends ContentProvider
 		Log.v(LOG_TAG, "limit => " + limit);
 
 		Cursor cursor = qb.query(noteDB, projection, selection, selectionArgs,
-			null, null, sort, limit);
+				null, null, sort, limit);
 		Log.v(LOG_TAG, "cursor => " + cursor);
 
 		cursor.setNotificationUri(getContext().getContentResolver(), uri);
@@ -218,7 +218,7 @@ public class NoteProvider extends ContentProvider
 				}
 
 				count = noteDB.delete(tableName, whereClause.toString(),
-					whereArgs);
+						whereArgs);
 				break;
 
 			default:
@@ -232,7 +232,7 @@ public class NoteProvider extends ContentProvider
 
 	@Override
 	public int update(Uri uri, ContentValues values, String where,
-		String[] whereArgs)
+			String[] whereArgs)
 	{
 		int count;
 		Log.v(LOG_TAG, "Hello");
@@ -262,7 +262,7 @@ public class NoteProvider extends ContentProvider
 					whereClause.append(")");
 				}
 				count = noteDB.update(tableName, values,
-					whereClause.toString(), whereArgs);
+						whereClause.toString(), whereArgs);
 				break;
 			default:
 				throw new IllegalArgumentException("Unknown URI " + uri);
@@ -399,24 +399,46 @@ public class NoteProvider extends ContentProvider
 
 	private static String getLimitParameter(Uri uri)
 	{
-		String limit;
+		String limitText = null;
 
-		limit = uri.getQueryParameter("limit");
-		Log.d(LOG_TAG, "uri limit => " + limit);
-		if (limit != null)
+		String inputLimitText = uri.getQueryParameter("limit");
+		Log.d(LOG_TAG, "uri limitString => " + inputLimitText);
+		if (inputLimitText != null)
 		{
 			try
 			{
-				Integer.parseInt(limit);
+				int limit = Integer.parseInt(inputLimitText);
+				limitText = Integer.toString(limit);
 			}
 			catch (NumberFormatException e)
 			{
-				Log.e(LOG_TAG, "limit parameter is illegal value : limitText => " + limit, e);
-				limit = null;
+				Log.e(LOG_TAG, "limit parameter is illegal value : inputLimitText => " + inputLimitText, e);
 			}
 		}
 
-		return limit;
+		return limitText;
+	}
+
+	private static String getResourceId(Uri uri)
+	{
+		String idText = null;
+
+		String inputIdText = uri.getPathSegments().get(1);
+		Log.d(LOG_TAG, "uri inputIdText => " + inputIdText);
+		if (inputIdText != null)
+		{
+			try
+			{
+				int inputIdInt = Integer.parseInt(inputIdText);
+				idText = Integer.toString(inputIdInt);
+			}
+			catch (NumberFormatException e)
+			{
+				Log.e(LOG_TAG, "A resource id is illegal value : inputIdText => " + inputIdText, e);
+			}
+		}
+
+		return idText;
 	}
 
 	private static void setUpQueryByPhrase(SQLiteQueryBuilder queryBuilder, String searchPhrase)
