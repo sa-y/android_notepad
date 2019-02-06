@@ -2,8 +2,8 @@
 <manifest
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	package="org.routine_work.notepad"
-	android:versionCode="41"
-	android:versionName="1.0.15"
+	android:versionCode="43"
+	android:versionName="1.0.16"
 	android:installLocation="auto"
 >
 	<uses-sdk android:minSdkVersion="11" android:targetSdkVersion="27" /> <!-- Android 8.1 -->
