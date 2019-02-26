@@ -502,13 +502,15 @@ public class EditNoteFragment extends Fragment
 		{
 			case R.id.note_title_lock_button:
 				Log.d(LOG_TAG, "note_title_lock_button is clicked");
-				LockTitleDialogFragment lockTitleDialogFragment = new LockTitleDialogFragment();
-				lockTitleDialogFragment.show(getFragmentManager(), FT_TITLE_LOCK);
+				//LockTitleDialogFragment lockTitleDialogFragment = new LockTitleDialogFragment();
+				//lockTitleDialogFragment.show(getFragmentManager(), FT_TITLE_LOCK);
+				setNoteTitleLocked(true);
 				break;
 			case R.id.note_title_unlock_button:
 				Log.d(LOG_TAG, "note_title_unlock_button is clicked");
-				UnlockTitleDialogFragment unlockTitleDialogFragment = new UnlockTitleDialogFragment();
-				unlockTitleDialogFragment.show(getFragmentManager(), FT_TITLE_UNLOCK);
+				//UnlockTitleDialogFragment unlockTitleDialogFragment = new UnlockTitleDialogFragment();
+				//unlockTitleDialogFragment.show(getFragmentManager(), FT_TITLE_UNLOCK);
+				setNoteTitleLocked(false);
 				break;
 			default:
 				throw new AssertionError();
@@ -740,6 +742,9 @@ public class EditNoteFragment extends Fragment
 		}
 	}
 
+
+	/*
+
 	class LockTitleDialogFragment extends DialogFragment
 		implements DialogInterface.OnClickListener
 	{
@@ -789,4 +794,5 @@ public class EditNoteFragment extends Fragment
 			}
 		}
 	}
+	 */
 }
