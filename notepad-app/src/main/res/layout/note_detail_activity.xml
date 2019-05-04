@@ -14,6 +14,7 @@
 			style="@style/actionbar_left_button" 
 			android:id="@+id/home_button"
 			android:src="?attr/ic_home"
+			android:contentDescription="@string/home"
 		/>
 		<TextView
 			style="@style/actionbar_title" 
@@ -24,16 +25,19 @@
 			style="@style/actionbar_right_button" 
 			android:id="@+id/add_new_note_button"
 			android:src="?attr/ic_add"
+			android:contentDescription="@string/new_note"
 		/>
 		<ImageButton
 			style="@style/actionbar_right_button" 
 			android:id="@+id/delete_note_button"
 			android:src="?attr/ic_delete"
+			android:contentDescription="@string/delete_note"
 		/>
 		<ImageButton
 			style="@style/actionbar_right_button" 
 			android:id="@+id/edit_note_button"
 			android:src="?attr/ic_edit"
+			android:contentDescription="@string/edit_note"
 		/>
 
 	</LinearLayout>
@@ -48,6 +52,7 @@
 			style="@style/actionbar_left_button" 
 			android:id="@+id/cancel_find_word_button"
 			android:src="?attr/ic_ok"
+			android:contentDescription="@string/ok"
 		/>
 		<EditText
 			style="@style/actionbar_edittext" 
@@ -61,11 +66,13 @@
 			style="@style/actionbar_right_button" 
 			android:id="@+id/find_prev_button"
 			android:src="?attr/ic_prev"
+			android:contentDescription="@string/prev"
 		/>
 		<ImageButton
 			style="@style/actionbar_right_button" 
 			android:id="@+id/find_next_button"
 			android:src="?attr/ic_next"
+			android:contentDescription="@string/next"
 		/>
 	</LinearLayout>
 

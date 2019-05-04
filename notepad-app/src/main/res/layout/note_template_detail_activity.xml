@@ -14,6 +14,7 @@
 			style="@style/actionbar_left_button" 
 			android:id="@+id/home_button"
 			android:src="?attr/ic_home"
+			android:contentDescription="@string/home"
 		/>
 		<TextView
 			style="@style/actionbar_title" 

@@ -3,6 +3,12 @@
 <resources>
 	<string name="app_name">Notepad</string>
 
+	<string name="home">ホーム</string>
+	<string name="ok">OK</string>
+	<string name="clear">消去</string>
+	<string name="prev">前へ</string>
+	<string name="next">次へ</string>
+
 	<string name="quit">終了</string>
 	<string name="no_data">データがありません</string>
 

@@ -13,6 +13,7 @@
 			style="@style/actionbar_left_button" 
 			android:id="@+id/home_button"
 			android:src="?attr/ic_home"
+			android:contentDescription="@string/home"
 		/>
 		<TextView
 			style="@style/actionbar_title"
@@ -23,11 +24,13 @@
 			style="@style/actionbar_right_button" 
 			android:id="@+id/search_button"
 			android:src="?attr/ic_search"
+			android:contentDescription="@string/search_note"
 		/>
 		<ImageButton
 			style="@style/actionbar_right_button" 
 			android:id="@+id/add_new_note_button"
 			android:src="?attr/ic_add"
+			android:contentDescription="@string/new_note"
 		/>
 
 	</LinearLayout>

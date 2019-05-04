@@ -9,6 +9,7 @@
 			style="@style/actionbar_left_button" 
 			android:id="@+id/home_button"
 			android:src="?attr/ic_home"
+			android:contentDescription="@string/home"
 		/>
 		<TextView
 			style="@style/actionbar_title" 
@@ -18,6 +19,7 @@
 			style="@style/actionbar_right_button" 
 			android:id="@+id/delete_note_button"
 			android:src="?attr/ic_delete"
+			android:contentDescription="@string/delete_note"
 		/>
 	</LinearLayout>
 
