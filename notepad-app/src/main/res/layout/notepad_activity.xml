@@ -45,6 +45,7 @@
 			style="@style/actionbar_left_button" 
 			android:id="@+id/cancel_search_button"
 			android:src="?attr/ic_ok"
+			android:contentDescription="@string/ok"
 		/>
 
 		<EditText
@@ -58,6 +59,7 @@
 			style="@style/actionbar_right_button" 
 			android:id="@+id/clear_search_word_button"
 			android:src="?attr/ic_clear"
+			android:contentDescription="@string/clear"
 		/>
 	</LinearLayout>
 
