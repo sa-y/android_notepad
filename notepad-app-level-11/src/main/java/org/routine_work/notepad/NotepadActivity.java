@@ -2,7 +2,7 @@
 /*
  * The MIT License
  *
- * Copyright 2012 Masahiko, SAWAI <masahiko.sawai@gmail.com>.
+ * Copyright 2012,2019 Masahiko, SAWAI <masahiko.sawai@gmail.com>.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -53,7 +53,6 @@ import org.routine_work.notepad.fragment.NoteListFragment;
 import org.routine_work.notepad.fragment.ViewNoteFragment;
 import org.routine_work.notepad.prefs.NotepadPreferenceActivity;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
-import org.routine_work.notepad.provider.NoteDBOptimizer;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.template.NoteTemplateInitializer;
 import org.routine_work.notepad.template.NoteTemplatePickerDialogFragment;
@@ -69,7 +68,6 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 {
 
 	public static final String ACTION_QUIT = NotepadActivity.class.getPackage().getName() + ".ACTION_QUIT";
-	private static final int DB_OPTIMIZER_COUNT = 128;
 	private static final String FT_NOTE_DETAIL = "FT_NOTE_DETAIL";
 	private static final String FT_NOTE_TEMPLATE_PICKER = "FT_NOTE_TEMPLATE_PICKER";
 	private static final String LOG_TAG = "simple-notepad";
@@ -193,13 +191,6 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 	protected void onDestroy()
 	{
 		Log.v(LOG_TAG, "Hello");
-
-		int quitCount = NotepadPreferenceUtils.incrementQuitCount(this);
-		if ((quitCount % DB_OPTIMIZER_COUNT) == 0)
-		{
-			Intent noteDBOptimizerIntent = new Intent(this, NoteDBOptimizer.class);
-			startService(noteDBOptimizerIntent);
-		}
 
 		super.onDestroy();
 
@@ -327,7 +318,8 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		Log.v(LOG_TAG, "searchView.isIconified() =>  " + searchView.isIconified()); // androud 4 : true, androud 7 : false
 		Log.v(LOG_TAG, "searchView.isShown() =>  " + searchView.isShown());
 
-		if ((keyCode == KeyEvent.KEYCODE_BACK) && searchView.isShown() && !searchView.isIconified())
+		if ((keyCode == KeyEvent.KEYCODE_BACK)
+			&& (searchView != null && searchView.isShown() && !searchView.isIconified()))
 		{
 			Log.v(LOG_TAG, "Close SeachView");
 			searchView.setQuery(null, false);

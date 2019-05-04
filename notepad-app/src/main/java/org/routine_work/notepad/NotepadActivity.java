@@ -1,7 +1,7 @@
 /*
  * The MIT License
  *
- * Copyright 2012-2013 Masahiko, SAWAI <masahiko.sawai@gmail.com>.
+ * Copyright 2012-2013,2019 Masahiko, SAWAI <masahiko.sawai@gmail.com>.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -47,7 +47,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import java.util.Arrays;
 import org.routine_work.notepad.prefs.NotepadPreferenceActivity;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
-import org.routine_work.notepad.provider.NoteDBOptimizer;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.template.NoteTemplateInitializer;
 import org.routine_work.notepad.template.NoteTemplatePickerDialog;
@@ -68,7 +67,6 @@ public class NotepadActivity extends ListActivity
 	NotepadConstants
 {
 
-	private static final int DB_OPTIMIZER_COUNT = 128;
 	private static final String LOG_TAG = "simple-notepad";
 	private static final String ACTION_QUIT = NotepadConstants.class.getPackage().getName() + ".QUIT";
 	private static final String SAVE_KEY_ACTION_MODE = "ACTION_MODE";
@@ -216,13 +214,6 @@ public class NotepadActivity extends ListActivity
 		{
 			cursor.close();
 			cursor = null;
-		}
-
-		int quitCount = NotepadPreferenceUtils.incrementQuitCount(this);
-		if ((quitCount % DB_OPTIMIZER_COUNT) == 0)
-		{
-			Intent noteDBOptimizerIntent = new Intent(this, NoteDBOptimizer.class);
-			startService(noteDBOptimizerIntent);
 		}
 
 		super.onDestroy();

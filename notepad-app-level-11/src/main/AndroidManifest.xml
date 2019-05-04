@@ -245,8 +245,6 @@
 		<!-- Service : data initialize service -->
 		<service android:name=".template.NoteTemplateInitializer" />
 
-		<service android:name=".provider.NoteDBOptimizer" />
-
 		<service android:name=".prefs.BackupDatabaseService" />
 
 		<!-- Provider : Notes & Templates Content Provider  -->

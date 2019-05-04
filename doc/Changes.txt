@@ -1,3 +1,8 @@
+1.0.17
+======
+
+* Remove DB optimize background service
+
 1.0.12
 ======
 
