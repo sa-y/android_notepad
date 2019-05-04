@@ -8,13 +8,13 @@
 	<groupId>org.routine_work</groupId>
 	<artifactId>notepad-app-level-11</artifactId>
 	<packaging>apk</packaging>
-	<version>1.0.17</version>
+	<version>1.0.18</version>
 	<name>Notepad App Level 11</name>
 
 	<parent>
 		<groupId>org.routine_work</groupId>
 		<artifactId>notepad-project</artifactId>
-		<version>1.0.17</version>
+		<version>1.0.18</version>
 	</parent>
 
 	<dependencies>
@@ -33,7 +33,7 @@
 		<dependency>
 			<groupId>org.routine_work</groupId>
 			<artifactId>notepad-common</artifactId>
-			<version>1.0.17</version>
+			<version>1.0.18</version>
 			<scope>compile</scope>
 		</dependency>
 
