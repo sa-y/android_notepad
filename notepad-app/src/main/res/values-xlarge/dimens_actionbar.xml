@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- This file is made every screen size and -->
-<resources>
-	<!-- actionbar -->
-	<dimen name="actionbar_layout_height">56dip</dimen>
-	<dimen name="actionbar_title_textSize">22sp</dimen>
-	<dimen name="actionbar_title_paddingLeft">16dip</dimen>
-	<dimen name="actionbar_button_padding">16dip</dimen>
-</resources>
