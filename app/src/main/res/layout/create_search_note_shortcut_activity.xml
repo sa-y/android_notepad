@@ -1,70 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	style="@style/body"
-	android:orientation="vertical"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
->
+	android:fitsSystemWindows="true"
+	android:orientation="vertical">
 	<!-- input form -->
 	<LinearLayout
-		android:orientation="vertical"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_weight="1"
-	>
+		android:orientation="vertical">
+
 		<TextView
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			android:text="@string/search_query"
-		/>
+			android:text="@string/search_query" />
+
 		<EditText
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="4dip"
-			android:layout_marginBottom="4dip"
 			android:id="@+id/search_query_edittext"
-			android:inputType="text"
-			android:hint="@string/search_query"
-		/>
-		<TextView
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:text="@string/shortcut_name"
-		/>
-		<EditText
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="4dip"
 			android:layout_marginBottom="4dip"
+			android:hint="@string/search_query"
+			android:inputType="text" />
+
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/shortcut_name" />
+
+		<EditText
 			android:id="@+id/shortcut_name_edittext"
-			android:inputType="text"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="4dip"
+			android:layout_marginBottom="4dip"
 			android:hint="@string/shortcut_name"
-		/>
+			android:inputType="text" />
 	</LinearLayout>
 
 	<!-- buttons -->
 	<LinearLayout
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:layout_weight="0"
 		android:layout_gravity="bottom"
+		android:layout_weight="0"
 		android:orientation="horizontal"
-		android:padding="4dip"
-	>
+		android:padding="4dip">
+
 		<Button
 			android:id="@+id/cancel_button"
 			android:layout_width="0dip"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:text="@android:string/cancel"
-		/>
+			android:text="@android:string/cancel" />
+
 		<Button
 			android:id="@+id/ok_button"
 			android:layout_width="0dip"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:text="@android:string/ok"
-		/>
+			android:text="@android:string/ok" />
 	</LinearLayout>
 </LinearLayout>

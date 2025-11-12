@@ -3,14 +3,13 @@
 	style="@style/body"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
-	android:orientation="horizontal"
->
+	android:orientation="horizontal">
 
-	<fragment android:name="org.routine_work.notepad.fragment.DeleteNotesFragment"
+	<fragment
 		android:id="@+id/delete_notes_fragment"
-		android:layout_weight="1"
+		android:name="org.routine_work.notepad.fragment.DeleteNotesFragment"
 		android:layout_width="0dip"
 		android:layout_height="fill_parent"
-	/>
+		android:layout_weight="1" />
 
 </LinearLayout>
