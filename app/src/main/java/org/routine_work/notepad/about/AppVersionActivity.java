@@ -102,14 +102,11 @@ public class AppVersionActivity extends Activity
 		boolean result = true;
 
 		int itemId = item.getItemId();
-		switch (itemId)
-		{
-			case R.id.quit_menuitem:
-				NotepadActivity.quitApplication(this);
-				break;
-			default:
-				result = super.onOptionsItemSelected(item);
-		}
+        if (itemId == R.id.quit_menuitem) {
+            NotepadActivity.quitApplication(this);
+        } else {
+            result = super.onOptionsItemSelected(item);
+        }
 
 		return result;
 	}

@@ -84,25 +84,20 @@ public class NoteTemplateListActivity extends ListActivity
 		Log.v(LOG_TAG, "Hello");
 
 		int itemId = item.getItemId();
-		switch (itemId)
-		{
-			case android.R.id.home:
-				Log.d(LOG_TAG, "home is selected.");
-				NotepadActivity.goHomeActivity(this);
-				finish();
-				break;
-			case R.id.add_new_note_template_menuitem:
-				Log.d(LOG_TAG, "add_new_note_template_menuitem is  selected.");
-				startAddNewNoteTemplateActivity();
-				break;
-			case R.id.quit_menuitem:
-				Log.d(LOG_TAG, "quit_menuitem is selected.");
-				NotepadActivity.quitApplication(this);
-				finish();
-				break;
-			default:
-				result = super.onOptionsItemSelected(item);
-		}
+        if (itemId == android.R.id.home) {
+            Log.d(LOG_TAG, "home is selected.");
+            NotepadActivity.goHomeActivity(this);
+            finish();
+        } else if (itemId == R.id.add_new_note_template_menuitem) {
+            Log.d(LOG_TAG, "add_new_note_template_menuitem is  selected.");
+            startAddNewNoteTemplateActivity();
+        } else if (itemId == R.id.quit_menuitem) {
+            Log.d(LOG_TAG, "quit_menuitem is selected.");
+            NotepadActivity.quitApplication(this);
+            finish();
+        } else {
+            result = super.onOptionsItemSelected(item);
+        }
 
 		Log.v(LOG_TAG, "Bye");
 		return result;
@@ -151,17 +146,13 @@ public class NoteTemplateListActivity extends ListActivity
 		Log.v(LOG_TAG, "list item id => " + menuInfo.id);
 
 		int itemId = item.getItemId();
-		switch (itemId)
-		{
-			case R.id.edit_note_template_menuitem:
-				startEditNoteTemplateActivityById(menuInfo.id);
-				break;
-			case R.id.delete_note_template_menuitem:
-				deleteNoteTemplateById(menuInfo.id);
-				break;
-			default:
-				result = super.onContextItemSelected(item);
-		}
+        if (itemId == R.id.edit_note_template_menuitem) {
+            startEditNoteTemplateActivityById(menuInfo.id);
+        } else if (itemId == R.id.delete_note_template_menuitem) {
+            deleteNoteTemplateById(menuInfo.id);
+        } else {
+            result = super.onContextItemSelected(item);
+        }
 
 		return result;
 	}

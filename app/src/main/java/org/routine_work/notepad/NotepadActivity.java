@@ -237,46 +237,35 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		boolean result = true;
 		Log.v(LOG_TAG, "Hello");
 
-		switch (item.getItemId())
-		{
-			case android.R.id.home:
-				if (searchView != null)
-				{
-					Log.v(LOG_TAG, "seachView.isShown() => " + searchView.isShown());
-					Log.v(LOG_TAG, "seachView.isIconified() => " + searchView.isIconified());
-					if (searchView.isShown() && !searchView.isIconified())
-					{
-						if (!TextUtils.isEmpty(searchView.getQuery()))
-						{
-							Log.v(LOG_TAG, "Clear searchView query");
-							searchView.setQuery(null, false);
-							reloadNoteList();
-						}
-						Log.v(LOG_TAG, "Iconify seachView");
-						searchView.setIconified(true);
-					}
-				}
-				closeNoteDetailFragment();
-				break;
-			case R.id.add_new_note_menuitem:
-				startAddNote();
-				break;
-			case R.id.delete_notes_menuitem:
-				startDeleteNotes();
-				break;
-			case R.id.templates_menuitem:
-				startTemplateListActivity();
-				break;
-			case R.id.preferences_menuitem:
-				startPreferencesActivity();
-				break;
-			case R.id.quit_menuitem:
-				finish();
-				break;
-			default:
-				result = super.onOptionsItemSelected(item);
-				break;
-		}
+        int itemId = item.getItemId();
+        if (itemId == android.R.id.home) {
+            if (searchView != null) {
+                Log.v(LOG_TAG, "seachView.isShown() => " + searchView.isShown());
+                Log.v(LOG_TAG, "seachView.isIconified() => " + searchView.isIconified());
+                if (searchView.isShown() && !searchView.isIconified()) {
+                    if (!TextUtils.isEmpty(searchView.getQuery())) {
+                        Log.v(LOG_TAG, "Clear searchView query");
+                        searchView.setQuery(null, false);
+                        reloadNoteList();
+                    }
+                    Log.v(LOG_TAG, "Iconify seachView");
+                    searchView.setIconified(true);
+                }
+            }
+            closeNoteDetailFragment();
+        } else if (itemId == R.id.add_new_note_menuitem) {
+            startAddNote();
+        } else if (itemId == R.id.delete_notes_menuitem) {
+            startDeleteNotes();
+        } else if (itemId == R.id.templates_menuitem) {
+            startTemplateListActivity();
+        } else if (itemId == R.id.preferences_menuitem) {
+            startPreferencesActivity();
+        } else if (itemId == R.id.quit_menuitem) {
+            finish();
+        } else {
+            result = super.onOptionsItemSelected(item);
+        }
 
 		Log.v(LOG_TAG, "Bye");
 		return result;

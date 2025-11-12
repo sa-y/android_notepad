@@ -81,18 +81,14 @@ public class CreateNoteTemplateShortcutActivity extends Activity
 		Log.v(LOG_TAG, "Hello");
 
 		int viewId = view.getId();
-		switch (viewId)
-		{
-			case R.id.cancel_button:
-				Log.d(LOG_TAG, "Cancel Button is clicked.");
-				setResult(Activity.RESULT_CANCELED);
-				finish();
-				break;
-			case R.id.ok_button:
-				Log.d(LOG_TAG, "OK Button is clicked.");
-				createShortcut();
-				break;
-		}
+        if (viewId == R.id.cancel_button) {
+            Log.d(LOG_TAG, "Cancel Button is clicked.");
+            setResult(Activity.RESULT_CANCELED);
+            finish();
+        } else if (viewId == R.id.ok_button) {
+            Log.d(LOG_TAG, "OK Button is clicked.");
+            createShortcut();
+        }
 
 		Log.v(LOG_TAG, "Bye");
 	}

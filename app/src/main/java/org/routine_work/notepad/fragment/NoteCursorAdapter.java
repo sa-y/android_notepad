@@ -135,23 +135,19 @@ public class NoteCursorAdapter extends SimpleCursorAdapter
 		boolean result = false;
 
 		int viewId = view.getId();
-		switch (viewId)
-		{
-			case R.id.note_modified_textview:
-				long modifiedTime = cursor.getLong(columnIndex);
-				String modifiedText = TimeFormatUtils.formatTime(context, modifiedTime);
-				TextView modifiedTextView = (TextView) view;
-				modifiedTextView.setText(modifiedText);
-				result = true;
-				break;
-			case R.id.note_content_textview:
-				String contentText = cursor.getString(columnIndex);
-				contentText = contentText.replace('\n', ' ');
-				TextView contentTextView = (TextView) view;
-				contentTextView.setText(contentText);
-				result = true;
-				break;
-		}
+        if (viewId == R.id.note_modified_textview) {
+            long modifiedTime = cursor.getLong(columnIndex);
+            String modifiedText = TimeFormatUtils.formatTime(context, modifiedTime);
+            TextView modifiedTextView = (TextView) view;
+            modifiedTextView.setText(modifiedText);
+            result = true;
+        } else if (viewId == R.id.note_content_textview) {
+            String contentText = cursor.getString(columnIndex);
+            contentText = contentText.replace('\n', ' ');
+            TextView contentTextView = (TextView) view;
+            contentTextView.setText(contentText);
+            result = true;
+        }
 
 		return result;
 	}

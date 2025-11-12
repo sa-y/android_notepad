@@ -95,21 +95,17 @@ public class NoteTemplateDetailActivity extends ListActivity
 		Log.v(LOG_TAG, "Hello");
 
 		int itemId = item.getItemId();
-		switch (itemId)
-		{
-			case android.R.id.home:
-				Log.d(LOG_TAG, "home selected.");
-				NotepadActivity.goHomeActivity(this);
-				finish();
-				break;
-			case R.id.quit_menuitem:
-				Log.d(LOG_TAG, "quit_menuitem selected.");
-				NotepadActivity.quitApplication(this);
-				finish();
-				break;
-			default:
-				result = super.onOptionsItemSelected(item);
-		}
+        if (itemId == android.R.id.home) {
+            Log.d(LOG_TAG, "home selected.");
+            NotepadActivity.goHomeActivity(this);
+            finish();
+        } else if (itemId == R.id.quit_menuitem) {
+            Log.d(LOG_TAG, "quit_menuitem selected.");
+            NotepadActivity.quitApplication(this);
+            finish();
+        } else {
+            result = super.onOptionsItemSelected(item);
+        }
 
 		Log.v(LOG_TAG, "Bye");
 		return result;

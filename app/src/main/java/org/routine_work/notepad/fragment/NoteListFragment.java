@@ -150,28 +150,23 @@ public class NoteListFragment extends ListFragment
 
 		AdapterContextMenuInfo menuInfo = (AdapterContextMenuInfo) item.getMenuInfo();
 		if (menuInfo != null) {
-			switch (item.getItemId()) {
-				case R.id.delete_note_menuitem:
-					deleteNote(menuInfo.id);
-					result = true;
-					break;
-				case R.id.edit_note_menuitem:
-					editNote(menuInfo.id);
-					break;
-				case R.id.share_note_menuitem:
-					NoteUtils.shareNote(getActivity(), menuInfo.id);
-					break;
-				case R.id.copy_note_title_menuitem:
-					NoteUtils.copyNoteTitleToClipboard(getActivity(), menuInfo.id);
-					Toast.makeText(getActivity(), R.string.copy_note_title_done, Toast.LENGTH_SHORT).show();
-					break;
-				case R.id.copy_note_content_menuitem:
-					NoteUtils.copyNoteContentToClipboard(getActivity(), menuInfo.id);
-					Toast.makeText(getActivity(), R.string.copy_note_content_done, Toast.LENGTH_SHORT).show();
-					break;
-				default:
-					result = super.onContextItemSelected(item);
-			}
+            int itemId = item.getItemId();
+            if (itemId == R.id.delete_note_menuitem) {
+                deleteNote(menuInfo.id);
+                result = true;
+            } else if (itemId == R.id.edit_note_menuitem) {
+                editNote(menuInfo.id);
+            } else if (itemId == R.id.share_note_menuitem) {
+                NoteUtils.shareNote(getActivity(), menuInfo.id);
+            } else if (itemId == R.id.copy_note_title_menuitem) {
+                NoteUtils.copyNoteTitleToClipboard(getActivity(), menuInfo.id);
+                Toast.makeText(getActivity(), R.string.copy_note_title_done, Toast.LENGTH_SHORT).show();
+            } else if (itemId == R.id.copy_note_content_menuitem) {
+                NoteUtils.copyNoteContentToClipboard(getActivity(), menuInfo.id);
+                Toast.makeText(getActivity(), R.string.copy_note_content_done, Toast.LENGTH_SHORT).show();
+            } else {
+                result = super.onContextItemSelected(item);
+            }
 		} else {
 			result = super.onContextItemSelected(item);
 		}
@@ -253,15 +248,13 @@ public class NoteListFragment extends ListFragment
 		boolean result = true;
 		Log.v(LOG_TAG, "Hello");
 
-		switch (menuItem.getItemId()) {
-			case R.id.delete_note_menuitem:
-				deleteCheckedNotes();
-				actionMode.finish();
-				reload();
-				break;
-			default:
-				result = false;
-		}
+        if (menuItem.getItemId() == R.id.delete_note_menuitem) {
+            deleteCheckedNotes();
+            actionMode.finish();
+            reload();
+        } else {
+            result = false;
+        }
 
 		Log.v(LOG_TAG, "Bye");
 		return result;

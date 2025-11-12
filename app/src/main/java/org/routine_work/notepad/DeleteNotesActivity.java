@@ -69,19 +69,16 @@ public class DeleteNotesActivity extends Activity implements NotepadConstants
 		Log.v(LOG_TAG, "Hello");
 
 		Log.d(LOG_TAG, "item.getItemId() => " + item.getItemId());
-		switch (item.getItemId())
-		{
-			case android.R.id.home:
-				NotepadActivity.goHomeActivity(this);
-				finish();
-				break;
-			case R.id.quit_menuitem:
-				NotepadActivity.quitApplication(this);
-				finish();
-				break;
-			default:
-				result = super.onOptionsItemSelected(item);
-		}
+        int itemId = item.getItemId();
+        if (itemId == android.R.id.home) {
+            NotepadActivity.goHomeActivity(this);
+            finish();
+        } else if (itemId == R.id.quit_menuitem) {
+            NotepadActivity.quitApplication(this);
+            finish();
+        } else {
+            result = super.onOptionsItemSelected(item);
+        }
 
 		Log.v(LOG_TAG, "Bye");
 		return result;

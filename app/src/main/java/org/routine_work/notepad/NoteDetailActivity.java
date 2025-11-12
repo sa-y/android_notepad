@@ -170,21 +170,18 @@ public class NoteDetailActivity extends Activity
 		boolean result = true;
 		Log.v(LOG_TAG, "Hello");
 
-		switch (item.getItemId())
-		{
-			case android.R.id.home:
-				Log.d(LOG_TAG, "home is clicked.");
-				NotepadActivity.goHomeActivity(this);
-				finish();
-				break;
-			case R.id.quit_menuitem:
-				Log.d(LOG_TAG, "quit_menuitem is clicked.");
-				NotepadActivity.quitApplication(this);
-				finish();
-				break;
-			default:
-				result = super.onOptionsItemSelected(item);
-		}
+        int itemId = item.getItemId();
+        if (itemId == android.R.id.home) {
+            Log.d(LOG_TAG, "home is clicked.");
+            NotepadActivity.goHomeActivity(this);
+            finish();
+        } else if (itemId == R.id.quit_menuitem) {
+            Log.d(LOG_TAG, "quit_menuitem is clicked.");
+            NotepadActivity.quitApplication(this);
+            finish();
+        } else {
+            result = super.onOptionsItemSelected(item);
+        }
 
 		Log.v(LOG_TAG, "Bye");
 		return result;

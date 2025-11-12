@@ -121,29 +121,25 @@ public class EditTextActivity extends Activity
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
-	{
-		boolean result = true;
-		switch (item.getItemId())
-		{
-			case android.R.id.home:
-				NotepadActivity.goHomeActivity(this);
-				finish();
-				break;
-			case R.id.save_menuitem:
-				String text = mainEditText.getText().toString();
-				Intent resultIntent = new Intent();
-				resultIntent.putExtra(Intent.EXTRA_TEXT, text);
-				setResult(RESULT_OK, resultIntent);
-				finish();
-				break;
-			case R.id.cancel_menuitem:
-				setResult(RESULT_CANCELED);
-				finish();
-				break;
-			default:
-				result = super.onOptionsItemSelected(item);
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int itemId = item.getItemId();
+		if (itemId == android.R.id.home) {
+			NotepadActivity.goHomeActivity(this);
+			finish();
+			return true;
+		} else if (itemId == R.id.save_menuitem) {
+			String text = mainEditText.getText().toString();
+			Intent resultIntent = new Intent();
+			resultIntent.putExtra(Intent.EXTRA_TEXT, text);
+			setResult(RESULT_OK, resultIntent);
+			finish();
+			return true;
+		} else if (itemId == R.id.cancel_menuitem) {
+			setResult(RESULT_CANCELED);
+			finish();
+			return true;
+		} else {
+			return super.onOptionsItemSelected(item);
 		}
-		return result;
 	}
 }

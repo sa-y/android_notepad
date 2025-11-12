@@ -77,16 +77,13 @@ public class NotepadPreferenceActivity extends PreferenceActivity {
 		boolean result = true;
 
 		int itemId = item.getItemId();
-		switch (itemId) {
-			case R.id.quit_menuitem:
-				NotepadActivity.quitApplication(this);
-				break;
-			case android.R.id.home:
-				NotepadActivity.goHomeActivity(this);
-				break;
-			default:
-				result = super.onOptionsItemSelected(item);
-		}
+        if (itemId == R.id.quit_menuitem) {
+            NotepadActivity.quitApplication(this);
+        } else if (itemId == android.R.id.home) {
+            NotepadActivity.goHomeActivity(this);
+        } else {
+            result = super.onOptionsItemSelected(item);
+        }
 
 		return result;
 	}

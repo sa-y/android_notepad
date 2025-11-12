@@ -55,16 +55,13 @@ public class RestoreDatabaseActivity extends Activity implements OnClickListener
 	@Override
 	public void onClick(View view) {
 		int id = view.getId();
-		switch (id) {
-			case R.id.ok_button:
-				restoreDatabaseFile();
-				NotepadActivity.quitApplication(this);
-				break;
-			case R.id.cancel_button:
-				finish();
-				setResult(RESULT_CANCELED);
-				break;
-		}
+        if (id == R.id.ok_button) {
+            restoreDatabaseFile();
+            NotepadActivity.quitApplication(this);
+        } else if (id == R.id.cancel_button) {
+            finish();
+            setResult(RESULT_CANCELED);
+        }
 	}
 
 	@Override

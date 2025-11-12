@@ -52,18 +52,14 @@ public class InitializePreferenceActivity extends Activity implements OnClickLis
 	public void onClick(View view)
 	{
 		int id = view.getId();
-		switch (id)
-		{
-			case R.id.ok_button:
-				NotepadPreferenceUtils.reset(this);
-				setResult(RESULT_OK);
-				finish();
-				break;
-			case R.id.cancel_button:
-				finish();
-				setResult(RESULT_CANCELED);
-				break;
-		}
+        if (id == R.id.ok_button) {
+            NotepadPreferenceUtils.reset(this);
+            setResult(RESULT_OK);
+            finish();
+        } else if (id == R.id.cancel_button) {
+            finish();
+            setResult(RESULT_CANCELED);
+        }
 	}
 
 }

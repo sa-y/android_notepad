@@ -150,27 +150,22 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 		boolean result = true;
 		Log.v(LOG_TAG, "Hello");
 
-		switch (item.getItemId())
-		{
-			case R.id.edit_note_menuitem:
-				Log.d(LOG_TAG, "edit_note_menuitem is clicked.");
-				startEditNoteActivity();
-				break;
-			case R.id.share_note_menuitem:
-				Log.d(LOG_TAG, "share_note_menuitem is clicked.");
-				startShareNoteActivity();
-				break;
-			case R.id.delete_note_menuitem:
-				Log.d(LOG_TAG, "delete_note_menuitem is clicked.");
-				startDeleteNoteActivity();
-				break;
-			case R.id.find_word_menuitem:
-				Log.d(LOG_TAG, "find_word_menuitem is clicked.");
-				startFindWordActionMode();
-				break;
-			default:
-				result = super.onOptionsItemSelected(item);
-		}
+        int itemId = item.getItemId();
+        if (itemId == R.id.edit_note_menuitem) {
+            Log.d(LOG_TAG, "edit_note_menuitem is clicked.");
+            startEditNoteActivity();
+        } else if (itemId == R.id.share_note_menuitem) {
+            Log.d(LOG_TAG, "share_note_menuitem is clicked.");
+            startShareNoteActivity();
+        } else if (itemId == R.id.delete_note_menuitem) {
+            Log.d(LOG_TAG, "delete_note_menuitem is clicked.");
+            startDeleteNoteActivity();
+        } else if (itemId == R.id.find_word_menuitem) {
+            Log.d(LOG_TAG, "find_word_menuitem is clicked.");
+            startFindWordActionMode();
+        } else {
+            result = super.onOptionsItemSelected(item);
+        }
 
 		Log.v(LOG_TAG, "Bye");
 		return result;
@@ -181,16 +176,12 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 	{
 		super.onCreateContextMenu(menu, v, menuInfo);
 		MenuInflater menuInflater = getActivity().getMenuInflater();
-		switch (v.getId())
-		{
-			case R.id.note_title_textview:
-				menuInflater.inflate(R.menu.note_title_context_menu, menu);
-				break;
-			case R.id.note_content_textview:
-				menuInflater.inflate(R.menu.note_content_context_menu, menu);
-				break;
-			default:
-		}
+        int id = v.getId();
+        if (id == R.id.note_title_textview) {
+            menuInflater.inflate(R.menu.note_title_context_menu, menu);
+        } else if (id == R.id.note_content_textview) {
+            menuInflater.inflate(R.menu.note_content_context_menu, menu);
+        }
 	}
 
 	@Override
@@ -199,27 +190,22 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 		boolean result = true;
 		Log.v(LOG_TAG, "Hello");
 
-		switch (item.getItemId())
-		{
-			case R.id.edit_note_menuitem:
-				Log.d(LOG_TAG, "edit_note_menuitem selected.");
-				startEditNoteActivity();
-				break;
-			case R.id.copy_note_title_menuitem:
-				Log.d(LOG_TAG, "copy_note_title_menuitem selected.");
-				copyNoteTitleToClipboard();
-				break;
-			case R.id.copy_note_content_menuitem:
-				Log.d(LOG_TAG, "copy_note_content_menuitem selected.");
-				copyNoteContentToClipboard();
-				break;
-			case R.id.find_word_menuitem:
-				Log.d(LOG_TAG, "find_word_menuitem selected.");
-				startFindWordActionMode();
-				break;
-			default:
-				result = super.onContextItemSelected(item);
-		}
+        int itemId = item.getItemId();
+        if (itemId == R.id.edit_note_menuitem) {
+            Log.d(LOG_TAG, "edit_note_menuitem selected.");
+            startEditNoteActivity();
+        } else if (itemId == R.id.copy_note_title_menuitem) {
+            Log.d(LOG_TAG, "copy_note_title_menuitem selected.");
+            copyNoteTitleToClipboard();
+        } else if (itemId == R.id.copy_note_content_menuitem) {
+            Log.d(LOG_TAG, "copy_note_content_menuitem selected.");
+            copyNoteContentToClipboard();
+        } else if (itemId == R.id.find_word_menuitem) {
+            Log.d(LOG_TAG, "find_word_menuitem selected.");
+            startFindWordActionMode();
+        } else {
+            result = super.onContextItemSelected(item);
+        }
 
 		Log.v(LOG_TAG, "Hello");
 		return result;
@@ -507,17 +493,13 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 		{
 			Log.v(LOG_TAG, "onActionItemClicked() : Hello");
 			int itemId = item.getItemId();
-			switch (itemId)
-			{
-				case R.id.prev_word_menuitem:
-					Log.v(LOG_TAG, "onActionItemClicked() : prev_word_menuitem is clicked.");
-					findPrevWord();
-					break;
-				case R.id.next_word_menuitem:
-					Log.v(LOG_TAG, "onActionItemClicked() : next_word_menuitem is clicked.");
-					findNextWord();
-					break;
-			}
+            if (itemId == R.id.prev_word_menuitem) {
+                Log.v(LOG_TAG, "onActionItemClicked() : prev_word_menuitem is clicked.");
+                findPrevWord();
+            } else if (itemId == R.id.next_word_menuitem) {
+                Log.v(LOG_TAG, "onActionItemClicked() : next_word_menuitem is clicked.");
+                findNextWord();
+            }
 			Log.v(LOG_TAG, "onActionItemClicked() : Bye");
 			return true;
 		}
@@ -560,22 +542,16 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 
 		public void onFocusChange(View view, boolean focused)
 		{
-			switch (view.getId())
-			{
-				case R.id.find_word_edittext:
-					Log.v(LOG_TAG, "find_word_edittext : focused => " + focused);
-					if (focused)
-					{
-						IMEUtils.showSoftKeyboardWindow(getActivity(), view);
-					}
-					else
-					{
-						IMEUtils.hideSoftKeyboardWindow(getActivity(), view);
-					}
-					break;
-				default:
-					throw new AssertionError();
-			}
+            if (view.getId() == R.id.find_word_edittext) {
+                Log.v(LOG_TAG, "find_word_edittext : focused => " + focused);
+                if (focused) {
+                    IMEUtils.showSoftKeyboardWindow(getActivity(), view);
+                } else {
+                    IMEUtils.hideSoftKeyboardWindow(getActivity(), view);
+                }
+            } else {
+                throw new AssertionError();
+            }
 		}
 
 	}

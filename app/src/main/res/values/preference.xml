@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- Theme -->
-	<string name="notepad_theme_key" >notepad_theme</string>
-	<string name="notepad_theme_dark_value" >notepad_theme_dark</string>
-	<string name="notepad_theme_light_value" >notepad_theme_light</string>
-	<string name="notepad_theme_default_value" >@string/notepad_theme_dark_value</string>
+	<string name="notepad_theme_key" translatable="false">notepad_theme</string>
+	<string name="notepad_theme_dark_value" translatable="false">notepad_theme_dark</string>
+	<string name="notepad_theme_light_value" translatable="false">notepad_theme_light</string>
+	<string name="notepad_theme_default_value" translatable="false">@string/notepad_theme_dark_value</string>
 
 	<string-array name="notepad_theme_entries">
 		<item>@string/dark_theme</item>

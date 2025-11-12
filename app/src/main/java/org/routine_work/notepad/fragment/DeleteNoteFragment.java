@@ -78,18 +78,15 @@ public class DeleteNoteFragment extends NoteDetailFragment implements NotepadCon
 		boolean result;
 		Log.v(LOG_TAG, "Hello");
 
-		switch (item.getItemId())
-		{
-			case R.id.delete_note_menuitem:
-				Log.d(LOG_TAG, "delete_note_menuitem");
-				deleteNote();
-				getActivity().setResult(Activity.RESULT_OK);
-				getActivity().finish();
-				result = true;
-				break;
-			default:
-				result = super.onOptionsItemSelected(item);
-		}
+        if (item.getItemId() == R.id.delete_note_menuitem) {
+            Log.d(LOG_TAG, "delete_note_menuitem");
+            deleteNote();
+            getActivity().setResult(Activity.RESULT_OK);
+            getActivity().finish();
+            result = true;
+        } else {
+            result = super.onOptionsItemSelected(item);
+        }
 
 		Log.v(LOG_TAG, "Bye");
 		return result;
