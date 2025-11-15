@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout 
-	xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	style="@style/body"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
-	android:orientation="vertical"
->
-	<LinearLayout 
-		android:orientation="vertical"
+	android:fitsSystemWindows="true"
+	android:orientation="vertical">
+
+	<LinearLayout
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_weight="1"
-		android:padding="4dip"
-	>
+		android:orientation="vertical"
+		android:padding="4dip">
+
 		<TextView
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
@@ -20,32 +20,29 @@
 			android:padding="4dip"
 			android:text="@string/restore_data_confirm_message"
 			android:textColor="?android:attr/textColorPrimary"
-			android:textSize="18sp"
-		/>
-		<include layout="@layout/request_permission_rationale_external_storage" />
+			android:textSize="18sp" />
 	</LinearLayout>
 
 	<View style="@style/hline" />
 
-	<LinearLayout 
-		android:orientation="horizontal"
+	<LinearLayout
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_weight="0"
-	>
+		android:orientation="horizontal">
+
 		<Button
 			android:id="@+id/ok_button"
 			android:layout_width="0dip"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:text="@android:string/ok"
-		/>
+			android:text="@android:string/ok" />
+
 		<Button
 			android:id="@+id/cancel_button"
 			android:layout_width="0dip"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:text="@android:string/cancel"
-		/>
+			android:text="@android:string/cancel" />
 	</LinearLayout>
 </LinearLayout>

@@ -117,7 +117,7 @@
 	<string name="backup_data">Backup data</string>
 	<string name="backup_data_title">Backup data</string>
 	<string name="backup_data_summary">All notes and templates are backed up.</string>
-	<string name="backup_data_confirm_message">All notes and templates will be backed up to the external storage.</string>
+	<string name="backup_data_confirm_message">All your notes and templates will be backed up to the file you selected.</string>
 	<string name="backup_data_completed_message">All notes and templates were backed up.</string>
 	<string name="external_storage_not_mountted">The external storage is not mounted.</string>
 	<string name="request_permission_rationale_external_storage">To back up and restore, access permission to the external storage is required.</string>
@@ -126,7 +126,7 @@
 	<string name="restore_data_title">Restore data</string>
 	<string name="restore_data_summary">All notes and templates are restored from backup file.</string>
 	<string name="restore_data_confirm_message">The current notes and templates are deleted, 
-		And all data will be restored from backup file in the external storage. 
+		And all data will be restored from selected backup file.
 		This application will be finished to reflect the change of note data.
 	</string>
 	<!-- Pick Backup File -->

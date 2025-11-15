@@ -6,7 +6,6 @@
 >
 
 	<uses-feature android:name="android.hardware.touchscreen" android:required="false" />
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 	<application
 		android:label="@string/app_name"
@@ -223,11 +222,6 @@
 		<activity
 			android:name=".prefs.RestoreDatabaseActivity" 
 			android:label="@string/restore_data_title"
-		/>
-
-		<activity
-			android:name=".prefs.PickBackupFileActivity" 
-			android:label="@string/select_backup_file_title"
 		/>
 
 		<activity

@@ -26,13 +26,11 @@ package org.routine_work.notepad.prefs;
 import java.io.File;
 
 /**
- *
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
 interface BackupConstants
 {
-
-	String BACKUP_DIR_NAME = "simple-notepad" + File.separator + "backup";
+	String BACKUP_FILE_PREFIX = "simple-notepad-";
 	String BACKUP_FILE_DATE_FORMAT = "yyyyMMddTkkmmss";
 	String BACKUP_FILE_SUFFIX = ".sqlite";
 }

@@ -22,7 +22,6 @@
 			android:textColor="?android:attr/textColorPrimary"
 			android:textSize="18sp" />
 
-		<include layout="@layout/request_permission_rationale_external_storage" />
 	</LinearLayout>
 
 	<View style="@style/hline" />

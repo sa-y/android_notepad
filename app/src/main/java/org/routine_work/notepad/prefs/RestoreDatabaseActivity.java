@@ -23,158 +23,117 @@
  */
 package org.routine_work.notepad.prefs;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.channels.FileChannel;
+
 import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.provider.NoteStore;
+import org.routine_work.utils.Log;
 
-public class RestoreDatabaseActivity extends Activity implements OnClickListener {
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
+public class RestoreDatabaseActivity extends Activity implements OnClickListener
+{
 	private static final String LOG_TAG = "simple-notepad";
-	private static final String SAVE_KEY_BACKUP_FILE_PATH = "backupFilePath";
-	private String backupFilePath;
-	private static final int REUQEST_CODE_PICK_BACKUP_FILE = 1;
+	static final int REQUEST_CODE_SELECT_STORAGE_FILE = 1001;
 
 	@Override
-	public void onClick(View view) {
+	public void onClick(View view)
+	{
 		int id = view.getId();
-        if (id == R.id.ok_button) {
-            restoreDatabaseFile();
-            NotepadActivity.quitApplication(this);
-        } else if (id == R.id.cancel_button) {
-            finish();
-            setResult(RESULT_CANCELED);
-        }
+		if (id == R.id.ok_button)
+		{
+			selectStorageFileToRestore();
+		}
+		else if (id == R.id.cancel_button)
+		{
+			finish();
+			setResult(RESULT_CANCELED);
+		}
 	}
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.restore_database_activity);
-
-		if (savedInstanceState != null) {
-			backupFilePath = savedInstanceState.getString(SAVE_KEY_BACKUP_FILE_PATH);
-		} else {
-			Intent intent = getIntent();
-			Uri data = intent.getData();
-			if (data != null) {
-				backupFilePath = data.getPath();
-			}
-		}
-		Log.d(LOG_TAG, "backupFilePath => " + backupFilePath);
-
-		if (backupFilePath == null) {
-			Intent pickBackupFileIntent = new Intent(this, PickBackupFileActivity.class);
-			startActivityForResult(pickBackupFileIntent, REUQEST_CODE_PICK_BACKUP_FILE);
-		}
 
 		// Init Views
 		Button okButton = (Button) findViewById(R.id.ok_button);
 		okButton.setOnClickListener(this);
 		Button cancelButton = (Button) findViewById(R.id.cancel_button);
 		cancelButton.setOnClickListener(this);
-
 	}
 
 	@Override
-	protected void onResume() {
-		super.onResume(); //To change body of generated methods, choose Tools | Templates.
-		if (PermissionUtils.hasExternalStoragePermission(this)) { // Android 6.0  or later
-			enableRestoreFunction();
-		} else {
-			disableRestoreFunction();
-		}
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		switch (requestCode) {
-			case REUQEST_CODE_PICK_BACKUP_FILE:
-				if (resultCode == RESULT_OK) {
-					Uri uri = data.getData();
-					backupFilePath = uri.getPath();
-				}
-				Log.d(LOG_TAG, "backupFilePath => " + backupFilePath);
-
-				if (backupFilePath == null) {
-					setResult(RESULT_CANCELED);
-					finish();
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		switch (requestCode)
+		{
+			case REQUEST_CODE_SELECT_STORAGE_FILE:
+				if (data != null && data.getData() != null)
+				{
+					Uri backupFileUri = data.getData();
+					Log.d(LOG_TAG, "selected backupFileUri => " + backupFileUri);
+					restoreDatabaseFile(backupFileUri);
+					NotepadActivity.quitApplication(this);
 				}
 				break;
 			default:
 				super.onActivityResult(requestCode, resultCode, data);
+				break;
 		}
 	}
 
-	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		outState.putString(SAVE_KEY_BACKUP_FILE_PATH, backupFilePath);
+	private void selectStorageFileToRestore()
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+		intent.addCategory(Intent.CATEGORY_OPENABLE);
+		intent.setType("*/*");
+		startActivityForResult(intent, REQUEST_CODE_SELECT_STORAGE_FILE);
+
+		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void restoreDatabaseFile() {
-		Log.d(LOG_TAG, "backupFilePath => " + backupFilePath);
-		if (backupFilePath == null) {
+	private void restoreDatabaseFile(Uri backupFileUri)
+	{
+		Log.d(LOG_TAG, "backupFileUri => " + backupFileUri);
+		if (backupFileUri == null)
+		{
 			Log.e(LOG_TAG, "backup file path is null, the restore was canceled.");
 			return;
 		}
 
-		String externalStorageState = Environment.getExternalStorageState();
-		if (Environment.MEDIA_MOUNTED.equals(externalStorageState)) {
-			File databaseFilePath = NoteStore.getNoteDatabasePath(this);
-			Log.d(LOG_TAG, "databaseFilePath => " + databaseFilePath);
-
-			try {
-				Log.i(LOG_TAG, "Restore database " + backupFilePath + " to " + databaseFilePath);
-				FileChannel inputChannel = new FileInputStream(backupFilePath).getChannel();
-				FileChannel outputChannel = new FileOutputStream(databaseFilePath).getChannel();
-				inputChannel.transferTo(0, inputChannel.size(), outputChannel);
-				inputChannel.close();
-				outputChannel.close();
-			} catch (IOException ex) {
-				Log.e(LOG_TAG, "The database file copying is failed.", ex);
+		try (OutputStream outputStream = new FileOutputStream(NoteStore.getNoteDatabasePath(this));
+			 InputStream inputStream = getContentResolver().openInputStream(backupFileUri))
+		{
+			if (outputStream != null && inputStream != null)
+			{
+				byte[] buffer = new byte[8192];
+				int bytesRead;
+				while ((bytesRead = inputStream.read(buffer)) != -1)
+				{
+					outputStream.write(buffer, 0, bytesRead);
+				}
+				outputStream.flush();
 			}
-		} else {
-			String message = "The external storage is not mounted.";
-			Log.e(LOG_TAG, message + "externalStorageState => " + externalStorageState);
-			Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+
 		}
-	}
-
-	private void disableRestoreFunction() {
-		View rationaleView = findViewById(R.id.request_permission_rationale_external_storage_view);
-		rationaleView.setVisibility(View.VISIBLE);
-
-		Button okButton = (Button) findViewById(R.id.ok_button);
-		okButton.setEnabled(false);
-
-	}
-
-	private void enableRestoreFunction() {
-		// remove permission rationale
-		View rationaleView = findViewById(R.id.request_permission_rationale_external_storage_view);
-		rationaleView.setVisibility(View.GONE);
-
-		// enable ok button
-		Button okButton = (Button) findViewById(R.id.ok_button);
-		okButton.setEnabled(true);
+		catch (IOException e)
+		{
+			Log.e(LOG_TAG, "writeBinaryToUri", e);
+		}
 	}
 }

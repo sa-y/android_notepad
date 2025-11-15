@@ -23,41 +23,35 @@
  */
 package org.routine_work.notepad.prefs;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.TextView;
+
 import org.routine_work.notepad.R;
+import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.utils.Log;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 public class BackupDatabaseActivity extends Activity
-		implements OnClickListener, BackupConstants {
+		implements OnClickListener, BackupConstants
+{
 
 	private static final String LOG_TAG = "simple-notepad";
-	private final int REQUEST_EXTERNAL_STORAGE_PERMISSION = 1001;
+	static final int REQUEST_CODE_SELECT_STORAGE_FILE = 1001;
+
 
 	@Override
-	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-		Log.v(LOG_TAG, "Hello");
-
-		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-		if (requestCode == REQUEST_EXTERNAL_STORAGE_PERMISSION) {
-			if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-				enableBackupFunction();
-			}
-		}
-
-		Log.v(LOG_TAG, "Bye");
-	}
-
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		Log.v(LOG_TAG, "Hello");
 		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
@@ -65,68 +59,113 @@ public class BackupDatabaseActivity extends Activity
 
 		Button okButton = (Button) findViewById(R.id.ok_button);
 		okButton.setOnClickListener(this);
-		okButton.setEnabled(false);
 		Button cancelButton = (Button) findViewById(R.id.cancel_button);
 		cancelButton.setOnClickListener(this);
 
-		if (Build.VERSION.SDK_INT >= 23) { // Android 6.0  or later
-			if (PermissionUtils.hasExternalStoragePermission(this) == false) {
-				this.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_EXTERNAL_STORAGE_PERMISSION);
-			}
-		}
 		Log.v(LOG_TAG, "Bye");
 	}
 
 	@Override
-	protected void onResume() {
+	protected void onResume()
+	{
 		super.onResume();
 		Log.v(LOG_TAG, "Hello");
 
-		if (PermissionUtils.hasExternalStoragePermission(this)) { // Android 6.0  or later
-			Log.v(LOG_TAG, "hasWriteStoragePermission() : true");
-			enableBackupFunction();
-		} else {
-			Log.v(LOG_TAG, "hasWriteStoragePermission() : false");
-			disableBackupFunction();
-		}
-
 		Log.v(LOG_TAG, "Bye");
 	}
 
 	@Override
-	public void onClick(View view) {
+	public void onClick(View view)
+	{
 		int id = view.getId();
-        if (id == R.id.ok_button) {
-            startBackupDatabaseService();
-            setResult(RESULT_OK);
-            finish();
-        } else if (id == R.id.cancel_button) {
-            finish();
-            setResult(RESULT_CANCELED);
-        }
+		if (id == R.id.ok_button)
+		{
+			selectBackupStorageFile();
+		}
+		else if (id == R.id.cancel_button)
+		{
+			setResult(RESULT_CANCELED);
+			finish();
+		}
 	}
 
-	private void enableBackupFunction() {
-		Button okButton = (Button) findViewById(R.id.ok_button);
-		okButton.setEnabled(true);
-
-		View rationaleView =  findViewById(R.id.request_permission_rationale_external_storage_view);
-		rationaleView.setVisibility(View.GONE);
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		Log.v(LOG_TAG, "Hello");
+		if (requestCode == REQUEST_CODE_SELECT_STORAGE_FILE)
+		{
+			if (resultCode == Activity.RESULT_OK)
+			{
+				if (data != null && data.getData() != null)
+				{
+					Uri backupFileUri = data.getData();
+					Log.v(LOG_TAG, "backupFileUri => " + backupFileUri);
+					writeDatabaseBackupFile(backupFileUri);
+					setResult(RESULT_OK);
+					finish();
+				}
+			}
+		}
+		else
+		{
+			super.onActivityResult(requestCode, resultCode, data);
+		}
+		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void disableBackupFunction() {
-		Button okButton = (Button) findViewById(R.id.ok_button);
-		okButton.setEnabled(false);
+	private void writeDatabaseBackupFile(Uri backupFileUri)
+	{
+		Log.v(LOG_TAG, "Hello");
+		Log.v(LOG_TAG, "backupFileUri => " + backupFileUri);
+		try (OutputStream outputStream = getContentResolver().openOutputStream(backupFileUri);
+			 InputStream inputStream = new FileInputStream(NoteStore.getNoteDatabasePath(this)))
+		{
+			Log.v(LOG_TAG, "outputStream => " + outputStream);
+			Log.v(LOG_TAG, "inputStream => " + inputStream);
+			if (outputStream != null && inputStream != null)
+			{
+				byte[] buffer = new byte[8192]; // 8KB バッファ
+				int bytesRead;
+				while ((bytesRead = inputStream.read(buffer)) != -1)
+				{
+					outputStream.write(buffer, 0, bytesRead);
+				}
+				outputStream.flush();
+			}
 
-		View rationaleView =  findViewById(R.id.request_permission_rationale_external_storage_view);
-		rationaleView.setVisibility(View.VISIBLE);
+		}
+		catch (IOException e)
+		{
+			Log.e(LOG_TAG, "writeBinaryToUri", e);
+		}
+		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void startBackupDatabaseService() {
+	private void selectBackupStorageFile()
+	{
+		Log.v(LOG_TAG, "Hello");
+		String backupFileName = BACKUP_FILE_PREFIX
+				+ DateFormat.format(BACKUP_FILE_DATE_FORMAT, System.currentTimeMillis())
+				+ BACKUP_FILE_SUFFIX;
+
+		Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+		intent.addCategory(Intent.CATEGORY_OPENABLE);
+		intent.setType("application/octet-stream");
+		intent.putExtra(Intent.EXTRA_TITLE, backupFileName);
+		startActivityForResult(intent, REQUEST_CODE_SELECT_STORAGE_FILE);
+
+		Log.v(LOG_TAG, "Bye");
+	}
+
+	private void startBackupDatabaseService(Uri storageFileUri)
+	{
 		Log.v(LOG_TAG, "Hello");
 
-		if (PermissionUtils.hasExternalStoragePermission(this)) { // re check
+		if (PermissionUtils.hasExternalStoragePermission(this))
+		{ // re check
 			Intent backDatabaseIntent = new Intent(this, BackupDatabaseService.class);
+			backDatabaseIntent.setData(storageFileUri);
 			startService(backDatabaseIntent);
 		}
 

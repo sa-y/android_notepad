@@ -117,7 +117,7 @@
 	<string name="backup_data">データをバックアップ</string>
 	<string name="backup_data_title">データをバックアップ</string>
 	<string name="backup_data_summary">すべてのノートとテンプレートのデータをバックアップします。</string>
-	<string name="backup_data_confirm_message">すべてのノートとテンプレートが外部ストレージにバックアップされます。</string>
+	<string name="backup_data_confirm_message">すべてのノートとテンプレートが選択したファイルにバックアップされます。</string>
 	<string name="backup_data_completed_message">ノートとテンプレートのバックアップが完了しました。</string>
 	<string name="external_storage_not_mountted">外部ストレージが接続されていません。</string>
 	<string name="request_permission_rationale_external_storage">バックアップ作成と復元のために、外部ストレージへの読み書きに対して許可が必要です。</string>
@@ -126,7 +126,7 @@
 	<string name="restore_data_title">データを復元</string>
 	<string name="restore_data_summary">バックアップファイルからすべてのノートとテンプレートのデータを復元します。</string>
 	<string name="restore_data_confirm_message">現在のノートとテンプレートはすべて削除されて、
-		外部ストレージのバックアップファイルからデータを復元します。
+		選択したバックアップファイルからデータを復元します。
 		その後、データの変更を反映するために、アプリケーションを終了します。
 	</string>
 	<!-- Pick Backup File -->

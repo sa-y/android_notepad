@@ -25,94 +25,62 @@ package org.routine_work.notepad.prefs;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.text.format.DateFormat;
 import android.widget.Toast;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.channels.FileChannel;
+
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.utils.Log;
 
 public class BackupDatabaseService extends IntentService
-	implements BackupConstants
-{
+        implements BackupConstants {
+    public final String STORAGE_FILE_URI_KEY = "STORAGE_FILE_URI_KEY ";
 
-	private static final String LOG_TAG = "simple-notepad";
-	private Handler handler;
+    private static final String LOG_TAG = "simple-notepad";
+    private Handler handler;
 
-	public BackupDatabaseService(String name)
-	{
-		super(name);
-		handler = new Handler();
-	}
+    public BackupDatabaseService(String name) {
+        super(name);
+        handler = new Handler();
+    }
 
-	public BackupDatabaseService()
-	{
-		this("BackupDatabaseService");
-	}
+    public BackupDatabaseService() {
+        this("BackupDatabaseService");
+    }
 
-	@Override
-	protected void onHandleIntent(Intent intent)
-	{
-		String externalStorageState = Environment.getExternalStorageState();
-		if (Environment.MEDIA_MOUNTED.equals(externalStorageState))
-		{
-			File databaseFilePath = NoteStore.getNoteDatabasePath(this);
-			Log.d(LOG_TAG, "databaseFilePath => " + databaseFilePath);
+    @Override
+    protected void onHandleIntent(Intent intent) {
+        Uri backupFileUri = intent.getData();
 
-			String backupFileName = DateFormat.format(BACKUP_FILE_DATE_FORMAT, System.currentTimeMillis()) + BACKUP_FILE_SUFFIX;
-			File backupDirPath = Environment.getExternalStorageDirectory();
-			backupDirPath = new File(backupDirPath, BACKUP_DIR_NAME);
-			Log.d(LOG_TAG, "backupDirPath => " + backupDirPath);
-			File backupFilePath = new File(backupDirPath, backupFileName);
-			Log.d(LOG_TAG, "backupFilePath => " + backupFilePath);
+        try (OutputStream outputStream = getContentResolver().openOutputStream(backupFileUri);
+             InputStream inputStream = new FileInputStream(NoteStore.getNoteDatabasePath(this)))
+        {
+            if (outputStream != null && inputStream != null)
+            {
+                byte[] buffer = new byte[8192]; // 8KB バッファ
+                int bytesRead;
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+                outputStream.flush();
+            }
 
-			try
-			{
-				if (backupDirPath.exists() == false)
-				{
-					Log.i(LOG_TAG, "Create backup directory. backupDirPath => " + backupDirPath);
-					boolean mkdirs = backupDirPath.mkdirs();
-					Log.d(LOG_TAG, "mkdirs => " + mkdirs);
-				}
+        } catch (IOException e)
+        {
+            Log.e(LOG_TAG, "writeBinaryToUri", e);
 
-				Log.i(LOG_TAG, "Backup database " + databaseFilePath + " to " + backupFilePath);
-				FileChannel inputChannel = new FileInputStream(databaseFilePath).getChannel();
-				FileChannel outputChannel = new FileOutputStream(backupFilePath).getChannel();
-				inputChannel.transferTo(0, inputChannel.size(), outputChannel);
-				inputChannel.close();
-				outputChannel.close();
-				handler.post(new Runnable()
-				{
-
-					public void run()
-					{
-						Toast.makeText(BackupDatabaseService.this, R.string.backup_data_completed_message, Toast.LENGTH_LONG).show();
-					}
-				});
-			}
-			catch (IOException ex)
-			{
-				Log.e(LOG_TAG, "The database file copying is failed.", ex);
-			}
-		}
-		else
-		{
-			Log.e(LOG_TAG, "The external storage is not mounted. : externalStorageState => " + externalStorageState);
-			handler.post(new Runnable()
-			{
-
-				public void run()
-				{
-					Toast.makeText(BackupDatabaseService.this, R.string.external_storage_not_mountted, Toast.LENGTH_LONG).show();
-				}
-			});
-		}
-	}
+        }
+    }
 
 }
