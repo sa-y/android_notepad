@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- Theme -->
+	<string name="notepad_theme_key" translatable="false">notepad_theme</string>
+	<string name="notepad_theme_dark_value" translatable="false">notepad_theme_dark</string>
+	<string name="notepad_theme_light_value" translatable="false">notepad_theme_light</string>
+	<string name="notepad_theme_default_value" translatable="false">@string/notepad_theme_dark_value</string>
+
+	<string-array name="notepad_theme_entries">
+		<item>@string/dark_theme</item>
+		<item>@string/light_theme</item>
+	</string-array>
+
+	<string-array name="notepad_theme_values">
+		<item>@string/notepad_theme_dark_value</item>
+		<item>@string/notepad_theme_light_value</item>
+	</string-array>
+
+	<!-- Layout -->
+	<string name="note_list_layout_port_key" >note_list_layout_port</string>
+	<string name="note_list_layout_land_key" >note_list_layout_land</string>
+	<string name="note_list_layout_single_value" >SINGLE</string>
+	<string name="note_list_layout_wide_two_value" >WIDE_TWO</string>
+
+	<string-array name="note_list_layout_entries">
+		<item>@string/single_pane</item>
+		<item>@string/wide_two_pane</item>
+	</string-array>
+
+	<string-array name="note_list_layout_values">
+		<item>@string/note_list_layout_single_value</item>
+		<item>@string/note_list_layout_wide_two_value</item>
+	</string-array>
+
+	<!-- Note List -->
+	<string name="note_list_item_modified_time_visibility_port_key" >note_list_item_modified_time_visibility_port</string>
+	<string name="note_list_item_modified_time_visibility_land_key" >note_list_item_modified_time_visibility_land</string>
+
+	<string name="note_list_item_content_lines_port_key" >note_list_item_content_lines_port</string>
+	<string name="note_list_item_content_lines_land_key" >note_list_item_content_lines_land</string>
+
+	<string-array name="note_list_item_content_lines_values">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+		<item>4</item>
+	</string-array>
+
+	<!-- note list sort order -->
+	<string name="note_list_sort_order_key" >note_list_sort_order</string>
+	<string name="note_list_sort_order_default_value" >@string/note_list_sort_order_value_date_modified_desc</string>
+
+	<string name="note_list_sort_order_value_title_asc" >title asc</string>
+	<string name="note_list_sort_order_value_title_desc" >title desc</string>
+	<string name="note_list_sort_order_value_date_modified_asc" >date_modified asc</string>
+	<string name="note_list_sort_order_value_date_modified_desc" >date_modified desc</string>
+	<!--
+	<string name="note_list_sort_order_value_date_added_asc" >date_added asc</string>
+	<string name="note_list_sort_order_value_date_added_desc" >date_added desc</string>
+	-->
+
+	<string-array name="note_list_sort_order_entries">
+		<item>@string/note_list_sort_order_entry_title_asc</item>
+		<item>@string/note_list_sort_order_entry_title_desc</item>
+		<item>@string/note_list_sort_order_entry_date_modified_asc</item>
+		<item>@string/note_list_sort_order_entry_date_modified_desc</item>
+		<!--
+		<item>@string/note_list_sort_order_entry_date_added_asc</item>
+		<item>@string/note_list_sort_order_entry_date_added_desc</item>
+		-->
+	</string-array>
+	<string-array name="note_list_sort_order_values">
+		<item>@string/note_list_sort_order_value_title_asc</item>
+		<item>@string/note_list_sort_order_value_title_desc</item>
+		<item>@string/note_list_sort_order_value_date_modified_asc</item>
+		<item>@string/note_list_sort_order_value_date_modified_desc</item>
+		<!--
+		<item>@string/note_list_sort_order_value_date_added_asc</item>
+		<item>@string/note_list_sort_order_value_date_added_desc</item>
+		-->
+	</string-array>
+
+	<!-- Note Detail Category -->
+	<!-- Note Detail Font Size -->
+	<string name="note_detail_font_size_port_key" >note_detail_font_size_port</string>
+	<string name="note_detail_font_size_land_key" >note_detail_font_size_land</string>
+	<string name="note_detail_font_size_port_default_value" >18</string>
+	<string name="note_detail_font_size_land_default_value" >18</string>
+
+	<string-array name="note_detail_font_size_entries">
+		<item>@string/note_detail_font_size_10</item>
+		<item>@string/note_detail_font_size_12</item>
+		<item>@string/note_detail_font_size_14</item>
+		<item>@string/note_detail_font_size_16</item>
+		<item>@string/note_detail_font_size_18</item>
+		<item>@string/note_detail_font_size_20</item>
+		<item>@string/note_detail_font_size_22</item>
+		<item>@string/note_detail_font_size_24</item>
+		<item>@string/note_detail_font_size_26</item>
+	</string-array>
+
+	<string-array name="note_detail_font_size_values">
+		<item>10</item>
+		<item>12</item>
+		<item>14</item>
+		<item>16</item>
+		<item>18</item>
+		<item>20</item>
+		<item>22</item>
+		<item>24</item>
+		<item>26</item>
+	</string-array>
+
+	<!-- Auto Link Category -->
+	<!-- Auto Link : Note Title -->
+	<string name="note_title_autolink_key" >note_title_autolink</string>
+	<bool name="note_title_autolink_default_value" >false</bool>
+	<!-- Auto Link : Note Content -->
+	<string name="note_content_autolink_key" >note_content_autolink</string>
+	<bool name="note_content_autolink_default_value" >true</bool>
+
+	<!-- ActionBar Category -->
+	<!-- ActionBar : Portlaint -->
+	<string name="actionbar_auto_hide_port_key" >actionbar_auto_hide_port</string>
+	<!-- ActionBar : Landscape -->
+	<string name="actionbar_auto_hide_land_key" >actionbar_auto_hide_land</string>
+
+	<!-- Capitalization Category -->
+	<!-- Capitalization : Note Title -->
+	<string name="capitalization_title_key" >capitalization_title</string>
+	<bool name="capitalization_title_default_value" >false</bool>
+	<!-- Capitalization : Note Content -->
+	<string name="capitalization_content_key" >capitalization_content</string>
+	<bool name="capitalization_content_default_value" >false</bool>
+
+	<!-- Share Data Category -->
+	<!-- Share Data : Receive Text -->
+	<string name="receive_text_key" >receive_text</string>
+	<bool name="receive_text_default_value" >true</bool>
+
+</resources>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- View Note -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/note_view_scrollview"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:layout_weight="1"
+	android:fillViewport="true"
+	android:fitsSystemWindows="true">
+
+	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical">
+
+		<TextView
+			android:id="@+id/note_title_textview"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:hint="@string/title"
+			android:lines="1"
+			android:padding="4dip"
+			android:singleLine="true"
+			android:textColor="?android:attr/textColorSecondary"
+			android:textSize="18sp" />
+
+		<View style="@style/note_detail_separator" />
+
+		<TextView
+			android:id="@+id/note_content_textview"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:gravity="left|top"
+			android:hint="@string/text"
+			android:minLines="4"
+			android:padding="4dip"
+			android:singleLine="false"
+			android:textColor="?android:attr/textColorSecondary"
+			android:textSize="18sp" />
+
+	</LinearLayout>
+</ScrollView>

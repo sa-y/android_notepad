@@ -1,4 +1,21 @@
-/notepad-common/target/
-/notepad-app/target/
-/notepad-app-level-11/target/
-/target/
+*.iml
+.cxx
+.DS_Store
+.externalNativeBuild
+.gradle
+/build
+/captures
+/local.properties
+local.properties
+# Android Studio
+/.idea/.name
+/.idea/assetWizardSettings.xml
+/.idea/caches
+/.idea/deploymentTargetSelector.xml
+/.idea/deviceManager.xml
+/.idea/libraries
+/.idea/modules.xml
+/.idea/navEditor.xml
+/.idea/shelf/
+/.idea/usage.statistics.xml
+/.idea/workspace.xml

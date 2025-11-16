@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:paddingLeft="@dimen/list_item_paddingLeft"
+	android:paddingTop="@dimen/list_item_paddingTop"
+	android:paddingRight="@dimen/list_item_paddingRight"
+	android:paddingBottom="@dimen/list_item_paddingBottom">
+
+	<LinearLayout
+		android:id="@+id/note_template_detail_item_name"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:visibility="gone">
+
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="0"
+			android:padding="4dip"
+			android:text="@string/name" />
+
+		<TextView
+			android:id="@+id/note_template_name_textview"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_margin="4dip"
+			android:layout_weight="0"
+			android:hint="@string/template_name"
+			android:paddingStart="8dip"
+			android:textColor="?android:attr/textColorPrimary"
+			android:textSize="@dimen/note_template_detail_item_value_textSize" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:id="@+id/note_template_detail_item_title"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:visibility="gone">
+
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="0"
+			android:padding="4dip"
+			android:text="@string/title" />
+
+		<TextView
+			android:id="@+id/note_template_title_textview"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_margin="4dip"
+			android:layout_weight="0"
+			android:hint="@string/title_template"
+			android:paddingLeft="8dip"
+			android:textColor="?android:attr/textColorPrimary"
+			android:textSize="@dimen/note_template_detail_item_value_textSize" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:id="@+id/note_template_detail_item_title_locked"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:visibility="gone">
+		<!--
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="0"
+			android:padding="4dip"
+			android:text="@string/title_lock"
+		/>
+		-->
+
+		<CheckedTextView
+			android:id="@+id/note_template_title_lock_checkbox"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:layout_margin="4dip"
+			android:checkMark="?android:attr/listChoiceIndicatorSingle"
+			android:gravity="center_vertical|left"
+			android:paddingLeft="8dip"
+			android:text="@string/title_lock"
+			android:textSize="@dimen/note_template_detail_item_value_textSize" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:id="@+id/note_template_detail_item_edit_same_title"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:visibility="gone">
+
+		<CheckedTextView
+			android:id="@+id/note_template_edit_same_title_checkbox"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:layout_margin="4dip"
+			android:checkMark="?android:attr/listChoiceIndicatorSingle"
+			android:gravity="center_vertical|left"
+			android:paddingLeft="8dip"
+			android:text="@string/edit_same_title"
+			android:textSize="@dimen/note_template_detail_item_value_textSize" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:id="@+id/note_template_detail_item_content"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:visibility="gone">
+
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="0"
+			android:padding="4dip"
+			android:text="@string/text" />
+
+		<TextView
+			android:id="@+id/note_template_content_textview"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_margin="4dip"
+			android:layout_weight="0"
+			android:gravity="left|top"
+			android:hint="@string/text_template"
+			android:minLines="4"
+			android:paddingLeft="8dip"
+			android:textColor="?android:attr/textColorPrimary"
+			android:textSize="@dimen/note_template_detail_item_value_textSize" />
+	</LinearLayout>
+
+</FrameLayout>
