@@ -27,6 +27,10 @@ import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.content.Intent.ShortcutIconResource;
+import android.content.pm.ShortcutInfo;
+import android.content.pm.ShortcutManager;
+import android.graphics.drawable.Icon;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -34,6 +38,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.routine_work.notepad.AddNewNoteActivity;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
@@ -115,17 +120,48 @@ public class CreateSearchNoteShortcutActivity extends Activity
 		}
 
 		// Create shortcut
-		Intent searchNoteIntent = new Intent(Intent.ACTION_SEARCH, NoteStore.Note.CONTENT_URI);
-		searchNoteIntent.putExtra(SearchManager.QUERY, searchQuery);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+		{
+			// API 26 以降：ShortcutManager を使用
+			ShortcutManager shortcutManager = this.getSystemService(ShortcutManager.class);
 
-		ShortcutIconResource shortcutIconResource = Intent.ShortcutIconResource.fromContext(this, R.drawable.ic_launcher_notepad_search);
+			if (shortcutManager != null && shortcutManager.isRequestPinShortcutSupported())
+			{
+				Intent searchNoteIntent = new Intent(Intent.ACTION_SEARCH, NoteStore.Note.CONTENT_URI);
+				searchNoteIntent.putExtra(SearchManager.QUERY, searchQuery);
 
-		Intent resultIntent = new Intent();
-		resultIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, searchNoteIntent);
-		resultIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, shortcutIconResource);
-		resultIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, shortcutName);
-		setResult(Activity.RESULT_OK, resultIntent);
-		finish();
+				String shortcutId = "search_note_" + System.currentTimeMillis();
+				ShortcutInfo.Builder builder = new ShortcutInfo.Builder(this, shortcutId);
+				builder.setShortLabel(shortcutName);
+				builder.setLongLabel(shortcutName);
+				builder.setIcon(Icon.createWithResource(this, R.drawable.ic_launcher_notepad_search));
+				builder.setIntent(searchNoteIntent);
+				ShortcutInfo shortcutInfo = builder.build();
+
+				shortcutManager.requestPinShortcut(shortcutInfo, null);
+
+				setResult(Activity.RESULT_OK);
+				finish();
+			}
+			else
+			{
+				setResult(Activity.RESULT_CANCELED);
+				finish();
+			}
+		}
+		else
+		{
+			Intent searchNoteIntent = new Intent(Intent.ACTION_SEARCH, NoteStore.Note.CONTENT_URI);
+			searchNoteIntent.putExtra(SearchManager.QUERY, searchQuery);
+			ShortcutIconResource shortcutIconResource = Intent.ShortcutIconResource.fromContext(this, R.drawable.ic_launcher_notepad_search);
+
+			Intent resultIntent = new Intent();
+			resultIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, searchNoteIntent);
+			resultIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, shortcutIconResource);
+			resultIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, shortcutName);
+			setResult(Activity.RESULT_OK, resultIntent);
+			finish();
+		}
 
 		Log.v(LOG_TAG, "Bye");
 	}

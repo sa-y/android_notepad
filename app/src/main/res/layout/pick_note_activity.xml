@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	style="@style/body"
->
+	android:fitsSystemWindows="true">
 
 	<include layout="@layout/note_list" />
 

@@ -25,6 +25,10 @@ package org.routine_work.notepad.shortcut;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ShortcutInfo;
+import android.content.pm.ShortcutManager;
+import android.graphics.drawable.Icon;
+import android.os.Build;
 import android.os.Bundle;
 
 import org.routine_work.notepad.AddNewNoteActivity;
@@ -47,18 +51,56 @@ public class CreateAddNewNoteShortcutActivity extends Activity
 	{
 		Log.v(LOG_TAG, "Hello");
 		super.onCreate(savedInstanceState);
-
-		String shortcutName = getString(R.string.add_new_note_title);
-		Intent addNewNoteIntent = new Intent(this, AddNewNoteActivity.class);
-		Intent.ShortcutIconResource shortcutIconResource = Intent.ShortcutIconResource.fromContext(this, R.drawable.ic_launcher_notepad_add);
-
-		Intent resultIntent = new Intent();
-		resultIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, addNewNoteIntent);
-		resultIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, shortcutIconResource);
-		resultIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, shortcutName);
-		setResult(Activity.RESULT_OK, resultIntent);
-		finish();
+		createAddNewNoteShortcut();
 
 		Log.v(LOG_TAG, "Bye");
+	}
+
+	private void createAddNewNoteShortcut()
+	{
+		// Android 8.0 (APIレベル 26) 以降のショートカット作成方法
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+		{
+			ShortcutManager shortcutManager = getSystemService(ShortcutManager.class);
+
+			if (shortcutManager != null && shortcutManager.isRequestPinShortcutSupported())
+			{
+				String shortcutName = getString(R.string.add_new_note_title);
+				Intent addNewNoteIntent = new Intent(this, AddNewNoteActivity.class);
+				addNewNoteIntent.setAction(Intent.ACTION_MAIN);
+
+				String shortcutId = "add_new_note_" + System.currentTimeMillis();
+				ShortcutInfo.Builder builder = new ShortcutInfo.Builder(this, shortcutId);
+				builder.setShortLabel(shortcutName);
+				builder.setLongLabel(shortcutName);
+				builder.setIcon(Icon.createWithResource(this, R.drawable.ic_launcher_notepad_add));
+				builder.setIntent(addNewNoteIntent);
+				ShortcutInfo shortcutInfo = builder.build();
+
+				shortcutManager.requestPinShortcut(shortcutInfo, null);
+
+				setResult(Activity.RESULT_OK);
+				finish();
+			}
+			else
+			{
+				setResult(RESULT_CANCELED);
+				finish();
+			}
+		}
+		else
+		{
+			String shortcutName = getString(R.string.add_new_note_title);
+			Intent addNewNoteIntent = new Intent(this, AddNewNoteActivity.class);
+			Intent.ShortcutIconResource shortcutIconResource = Intent.ShortcutIconResource.fromContext(this, R.drawable.ic_launcher_notepad_add);
+
+			Intent resultIntent = new Intent();
+			resultIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, addNewNoteIntent);
+			resultIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, shortcutIconResource);
+			resultIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, shortcutName);
+
+			setResult(Activity.RESULT_OK, resultIntent);
+			finish();
+		}
 	}
 }

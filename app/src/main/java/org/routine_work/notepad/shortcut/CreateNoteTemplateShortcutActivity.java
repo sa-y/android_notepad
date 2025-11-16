@@ -26,8 +26,12 @@ package org.routine_work.notepad.shortcut;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.pm.ShortcutInfo;
+import android.content.pm.ShortcutManager;
 import android.database.Cursor;
+import android.graphics.drawable.Icon;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -165,20 +169,53 @@ public class CreateNoteTemplateShortcutActivity extends Activity
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		if (noteTemplateUri != null)
+		// Check uri
+		Log.v(LOG_TAG, "noteTemplateUri => " + noteTemplateUri);
+		if (noteTemplateUri == null)
 		{
-			// Check shortcut name
-			EditText shortcutNameEditText = (EditText) findViewById(R.id.shortcut_name_edittext);
-			String shortcutName = shortcutNameEditText.getText().toString();
-			if (TextUtils.isEmpty(shortcutName))
+			Log.w(LOG_TAG, "noteTemplateUri is null.");
+			return;
+		}
+
+		// Check shortcut name
+		EditText shortcutNameEditText = (EditText) findViewById(R.id.shortcut_name_edittext);
+		String shortcutName = shortcutNameEditText.getText().toString();
+		if (TextUtils.isEmpty(shortcutName))
+		{
+			Toast.makeText(this, R.string.no_shortcut_name_message, Toast.LENGTH_LONG).show();
+			return;
+		}
+
+		// Create shortcut
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+		{
+			// Android 8.0 (APIレベル 26) 以降
+			ShortcutManager shortcutManager = getSystemService(ShortcutManager.class);
+			if (shortcutManager != null && shortcutManager.isRequestPinShortcutSupported())
 			{
-				Toast.makeText(this, R.string.no_shortcut_name_message, Toast.LENGTH_LONG).show();
-				return;
+				String shortcutId = "new_note_with_" + noteTemplateUri.getLastPathSegment();
+				ShortcutInfo.Builder builder = new ShortcutInfo.Builder(this, shortcutId);
+				builder.setShortLabel(shortcutName);
+				builder.setLongLabel(shortcutName);
+				builder.setIcon(Icon.createWithResource(this, R.drawable.ic_launcher_notepad_add));
+				builder.setIntent(new Intent(Intent.ACTION_INSERT, noteTemplateUri));
+				ShortcutInfo shortcutInfo = builder.build();
+
+				shortcutManager.requestPinShortcut(shortcutInfo, null); // ショートカットの作成要求
+
+				setResult(Activity.RESULT_OK);
+				finish();
 			}
-
-			// Create shortcut
+			else
+			{
+				setResult(Activity.RESULT_CANCELED);
+				finish();
+			}
+		}
+		else
+		{
+			// Android 8.0 (APIレベル 26) より前
 			Intent addOrEditNoteWithTemplateIntent = new Intent(Intent.ACTION_INSERT, noteTemplateUri);
-
 			Intent.ShortcutIconResource shortcutIconResource = Intent.ShortcutIconResource.fromContext(this, R.drawable.ic_launcher_notepad_add);
 
 			Intent resultIntent = new Intent();

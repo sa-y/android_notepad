@@ -48,7 +48,7 @@
 				<data android:mimeType="vnd.android.cursor.dir/vnd.routine_work.note" />
 			</intent-filter>
 
-			<meta-data android:name="android.app.searchable" android:resource="@xml/note_searchable"/>    
+			<meta-data android:name="android.app.searchable" android:resource="@xml/note_searchable"/>
 			<meta-data android:name="android.app.shortcuts" android:resource="@xml/shortcuts" />
 		</activity>
 
@@ -113,7 +113,7 @@
 
 		<activity
 			android:name=".PickNoteActivity"
-            android:exported="false"
+            android:exported="true"
             android:label="@string/select_note_title"
 		>
 			<intent-filter>
@@ -184,7 +184,7 @@
 			</intent-filter>
 		</activity>
 
-		<activity 
+		<activity
 			android:name=".shortcut.CreateNoteTemplateShortcutActivity"
             android:exported="true"
             android:label="@string/new_from_template_title"
@@ -196,9 +196,9 @@
 			</intent-filter>
 		</activity>
 
-		<activity 
+		<activity
 			android:name=".shortcut.CreateAddNewNoteShortcutActivity"
-            android:exported="false"
+            android:exported="true"
             android:label="@string/add_new_note_title"
 			android:icon="@drawable/ic_launcher_notepad_add"
 		>
@@ -215,17 +215,17 @@
 		/>
 
 		<activity
-			android:name=".prefs.BackupDatabaseActivity" 
+			android:name=".prefs.BackupDatabaseActivity"
 			android:label="@string/backup_data_title"
 		/>
 
 		<activity
-			android:name=".prefs.RestoreDatabaseActivity" 
+			android:name=".prefs.RestoreDatabaseActivity"
 			android:label="@string/restore_data_title"
 		/>
 
 		<activity
-			android:name=".prefs.InitializePreferenceActivity" 
+			android:name=".prefs.InitializePreferenceActivity"
 			android:label="@string/initialize_preference_title"
 		/>
 

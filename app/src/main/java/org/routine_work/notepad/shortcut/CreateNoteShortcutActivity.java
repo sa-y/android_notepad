@@ -27,8 +27,12 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.Intent.ShortcutIconResource;
+import android.content.pm.ShortcutInfo;
+import android.content.pm.ShortcutManager;
 import android.database.Cursor;
+import android.graphics.drawable.Icon;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -128,10 +132,9 @@ public class CreateNoteShortcutActivity extends Activity
 		if (noteUri != null)
 		{
 			ContentResolver contentResolver = getContentResolver();
-			Cursor cursor = contentResolver.query(noteUri, null, null, null, null);
-			if (cursor != null)
+			try (Cursor cursor = contentResolver.query(noteUri, null, null, null, null))
 			{
-				if (cursor.moveToFirst())
+				if (cursor != null && cursor.moveToFirst())
 				{
 					int titleIndex = cursor.getColumnIndex(NoteStore.Note.Columns.TITLE);
 					String noteTitle = cursor.getString(titleIndex);
@@ -143,6 +146,10 @@ public class CreateNoteShortcutActivity extends Activity
 						shortcutNameEditText.setText(noteTitle);
 					}
 				}
+			}
+			catch (Exception e)
+			{
+				Log.e(LOG_TAG, "Failed to load shortcut name", e);
 			}
 		}
 
@@ -164,21 +171,53 @@ public class CreateNoteShortcutActivity extends Activity
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		if (noteUri != null)
+		Log.v(LOG_TAG, "noteUri => " + noteUri);
+		if (noteUri == null)
 		{
-			// Check shortcut name
-			EditText shortcutNameEditText = (EditText) findViewById(R.id.shortcut_name_edittext);
-			String shortcutName = shortcutNameEditText.getText().toString();
-			if (TextUtils.isEmpty(shortcutName))
+			Log.w(LOG_TAG, "noteUri is null.");
+			return;
+		}
+
+		// Check shortcut name
+		EditText shortcutNameEditText = (EditText) findViewById(R.id.shortcut_name_edittext);
+		String shortcutName = shortcutNameEditText.getText().toString();
+		if (TextUtils.isEmpty(shortcutName))
+		{
+			Toast.makeText(this, R.string.no_shortcut_name_message, Toast.LENGTH_LONG).show();
+			return;
+		}
+
+		// Create shortcut
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+		{
+			// API 26 以降：ShortcutManager を使用
+			ShortcutManager shortcutManager = this.getSystemService(ShortcutManager.class);
+
+			if (shortcutManager != null && shortcutManager.isRequestPinShortcutSupported())
 			{
-				Toast.makeText(this, R.string.no_shortcut_name_message, Toast.LENGTH_LONG).show();
-				return;
+				String shortcutId = "edit_note_" + noteUri.getLastPathSegment();
+				ShortcutInfo.Builder builder = new ShortcutInfo.Builder(this, shortcutId);
+				builder.setShortLabel(shortcutName);
+				builder.setLongLabel(shortcutName);
+				builder.setIcon(Icon.createWithResource(this, R.drawable.ic_launcher_notepad_edit));
+				builder.setIntent(new Intent(Intent.ACTION_EDIT, noteUri));
+				ShortcutInfo shortcutInfo = builder.build();
+
+				shortcutManager.requestPinShortcut(shortcutInfo, null); // ショートカットの作成要求
+
+				setResult(Activity.RESULT_OK);
+				finish();
 			}
-
-			// Create shortcut
-			Intent editNoteIntent = new Intent(Intent.ACTION_EDIT, noteUri);
-
+			else
+			{
+				setResult(Activity.RESULT_CANCELED);
+				finish();
+			}
+		}
+		else
+		{
 			ShortcutIconResource shortcutIconResource = Intent.ShortcutIconResource.fromContext(this, R.drawable.ic_launcher_notepad_edit);
+			Intent editNoteIntent = new Intent(Intent.ACTION_EDIT, noteUri);
 
 			Intent resultIntent = new Intent();
 			resultIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, editNoteIntent);
