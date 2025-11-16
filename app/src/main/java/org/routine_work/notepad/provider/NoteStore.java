@@ -30,12 +30,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.provider.BaseColumns;
-import java.io.File;
-import java.util.Collection;
+
 import org.routine_work.utils.Log;
 
+import java.io.File;
+import java.util.Collection;
+
 /**
- *
  * @author sawai
  */
 public class NoteStore
@@ -59,6 +60,7 @@ public class NoteStore
 			String DATE_ADDED = "date_added";
 			String DATE_MODIFIED = "date_modified";
 		}
+
 		public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/notes");
 		public static final String NOTE_LIST_CONTENT_TYPE = "vnd.android.cursor.dir/vnd.routine_work.note";
 		public static final String NOTE_ITEM_CONTENT_TYPE = "vnd.android.cursor.item/vnd.routine_work.note";
@@ -78,6 +80,7 @@ public class NoteStore
 			String TITLE_LOCKED = "title_locked";
 			String EDIT_SAME_TITLE = "edit_same_title";
 		}
+
 		Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/notetemplates");
 		String NOTE_TEMPLATE_LIST_CONTENT_TYPE = "vnd.android.cursor.dir/vnd.routine_work.notetemplate";
 		String NOTE_TEMPLATE_ITEM_CONTENT_TYPE = "vnd.android.cursor.item/vnd.routine_work.notetemplate";
@@ -173,9 +176,9 @@ public class NoteStore
 		Log.v(LOG_TAG, "Hello");
 
 		String[] projection = new String[]
-		{
-			"count(*) AS " + Note.Columns._COUNT,
-		};
+				{
+						"count(*) AS " + Note.Columns._COUNT,
+				};
 		Cursor cursor = cr.query(Note.CONTENT_URI, projection, null, null, null);
 		try
 		{
@@ -210,14 +213,14 @@ public class NoteStore
 		Log.v(LOG_TAG, "Hello");
 
 		String[] projection = new String[]
-		{
-			"count(*) AS " + NoteTemplate.Columns._COUNT,
-		};
+				{
+						"count(*) AS " + NoteTemplate.Columns._COUNT,
+				};
 		String where = NoteStore.Note.Columns.ENABLED + " = ?";
 		String[] whereArgs =
-		{
-			"1"
-		};
+				{
+						"1"
+				};
 		Cursor cursor = cr.query(NoteTemplate.CONTENT_URI, projection, where, whereArgs, null);
 		try
 		{

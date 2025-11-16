@@ -26,7 +26,6 @@ package org.routine_work.notepad.utils;
 import org.routine_work.notepad.provider.NoteStore;
 
 /**
- *
  * @author sawai
  */
 public interface NoteTemplateConstants
@@ -38,11 +37,11 @@ public interface NoteTemplateConstants
 	int REQUEST_CODE_EDIT_TEMPLATE_TITLE = 302;
 	int REQUEST_CODE_EDIT_TEMPLATE_TEXT = 303;
 	String[] NOTE_TEMPLATE_LIST_MAPPING_FROM =
-	{
-		NoteStore.NoteTemplate.Columns.NAME,
-	};
+			{
+					NoteStore.NoteTemplate.Columns.NAME,
+			};
 	int[] NOTE_TEMPLATE_LIST_MAPPING_TO =
-	{
-		android.R.id.text1,
-	};
+			{
+					android.R.id.text1,
+			};
 }

@@ -29,6 +29,7 @@ import android.database.Cursor;
 import android.view.View;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
@@ -36,27 +37,26 @@ import org.routine_work.notepad.utils.TimeFormatUtils;
 import org.routine_work.utils.Log;
 
 /**
- *
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
 public class NoteCursorAdapter extends SimpleCursorAdapter
-	implements SimpleCursorAdapter.ViewBinder,
-	SharedPreferences.OnSharedPreferenceChangeListener
+		implements SimpleCursorAdapter.ViewBinder,
+		SharedPreferences.OnSharedPreferenceChangeListener
 {
 
 	private static final String LOG_TAG = "simple-notepad";
 	private static final String[] NOTE_LIST_MAPPING_FROM =
-	{
-		NoteStore.Note.Columns.TITLE,
-		NoteStore.Note.Columns.CONTENT,
-		NoteStore.Note.Columns.DATE_MODIFIED,
-	};
+			{
+					NoteStore.Note.Columns.TITLE,
+					NoteStore.Note.Columns.CONTENT,
+					NoteStore.Note.Columns.DATE_MODIFIED,
+			};
 	private static final int[] NOTE_LIST_MAPPING_TO =
-	{
-		R.id.note_title_textview,
-		R.id.note_content_textview,
-		R.id.note_modified_textview,
-	};
+			{
+					R.id.note_title_textview,
+					R.id.note_content_textview,
+					R.id.note_modified_textview,
+			};
 	private Context context;
 	private boolean checkable = false;
 	private int noteListItemContentLines;
@@ -70,7 +70,7 @@ public class NoteCursorAdapter extends SimpleCursorAdapter
 	public NoteCursorAdapter(Context context, Cursor c, boolean checkable)
 	{
 		super(context, R.layout.note_list_item, c,
-			NOTE_LIST_MAPPING_FROM, NOTE_LIST_MAPPING_TO);
+				NOTE_LIST_MAPPING_FROM, NOTE_LIST_MAPPING_TO);
 		this.checkable = checkable;
 		this.context = context;
 
@@ -135,19 +135,22 @@ public class NoteCursorAdapter extends SimpleCursorAdapter
 		boolean result = false;
 
 		int viewId = view.getId();
-        if (viewId == R.id.note_modified_textview) {
-            long modifiedTime = cursor.getLong(columnIndex);
-            String modifiedText = TimeFormatUtils.formatTime(context, modifiedTime);
-            TextView modifiedTextView = (TextView) view;
-            modifiedTextView.setText(modifiedText);
-            result = true;
-        } else if (viewId == R.id.note_content_textview) {
-            String contentText = cursor.getString(columnIndex);
-            contentText = contentText.replace('\n', ' ');
-            TextView contentTextView = (TextView) view;
-            contentTextView.setText(contentText);
-            result = true;
-        }
+		if (viewId == R.id.note_modified_textview)
+		{
+			long modifiedTime = cursor.getLong(columnIndex);
+			String modifiedText = TimeFormatUtils.formatTime(context, modifiedTime);
+			TextView modifiedTextView = (TextView) view;
+			modifiedTextView.setText(modifiedText);
+			result = true;
+		}
+		else if (viewId == R.id.note_content_textview)
+		{
+			String contentText = cursor.getString(columnIndex);
+			contentText = contentText.replace('\n', ' ');
+			TextView contentTextView = (TextView) view;
+			contentTextView.setText(contentText);
+			result = true;
+		}
 
 		return result;
 	}

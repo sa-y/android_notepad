@@ -29,12 +29,13 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.ReceiveTextActivity;
 import org.routine_work.utils.Log;
 
 public class ShareDataPreferenceFragment extends PreferenceFragment
-	implements SharedPreferences.OnSharedPreferenceChangeListener
+		implements SharedPreferences.OnSharedPreferenceChangeListener
 {
 
 	private static final String LOG_TAG = "simple-notepad";

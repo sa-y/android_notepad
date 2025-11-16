@@ -47,6 +47,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
+
 import org.routine_work.notepad.fragment.NoteControlCallback;
 import org.routine_work.notepad.fragment.NoteDetailEventCallback;
 import org.routine_work.notepad.fragment.NoteListFragment;
@@ -63,8 +64,8 @@ import org.routine_work.utils.IMEUtils;
 import org.routine_work.utils.Log;
 
 public class NotepadActivity extends Activity implements NotepadConstants,
-	NoteControlCallback, NoteDetailEventCallback,
-	SearchView.OnCloseListener, SearchView.OnQueryTextListener
+		NoteControlCallback, NoteDetailEventCallback,
+		SearchView.OnCloseListener, SearchView.OnQueryTextListener
 {
 
 	public static final String ACTION_QUIT = NotepadActivity.class.getPackage().getName() + ".ACTION_QUIT";
@@ -237,35 +238,51 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		boolean result = true;
 		Log.v(LOG_TAG, "Hello");
 
-        int itemId = item.getItemId();
-        if (itemId == android.R.id.home) {
-            if (searchView != null) {
-                Log.v(LOG_TAG, "seachView.isShown() => " + searchView.isShown());
-                Log.v(LOG_TAG, "seachView.isIconified() => " + searchView.isIconified());
-                if (searchView.isShown() && !searchView.isIconified()) {
-                    if (!TextUtils.isEmpty(searchView.getQuery())) {
-                        Log.v(LOG_TAG, "Clear searchView query");
-                        searchView.setQuery(null, false);
-                        reloadNoteList();
-                    }
-                    Log.v(LOG_TAG, "Iconify seachView");
-                    searchView.setIconified(true);
-                }
-            }
-            closeNoteDetailFragment();
-        } else if (itemId == R.id.add_new_note_menuitem) {
-            startAddNote();
-        } else if (itemId == R.id.delete_notes_menuitem) {
-            startDeleteNotes();
-        } else if (itemId == R.id.templates_menuitem) {
-            startTemplateListActivity();
-        } else if (itemId == R.id.preferences_menuitem) {
-            startPreferencesActivity();
-        } else if (itemId == R.id.quit_menuitem) {
-            finish();
-        } else {
-            result = super.onOptionsItemSelected(item);
-        }
+		int itemId = item.getItemId();
+		if (itemId == android.R.id.home)
+		{
+			if (searchView != null)
+			{
+				Log.v(LOG_TAG, "seachView.isShown() => " + searchView.isShown());
+				Log.v(LOG_TAG, "seachView.isIconified() => " + searchView.isIconified());
+				if (searchView.isShown() && !searchView.isIconified())
+				{
+					if (!TextUtils.isEmpty(searchView.getQuery()))
+					{
+						Log.v(LOG_TAG, "Clear searchView query");
+						searchView.setQuery(null, false);
+						reloadNoteList();
+					}
+					Log.v(LOG_TAG, "Iconify seachView");
+					searchView.setIconified(true);
+				}
+			}
+			closeNoteDetailFragment();
+		}
+		else if (itemId == R.id.add_new_note_menuitem)
+		{
+			startAddNote();
+		}
+		else if (itemId == R.id.delete_notes_menuitem)
+		{
+			startDeleteNotes();
+		}
+		else if (itemId == R.id.templates_menuitem)
+		{
+			startTemplateListActivity();
+		}
+		else if (itemId == R.id.preferences_menuitem)
+		{
+			startPreferencesActivity();
+		}
+		else if (itemId == R.id.quit_menuitem)
+		{
+			finish();
+		}
+		else
+		{
+			result = super.onOptionsItemSelected(item);
+		}
 
 		Log.v(LOG_TAG, "Bye");
 		return result;
@@ -280,13 +297,13 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		Log.d(LOG_TAG, "resultCode => " + resultCode);
 
 		if ((requestCode == REQUEST_CODE_ADD_NOTE)
-			|| (requestCode == REQUEST_CODE_EDIT_NOTE))
+				|| (requestCode == REQUEST_CODE_EDIT_NOTE))
 		{
 //			reloadNoteList();
 			closeNoteDetailFragment();
 		}
 		else if ((requestCode == REQUEST_CODE_DELETE_NOTE)
-			|| (requestCode == REQUEST_CODE_DELETE_NOTES))
+				|| (requestCode == REQUEST_CODE_DELETE_NOTES))
 		{
 			if (resultCode == RESULT_OK)
 			{
@@ -308,7 +325,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		Log.v(LOG_TAG, "searchView.isShown() =>  " + searchView.isShown());
 
 		if ((keyCode == KeyEvent.KEYCODE_BACK)
-			&& (searchView != null && searchView.isShown() && !searchView.isIconified()))
+				&& (searchView != null && searchView.isShown() && !searchView.isIconified()))
 		{
 			Log.v(LOG_TAG, "Close SeachView");
 			searchView.setQuery(null, false);

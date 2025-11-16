@@ -35,13 +35,15 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.provider.BaseColumns;
 import android.text.TextUtils;
+
+import org.routine_work.notepad.provider.NoteStore.Note;
+import org.routine_work.notepad.provider.NoteStore.NoteTemplate;
+import org.routine_work.utils.Log;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import org.routine_work.notepad.provider.NoteStore.Note;
-import org.routine_work.notepad.provider.NoteStore.NoteTemplate;
-import org.routine_work.utils.Log;
 
 public class NoteProvider extends ContentProvider
 		implements NoteDBConstants
@@ -93,7 +95,7 @@ public class NoteProvider extends ContentProvider
 
 	@Override
 	public Cursor query(Uri uri, String[] projection,
-			String selection, String[] selectionArgs, String sort)
+						String selection, String[] selectionArgs, String sort)
 	{
 		Log.v(LOG_TAG, "Hello");
 		Log.d(LOG_TAG, "query uri => " + uri);
@@ -232,7 +234,7 @@ public class NoteProvider extends ContentProvider
 
 	@Override
 	public int update(Uri uri, ContentValues values, String where,
-			String[] whereArgs)
+					  String[] whereArgs)
 	{
 		int count;
 		Log.v(LOG_TAG, "Hello");

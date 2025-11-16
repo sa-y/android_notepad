@@ -27,27 +27,37 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
+
 import org.routine_work.utils.Log;
 
-public class PermissionUtils {
+public class PermissionUtils
+{
 
 	private static final String LOG_TAG = "simple-notepad";
 
-	public static boolean hasExternalStoragePermission(Context context) {
+	public static boolean hasExternalStoragePermission(Context context)
+	{
 		return hasPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE);
 	}
 
-	public static boolean hasPermission(Context context, String permission) {
+	public static boolean hasPermission(Context context, String permission)
+	{
 		boolean result;
 		Log.v(LOG_TAG, "Hello");
 
-		if (Build.VERSION.SDK_INT >= 23) { // Android 6.0  or later
-			if (context.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED) {
+		if (Build.VERSION.SDK_INT >= 23)
+		{ // Android 6.0  or later
+			if (context.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED)
+			{
 				result = true;
-			} else {
+			}
+			else
+			{
 				result = false;
 			}
-		} else {
+		}
+		else
+		{
 			result = true;
 		}
 

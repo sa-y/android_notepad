@@ -34,13 +34,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+
 import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.utils.Log;
 
 /**
- *
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
 public class EditTextActivity extends Activity
@@ -60,8 +60,8 @@ public class EditTextActivity extends Activity
 		NotepadActivity.enableHomeButton(this);
 
 		getWindow().setSoftInputMode(
-			WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE
-			| WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE
+						| WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 		setContentView(R.layout.edit_text_activity);
 
 		EditText singleLineEditText = (EditText) findViewById(R.id.single_line_edittext);
@@ -73,7 +73,7 @@ public class EditTextActivity extends Activity
 		int inputType = intent.getIntExtra(EXTRA_INPUT_TYPE, defaultInputType);
 		Log.v(LOG_TAG, "EXTRA_INPUT_TYPE => " + inputType);
 		if (((inputType & InputType.TYPE_TEXT_FLAG_MULTI_LINE) != 0)
-			|| ((inputType & InputType.TYPE_TEXT_FLAG_IME_MULTI_LINE) != 0))
+				|| ((inputType & InputType.TYPE_TEXT_FLAG_IME_MULTI_LINE) != 0))
 		{
 			mainEditText = multiLineEditText;
 			singleLineEditText.setVisibility(View.GONE);
@@ -121,24 +121,32 @@ public class EditTextActivity extends Activity
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
 		int itemId = item.getItemId();
-		if (itemId == android.R.id.home) {
+		if (itemId == android.R.id.home)
+		{
 			NotepadActivity.goHomeActivity(this);
 			finish();
 			return true;
-		} else if (itemId == R.id.save_menuitem) {
+		}
+		else if (itemId == R.id.save_menuitem)
+		{
 			String text = mainEditText.getText().toString();
 			Intent resultIntent = new Intent();
 			resultIntent.putExtra(Intent.EXTRA_TEXT, text);
 			setResult(RESULT_OK, resultIntent);
 			finish();
 			return true;
-		} else if (itemId == R.id.cancel_menuitem) {
+		}
+		else if (itemId == R.id.cancel_menuitem)
+		{
 			setResult(RESULT_CANCELED);
 			finish();
 			return true;
-		} else {
+		}
+		else
+		{
 			return super.onOptionsItemSelected(item);
 		}
 	}

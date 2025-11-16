@@ -26,7 +26,13 @@ package org.routine_work.notepad.fragment;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.os.Bundle;
-import android.view.*;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.utils.NotepadConstants;
@@ -50,7 +56,7 @@ public class DeleteNoteFragment extends NoteDetailFragment implements NotepadCon
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-		Bundle savedInstanceState)
+							 Bundle savedInstanceState)
 	{
 		View v;
 		Log.v(LOG_TAG, "Hello");
@@ -78,15 +84,18 @@ public class DeleteNoteFragment extends NoteDetailFragment implements NotepadCon
 		boolean result;
 		Log.v(LOG_TAG, "Hello");
 
-        if (item.getItemId() == R.id.delete_note_menuitem) {
-            Log.d(LOG_TAG, "delete_note_menuitem");
-            deleteNote();
-            getActivity().setResult(Activity.RESULT_OK);
-            getActivity().finish();
-            result = true;
-        } else {
-            result = super.onOptionsItemSelected(item);
-        }
+		if (item.getItemId() == R.id.delete_note_menuitem)
+		{
+			Log.d(LOG_TAG, "delete_note_menuitem");
+			deleteNote();
+			getActivity().setResult(Activity.RESULT_OK);
+			getActivity().finish();
+			result = true;
+		}
+		else
+		{
+			result = super.onOptionsItemSelected(item);
+		}
 
 		Log.v(LOG_TAG, "Bye");
 		return result;

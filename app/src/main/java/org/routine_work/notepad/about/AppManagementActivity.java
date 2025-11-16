@@ -1,18 +1,18 @@
 /*
  *  The MIT License
- * 
+ *
  *  Copyright 2011-2012 Masahiko, SAWAI <masahiko.sawai@gmail.com>.
- * 
+ *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
  *  of this software and associated documentation files (the "Software"), to deal
  *  in the Software without restriction, including without limitation the rights
  *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  *  copies of the Software, and to permit persons to whom the Software is
  *  furnished to do so, subject to the following conditions:
- * 
+ *
  *  The above copyright notice and this permission notice shall be included in
  *  all copies or substantial portions of the Software.
- * 
+ *
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -28,10 +28,10 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+
 import org.routine_work.utils.Log;
 
 /**
- *
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
 public class AppManagementActivity extends Activity
@@ -73,17 +73,17 @@ public class AppManagementActivity extends Activity
 			// API Level 9 or later
 			Intent intent0 = new Intent(Intent.ACTION_VIEW);
 			intent0.setClassName("com.android.settings",
-				"com.android.settings.applications.InstalledAppDetails");
+					"com.android.settings.applications.InstalledAppDetails");
 			intent0.setData(Uri.fromParts("package", getPackageName(), null));
 			intent0.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
 			// API Level 8 or earlier
 			Intent intent1 = new Intent(Intent.ACTION_VIEW);
 			intent1.setClassName("com.android.settings",
-				"com.android.settings.InstalledAppDetails");
+					"com.android.settings.InstalledAppDetails");
 			intent1.putExtra("pkg", getPackageName());
 			intent1.putExtra("com.android.settings.ApplicationPkgName",
-				getPackageName());
+					getPackageName());
 			intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
 			// API Level 3(not in use?)
@@ -91,9 +91,9 @@ public class AppManagementActivity extends Activity
 			intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
 			applicationManagementIntents = new Intent[]
-			{
-				intent0, intent1, intent2,
-			};
+					{
+							intent0, intent1, intent2,
+					};
 		}
 		return applicationManagementIntents;
 	}

@@ -28,6 +28,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+
 import org.routine_work.notepad.R;
 
 public class InitializePreferenceActivity extends Activity implements OnClickListener
@@ -52,14 +53,17 @@ public class InitializePreferenceActivity extends Activity implements OnClickLis
 	public void onClick(View view)
 	{
 		int id = view.getId();
-        if (id == R.id.ok_button) {
-            NotepadPreferenceUtils.reset(this);
-            setResult(RESULT_OK);
-            finish();
-        } else if (id == R.id.cancel_button) {
-            finish();
-            setResult(RESULT_CANCELED);
-        }
+		if (id == R.id.ok_button)
+		{
+			NotepadPreferenceUtils.reset(this);
+			setResult(RESULT_OK);
+			finish();
+		}
+		else if (id == R.id.cancel_button)
+		{
+			finish();
+			setResult(RESULT_CANCELED);
+		}
 	}
 
 }

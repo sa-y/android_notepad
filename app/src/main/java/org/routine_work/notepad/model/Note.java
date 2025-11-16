@@ -33,7 +33,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 /**
- *
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
 public class Note implements Serializable

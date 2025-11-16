@@ -43,6 +43,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+
 import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
@@ -54,8 +55,8 @@ import org.routine_work.utils.Log;
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
 public class NoteTemplateListActivity extends ListActivity
-	implements AdapterView.OnItemClickListener, NoteTemplateConstants,
-	LoaderManager.LoaderCallbacks<Cursor>
+		implements AdapterView.OnItemClickListener, NoteTemplateConstants,
+		LoaderManager.LoaderCallbacks<Cursor>
 {
 
 	private static final int NOTE_TEMPLATE_LOADER_ID = 0;
@@ -84,20 +85,27 @@ public class NoteTemplateListActivity extends ListActivity
 		Log.v(LOG_TAG, "Hello");
 
 		int itemId = item.getItemId();
-        if (itemId == android.R.id.home) {
-            Log.d(LOG_TAG, "home is selected.");
-            NotepadActivity.goHomeActivity(this);
-            finish();
-        } else if (itemId == R.id.add_new_note_template_menuitem) {
-            Log.d(LOG_TAG, "add_new_note_template_menuitem is  selected.");
-            startAddNewNoteTemplateActivity();
-        } else if (itemId == R.id.quit_menuitem) {
-            Log.d(LOG_TAG, "quit_menuitem is selected.");
-            NotepadActivity.quitApplication(this);
-            finish();
-        } else {
-            result = super.onOptionsItemSelected(item);
-        }
+		if (itemId == android.R.id.home)
+		{
+			Log.d(LOG_TAG, "home is selected.");
+			NotepadActivity.goHomeActivity(this);
+			finish();
+		}
+		else if (itemId == R.id.add_new_note_template_menuitem)
+		{
+			Log.d(LOG_TAG, "add_new_note_template_menuitem is  selected.");
+			startAddNewNoteTemplateActivity();
+		}
+		else if (itemId == R.id.quit_menuitem)
+		{
+			Log.d(LOG_TAG, "quit_menuitem is selected.");
+			NotepadActivity.quitApplication(this);
+			finish();
+		}
+		else
+		{
+			result = super.onOptionsItemSelected(item);
+		}
 
 		Log.v(LOG_TAG, "Bye");
 		return result;
@@ -146,13 +154,18 @@ public class NoteTemplateListActivity extends ListActivity
 		Log.v(LOG_TAG, "list item id => " + menuInfo.id);
 
 		int itemId = item.getItemId();
-        if (itemId == R.id.edit_note_template_menuitem) {
-            startEditNoteTemplateActivityById(menuInfo.id);
-        } else if (itemId == R.id.delete_note_template_menuitem) {
-            deleteNoteTemplateById(menuInfo.id);
-        } else {
-            result = super.onContextItemSelected(item);
-        }
+		if (itemId == R.id.edit_note_template_menuitem)
+		{
+			startEditNoteTemplateActivityById(menuInfo.id);
+		}
+		else if (itemId == R.id.delete_note_template_menuitem)
+		{
+			deleteNoteTemplateById(menuInfo.id);
+		}
+		else
+		{
+			result = super.onContextItemSelected(item);
+		}
 
 		return result;
 	}
@@ -164,12 +177,12 @@ public class NoteTemplateListActivity extends ListActivity
 
 		String where = NoteStore.Note.Columns.ENABLED + " = ?";
 		String[] whereArgs =
-		{
-			"1"
-		};
+				{
+						"1"
+				};
 		String sortOrder = NoteStore.NoteTemplate.Columns._ID + " ASC";
 		CursorLoader cursorLoader = new CursorLoader(this,
-			NoteStore.NoteTemplate.CONTENT_URI, null, where, whereArgs, sortOrder);
+				NoteStore.NoteTemplate.CONTENT_URI, null, where, whereArgs, sortOrder);
 
 		Log.v(LOG_TAG, "Bye");
 		return cursorLoader;
@@ -203,8 +216,8 @@ public class NoteTemplateListActivity extends ListActivity
 		NotepadActivity.enableHomeButton(this);
 
 		listAdapter = new SimpleCursorAdapter(this,
-			android.R.layout.simple_list_item_1, null,
-			NOTE_TEMPLATE_LIST_MAPPING_FROM, NOTE_TEMPLATE_LIST_MAPPING_TO);
+				android.R.layout.simple_list_item_1, null,
+				NOTE_TEMPLATE_LIST_MAPPING_FROM, NOTE_TEMPLATE_LIST_MAPPING_TO);
 		setListAdapter(listAdapter);
 
 		LoaderManager loaderManager = getLoaderManager();

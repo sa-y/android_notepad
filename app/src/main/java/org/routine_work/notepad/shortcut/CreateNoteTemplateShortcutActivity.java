@@ -34,6 +34,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
@@ -41,7 +42,7 @@ import org.routine_work.notepad.utils.NotepadConstants;
 import org.routine_work.utils.Log;
 
 public class CreateNoteTemplateShortcutActivity extends Activity
-	implements View.OnClickListener, NotepadConstants
+		implements View.OnClickListener, NotepadConstants
 {
 
 	private static final String LOG_TAG = "simple-notepad";
@@ -51,6 +52,7 @@ public class CreateNoteTemplateShortcutActivity extends Activity
 		Log.setOutputLevel(Log.VERBOSE);
 		Log.setTraceMode(true);
 	}
+
 	private Uri noteTemplateUri;
 
 	@Override
@@ -81,14 +83,17 @@ public class CreateNoteTemplateShortcutActivity extends Activity
 		Log.v(LOG_TAG, "Hello");
 
 		int viewId = view.getId();
-        if (viewId == R.id.cancel_button) {
-            Log.d(LOG_TAG, "Cancel Button is clicked.");
-            setResult(Activity.RESULT_CANCELED);
-            finish();
-        } else if (viewId == R.id.ok_button) {
-            Log.d(LOG_TAG, "OK Button is clicked.");
-            createShortcut();
-        }
+		if (viewId == R.id.cancel_button)
+		{
+			Log.d(LOG_TAG, "Cancel Button is clicked.");
+			setResult(Activity.RESULT_CANCELED);
+			finish();
+		}
+		else if (viewId == R.id.ok_button)
+		{
+			Log.d(LOG_TAG, "OK Button is clicked.");
+			createShortcut();
+		}
 
 		Log.v(LOG_TAG, "Bye");
 	}

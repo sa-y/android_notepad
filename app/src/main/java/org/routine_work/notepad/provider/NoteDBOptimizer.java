@@ -25,10 +25,10 @@ package org.routine_work.notepad.provider;
 
 import android.app.IntentService;
 import android.content.Intent;
+
 import org.routine_work.utils.Log;
 
 /**
- *
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
 public class NoteDBOptimizer extends IntentService

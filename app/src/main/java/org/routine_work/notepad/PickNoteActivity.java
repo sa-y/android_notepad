@@ -37,6 +37,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
 import org.routine_work.notepad.fragment.NoteCursorAdapter;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
@@ -44,9 +45,9 @@ import org.routine_work.notepad.utils.NotepadConstants;
 import org.routine_work.utils.Log;
 
 public class PickNoteActivity extends ListActivity
-	implements NotepadConstants,
-	AdapterView.OnItemClickListener,
-	LoaderManager.LoaderCallbacks<Cursor>
+		implements NotepadConstants,
+		AdapterView.OnItemClickListener,
+		LoaderManager.LoaderCallbacks<Cursor>
 {
 
 	// class variables
@@ -103,13 +104,13 @@ public class PickNoteActivity extends ListActivity
 
 		String where = NoteStore.Note.Columns.ENABLED + " = ?";
 		String[] whereArgs =
-		{
-			"1"
-		};
+				{
+						"1"
+				};
 		String sortOrder = NotepadPreferenceUtils.getNoteListSortOrder(this);
 		Log.d(LOG_TAG, String.format("where => %s, whereArgs => %s, sortOrder => %s", where, whereArgs, sortOrder));
 		CursorLoader cursorLoader = new CursorLoader(this,
-			NoteStore.Note.CONTENT_URI, null, where, whereArgs, sortOrder);
+				NoteStore.Note.CONTENT_URI, null, where, whereArgs, sortOrder);
 
 		Log.v(LOG_TAG, "Bye");
 		return cursorLoader;

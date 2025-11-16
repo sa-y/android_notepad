@@ -24,7 +24,6 @@
 package org.routine_work.notepad.fragment;
 
 /**
- *
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
 public interface NoteDetailEventCallback

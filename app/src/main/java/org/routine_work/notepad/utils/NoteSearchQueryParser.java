@@ -27,9 +27,11 @@ import android.content.ContentUris;
 import android.net.Uri;
 import android.net.Uri.Builder;
 import android.text.TextUtils;
+
+import org.routine_work.notepad.provider.NoteStore;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.routine_work.notepad.provider.NoteStore;
 
 /**
  * "id:<note_item_id>" - Item Id query other - word query
@@ -57,7 +59,7 @@ public class NoteSearchQueryParser
 				contentUri = ContentUris.withAppendedId(NoteStore.Note.CONTENT_URI, itemId);
 			}
 			else
-			{ 	// word query
+			{    // word query
 				Builder builder = NoteStore.Note.CONTENT_URI.buildUpon();
 				builder.appendQueryParameter(NoteStore.PARAM_KEY_QUERY, queryString.toString());
 				contentUri = builder.build();

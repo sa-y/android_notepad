@@ -28,22 +28,23 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import org.routine_work.notepad.model.Note;
+import org.routine_work.notepad.model.NoteTemplate;
+import org.routine_work.utils.Log;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import org.routine_work.notepad.model.Note;
-import org.routine_work.notepad.model.NoteTemplate;
-import org.routine_work.utils.Log;
 
 /**
- *
  * @author sawai
  */
 class NoteDBHelper extends SQLiteOpenHelper
-	implements NoteDBConstants
+		implements NoteDBConstants
 {
 
 	private static final String LOG_TAG = "simple-notepad";
@@ -82,7 +83,7 @@ class NoteDBHelper extends SQLiteOpenHelper
 	{
 		Log.v(LOG_TAG, "Hello");
 		Log.w(LOG_TAG, "Upgrading database from version " + oldVersion + " to "
-			+ newVersion + ".");
+				+ newVersion + ".");
 
 		// backup data
 		backupData(db, oldVersion);

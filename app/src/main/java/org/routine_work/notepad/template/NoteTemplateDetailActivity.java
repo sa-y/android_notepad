@@ -33,7 +33,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.InputType;
-import android.view.*;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
@@ -41,6 +47,7 @@ import android.widget.CheckedTextView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.common.EditTextActivity;
@@ -56,7 +63,7 @@ import org.routine_work.utils.Log;
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
 public class NoteTemplateDetailActivity extends ListActivity
-	implements OnItemClickListener, NoteTemplateConstants
+		implements OnItemClickListener, NoteTemplateConstants
 {
 
 	private static final String SAVE_KEY_CURRENT_ACTION = "currentAction";
@@ -95,17 +102,22 @@ public class NoteTemplateDetailActivity extends ListActivity
 		Log.v(LOG_TAG, "Hello");
 
 		int itemId = item.getItemId();
-        if (itemId == android.R.id.home) {
-            Log.d(LOG_TAG, "home selected.");
-            NotepadActivity.goHomeActivity(this);
-            finish();
-        } else if (itemId == R.id.quit_menuitem) {
-            Log.d(LOG_TAG, "quit_menuitem selected.");
-            NotepadActivity.quitApplication(this);
-            finish();
-        } else {
-            result = super.onOptionsItemSelected(item);
-        }
+		if (itemId == android.R.id.home)
+		{
+			Log.d(LOG_TAG, "home selected.");
+			NotepadActivity.goHomeActivity(this);
+			finish();
+		}
+		else if (itemId == R.id.quit_menuitem)
+		{
+			Log.d(LOG_TAG, "quit_menuitem selected.");
+			NotepadActivity.quitApplication(this);
+			finish();
+		}
+		else
+		{
+			result = super.onOptionsItemSelected(item);
+		}
 
 		Log.v(LOG_TAG, "Bye");
 		return result;

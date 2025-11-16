@@ -26,7 +26,6 @@ package org.routine_work.notepad.utils;
 import android.content.Intent;
 
 /**
- *
  * @author sawai
  */
 public interface NotepadConstants

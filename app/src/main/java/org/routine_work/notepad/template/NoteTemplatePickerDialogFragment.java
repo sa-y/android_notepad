@@ -28,7 +28,6 @@ import android.app.DialogFragment;
 import android.os.Bundle;
 
 /**
- *
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
 public class NoteTemplatePickerDialogFragment extends DialogFragment

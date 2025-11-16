@@ -32,27 +32,27 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
+
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.utils.Log;
 
 /**
- *
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
 public class DebugFunctionActivity extends ListActivity
-	implements AdapterView.OnItemClickListener
+		implements AdapterView.OnItemClickListener
 {
 
 	private static final String LOG_TAG = "simple-notepad";
 	private static final int ITEM_ID_CREATE_NOTES = 0;
 	private static final int ITEM_ID_DELETE_ALL_NOTES = 1;
 	private static final String[] FUNCTION_NAMES =
-	{
-		"Create Test Notes",
-		"Delete All Notes",
-	};
+			{
+					"Create Test Notes",
+					"Delete All Notes",
+			};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -64,9 +64,9 @@ public class DebugFunctionActivity extends ListActivity
 		setContentView(R.layout.simple_list);
 
 		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
-			android.R.layout.simple_list_item_1,
-			android.R.id.text1,
-			FUNCTION_NAMES);
+				android.R.layout.simple_list_item_1,
+				android.R.id.text1,
+				FUNCTION_NAMES);
 		setListAdapter(arrayAdapter);
 
 		getListView().setOnItemClickListener(this);

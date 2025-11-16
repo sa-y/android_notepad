@@ -36,6 +36,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Toast;
+
 import org.routine_work.notepad.fragment.DeleteNoteFragment;
 import org.routine_work.notepad.fragment.EditNoteFragment;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
@@ -44,7 +45,7 @@ import org.routine_work.notepad.utils.NotepadConstants;
 import org.routine_work.utils.Log;
 
 public class NoteDetailActivity extends Activity
-	implements NotepadConstants
+		implements NotepadConstants
 {
 
 	private static final String LOG_TAG = "simple-notepad";
@@ -73,7 +74,7 @@ public class NoteDetailActivity extends Activity
 //			WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
 //			| WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 		getWindow().setSoftInputMode(
-			WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+				WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
 		Intent intent = getIntent();
 		if (savedInstanceState != null)
@@ -170,18 +171,23 @@ public class NoteDetailActivity extends Activity
 		boolean result = true;
 		Log.v(LOG_TAG, "Hello");
 
-        int itemId = item.getItemId();
-        if (itemId == android.R.id.home) {
-            Log.d(LOG_TAG, "home is clicked.");
-            NotepadActivity.goHomeActivity(this);
-            finish();
-        } else if (itemId == R.id.quit_menuitem) {
-            Log.d(LOG_TAG, "quit_menuitem is clicked.");
-            NotepadActivity.quitApplication(this);
-            finish();
-        } else {
-            result = super.onOptionsItemSelected(item);
-        }
+		int itemId = item.getItemId();
+		if (itemId == android.R.id.home)
+		{
+			Log.d(LOG_TAG, "home is clicked.");
+			NotepadActivity.goHomeActivity(this);
+			finish();
+		}
+		else if (itemId == R.id.quit_menuitem)
+		{
+			Log.d(LOG_TAG, "quit_menuitem is clicked.");
+			NotepadActivity.quitApplication(this);
+			finish();
+		}
+		else
+		{
+			result = super.onOptionsItemSelected(item);
+		}
 
 		Log.v(LOG_TAG, "Bye");
 		return result;
@@ -221,8 +227,8 @@ public class NoteDetailActivity extends Activity
 		Log.d(LOG_TAG, "newNoteUri => " + newNoteUri);
 
 		if (Intent.ACTION_INSERT.equals(nextAction)
-			|| Intent.ACTION_EDIT.equals(nextAction)
-			|| Intent.ACTION_VIEW.equals(nextAction))
+				|| Intent.ACTION_EDIT.equals(nextAction)
+				|| Intent.ACTION_VIEW.equals(nextAction))
 		{
 			EditNoteFragment editNoteFragment;
 			Fragment noteDetailFragment = fm.findFragmentByTag(FT_NOTE_EDIT);
@@ -260,7 +266,7 @@ public class NoteDetailActivity extends Activity
 				setTitle(R.string.add_new_note_title);
 			}
 			else if (Intent.ACTION_EDIT.equals(nextAction)
-				|| Intent.ACTION_VIEW.equals(nextAction))
+					|| Intent.ACTION_VIEW.equals(nextAction))
 			{
 				Log.d(LOG_TAG, "Edit note.");
 				Log.d(LOG_TAG, "Edit newNoteUri => " + newNoteUri);

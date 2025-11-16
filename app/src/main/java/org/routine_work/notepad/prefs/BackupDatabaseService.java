@@ -26,61 +26,60 @@ package org.routine_work.notepad.prefs;
 import android.app.IntentService;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Environment;
 import android.os.Handler;
-import android.text.format.DateFormat;
-import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.channels.FileChannel;
-
-import org.routine_work.notepad.R;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.utils.Log;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 public class BackupDatabaseService extends IntentService
-        implements BackupConstants {
-    public final String STORAGE_FILE_URI_KEY = "STORAGE_FILE_URI_KEY ";
+		implements BackupConstants
+{
+	public final String STORAGE_FILE_URI_KEY = "STORAGE_FILE_URI_KEY ";
 
-    private static final String LOG_TAG = "simple-notepad";
-    private Handler handler;
+	private static final String LOG_TAG = "simple-notepad";
+	private Handler handler;
 
-    public BackupDatabaseService(String name) {
-        super(name);
-        handler = new Handler();
-    }
+	public BackupDatabaseService(String name)
+	{
+		super(name);
+		handler = new Handler();
+	}
 
-    public BackupDatabaseService() {
-        this("BackupDatabaseService");
-    }
+	public BackupDatabaseService()
+	{
+		this("BackupDatabaseService");
+	}
 
-    @Override
-    protected void onHandleIntent(Intent intent) {
-        Uri backupFileUri = intent.getData();
+	@Override
+	protected void onHandleIntent(Intent intent)
+	{
+		Uri backupFileUri = intent.getData();
 
-        try (OutputStream outputStream = getContentResolver().openOutputStream(backupFileUri);
-             InputStream inputStream = new FileInputStream(NoteStore.getNoteDatabasePath(this)))
-        {
-            if (outputStream != null && inputStream != null)
-            {
-                byte[] buffer = new byte[8192]; // 8KB バッファ
-                int bytesRead;
-                while ((bytesRead = inputStream.read(buffer)) != -1) {
-                    outputStream.write(buffer, 0, bytesRead);
-                }
-                outputStream.flush();
-            }
+		try (OutputStream outputStream = getContentResolver().openOutputStream(backupFileUri);
+			 InputStream inputStream = new FileInputStream(NoteStore.getNoteDatabasePath(this)))
+		{
+			if (outputStream != null && inputStream != null)
+			{
+				byte[] buffer = new byte[8192]; // 8KB バッファ
+				int bytesRead;
+				while ((bytesRead = inputStream.read(buffer)) != -1)
+				{
+					outputStream.write(buffer, 0, bytesRead);
+				}
+				outputStream.flush();
+			}
 
-        } catch (IOException e)
-        {
-            Log.e(LOG_TAG, "writeBinaryToUri", e);
+		}
+		catch (IOException e)
+		{
+			Log.e(LOG_TAG, "writeBinaryToUri", e);
 
-        }
-    }
+		}
+	}
 
 }

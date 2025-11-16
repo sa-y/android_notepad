@@ -38,6 +38,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
@@ -45,8 +46,8 @@ import org.routine_work.notepad.utils.NotepadConstants;
 import org.routine_work.utils.Log;
 
 public class DeleteNotesFragment extends ListFragment
-	implements NotepadConstants,
-	LoaderManager.LoaderCallbacks<Cursor>
+		implements NotepadConstants,
+		LoaderManager.LoaderCallbacks<Cursor>
 {
 
 	private static final String LOG_TAG = "simple-notepad";
@@ -65,7 +66,7 @@ public class DeleteNotesFragment extends ListFragment
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-		Bundle savedInstanceState)
+							 Bundle savedInstanceState)
 	{
 		View v = inflater.inflate(R.layout.note_list_fragment, container, false);
 
@@ -107,14 +108,17 @@ public class DeleteNotesFragment extends ListFragment
 		boolean result = true;
 		Log.v(LOG_TAG, "Hello");
 
-        if (item.getItemId() == R.id.delete_note_menuitem) {
-            Log.d(LOG_TAG, "delete_note_menuitem");
-            deleteCheckedNotes();
-            getActivity().setResult(Activity.RESULT_OK);
-            getActivity().finish();
-        } else {
-            result = super.onOptionsItemSelected(item);
-        }
+		if (item.getItemId() == R.id.delete_note_menuitem)
+		{
+			Log.d(LOG_TAG, "delete_note_menuitem");
+			deleteCheckedNotes();
+			getActivity().setResult(Activity.RESULT_OK);
+			getActivity().finish();
+		}
+		else
+		{
+			result = super.onOptionsItemSelected(item);
+		}
 
 		Log.v(LOG_TAG, "Bye");
 		return result;
@@ -127,13 +131,13 @@ public class DeleteNotesFragment extends ListFragment
 
 		String where = NoteStore.Note.Columns.ENABLED + " = ?";
 		String[] whereArgs =
-		{
-			"1"
-		};
+				{
+						"1"
+				};
 		String sortOrder = NotepadPreferenceUtils.getNoteListSortOrder(getActivity());
 		Log.d(LOG_TAG, String.format("where => %s, whereArgs => %s, sortOrder => %s", where, whereArgs, sortOrder));
 		CursorLoader cursorLoader = new CursorLoader(getActivity(),
-			NoteStore.Note.CONTENT_URI, null, where, whereArgs, sortOrder);
+				NoteStore.Note.CONTENT_URI, null, where, whereArgs, sortOrder);
 
 		Log.v(LOG_TAG, "Bye");
 		return cursorLoader;

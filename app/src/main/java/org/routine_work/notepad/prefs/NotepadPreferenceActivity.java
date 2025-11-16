@@ -30,21 +30,24 @@ import android.preference.PreferenceActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import java.util.List;
+
 import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
 import org.routine_work.utils.Log;
 
+import java.util.List;
+
 /**
- *
  * @author sawai
  */
-public class NotepadPreferenceActivity extends PreferenceActivity {
+public class NotepadPreferenceActivity extends PreferenceActivity
+{
 
 	private static final String LOG_TAG = "simple-notepad";
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		Log.v(LOG_TAG, "Hello");
 
 		setTheme(NotepadPreferenceUtils.getTheme(this));
@@ -55,7 +58,8 @@ public class NotepadPreferenceActivity extends PreferenceActivity {
 	}
 
 	@Override
-	public void onBuildHeaders(List<Header> target) {
+	public void onBuildHeaders(List<Header> target)
+	{
 		Log.v(LOG_TAG, "Hello");
 
 		super.onBuildHeaders(target);
@@ -65,7 +69,8 @@ public class NotepadPreferenceActivity extends PreferenceActivity {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
 		MenuInflater menuInflater = getMenuInflater();
 		menuInflater.inflate(R.menu.quit_option_menu, menu);
 
@@ -73,37 +78,46 @@ public class NotepadPreferenceActivity extends PreferenceActivity {
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
 		boolean result = true;
 
 		int itemId = item.getItemId();
-        if (itemId == R.id.quit_menuitem) {
-            NotepadActivity.quitApplication(this);
-        } else if (itemId == android.R.id.home) {
-            NotepadActivity.goHomeActivity(this);
-        } else {
-            result = super.onOptionsItemSelected(item);
-        }
+		if (itemId == R.id.quit_menuitem)
+		{
+			NotepadActivity.quitApplication(this);
+		}
+		else if (itemId == android.R.id.home)
+		{
+			NotepadActivity.goHomeActivity(this);
+		}
+		else
+		{
+			result = super.onOptionsItemSelected(item);
+		}
 
 		return result;
 	}
 
 	private static final String[] VALID_FRAGMENT_NAMES = {
-		"org.routine_work.notepad.prefs.DisplayPreferenceFragment",
-		"org.routine_work.notepad.prefs.ShareDataPreferenceFragment",
-		"org.routine_work.notepad.prefs.BackupAndResetPreferenceFragment",
-		"org.routine_work.notepad.prefs.AboutAppPreferenceFragment"
+			"org.routine_work.notepad.prefs.DisplayPreferenceFragment",
+			"org.routine_work.notepad.prefs.ShareDataPreferenceFragment",
+			"org.routine_work.notepad.prefs.BackupAndResetPreferenceFragment",
+			"org.routine_work.notepad.prefs.AboutAppPreferenceFragment"
 	};
 
 	@Override
 	@TargetApi(Build.VERSION_CODES.KITKAT)
-	protected boolean isValidFragment(String fragmentName) {
+	protected boolean isValidFragment(String fragmentName)
+	{
 		boolean result = false;
 		Log.v(LOG_TAG, "Hello");
 		Log.v(LOG_TAG, "fragmentName => " + fragmentName);
 
-		for (String validFragmentName : VALID_FRAGMENT_NAMES) {
-			if (validFragmentName.equals(fragmentName)) {
+		for (String validFragmentName : VALID_FRAGMENT_NAMES)
+		{
+			if (validFragmentName.equals(fragmentName))
+			{
 				result = true;
 				break;
 			}

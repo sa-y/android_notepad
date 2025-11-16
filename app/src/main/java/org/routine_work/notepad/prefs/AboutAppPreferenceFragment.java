@@ -26,11 +26,12 @@ package org.routine_work.notepad.prefs;
 
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+
 import org.routine_work.notepad.R;
 
 public class AboutAppPreferenceFragment extends PreferenceFragment
 {
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{

@@ -26,7 +26,6 @@ package org.routine_work.notepad.fragment;
 import android.net.Uri;
 
 /**
- *
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
 public interface NoteControlCallback

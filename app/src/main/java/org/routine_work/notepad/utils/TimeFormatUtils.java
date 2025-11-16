@@ -25,10 +25,10 @@ package org.routine_work.notepad.utils;
 
 import android.content.Context;
 import android.text.format.DateFormat;
+
 import java.util.Date;
 
 /**
- *
  * @author sawai
  */
 public class TimeFormatUtils

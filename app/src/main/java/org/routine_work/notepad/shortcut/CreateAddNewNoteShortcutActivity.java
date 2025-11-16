@@ -26,6 +26,7 @@ package org.routine_work.notepad.shortcut;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+
 import org.routine_work.notepad.AddNewNoteActivity;
 import org.routine_work.notepad.R;
 import org.routine_work.utils.Log;

@@ -33,6 +33,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.utils.NoteTemplateConstants;
@@ -40,12 +41,11 @@ import org.routine_work.notepad.utils.NoteUtils;
 import org.routine_work.utils.Log;
 
 /**
- *
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
 public class NoteTemplatePickerDialog extends Dialog
-	implements OnItemClickListener,
-	NoteTemplateConstants
+		implements OnItemClickListener,
+		NoteTemplateConstants
 {
 
 	private static final String LOG_TAG = "simple-notepad";
@@ -110,9 +110,9 @@ public class NoteTemplatePickerDialog extends Dialog
 
 		// init List Adapter
 		listAdapter = new SimpleCursorAdapter(getContext(),
-			android.R.layout.simple_list_item_1, cursor,
-			NOTE_TEMPLATE_LIST_MAPPING_FROM,
-			NOTE_TEMPLATE_LIST_MAPPING_TO);
+				android.R.layout.simple_list_item_1, cursor,
+				NOTE_TEMPLATE_LIST_MAPPING_FROM,
+				NOTE_TEMPLATE_LIST_MAPPING_TO);
 
 		listView.setAdapter(listAdapter);
 
@@ -149,11 +149,11 @@ public class NoteTemplatePickerDialog extends Dialog
 		ContentResolver cr = getContext().getContentResolver();
 		String where = NoteStore.Note.Columns.ENABLED + " = ?";
 		String[] whereArgs =
-		{
-			"1"
-		};
+				{
+						"1"
+				};
 		Cursor c = cr.query(NoteStore.NoteTemplate.CONTENT_URI, null, where, whereArgs,
-			NoteStore.NoteTemplate.Columns._ID + " ASC");
+				NoteStore.NoteTemplate.Columns._ID + " ASC");
 		if (c != null && c.moveToFirst())
 		{
 			swapCursor(c);

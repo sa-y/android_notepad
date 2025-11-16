@@ -25,16 +25,12 @@ package org.routine_work.notepad.fragment;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.CursorLoader;
-import android.content.DialogInterface;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
@@ -52,6 +48,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.model.Note;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
@@ -63,10 +60,10 @@ import org.routine_work.utils.IMEUtils;
 import org.routine_work.utils.Log;
 
 public class EditNoteFragment extends Fragment
-	implements LoaderManager.LoaderCallbacks<Cursor>,
-	View.OnFocusChangeListener,
-	View.OnClickListener,
-	NotepadConstants
+		implements LoaderManager.LoaderCallbacks<Cursor>,
+		View.OnFocusChangeListener,
+		View.OnClickListener,
+		NotepadConstants
 {
 
 	private static final String LOG_TAG = "simple-notepad";
@@ -171,7 +168,7 @@ public class EditNoteFragment extends Fragment
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-		Bundle savedInstanceState)
+							 Bundle savedInstanceState)
 	{
 		Log.v(LOG_TAG, "Hello");
 
@@ -304,16 +301,21 @@ public class EditNoteFragment extends Fragment
 	{
 		boolean result = true;
 
-        int itemId = item.getItemId();
-        if (itemId == R.id.add_new_note_menuitem) {
-            Log.d(LOG_TAG, "add_new_note_menuitem is clicked.");
-            startAddNewNoteActivity();
-        } else if (itemId == R.id.share_note_menuitem) {
-            Log.d(LOG_TAG, "share_note_menuitem is clicked.");
-            startShareNoteActivity();
-        } else {
-            result = super.onOptionsItemSelected(item);
-        }
+		int itemId = item.getItemId();
+		if (itemId == R.id.add_new_note_menuitem)
+		{
+			Log.d(LOG_TAG, "add_new_note_menuitem is clicked.");
+			startAddNewNoteActivity();
+		}
+		else if (itemId == R.id.share_note_menuitem)
+		{
+			Log.d(LOG_TAG, "share_note_menuitem is clicked.");
+			startShareNoteActivity();
+		}
+		else
+		{
+			result = super.onOptionsItemSelected(item);
+		}
 
 		return result;
 	}
@@ -321,31 +323,43 @@ public class EditNoteFragment extends Fragment
 	// BEGIN : View.OnFocusChangeListener
 	public void onFocusChange(View view, boolean focused)
 	{
-        int id = view.getId();
-        if (id == R.id.note_title_edittext) {
-            Log.v(LOG_TAG, "note_title_edittext : focused => " + focused);
-            if (focused) {
-                IMEUtils.showSoftKeyboardWindow(getActivity(), view);
-            }
-        } else if (id == R.id.note_content_edittext) {
-            Log.v(LOG_TAG, "note_content_edittext : focused => " + focused);
-            if (focused) {
-                IMEUtils.showSoftKeyboardWindow(getActivity(), view);
-            }
+		int id = view.getId();
+		if (id == R.id.note_title_edittext)
+		{
+			Log.v(LOG_TAG, "note_title_edittext : focused => " + focused);
+			if (focused)
+			{
+				IMEUtils.showSoftKeyboardWindow(getActivity(), view);
+			}
+		}
+		else if (id == R.id.note_content_edittext)
+		{
+			Log.v(LOG_TAG, "note_content_edittext : focused => " + focused);
+			if (focused)
+			{
+				IMEUtils.showSoftKeyboardWindow(getActivity(), view);
+			}
 
-            if (actionBarAutoHide) {
-                ActionBar actionBar = getActivity().getActionBar();
-                if (actionBar != null) {
-                    if (focused) {
-                        actionBar.hide();
-                    } else {
-                        actionBar.show();
-                    }
-                }
-            }
-        } else {
-            throw new AssertionError();
-        }
+			if (actionBarAutoHide)
+			{
+				ActionBar actionBar = getActivity().getActionBar();
+				if (actionBar != null)
+				{
+					if (focused)
+					{
+						actionBar.hide();
+					}
+					else
+					{
+						actionBar.show();
+					}
+				}
+			}
+		}
+		else
+		{
+			throw new AssertionError();
+		}
 	}
 	// END : View.OnFocusChangeListener
 
@@ -431,7 +445,7 @@ public class EditNoteFragment extends Fragment
 		if (NoteStore.isNoteItemUri(getActivity(), noteUri))
 		{
 			cursorLoader = new CursorLoader(getActivity(), noteUri,
-				null, null, null, null);
+					null, null, null, null);
 		}
 
 		Log.v(LOG_TAG, "cursorLoader => " + cursorLoader);
@@ -484,20 +498,25 @@ public class EditNoteFragment extends Fragment
 	// BEGIN ---------- View.OnClickListener----------
 	public void onClick(View view)
 	{
-        int id = view.getId();
-        if (id == R.id.note_title_lock_button) {
-            Log.d(LOG_TAG, "note_title_lock_button is clicked");
-            //LockTitleDialogFragment lockTitleDialogFragment = new LockTitleDialogFragment();
-            //lockTitleDialogFragment.show(getFragmentManager(), FT_TITLE_LOCK);
-            setNoteTitleLocked(true);
-        } else if (id == R.id.note_title_unlock_button) {
-            Log.d(LOG_TAG, "note_title_unlock_button is clicked");
-            //UnlockTitleDialogFragment unlockTitleDialogFragment = new UnlockTitleDialogFragment();
-            //unlockTitleDialogFragment.show(getFragmentManager(), FT_TITLE_UNLOCK);
-            setNoteTitleLocked(false);
-        } else {
-            throw new AssertionError();
-        }
+		int id = view.getId();
+		if (id == R.id.note_title_lock_button)
+		{
+			Log.d(LOG_TAG, "note_title_lock_button is clicked");
+			//LockTitleDialogFragment lockTitleDialogFragment = new LockTitleDialogFragment();
+			//lockTitleDialogFragment.show(getFragmentManager(), FT_TITLE_LOCK);
+			setNoteTitleLocked(true);
+		}
+		else if (id == R.id.note_title_unlock_button)
+		{
+			Log.d(LOG_TAG, "note_title_unlock_button is clicked");
+			//UnlockTitleDialogFragment unlockTitleDialogFragment = new UnlockTitleDialogFragment();
+			//unlockTitleDialogFragment.show(getFragmentManager(), FT_TITLE_UNLOCK);
+			setNoteTitleLocked(false);
+		}
+		else
+		{
+			throw new AssertionError();
+		}
 
 	}
 	// END ---------- View.OnClickListener----------
@@ -592,7 +611,7 @@ public class EditNoteFragment extends Fragment
 		if (viewIsInflated)
 		{
 			if ((TextUtils.isEmpty(currentNote.getTitle()) == false)
-				&& (TextUtils.isEmpty(currentNote.getContent()) == true))
+					&& (TextUtils.isEmpty(currentNote.getContent()) == true))
 			{
 //				IMEUtils.requestKeyboardFocus(noteContentEditText); // 
 				IMEUtils.requestSoftKeyboardWindow(getActivity(), noteContentEditText);

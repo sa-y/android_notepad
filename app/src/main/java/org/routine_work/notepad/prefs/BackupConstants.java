@@ -23,8 +23,6 @@
  */
 package org.routine_work.notepad.prefs;
 
-import java.io.File;
-
 /**
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */

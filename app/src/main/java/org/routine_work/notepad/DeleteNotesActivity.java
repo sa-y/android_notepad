@@ -23,13 +23,12 @@
  */
 package org.routine_work.notepad;
 
-import android.app.ActionBar;
 import android.app.Activity;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.utils.NotepadConstants;
 import org.routine_work.utils.Log;
@@ -69,16 +68,21 @@ public class DeleteNotesActivity extends Activity implements NotepadConstants
 		Log.v(LOG_TAG, "Hello");
 
 		Log.d(LOG_TAG, "item.getItemId() => " + item.getItemId());
-        int itemId = item.getItemId();
-        if (itemId == android.R.id.home) {
-            NotepadActivity.goHomeActivity(this);
-            finish();
-        } else if (itemId == R.id.quit_menuitem) {
-            NotepadActivity.quitApplication(this);
-            finish();
-        } else {
-            result = super.onOptionsItemSelected(item);
-        }
+		int itemId = item.getItemId();
+		if (itemId == android.R.id.home)
+		{
+			NotepadActivity.goHomeActivity(this);
+			finish();
+		}
+		else if (itemId == R.id.quit_menuitem)
+		{
+			NotepadActivity.quitApplication(this);
+			finish();
+		}
+		else
+		{
+			result = super.onOptionsItemSelected(item);
+		}
 
 		Log.v(LOG_TAG, "Bye");
 		return result;
