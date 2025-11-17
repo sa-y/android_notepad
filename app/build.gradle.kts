@@ -6,23 +6,30 @@ android {
     namespace = "org.routine_work.notepad"
     compileSdk = 36
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     defaultConfig {
         applicationId = "org.routine_work.notepad"
         minSdk = 24
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
-
+        versionCode = 46
+        versionName = "1.0.18"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("long", "BUILD_TIMESTAMP", "${System.currentTimeMillis()}L")
+        }
+        debug {
+            buildConfigField("long", "BUILD_TIMESTAMP", "${System.currentTimeMillis()}L")
         }
     }
     compileOptions {
