@@ -40,11 +40,7 @@ import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.utils.Log;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Date;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 /**
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
