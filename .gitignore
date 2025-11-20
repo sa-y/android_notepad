@@ -3,10 +3,10 @@
 .DS_Store
 .externalNativeBuild
 .gradle
-/build
+build
+/app/release
 /captures
 /local.properties
-local.properties
 # Android Studio
 /.idea/.name
 /.idea/assetWizardSettings.xml

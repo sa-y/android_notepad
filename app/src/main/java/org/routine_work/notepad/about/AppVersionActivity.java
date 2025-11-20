@@ -34,16 +34,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import org.routine_work.notepad.BuildConfig;
 import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.utils.Log;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Date;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 /**
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
@@ -61,15 +58,14 @@ public class AppVersionActivity extends Activity
 		setContentView(R.layout.app_version_activity);
 
 		// init package build time
-		Date buildTime = getPackageBuildTime();
-		if (buildTime != null)
-		{
-			String buildTimeformat = getString(R.string.build_time_format);
-			CharSequence buildTimeText = DateFormat.format(buildTimeformat, buildTime);
+		Date buildTime = new Date(BuildConfig.BUILD_TIMESTAMP);
+		Log.v(LOG_TAG, "buildTime => " + buildTime.toString());
+		String buildTimeFormat = getString(R.string.build_time_format);
+		CharSequence buildTimeText = DateFormat.format(buildTimeFormat, buildTime);
+		Log.v(LOG_TAG, "buildTimeText => " + buildTimeText);
 
-			TextView buildTimeTextView = (TextView) findViewById(R.id.build_time_textview);
-			buildTimeTextView.setText(buildTimeText);
-		}
+		TextView buildTimeTextView = (TextView) findViewById(R.id.build_time_textview);
+		buildTimeTextView.setText(buildTimeText);
 
 		// init package version
 		PackageManager packageManager = getPackageManager();
@@ -113,54 +109,5 @@ public class AppVersionActivity extends Activity
 		}
 
 		return result;
-	}
-
-	private Date getPackageBuildTime()
-	{
-		final String targetFileName = "classes.dex";
-		Date packageBuildTime = null;
-		try
-		{
-			FileInputStream fis = new FileInputStream(getPackageCodePath());
-			try
-			{
-				ZipInputStream zipInputStream = new ZipInputStream(fis);
-				try
-				{
-					ZipEntry zipEntry;
-					while ((zipEntry = zipInputStream.getNextEntry()) != null)
-					{
-						try
-						{
-							String entryName = zipEntry.getName();
-							Date entryTime = new Date(zipEntry.getTime());
-							if (targetFileName.equals(entryName))
-							{
-								packageBuildTime = entryTime;
-							}
-						}
-						finally
-						{
-							zipInputStream.closeEntry();
-						}
-
-					}
-				}
-				finally
-				{
-					zipInputStream.close();
-				}
-			}
-			finally
-			{
-				fis.close();
-			}
-		}
-		catch (IOException ex)
-		{
-			Log.e(LOG_TAG, "Getting package build time failed.", ex);
-		}
-
-		return packageBuildTime;
 	}
 }
