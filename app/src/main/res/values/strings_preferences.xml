@@ -132,6 +132,8 @@
 	<!-- Pick Backup File -->
 	<string name="select_backup_file_title">Select backup file</string>
 	<string name="no_backup_file">No backup file</string>
+	<string name="selected_file_is_invalid">Selected file is invalid format.</string>
+	<string name="failed_to_restore_database_file">Failed to restore the database from the backup file.</string>
 
 	<!-- Reset Category -->
 	<string name="reset_category_title">Reset</string>

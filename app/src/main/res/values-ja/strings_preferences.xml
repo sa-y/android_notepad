@@ -132,6 +132,8 @@
 	<!-- Pick Backup File -->
 	<string name="select_backup_file_title">バックアップファイル選択</string>
 	<string name="no_backup_file">バックアップファイルがありません</string>
+	<string name="selected_file_is_invalid">選択されたファイルはバックアップファイルではありません。</string>
+	<string name="failed_to_restore_database_file">バックアップファイルからデータベースの復元に失敗しました。</string>
 
 	<!-- Reset Category -->
 	<string name="reset_category_title">リセット</string>

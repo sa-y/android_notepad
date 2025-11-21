@@ -30,6 +30,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
 import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
@@ -85,8 +86,11 @@ public class RestoreDatabaseActivity extends Activity implements OnClickListener
 				{
 					Uri backupFileUri = data.getData();
 					Log.d(LOG_TAG, "selected backupFileUri => " + backupFileUri);
-					restoreDatabaseFile(backupFileUri);
-					NotepadActivity.quitApplication(this);
+					boolean success = restoreDatabaseFile(backupFileUri);
+					if(success)
+					{
+						NotepadActivity.quitApplication(this);
+					}
 				}
 				break;
 			default:
@@ -107,13 +111,21 @@ public class RestoreDatabaseActivity extends Activity implements OnClickListener
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void restoreDatabaseFile(Uri backupFileUri)
+	private boolean restoreDatabaseFile(Uri backupFileUri)
 	{
+		boolean result = false;
 		Log.d(LOG_TAG, "backupFileUri => " + backupFileUri);
+
 		if (backupFileUri == null)
 		{
 			Log.e(LOG_TAG, "backup file path is null, the restore was canceled.");
-			return;
+			return result;
+		}
+
+		if (!isSQLiteDatabase(backupFileUri)) {
+			Log.e(LOG_TAG, "Selected file is not a valid SQLite database file: " + backupFileUri);
+			Toast.makeText(this, R.string.selected_file_is_invalid, Toast.LENGTH_LONG).show();
+			return result;
 		}
 
 		try (OutputStream outputStream = new FileOutputStream(NoteStore.getNoteDatabasePath(this));
@@ -129,11 +141,56 @@ public class RestoreDatabaseActivity extends Activity implements OnClickListener
 				}
 				outputStream.flush();
 			}
-
+			result = true;
 		}
 		catch (IOException e)
 		{
-			Log.e(LOG_TAG, "writeBinaryToUri", e);
+			Log.e(LOG_TAG, "Failed to restore database file.", e);
+			Toast.makeText(this, R.string.failed_to_restore_database_file, Toast.LENGTH_LONG).show();
 		}
+
+		return result;
+	}
+
+	private boolean isSQLiteDatabase(Uri uri)
+	{
+		// SQLite3ファイルのヘッダーシグネチャ ("SQLite format 3\0")
+		final byte[] sqliteHeader = new byte[]{
+				0x53, 0x51, 0x4c, 0x69, 0x74, 0x65, 0x20, 0x66, 0x6f,
+				0x72, 0x6d, 0x61, 0x74, 0x20, 0x33, 0x00
+		};
+		byte[] fileHeader = new byte[sqliteHeader.length];
+
+		try (InputStream inputStream = getContentResolver().openInputStream(uri))
+		{
+			if (inputStream == null)
+			{
+				return false;
+			}
+
+			// ファイルからヘッダー部分を読み込む
+			int bytesRead = inputStream.read(fileHeader, 0, fileHeader.length);
+			if (bytesRead == -1 ||  bytesRead < fileHeader.length)
+			{
+				return false;
+			}
+		}
+		catch (IOException e)
+		{
+			Log.e(LOG_TAG, "Failed to read file header for validation", e);
+			return false;
+		}
+
+		// 読み込んだヘッダーとSQLiteのヘッダーシグネチャを比較
+		for (int i = 0; i < fileHeader.length; i++)
+		{
+			if (fileHeader[i] != sqliteHeader[i])
+			{
+				return false;
+			}
+		}
+
+		Log.d(LOG_TAG, "The file is a valid SQLite database.");
+		return true;
 	}
 }
