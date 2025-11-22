@@ -30,6 +30,9 @@ import android.preference.PreferenceActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowInsets;
 
 import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
@@ -53,6 +56,28 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 		NotepadActivity.enableHomeButton(this);
+
+		if (Build.VERSION.SDK_INT == Build.VERSION_CODES.VANILLA_ICE_CREAM)
+		{
+			View content = findViewById(android.R.id.content);
+			if (content != null)
+			{
+				content.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener()
+				{
+					@Override
+					public WindowInsets onApplyWindowInsets(View v, WindowInsets insets)
+					{
+						int top = insets.getSystemWindowInsetTop();
+						int bottom = insets.getSystemWindowInsetBottom();
+						int left = insets.getSystemWindowInsetLeft();
+						int right = insets.getSystemWindowInsetRight();
+						v.setPadding(left, top, right, bottom);
+
+						return insets;
+					}
+				});
+			}
+		}
 
 		Log.v(LOG_TAG, "Bye");
 	}
