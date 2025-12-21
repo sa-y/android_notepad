@@ -23,7 +23,6 @@
  */
 package org.routine_work.notepad.prefs;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,6 +30,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
@@ -42,7 +43,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class RestoreDatabaseActivity extends Activity implements OnClickListener
+public class RestoreDatabaseActivity extends AppCompatActivity implements OnClickListener
 {
 	private static final String LOG_TAG = "simple-notepad";
 	static final int REQUEST_CODE_SELECT_STORAGE_FILE = 1001;
@@ -79,6 +80,7 @@ public class RestoreDatabaseActivity extends Activity implements OnClickListener
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
+		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode)
 		{
 			case REQUEST_CODE_SELECT_STORAGE_FILE:
@@ -92,9 +94,6 @@ public class RestoreDatabaseActivity extends Activity implements OnClickListener
 						NotepadActivity.quitApplication(this);
 					}
 				}
-				break;
-			default:
-				super.onActivityResult(requestCode, resultCode, data);
 				break;
 		}
 	}

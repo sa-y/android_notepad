@@ -32,22 +32,41 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.utils.Log;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class BackupDatabaseActivity extends Activity
+public class BackupDatabaseActivity extends AppCompatActivity
 		implements OnClickListener, BackupConstants
 {
 
 	private static final String LOG_TAG = "simple-notepad";
-	static final int REQUEST_CODE_SELECT_STORAGE_FILE = 1001;
-
+	private final ActivityResultLauncher<Intent> selectStorageFileLauncher =
+			registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result ->
+			{
+				if (result.getResultCode() == Activity.RESULT_OK)
+				{
+					Intent data = result.getData();
+					if (data != null && data.getData() != null)
+					{
+						Uri backupFileUri = data.getData();
+						Log.v(LOG_TAG, "backupFileUri => " + backupFileUri);
+						writeDatabaseBackupFile(backupFileUri);
+						setResult(RESULT_OK);
+						finish();
+					}
+				}
+			});
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -57,9 +76,9 @@ public class BackupDatabaseActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.backup_database_activity);
 
-		Button okButton = (Button) findViewById(R.id.ok_button);
+		Button okButton = findViewById(R.id.ok_button);
 		okButton.setOnClickListener(this);
-		Button cancelButton = (Button) findViewById(R.id.cancel_button);
+		Button cancelButton = findViewById(R.id.cancel_button);
 		cancelButton.setOnClickListener(this);
 
 		Log.v(LOG_TAG, "Bye");
@@ -68,9 +87,8 @@ public class BackupDatabaseActivity extends Activity
 	@Override
 	protected void onResume()
 	{
-		super.onResume();
 		Log.v(LOG_TAG, "Hello");
-
+		super.onResume();
 		Log.v(LOG_TAG, "Bye");
 	}
 
@@ -89,41 +107,23 @@ public class BackupDatabaseActivity extends Activity
 		}
 	}
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data)
-	{
-		Log.v(LOG_TAG, "Hello");
-		if (requestCode == REQUEST_CODE_SELECT_STORAGE_FILE)
-		{
-			if (resultCode == Activity.RESULT_OK)
-			{
-				if (data != null && data.getData() != null)
-				{
-					Uri backupFileUri = data.getData();
-					Log.v(LOG_TAG, "backupFileUri => " + backupFileUri);
-					writeDatabaseBackupFile(backupFileUri);
-					setResult(RESULT_OK);
-					finish();
-				}
-			}
-		}
-		else
-		{
-			super.onActivityResult(requestCode, resultCode, data);
-		}
-		Log.v(LOG_TAG, "Bye");
-	}
-
 	private void writeDatabaseBackupFile(Uri backupFileUri)
 	{
 		Log.v(LOG_TAG, "Hello");
 		Log.v(LOG_TAG, "backupFileUri => " + backupFileUri);
+		File noteDatabasePath = NoteStore.getNoteDatabasePath(this);
+		if (noteDatabasePath == null)
+		{
+			Log.e(LOG_TAG, "noteDatabasePath is null");
+			return;
+		}
+
 		try (OutputStream outputStream = getContentResolver().openOutputStream(backupFileUri);
-			 InputStream inputStream = new FileInputStream(NoteStore.getNoteDatabasePath(this)))
+			 InputStream inputStream = new FileInputStream(noteDatabasePath))
 		{
 			Log.v(LOG_TAG, "outputStream => " + outputStream);
 			Log.v(LOG_TAG, "inputStream => " + inputStream);
-			if (outputStream != null && inputStream != null)
+			if (outputStream != null)
 			{
 				byte[] buffer = new byte[8192]; // 8KB バッファ
 				int bytesRead;
@@ -153,23 +153,10 @@ public class BackupDatabaseActivity extends Activity
 		intent.addCategory(Intent.CATEGORY_OPENABLE);
 		intent.setType("application/octet-stream");
 		intent.putExtra(Intent.EXTRA_TITLE, backupFileName);
-		startActivityForResult(intent, REQUEST_CODE_SELECT_STORAGE_FILE);
+		selectStorageFileLauncher.launch(intent);
 
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	private void startBackupDatabaseService(Uri storageFileUri)
-	{
-		Log.v(LOG_TAG, "Hello");
-
-		if (PermissionUtils.hasExternalStoragePermission(this))
-		{ // re check
-			Intent backDatabaseIntent = new Intent(this, BackupDatabaseService.class);
-			backDatabaseIntent.setData(storageFileUri);
-			startService(backDatabaseIntent);
-		}
-
-		Log.v(LOG_TAG, "Bye");
-	}
 
 }

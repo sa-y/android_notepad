@@ -23,7 +23,6 @@
  */
 package org.routine_work.notepad.common;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
@@ -35,6 +34,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
@@ -43,7 +44,7 @@ import org.routine_work.utils.Log;
 /**
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
-public class EditTextActivity extends Activity
+public class EditTextActivity extends AppCompatActivity
 {
 
 	public static final String EXTRA_INPUT_TYPE = EditTextActivity.class.getPackage().getName() + ".INPUT_TYPE";

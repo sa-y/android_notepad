@@ -24,7 +24,6 @@
 package org.routine_work.notepad.template;
 
 import android.app.Activity;
-import android.app.ListActivity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -48,6 +47,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.common.EditTextActivity;
@@ -62,7 +63,7 @@ import org.routine_work.utils.Log;
  *
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
-public class NoteTemplateDetailActivity extends ListActivity
+public class NoteTemplateDetailActivity extends AppCompatActivity
 		implements OnItemClickListener, NoteTemplateConstants
 {
 
@@ -82,6 +83,7 @@ public class NoteTemplateDetailActivity extends ListActivity
 	private String currentAction;
 	private Uri currentNoteTemplateUri;
 	private NoteTemplateDetailListAdapter noteTemplateDetailListAdapter;
+	private ListView listView;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
@@ -186,10 +188,10 @@ public class NoteTemplateDetailActivity extends ListActivity
 
 		NotepadActivity.enableHomeButton(this);
 
+		listView = findViewById(android.R.id.list);
 		noteTemplateDetailListAdapter = new NoteTemplateDetailListAdapter();
-		setListAdapter(noteTemplateDetailListAdapter);
+		listView.setAdapter(noteTemplateDetailListAdapter);
 
-		ListView listView = getListView();
 		listView.setOnItemClickListener(this);
 
 		if (savedInstanceState != null)
@@ -242,6 +244,7 @@ public class NoteTemplateDetailActivity extends ListActivity
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
+		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode)
 		{
 			case REQUEST_CODE_EDIT_TEMPLATE_NAME:
@@ -268,8 +271,6 @@ public class NoteTemplateDetailActivity extends ListActivity
 					noteTemplateDetailListAdapter.notifyDataSetChanged();
 				}
 				break;
-			default:
-				super.onActivityResult(requestCode, resultCode, data);
 		}
 	}
 
@@ -417,6 +418,7 @@ public class NoteTemplateDetailActivity extends ListActivity
 					currentNoteTemplate.setEditSameTitle(templateEditSameTitle);
 					currentNoteTemplate.setContent(templateContent);
 				}
+				cursor.close();
 			}
 		}
 

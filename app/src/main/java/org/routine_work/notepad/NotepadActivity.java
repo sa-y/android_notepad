@@ -24,20 +24,13 @@
  */
 package org.routine_work.notepad;
 
-import android.animation.LayoutTransition;
-import android.animation.ObjectAnimator;
-import android.app.ActionBar;
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.app.SearchManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -45,8 +38,15 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.SearchView;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import org.routine_work.notepad.fragment.NoteControlCallback;
 import org.routine_work.notepad.fragment.NoteDetailEventCallback;
@@ -63,7 +63,7 @@ import org.routine_work.notepad.utils.NotepadConstants;
 import org.routine_work.utils.IMEUtils;
 import org.routine_work.utils.Log;
 
-public class NotepadActivity extends Activity implements NotepadConstants,
+public class NotepadActivity extends AppCompatActivity implements NotepadConstants,
 		NoteControlCallback, NoteDetailEventCallback,
 		SearchView.OnCloseListener, SearchView.OnQueryTextListener
 {
@@ -76,6 +76,27 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 	private String layoutWideTwoPaneValue;
 	private SearchView searchView;
 	private String initialQueryString = null;
+	private final ActivityResultLauncher<Intent> editNoteLauncher =
+			registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result ->
+			{
+				closeNoteDetailFragment();
+			});
+	private final ActivityResultLauncher<Intent> deleteNoteLauncher =
+			registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result ->
+			{
+				if (result.getResultCode() == Activity.RESULT_OK)
+				{
+					closeNoteDetailFragment();
+				}
+			});
+	private final ActivityResultLauncher<Intent> deleteNotesLauncher =
+			registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result ->
+			{
+				if (result.getResultCode() == Activity.RESULT_OK)
+				{
+					closeNoteDetailFragment();
+				}
+			});
 
 	static
 	{
@@ -109,17 +130,17 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	public static void enableHomeButton(Activity activity)
+	public static void enableHomeButton(AppCompatActivity activity)
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		if (Build.VERSION.SDK_INT >= 14)
-		{ // Android 4.0  or later
-			ActionBar actionBar = activity.getActionBar();
-			if (actionBar != null)
-			{
-				actionBar.setHomeButtonEnabled(true);
-			}
+		ActionBar actionBar = activity.getSupportActionBar();
+		if (actionBar != null)
+		{
+			actionBar.setHomeButtonEnabled(true);
+			actionBar.setDisplayHomeAsUpEnabled(true);
+//			actionBar.setDisplayShowHomeEnabled(true);
+//			actionBar.setLogo(R.drawable.ic_launcher_notepad);
 		}
 
 		Log.v(LOG_TAG, "Bye");
@@ -143,13 +164,13 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		layoutWideTwoPaneValue = resources.getString(R.string.note_list_layout_wide_two_value);
 
 		// setup layout transition
-		LayoutTransition layoutTransition = new LayoutTransition();
-		ObjectAnimator fadeIn = ObjectAnimator.ofFloat((Object) null, "alpha", 0f, 1f);
-		layoutTransition.setAnimator(LayoutTransition.APPEARING, fadeIn);
-		layoutTransition.setStartDelay(LayoutTransition.APPEARING, 0);
-		layoutTransition.setDuration(LayoutTransition.APPEARING, 300);
-		LinearLayout noteDetailContainer = (LinearLayout) findViewById(R.id.note_detail_container);
-		noteDetailContainer.setLayoutTransition(layoutTransition);
+//		LayoutTransition layoutTransition = new LayoutTransition();
+//		ObjectAnimator fadeIn = ObjectAnimator.ofFloat((Object) null, "alpha", 0f, 1f);
+//		layoutTransition.setAnimator(LayoutTransition.APPEARING, fadeIn);
+//		layoutTransition.setStartDelay(LayoutTransition.APPEARING, 0);
+//		layoutTransition.setDuration(LayoutTransition.APPEARING, 300);
+//		LinearLayout noteDetailContainer = (LinearLayout) findViewById(R.id.note_detail_container);
+//		noteDetailContainer.setLayoutTransition(layoutTransition);
 
 		initializeWithIntent(getIntent());
 
@@ -289,33 +310,6 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 	}
 
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data)
-	{
-		Log.v(LOG_TAG, "Hello");
-
-		Log.d(LOG_TAG, "requestCode => " + requestCode);
-		Log.d(LOG_TAG, "resultCode => " + resultCode);
-
-		if ((requestCode == REQUEST_CODE_ADD_NOTE)
-				|| (requestCode == REQUEST_CODE_EDIT_NOTE))
-		{
-//			reloadNoteList();
-			closeNoteDetailFragment();
-		}
-		else if ((requestCode == REQUEST_CODE_DELETE_NOTE)
-				|| (requestCode == REQUEST_CODE_DELETE_NOTES))
-		{
-			if (resultCode == RESULT_OK)
-			{
-//				reloadNoteList();
-				closeNoteDetailFragment();
-			}
-		}
-
-		Log.v(LOG_TAG, "Bye");
-	}
-
-	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event)
 	{
 		boolean result;
@@ -427,7 +421,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		if (uri != null)
 		{
 			Intent editNoteIntent = new Intent(Intent.ACTION_EDIT, uri);
-			startActivityForResult(editNoteIntent, REQUEST_CODE_EDIT_NOTE);
+			editNoteLauncher.launch(editNoteIntent);
 		}
 
 		Log.v(LOG_TAG, "Bye");
@@ -440,8 +434,8 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 
 		if (uri != null)
 		{
-			Intent editNoteIntent = new Intent(Intent.ACTION_DELETE, uri);
-			startActivityForResult(editNoteIntent, REQUEST_CODE_DELETE_NOTE);
+			Intent deleteNoteIntent = new Intent(Intent.ACTION_DELETE, uri);
+			deleteNoteLauncher.launch(deleteNoteIntent);
 		}
 
 		Log.v(LOG_TAG, "Bye");
@@ -457,15 +451,17 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		if (noteTemplateCount >= 2)
 		{
 			NoteTemplatePickerDialogFragment dialogFragment = new NoteTemplatePickerDialogFragment();
-			dialogFragment.show(getFragmentManager(), FT_NOTE_TEMPLATE_PICKER);
+			dialogFragment.show(getSupportFragmentManager(), FT_NOTE_TEMPLATE_PICKER);
 		}
 		else if (noteTemplateCount == 1)
 		{
-			NoteUtils.startActivityToAddNewNoteWithFirstTemplate(this);
+			Intent intent = NoteUtils.getIntentForAddNewNoteWithFirstTemplate(this);
+			editNoteLauncher.launch(intent);
 		}
 		else
 		{
-			NoteUtils.startActivityToAddNewBlankNote(this);
+			Intent addNewNoteIntent = NoteUtils.getIntentForAddNewBlankNote(this);
+			editNoteLauncher.launch(addNewNoteIntent);
 		}
 
 		Log.v(LOG_TAG, "Bye");
@@ -478,7 +474,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 
 		Intent intent = new Intent(this, DeleteNotesActivity.class);
 		intent.setAction(Intent.ACTION_DELETE);
-		startActivityForResult(intent, REQUEST_CODE_DELETE_NOTES);
+		deleteNotesLauncher.launch(intent);
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -573,7 +569,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 
 		Uri contentUri = NoteSearchQueryParser.parseQuery(queryString);
 
-		FragmentManager fm = getFragmentManager();
+		FragmentManager fm = getSupportFragmentManager();
 		NoteListFragment noteListFragment = (NoteListFragment) fm.findFragmentById(R.id.note_list_fragment);
 		if (noteListFragment != null)
 		{
@@ -623,7 +619,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		FragmentManager fm = getFragmentManager();
+		FragmentManager fm = getSupportFragmentManager();
 		NoteListFragment noteListFragment = (NoteListFragment) fm.findFragmentById(R.id.note_list_fragment);
 		if (noteListFragment != null)
 		{
@@ -639,7 +635,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 
 		if (noteUri != null)
 		{
-			FragmentManager fm = getFragmentManager();
+			FragmentManager fm = getSupportFragmentManager();
 			ViewNoteFragment viewNoteFragment = (ViewNoteFragment) fm.findFragmentByTag(FT_NOTE_DETAIL);
 			Log.d(LOG_TAG, "viewFragment => " + viewNoteFragment);
 			if (viewNoteFragment == null)
@@ -671,7 +667,7 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		FragmentManager fm = getFragmentManager();
+		FragmentManager fm = getSupportFragmentManager();
 		Fragment noteDetailFragment = fm.findFragmentByTag(FT_NOTE_DETAIL);
 		Log.d(LOG_TAG, "noteDetailFragment => " + noteDetailFragment);
 		if (noteDetailFragment instanceof ViewNoteFragment)

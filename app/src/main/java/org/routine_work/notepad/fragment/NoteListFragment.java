@@ -23,13 +23,9 @@
  */
 package org.routine_work.notepad.fragment;
 
-import android.app.Activity;
-import android.app.ListFragment;
-import android.app.LoaderManager;
 import android.content.ContentResolver;
 import android.content.ContentUris;
-import android.content.CursorLoader;
-import android.content.Loader;
+import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -46,6 +42,13 @@ import android.widget.AbsListView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.ListFragment;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
 
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
@@ -73,14 +76,14 @@ public class NoteListFragment extends ListFragment
 	}
 
 	@Override
-	public void onAttach(Activity activity)
+	public void onAttach(@NonNull Context context)
 	{
 		Log.v(LOG_TAG, "Hello");
-		super.onAttach(activity);
+		super.onAttach(context);
 
-		if (activity instanceof NoteControlCallback)
+		if (context instanceof NoteControlCallback)
 		{
-			noteControlCallback = (NoteControlCallback) activity;
+			noteControlCallback = (NoteControlCallback) context;
 		}
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -109,15 +112,15 @@ public class NoteListFragment extends ListFragment
 	}
 
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState)
+	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
 	{
 		Log.v(LOG_TAG, "Hello");
-		super.onActivityCreated(savedInstanceState);
+		super.onViewCreated(view, savedInstanceState);
 
-		listAdapter = new NoteCursorAdapter(getActivity(), null, false);
+		listAdapter = new NoteCursorAdapter(requireContext(), null, false);
 		setListAdapter(listAdapter);
 
-		LoaderManager loaderManager = getLoaderManager();
+		LoaderManager loaderManager = LoaderManager.getInstance(this);
 		loaderManager.initLoader(NOTE_LOADER_ID, null, this);
 
 		ListView listView = getListView();
@@ -140,15 +143,15 @@ public class NoteListFragment extends ListFragment
 	}
 
 	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v,
-									ContextMenuInfo menuInfo)
+	public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v,
+									@Nullable ContextMenuInfo menuInfo)
 	{
 		Log.v(LOG_TAG, "Hello");
 
 		super.onCreateContextMenu(menu, v, menuInfo);
 		if (v == getListView())
 		{
-			MenuInflater menuInflater = getActivity().getMenuInflater();
+			MenuInflater menuInflater = requireActivity().getMenuInflater();
 			menuInflater.inflate(R.menu.note_list_context_menu, menu);
 		}
 
@@ -156,7 +159,7 @@ public class NoteListFragment extends ListFragment
 	}
 
 	@Override
-	public boolean onContextItemSelected(MenuItem item)
+	public boolean onContextItemSelected(@NonNull MenuItem item)
 	{
 		boolean result = false;
 		Log.v(LOG_TAG, "Hello");
@@ -173,20 +176,24 @@ public class NoteListFragment extends ListFragment
 			else if (itemId == R.id.edit_note_menuitem)
 			{
 				editNote(menuInfo.id);
+				result = true;
 			}
 			else if (itemId == R.id.share_note_menuitem)
 			{
-				NoteUtils.shareNote(getActivity(), menuInfo.id);
+				NoteUtils.shareNote(requireActivity(), menuInfo.id);
+				result = true;
 			}
 			else if (itemId == R.id.copy_note_title_menuitem)
 			{
-				NoteUtils.copyNoteTitleToClipboard(getActivity(), menuInfo.id);
-				Toast.makeText(getActivity(), R.string.copy_note_title_done, Toast.LENGTH_SHORT).show();
+				NoteUtils.copyNoteTitleToClipboard(requireActivity(), menuInfo.id);
+				Toast.makeText(requireActivity(), R.string.copy_note_title_done, Toast.LENGTH_SHORT).show();
+				result = true;
 			}
 			else if (itemId == R.id.copy_note_content_menuitem)
 			{
-				NoteUtils.copyNoteContentToClipboard(getActivity(), menuInfo.id);
-				Toast.makeText(getActivity(), R.string.copy_note_content_done, Toast.LENGTH_SHORT).show();
+				NoteUtils.copyNoteContentToClipboard(requireActivity(), menuInfo.id);
+				Toast.makeText(requireActivity(), R.string.copy_note_content_done, Toast.LENGTH_SHORT).show();
+				result = true;
 			}
 			else
 			{
@@ -203,7 +210,7 @@ public class NoteListFragment extends ListFragment
 	}
 
 	@Override
-	public void onListItemClick(ListView l, View v, int position, long id)
+	public void onListItemClick(@NonNull ListView l, @NonNull View v, int position, long id)
 	{
 		Log.v(LOG_TAG, "Hello");
 
@@ -215,7 +222,9 @@ public class NoteListFragment extends ListFragment
 	}
 
 	// BEGIN ---------- LoaderManager.LoaderCallbacks<Cursor> ----------
-	public Loader<Cursor> onCreateLoader(int id, Bundle bundle)
+	@NonNull
+	@Override
+	public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle bundle)
 	{
 		Log.v(LOG_TAG, "Hello");
 		Log.d(LOG_TAG, "this.contentUri => " + this.contentUri);
@@ -225,16 +234,17 @@ public class NoteListFragment extends ListFragment
 				= {
 				"1"
 		};
-		String sortOrder = NotepadPreferenceUtils.getNoteListSortOrder(getActivity());
+		String sortOrder = NotepadPreferenceUtils.getNoteListSortOrder(requireContext());
 		Log.d(LOG_TAG, String.format("where => %s, whereArgs => %s, sortOrder => %s", where, Arrays.toString(whereArgs), sortOrder));
-		CursorLoader cursorLoader = new CursorLoader(getActivity(),
+		CursorLoader cursorLoader = new CursorLoader(requireContext(),
 				contentUri, null, where, whereArgs, sortOrder);
 
 		Log.v(LOG_TAG, "Bye");
 		return cursorLoader;
 	}
 
-	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor)
+	@Override
+	public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor)
 	{
 		Log.v(LOG_TAG, "Hello");
 		Log.d(LOG_TAG, "cursor => " + cursor);
@@ -242,7 +252,8 @@ public class NoteListFragment extends ListFragment
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	public void onLoaderReset(Loader<Cursor> loader)
+	@Override
+	public void onLoaderReset(@NonNull Loader<Cursor> loader)
 	{
 		Log.v(LOG_TAG, "Hello");
 		listAdapter.swapCursor(null);
@@ -261,7 +272,7 @@ public class NoteListFragment extends ListFragment
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		MenuInflater menuInflater = getActivity().getMenuInflater();
+		MenuInflater menuInflater = requireActivity().getMenuInflater();
 		menuInflater.inflate(R.menu.delete_note_option_menu, menu);
 		actionMode.setTitle(R.string.delete_notes_title);
 
@@ -321,7 +332,7 @@ public class NoteListFragment extends ListFragment
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		getLoaderManager().restartLoader(NOTE_LOADER_ID, null, this);
+		LoaderManager.getInstance(this).restartLoader(NOTE_LOADER_ID, null, this);
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -369,7 +380,7 @@ public class NoteListFragment extends ListFragment
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		ContentResolver cr = getActivity().getContentResolver();
+		ContentResolver cr = requireActivity().getContentResolver();
 		ListView listView = getListView();
 		long[] checkItemIds = listView.getCheckItemIds();
 		for (int i = checkItemIds.length - 1; i >= 0; i--)

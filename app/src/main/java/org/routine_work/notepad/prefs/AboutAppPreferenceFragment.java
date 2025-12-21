@@ -25,17 +25,22 @@
 package org.routine_work.notepad.prefs;
 
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
+
+import androidx.annotation.Nullable;
+import androidx.preference.PreferenceFragmentCompat;
 
 import org.routine_work.notepad.R;
+import org.routine_work.utils.Log;
 
-public class AboutAppPreferenceFragment extends PreferenceFragment
+public class AboutAppPreferenceFragment extends PreferenceFragmentCompat
 {
+	private static final String LOG_TAG = "simple-notepad";
 
 	@Override
-	public void onCreate(Bundle savedInstanceState)
+	public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey)
 	{
-		super.onCreate(savedInstanceState);
-		addPreferencesFromResource(R.xml.notepad_preference_about_app);
+		Log.v(LOG_TAG, "Hello");
+		setPreferencesFromResource(R.xml.notepad_preference_about_app, rootKey);
+		Log.v(LOG_TAG, "Bye");
 	}
 }

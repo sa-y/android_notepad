@@ -23,18 +23,19 @@
  */
 package org.routine_work.notepad.about;
 
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.routine_work.utils.Log;
 
 /**
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
-public class AppManagementActivity extends Activity
+public class AppManagementActivity extends AppCompatActivity
 {
 
 	private static final String LOG_TAG = "simple-battery-logger";

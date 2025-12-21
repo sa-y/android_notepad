@@ -24,11 +24,7 @@
 package org.routine_work.notepad.fragment;
 
 import android.app.Activity;
-import android.app.ListFragment;
-import android.app.LoaderManager;
 import android.content.ContentResolver;
-import android.content.CursorLoader;
-import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -38,6 +34,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.ListFragment;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
 
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
@@ -74,16 +77,16 @@ public class DeleteNotesFragment extends ListFragment
 	}
 
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState)
+	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
 	{
-		super.onActivityCreated(savedInstanceState);
+		super.onViewCreated(view, savedInstanceState);
 
 		// Init list adapter
-		listAdapter = new NoteCursorAdapter(getActivity(), null, true);
+		listAdapter = new NoteCursorAdapter(requireContext(), null, true);
 		setListAdapter(listAdapter);
 
 		// Init LoaderManager
-		LoaderManager loaderManager = getLoaderManager();
+		LoaderManager loaderManager = LoaderManager.getInstance(this);
 		loaderManager.initLoader(NOTE_LOADER_ID, null, this);
 
 		// Init ListView
@@ -92,7 +95,7 @@ public class DeleteNotesFragment extends ListFragment
 	}
 
 	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater)
+	public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater)
 	{
 		Log.v(LOG_TAG, "Hello");
 
@@ -103,7 +106,7 @@ public class DeleteNotesFragment extends ListFragment
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
+	public boolean onOptionsItemSelected(@NonNull MenuItem item)
 	{
 		boolean result = true;
 		Log.v(LOG_TAG, "Hello");
@@ -112,8 +115,8 @@ public class DeleteNotesFragment extends ListFragment
 		{
 			Log.d(LOG_TAG, "delete_note_menuitem");
 			deleteCheckedNotes();
-			getActivity().setResult(Activity.RESULT_OK);
-			getActivity().finish();
+			requireActivity().setResult(Activity.RESULT_OK);
+			requireActivity().finish();
 		}
 		else
 		{
@@ -125,7 +128,9 @@ public class DeleteNotesFragment extends ListFragment
 	}
 
 	// BEGIN ---------- LoaderManager.LoaderCallbacks<Cursor> ----------
-	public Loader<Cursor> onCreateLoader(int id, Bundle bundle)
+	@NonNull
+	@Override
+	public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle bundle)
 	{
 		Log.v(LOG_TAG, "Hello");
 
@@ -134,23 +139,25 @@ public class DeleteNotesFragment extends ListFragment
 				{
 						"1"
 				};
-		String sortOrder = NotepadPreferenceUtils.getNoteListSortOrder(getActivity());
+		String sortOrder = NotepadPreferenceUtils.getNoteListSortOrder(requireContext());
 		Log.d(LOG_TAG, String.format("where => %s, whereArgs => %s, sortOrder => %s", where, whereArgs, sortOrder));
-		CursorLoader cursorLoader = new CursorLoader(getActivity(),
+		CursorLoader cursorLoader = new CursorLoader(requireContext(),
 				NoteStore.Note.CONTENT_URI, null, where, whereArgs, sortOrder);
 
 		Log.v(LOG_TAG, "Bye");
 		return cursorLoader;
 	}
 
-	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor)
+	@Override
+	public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor)
 	{
 		Log.v(LOG_TAG, "Hello");
 		listAdapter.swapCursor(cursor);
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	public void onLoaderReset(Loader<Cursor> loader)
+	@Override
+	public void onLoaderReset(@NonNull Loader<Cursor> loader)
 	{
 		Log.v(LOG_TAG, "Hello");
 		listAdapter.swapCursor(null);
@@ -163,7 +170,7 @@ public class DeleteNotesFragment extends ListFragment
 		Log.v(LOG_TAG, "Hello");
 
 		long[] checkItemIds = getListView().getCheckItemIds();
-		ContentResolver cr = getActivity().getContentResolver();
+		ContentResolver cr = requireActivity().getContentResolver();
 		NoteStore.deleteNotes(cr, checkItemIds);
 
 		Log.v(LOG_TAG, "Bye");

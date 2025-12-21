@@ -23,11 +23,12 @@
  */
 package org.routine_work.notepad;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.utils.NotepadConstants;
@@ -35,7 +36,7 @@ import org.routine_work.notepad.utils.NotepadConstants;
 /**
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
-public class ReceiveTextActivity extends Activity implements NotepadConstants
+public class ReceiveTextActivity extends AppCompatActivity implements NotepadConstants
 {
 
 	private static final String LOG_TAG = "simple-notepad";

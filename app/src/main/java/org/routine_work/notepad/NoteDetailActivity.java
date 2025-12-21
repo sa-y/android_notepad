@@ -23,10 +23,6 @@
  */
 package org.routine_work.notepad;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -37,6 +33,11 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import org.routine_work.notepad.fragment.DeleteNoteFragment;
 import org.routine_work.notepad.fragment.EditNoteFragment;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
@@ -44,7 +45,7 @@ import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.utils.NotepadConstants;
 import org.routine_work.utils.Log;
 
-public class NoteDetailActivity extends Activity
+public class NoteDetailActivity extends AppCompatActivity
 		implements NotepadConstants
 {
 
@@ -107,7 +108,7 @@ public class NoteDetailActivity extends Activity
 
 		super.onResume();
 
-		FragmentManager fm = getFragmentManager();
+		FragmentManager fm = getSupportFragmentManager();
 		Fragment noteDetailFragment = fm.findFragmentByTag(FT_NOTE_EDIT);
 		if (noteDetailFragment instanceof EditNoteFragment)
 		{
@@ -216,7 +217,7 @@ public class NoteDetailActivity extends Activity
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		FragmentManager fm = getFragmentManager();
+		FragmentManager fm = getSupportFragmentManager();
 
 		Log.d(LOG_TAG, "init model data from intent => " + intent);
 
@@ -357,7 +358,7 @@ public class NoteDetailActivity extends Activity
 	{
 		if (Intent.ACTION_EDIT.equals(currentAction))
 		{
-			FragmentManager fm = getFragmentManager();
+			FragmentManager fm = getSupportFragmentManager();
 			Fragment noteDetailFragment = fm.findFragmentByTag(FT_NOTE_EDIT);
 			if (noteDetailFragment instanceof EditNoteFragment)
 			{

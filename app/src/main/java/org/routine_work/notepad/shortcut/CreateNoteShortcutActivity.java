@@ -23,7 +23,6 @@
  */
 package org.routine_work.notepad.shortcut;
 
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.Intent.ShortcutIconResource;
@@ -40,13 +39,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.utils.NotepadConstants;
 import org.routine_work.utils.Log;
 
-public class CreateNoteShortcutActivity extends Activity
+public class CreateNoteShortcutActivity extends AppCompatActivity
 		implements View.OnClickListener, NotepadConstants
 {
 
@@ -91,7 +92,7 @@ public class CreateNoteShortcutActivity extends Activity
 		if (viewId == R.id.cancel_button)
 		{
 			Log.d(LOG_TAG, "Cancel Button is clicked.");
-			setResult(Activity.RESULT_CANCELED);
+			setResult(RESULT_CANCELED);
 			finish();
 		}
 		else if (viewId == R.id.ok_button)
@@ -106,6 +107,7 @@ public class CreateNoteShortcutActivity extends Activity
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
+		super.onActivityResult(requestCode, resultCode, data);
 		Log.v(LOG_TAG, "Hello");
 
 		if (requestCode == REQUEST_CODE_PICK_NOTE)
@@ -117,7 +119,7 @@ public class CreateNoteShortcutActivity extends Activity
 			}
 			else
 			{
-				setResult(Activity.RESULT_CANCELED);
+				setResult(RESULT_CANCELED);
 				finish();
 			}
 		}
@@ -205,12 +207,12 @@ public class CreateNoteShortcutActivity extends Activity
 
 				shortcutManager.requestPinShortcut(shortcutInfo, null); // ショートカットの作成要求
 
-				setResult(Activity.RESULT_OK);
+				setResult(RESULT_OK);
 				finish();
 			}
 			else
 			{
-				setResult(Activity.RESULT_CANCELED);
+				setResult(RESULT_CANCELED);
 				finish();
 			}
 		}
@@ -223,7 +225,7 @@ public class CreateNoteShortcutActivity extends Activity
 			resultIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, editNoteIntent);
 			resultIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, shortcutIconResource);
 			resultIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, shortcutName);
-			setResult(Activity.RESULT_OK, resultIntent);
+			setResult(RESULT_OK, resultIntent);
 			finish();
 		}
 

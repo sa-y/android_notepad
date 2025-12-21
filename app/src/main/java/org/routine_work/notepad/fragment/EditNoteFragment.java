@@ -23,18 +23,12 @@
  */
 package org.routine_work.notepad.fragment;
 
-import android.app.ActionBar;
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.LoaderManager;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.CursorLoader;
-import android.content.Loader;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.InputType;
@@ -49,6 +43,15 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
+
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.model.Note;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
@@ -59,19 +62,13 @@ import org.routine_work.notepad.utils.NotepadConstants;
 import org.routine_work.utils.IMEUtils;
 import org.routine_work.utils.Log;
 
-public class EditNoteFragment extends Fragment
-		implements LoaderManager.LoaderCallbacks<Cursor>,
-		View.OnFocusChangeListener,
-		View.OnClickListener,
-		NotepadConstants
+public class EditNoteFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, View.OnFocusChangeListener, View.OnClickListener, NotepadConstants
 {
 
 	private static final String LOG_TAG = "simple-notepad";
 	private static final String SAVE_KEY_NOTE_URI = "noteUri";
 	private static final String SAVE_KEY_CURRENT_NOTE = "currentNote";
 	private static final String SAVE_KEY_ORIGINAL_NOTE = "originalNote";
-	private static final String FT_TITLE_LOCK = "FT_TITLE_LOCK";
-	private static final String FT_TITLE_UNLOCK = "FT_TITLE_UNLOCK";
 	private static final String FT_NOTE_TEMPLATE_PICKER = "FT_NOTE_TEMPLATE_PICKER";
 	// views
 	private EditText noteTitleEditText;
@@ -102,7 +99,7 @@ public class EditNoteFragment extends Fragment
 		super.onCreate(savedInstanceState);
 
 		setHasOptionsMenu(true);
-		actionBarAutoHide = NotepadPreferenceUtils.getActionBarAutoHide(getActivity());
+		actionBarAutoHide = NotepadPreferenceUtils.getActionBarAutoHide(requireContext());
 		Log.d(LOG_TAG, "actionBarAutoHide => " + actionBarAutoHide);
 
 		if (savedInstanceState != null)
@@ -131,32 +128,10 @@ public class EditNoteFragment extends Fragment
 	}
 
 	@Override
-	public void onAttach(Activity activity)
-	{
-		super.onAttach(activity);
-		Log.v(LOG_TAG, "Hello");
-		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1)
-		{
-			return;
-		}
-
-		if (activity instanceof NoteDetailEventCallback)
-		{
-			noteDetailEventCallback = (NoteDetailEventCallback) activity;
-		}
-
-		Log.v(LOG_TAG, "Bye");
-	}
-
-	@Override
-	public void onAttach(Context context)
+	public void onAttach(@NonNull Context context)
 	{
 		super.onAttach(context);
 		Log.v(LOG_TAG, "Hello");
-		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1)
-		{
-			return;
-		}
 
 		if (context instanceof NoteDetailEventCallback)
 		{
@@ -167,8 +142,7 @@ public class EditNoteFragment extends Fragment
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-							 Bundle savedInstanceState)
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
 		Log.v(LOG_TAG, "Hello");
 
@@ -186,7 +160,7 @@ public class EditNoteFragment extends Fragment
 
 		// Update capitalization mode of the note title 
 		int noteTitleInputType = InputType.TYPE_CLASS_TEXT;
-		if (NotepadPreferenceUtils.getNoteTitleCapitalization(this.getActivity()))
+		if (NotepadPreferenceUtils.getNoteTitleCapitalization(requireContext()))
 		{
 			noteTitleInputType |= InputType.TYPE_TEXT_FLAG_CAP_SENTENCES;
 		}
@@ -194,7 +168,7 @@ public class EditNoteFragment extends Fragment
 
 		// Update capitalization mode of the note content 
 		int noteContentInputType = InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE;
-		if (NotepadPreferenceUtils.getNoteContentCapitalization(this.getActivity()))
+		if (NotepadPreferenceUtils.getNoteContentCapitalization(requireContext()))
 		{
 			noteContentInputType |= InputType.TYPE_TEXT_FLAG_CAP_SENTENCES;
 		}
@@ -210,14 +184,17 @@ public class EditNoteFragment extends Fragment
 	}
 
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState)
+	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
 	{
 		Log.v(LOG_TAG, "Hello");
-		super.onActivityCreated(savedInstanceState);
+		super.onViewCreated(view, savedInstanceState);
 
-		Log.d(LOG_TAG, "LoaderManager.initLoader()");
-		LoaderManager loaderManager = getLoaderManager();
-		loaderManager.initLoader(NOTE_LOADER_ID, null, this);
+		if (NoteStore.isNoteItemUri(requireContext(), noteUri))
+		{
+			Log.d(LOG_TAG, "LoaderManager.initLoader()");
+			LoaderManager loaderManager = LoaderManager.getInstance(this);
+			loaderManager.initLoader(NOTE_LOADER_ID, null, this);
+		}
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -258,9 +235,9 @@ public class EditNoteFragment extends Fragment
 		Log.v(LOG_TAG, "Hello");
 		super.onResume();
 
-		int fontSize = NotepadPreferenceUtils.getNoteDetailFontSize(this.getActivity());
-		int fontSizeDefault = NotepadPreferenceUtils.getNoteDetailFontSizeDefault(this.getActivity());
-		int titleFontSize = (fontSize > fontSizeDefault) ? fontSize : fontSizeDefault;
+		int fontSize = NotepadPreferenceUtils.getNoteDetailFontSize(requireContext());
+		int fontSizeDefault = NotepadPreferenceUtils.getNoteDetailFontSizeDefault(requireContext());
+		int titleFontSize = Math.max(fontSize, fontSizeDefault);
 		noteTitleEditText.setTextSize(TypedValue.COMPLEX_UNIT_SP, titleFontSize);
 		noteContentEditText.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
 
@@ -268,7 +245,7 @@ public class EditNoteFragment extends Fragment
 	}
 
 	@Override
-	public void onSaveInstanceState(Bundle outState)
+	public void onSaveInstanceState(@NonNull Bundle outState)
 	{
 		Log.v(LOG_TAG, "Hello");
 
@@ -285,7 +262,7 @@ public class EditNoteFragment extends Fragment
 	}
 
 	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
+	public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater)
 	{
 		super.onCreateOptionsMenu(menu, inflater);
 		Log.v(LOG_TAG, "Hello");
@@ -297,7 +274,7 @@ public class EditNoteFragment extends Fragment
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
+	public boolean onOptionsItemSelected(@NonNull MenuItem item)
 	{
 		boolean result = true;
 
@@ -329,7 +306,7 @@ public class EditNoteFragment extends Fragment
 			Log.v(LOG_TAG, "note_title_edittext : focused => " + focused);
 			if (focused)
 			{
-				IMEUtils.showSoftKeyboardWindow(getActivity(), view);
+				IMEUtils.showSoftKeyboardWindow(requireContext(), view);
 			}
 		}
 		else if (id == R.id.note_content_edittext)
@@ -337,12 +314,12 @@ public class EditNoteFragment extends Fragment
 			Log.v(LOG_TAG, "note_content_edittext : focused => " + focused);
 			if (focused)
 			{
-				IMEUtils.showSoftKeyboardWindow(getActivity(), view);
+				IMEUtils.showSoftKeyboardWindow(requireContext(), view);
 			}
 
 			if (actionBarAutoHide)
 			{
-				ActionBar actionBar = getActivity().getActionBar();
+				ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
 				if (actionBar != null)
 				{
 					if (focused)
@@ -374,10 +351,10 @@ public class EditNoteFragment extends Fragment
 		{ // note is modified
 			Log.d(LOG_TAG, "The note is modified, and save to DB.");
 
-			ContentResolver contentResolver = getActivity().getContentResolver();
+			ContentResolver contentResolver = requireActivity().getContentResolver();
 			ContentValues values = new ContentValues();
 			long now = System.currentTimeMillis();
-			if (NoteStore.isNoteItemUri(getActivity(), noteUri))
+			if (NoteStore.isNoteItemUri(requireContext(), noteUri))
 			{
 				// Update
 				values.put(NoteStore.Note.Columns.TITLE, currentNote.getTitle());
@@ -415,12 +392,12 @@ public class EditNoteFragment extends Fragment
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		LoaderManager loaderManager = getLoaderManager();
+		LoaderManager loaderManager = LoaderManager.getInstance(this);
 		Loader loader = loaderManager.getLoader(NOTE_LOADER_ID);
 		Log.d(LOG_TAG, "loader => " + loader);
 
 		Log.d(LOG_TAG, "noteUri => " + noteUri);
-		if (NoteStore.isNoteItemUri(getActivity(), noteUri))
+		if (NoteStore.isNoteItemUri(requireContext(), noteUri))
 		{
 			loaderManager.restartLoader(NOTE_LOADER_ID, null, this);
 			Log.d(LOG_TAG, "restartLoader()");
@@ -435,30 +412,27 @@ public class EditNoteFragment extends Fragment
 	}
 
 	// BEGIN ---------- LoaderManager.LoaderCallbacks<Cursor> ----------
-	public Loader<Cursor> onCreateLoader(int i, Bundle bundle)
+	@NonNull
+	@Override
+	public Loader<Cursor> onCreateLoader(int i, @Nullable Bundle bundle)
 	{
-		CursorLoader cursorLoader = null;
-
 		Log.v(LOG_TAG, "Hello");
 		Log.d(LOG_TAG, "noteUri => " + noteUri);
 
-		if (NoteStore.isNoteItemUri(getActivity(), noteUri))
-		{
-			cursorLoader = new CursorLoader(getActivity(), noteUri,
-					null, null, null, null);
-		}
+		CursorLoader cursorLoader = new CursorLoader(requireContext(), noteUri, null, null, null, null);
 
 		Log.v(LOG_TAG, "cursorLoader => " + cursorLoader);
 		Log.v(LOG_TAG, "Bye");
 		return cursorLoader;
 	}
 
-	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor)
+	@Override
+	public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor)
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		Log.d(LOG_TAG, "getActivity().isFinishing() => " + getActivity().isFinishing());
-		if (getActivity().isFinishing() == false)
+		Log.d(LOG_TAG, "requireActivity().isFinishing() => " + requireActivity().isFinishing());
+		if (requireActivity().isFinishing() == false)
 		{
 			if (cursor != null)
 			{
@@ -486,7 +460,8 @@ public class EditNoteFragment extends Fragment
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	public void onLoaderReset(Loader<Cursor> loader)
+	@Override
+	public void onLoaderReset(@NonNull Loader<Cursor> loader)
 	{
 		Log.v(LOG_TAG, "Hello");
 
@@ -571,7 +546,7 @@ public class EditNoteFragment extends Fragment
 		currentNote.setTitleLocked(noteTitleLocked);
 
 		// append text
-		if (TextUtils.isEmpty(appendText) == false)
+		if (!TextUtils.isEmpty(appendText))
 		{
 			String newContent = currentNote.getContent() + "\n" + appendText;
 			currentNote.setContent(newContent);
@@ -610,16 +585,15 @@ public class EditNoteFragment extends Fragment
 
 		if (viewIsInflated)
 		{
-			if ((TextUtils.isEmpty(currentNote.getTitle()) == false)
-					&& (TextUtils.isEmpty(currentNote.getContent()) == true))
+			if ((TextUtils.isEmpty(currentNote.getTitle()) == false) && (TextUtils.isEmpty(currentNote.getContent()) == true))
 			{
 //				IMEUtils.requestKeyboardFocus(noteContentEditText); // 
-				IMEUtils.requestSoftKeyboardWindow(getActivity(), noteContentEditText);
+				IMEUtils.requestSoftKeyboardWindow(requireContext(), noteContentEditText);
 			}
 			else
 			{
 //				IMEUtils.requestKeyboardFocus(noteTitleEditText);
-				IMEUtils.requestSoftKeyboardWindow(getActivity(), noteTitleEditText);
+				IMEUtils.requestSoftKeyboardWindow(requireContext(), noteTitleEditText);
 			}
 		}
 		Log.v(LOG_TAG, "Bye");
@@ -644,7 +618,7 @@ public class EditNoteFragment extends Fragment
 		Log.d(LOG_TAG, "currentNote => " + currentNote);
 		Log.d(LOG_TAG, "originalNote => " + originalNote);
 
-		if (currentNote.equals(originalNote) == false)
+		if (!currentNote.equals(originalNote))
 		{
 			result = true;
 		}
@@ -662,20 +636,22 @@ public class EditNoteFragment extends Fragment
 //		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
 		saveNote();
 
-		int noteTemplateCount = NoteStore.getNoteTemplateCount(getActivity().getContentResolver());
+		int noteTemplateCount = NoteStore.getNoteTemplateCount(requireActivity().getContentResolver());
 		Log.d(LOG_TAG, "noteTemplateCount => " + noteTemplateCount);
 		if (noteTemplateCount >= 2)
 		{
 			NoteTemplatePickerDialogFragment dialogFragment = new NoteTemplatePickerDialogFragment();
-			dialogFragment.show(getFragmentManager(), FT_NOTE_TEMPLATE_PICKER);
+			dialogFragment.show(getParentFragmentManager(), FT_NOTE_TEMPLATE_PICKER);
 		}
 		else if (noteTemplateCount == 1)
 		{
-			NoteUtils.startActivityToAddNewNoteWithFirstTemplate(getActivity());
+			Intent intentForAddNewNoteWithFirstTemplate = NoteUtils.getIntentForAddNewNoteWithFirstTemplate(requireActivity());
+			startActivity(intentForAddNewNoteWithFirstTemplate);
 		}
 		else
 		{
-			NoteUtils.startActivityToAddNewBlankNote(getActivity());
+			Intent intentForAddNewBlankNote = NoteUtils.getIntentForAddNewBlankNote(requireActivity());
+			startActivity(intentForAddNewBlankNote);
 		}
 
 		Log.v(LOG_TAG, "Bye");
@@ -687,7 +663,7 @@ public class EditNoteFragment extends Fragment
 
 		String noteTitle = noteTitleEditText.getText().toString();
 		String noteContent = noteContentEditText.getText().toString();
-		NoteUtils.shareNote(getActivity(), noteTitle, noteContent);
+		NoteUtils.shareNote(requireActivity(), noteTitle, noteContent);
 
 		Log.v(LOG_TAG, "Bye");
 
@@ -743,58 +719,4 @@ public class EditNoteFragment extends Fragment
 			}
 		}
 	}
-
-
-	/*
-
-	class LockTitleDialogFragment extends DialogFragment
-		implements DialogInterface.OnClickListener
-	{
-
-		@Override
-		public Dialog onCreateDialog(Bundle savedInstanceState)
-		{
-			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-			builder.setTitle(R.string.lock_title);
-			builder.setMessage(R.string.lock_title_confirm);
-			builder.setPositiveButton(android.R.string.ok, this);
-			builder.setNegativeButton(android.R.string.cancel, this);
-
-			return builder.create();
-		}
-
-		public void onClick(DialogInterface di, int which)
-		{
-			if (which == Dialog.BUTTON_POSITIVE)
-			{
-				setNoteTitleLocked(true);
-			}
-		}
-	}
-
-	class UnlockTitleDialogFragment extends DialogFragment
-		implements DialogInterface.OnClickListener
-	{
-
-		@Override
-		public Dialog onCreateDialog(Bundle savedInstanceState)
-		{
-			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-			builder.setTitle(R.string.unlock_title);
-			builder.setMessage(R.string.unlock_title_confirm);
-			builder.setPositiveButton(android.R.string.ok, this);
-			builder.setNegativeButton(android.R.string.cancel, this);
-
-			return builder.create();
-		}
-
-		public void onClick(DialogInterface di, int which)
-		{
-			if (which == Dialog.BUTTON_POSITIVE)
-			{
-				setNoteTitleLocked(false);
-			}
-		}
-	}
-	 */
 }

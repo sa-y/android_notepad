@@ -23,15 +23,16 @@
  */
 package org.routine_work.notepad.prefs;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.routine_work.notepad.R;
 
-public class InitializePreferenceActivity extends Activity implements OnClickListener
+public class InitializePreferenceActivity extends AppCompatActivity implements OnClickListener
 {
 
 	public static final String LOG_TAG = "simple-battery-logger";

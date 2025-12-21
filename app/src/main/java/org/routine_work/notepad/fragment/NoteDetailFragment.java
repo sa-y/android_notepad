@@ -23,11 +23,7 @@
  */
 package org.routine_work.notepad.fragment;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.LoaderManager;
-import android.content.CursorLoader;
-import android.content.Loader;
+import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -37,6 +33,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
 
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
@@ -91,14 +94,14 @@ public class NoteDetailFragment extends Fragment
 	}
 
 	@Override
-	public void onAttach(Activity activity)
+	public void onAttach(@NonNull Context context)
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		super.onAttach(activity);
-		if (activity instanceof NoteDetailEventCallback)
+		super.onAttach(context);
+		if (context instanceof NoteDetailEventCallback)
 		{
-			noteDetailEventCallback = (NoteDetailEventCallback) activity;
+			noteDetailEventCallback = (NoteDetailEventCallback) context;
 		}
 
 		Log.v(LOG_TAG, "Bye");
@@ -138,13 +141,13 @@ public class NoteDetailFragment extends Fragment
 	}
 
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState)
+	public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
 	{
 		Log.v(LOG_TAG, "Hello");
-		super.onActivityCreated(savedInstanceState);
+		super.onViewCreated(view, savedInstanceState);
 
 		Log.d(LOG_TAG, "LoaderManager.initLoader()");
-		LoaderManager loaderManager = getLoaderManager();
+		LoaderManager loaderManager = LoaderManager.getInstance(this);
 		loaderManager.initLoader(NOTE_LOADER_ID, null, this);
 
 		Log.v(LOG_TAG, "Bye");
@@ -170,8 +173,8 @@ public class NoteDetailFragment extends Fragment
 		Log.v(LOG_TAG, "Hello");
 		super.onResume();
 
-		int fontSize = NotepadPreferenceUtils.getNoteDetailFontSize(this.getActivity());
-		int fontSizeDefault = NotepadPreferenceUtils.getNoteDetailFontSizeDefault(this.getActivity());
+		int fontSize = NotepadPreferenceUtils.getNoteDetailFontSize(requireContext());
+		int fontSizeDefault = NotepadPreferenceUtils.getNoteDetailFontSizeDefault(requireContext());
 		int titleFontSize = (fontSize > fontSizeDefault) ? fontSize : fontSizeDefault;
 		noteTitleTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, titleFontSize);
 		noteContentTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
@@ -180,7 +183,7 @@ public class NoteDetailFragment extends Fragment
 	}
 
 	@Override
-	public void onSaveInstanceState(Bundle outState)
+	public void onSaveInstanceState(@NonNull Bundle outState)
 	{
 		Log.v(LOG_TAG, "Hello");
 
@@ -221,25 +224,28 @@ public class NoteDetailFragment extends Fragment
 	}
 
 	// BEGIN ---------- LoaderManager.LoaderCallbacks<Cursor> ----------
+	@NonNull
+	@Override
 	public Loader<Cursor> onCreateLoader(int i, Bundle bundle)
 	{
-		CursorLoader cursorLoader = null;
-
 		Log.v(LOG_TAG, "Hello");
 		Log.d(LOG_TAG, "this.noteUri => " + this.noteUri);
 
-		if (NoteStore.isNoteItemUri(getActivity(), noteUri))
+		CursorLoader cursorLoader = null;
+		if (NoteStore.isNoteItemUri(requireContext(), noteUri))
 		{
-			cursorLoader = new CursorLoader(getActivity(),
+			cursorLoader = new CursorLoader(requireContext(),
 					noteUri, null, null, null, null);
 		}
 
 		Log.v(LOG_TAG, "cursorLoader => " + cursorLoader);
 		Log.v(LOG_TAG, "Bye");
+		// Note: return null might cause issues in some versions, but CursorLoader is expected.
 		return cursorLoader;
 	}
 
-	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor)
+	@Override
+	public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor)
 	{
 		Log.v(LOG_TAG, "Hello");
 
@@ -261,7 +267,8 @@ public class NoteDetailFragment extends Fragment
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	public void onLoaderReset(Loader<Cursor> loader)
+	@Override
+	public void onLoaderReset(@NonNull Loader<Cursor> loader)
 	{
 		Log.v(LOG_TAG, "Hello");
 

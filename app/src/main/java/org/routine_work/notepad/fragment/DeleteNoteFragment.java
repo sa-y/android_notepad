@@ -33,6 +33,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.utils.NotepadConstants;
@@ -68,7 +70,7 @@ public class DeleteNoteFragment extends NoteDetailFragment implements NotepadCon
 	}
 
 	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater)
+	public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater)
 	{
 		Log.v(LOG_TAG, "Hello");
 
@@ -79,7 +81,7 @@ public class DeleteNoteFragment extends NoteDetailFragment implements NotepadCon
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
+	public boolean onOptionsItemSelected(@NonNull MenuItem item)
 	{
 		boolean result;
 		Log.v(LOG_TAG, "Hello");
@@ -88,8 +90,8 @@ public class DeleteNoteFragment extends NoteDetailFragment implements NotepadCon
 		{
 			Log.d(LOG_TAG, "delete_note_menuitem");
 			deleteNote();
-			getActivity().setResult(Activity.RESULT_OK);
-			getActivity().finish();
+			requireActivity().setResult(Activity.RESULT_OK);
+			requireActivity().finish();
 			result = true;
 		}
 		else
@@ -105,7 +107,7 @@ public class DeleteNoteFragment extends NoteDetailFragment implements NotepadCon
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		ContentResolver contentResolver = getActivity().getContentResolver();
+		ContentResolver contentResolver = requireActivity().getContentResolver();
 		boolean deleted = NoteStore.deleteNote(contentResolver, getNoteUri());
 		Log.d(LOG_TAG, "deleted => " + deleted);
 

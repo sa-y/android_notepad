@@ -23,10 +23,14 @@
  */
 package org.routine_work.notepad.template;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -81,8 +85,15 @@ public class NoteTemplatePickerDialog extends Dialog
 		Log.v(LOG_TAG, "Hello");
 		if (parent == listView)
 		{
-			NoteUtils.startActivityToAddNewNoteWithTemplate(getOwnerActivity(), id);
-			dismiss();
+			Activity activity = getOwnerActivity();
+			Log.v(LOG_TAG, "activity => " + activity);
+			if (activity != null)
+			{
+				Uri noteTemplateUri = ContentUris.withAppendedId(NoteStore.NoteTemplate.CONTENT_URI, id);
+				Intent intentForAddNewNoteWithTemplate = NoteUtils.getIntentForAddNewNoteWithTemplate(activity, noteTemplateUri);
+				activity.startActivity(intentForAddNewNoteWithTemplate);
+				dismiss();
+			}
 		}
 		Log.v(LOG_TAG, "Bye");
 	}

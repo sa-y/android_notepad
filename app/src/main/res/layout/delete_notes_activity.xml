@@ -5,7 +5,7 @@
 	android:layout_height="fill_parent"
 	android:orientation="horizontal">
 
-	<fragment
+	<androidx.fragment.app.FragmentContainerView
 		android:id="@+id/delete_notes_fragment"
 		android:name="org.routine_work.notepad.fragment.DeleteNotesFragment"
 		android:layout_width="0dip"

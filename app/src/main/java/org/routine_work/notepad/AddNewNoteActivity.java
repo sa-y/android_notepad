@@ -23,10 +23,13 @@
  */
 package org.routine_work.notepad;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
@@ -37,18 +40,32 @@ import org.routine_work.utils.Log;
 /**
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
-public class AddNewNoteActivity extends Activity implements NotepadConstants
+public class AddNewNoteActivity extends AppCompatActivity implements NotepadConstants
 {
 
 	private static final String LOG_TAG = "simple-notepad";
+	private final ActivityResultLauncher<Intent> pickTemplateLauncher =
+			registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result ->
+			{
+				if (result.getResultCode() == RESULT_OK)
+				{
+					Intent intent = result.getData();
+					if (intent != null)
+					{
+						Uri noteTemplateUri = intent.getData();
+//						NoteUtils.startActivityToAddNewNoteWithTemplate(this, noteTemplateUri);
+						Intent intentForAddNewNoteWithTemplate = NoteUtils.getIntentForAddNewNoteWithTemplate(this, noteTemplateUri);
+						startActivity(intentForAddNewNoteWithTemplate);
+					}
+				}
+				setResult(result.getResultCode());
+				finish();
+			});
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		Log.v(LOG_TAG, "Hello");
-		setTheme(NotepadPreferenceUtils.getTheme(this));
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.add_new_note_activity);
 
 		// initialize noteTemplateUri
 		Uri noteTemplateUri = null;
@@ -62,7 +79,8 @@ public class AddNewNoteActivity extends Activity implements NotepadConstants
 		// create note or select template
 		if (noteTemplateUri != null)
 		{
-			NoteUtils.startActivityToAddNewNoteWithTemplate(this, noteTemplateUri);
+			Intent intentForAddNewNoteWithTemplate = NoteUtils.getIntentForAddNewNoteWithTemplate(this, noteTemplateUri);
+			startActivity(intentForAddNewNoteWithTemplate);
 			finish();
 		}
 		else
@@ -71,34 +89,30 @@ public class AddNewNoteActivity extends Activity implements NotepadConstants
 			if (noteTemplateCount >= 2)
 			{
 				Intent pickNoteTemplateIntent = new Intent(Intent.ACTION_PICK, NoteStore.NoteTemplate.CONTENT_URI);
-				startActivityForResult(pickNoteTemplateIntent, REQUEST_CODE_PICK_NOTE_TEMPLATE);
+				pickTemplateLauncher.launch(pickNoteTemplateIntent);
 			}
 			else if (noteTemplateCount == 1)
 			{
-				NoteUtils.startActivityToAddNewNoteWithFirstTemplate(this);
+				Intent intentForAddNewNoteWithFirstTemplate = NoteUtils.getIntentForAddNewNoteWithFirstTemplate(this);
+				startActivity(intentForAddNewNoteWithFirstTemplate);
 				finish();
 			}
 			else
 			{
-				NoteUtils.startActivityToAddNewBlankNote(this);
+				Intent intentForAddNewBlankNote = NoteUtils.getIntentForAddNewBlankNote(this);
+				startActivity(intentForAddNewBlankNote);
 				finish();
 			}
 		}
-		Log.v(LOG_TAG, "Bye");
-	}
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data)
-	{
-		if (requestCode == REQUEST_CODE_PICK_NOTE_TEMPLATE)
+		if (!isFinishing())
 		{
-			if (resultCode == RESULT_OK)
-			{
-				Uri noteTemplateUri = data.getData();
-				NoteUtils.startActivityToAddNewNoteWithTemplate(this, noteTemplateUri);
-			}
-			setResult(resultCode);
-			finish();
+			Log.v(LOG_TAG, "is not finishing.");
+			Log.v(LOG_TAG, "Initialize UI.");
+			setTheme(NotepadPreferenceUtils.getTheme(this));
+			super.onCreate(savedInstanceState);
+			setContentView(R.layout.add_new_note_activity);
 		}
+		Log.v(LOG_TAG, "Bye");
 	}
 }

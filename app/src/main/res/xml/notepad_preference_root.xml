@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- res/xml/root_preferences.xml -->
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<Preference
+    app:fragment="org.routine_work.notepad.prefs.DisplayPreferenceFragment"
+    app:title="@string/display_screen_title" />
+
+<Preference
+    app:fragment="org.routine_work.notepad.prefs.ShareDataPreferenceFragment"
+    app:title="@string/share_data_screen_title" />
+
+<Preference
+    app:fragment="org.routine_work.notepad.prefs.BackupAndResetPreferenceFragment"
+    app:title="@string/backup_and_reset_screen_title" />
+
+<Preference
+    app:fragment="org.routine_work.notepad.prefs.AboutAppPreferenceFragment"
+    app:title="@string/about_app_title" />
+
+</PreferenceScreen>

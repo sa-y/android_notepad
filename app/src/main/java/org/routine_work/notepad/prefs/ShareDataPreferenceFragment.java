@@ -28,13 +28,14 @@ import android.content.ComponentName;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
+
+import androidx.preference.PreferenceFragmentCompat;
 
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.ReceiveTextActivity;
 import org.routine_work.utils.Log;
 
-public class ShareDataPreferenceFragment extends PreferenceFragment
+public class ShareDataPreferenceFragment extends PreferenceFragmentCompat
 		implements SharedPreferences.OnSharedPreferenceChangeListener
 {
 
@@ -43,13 +44,13 @@ public class ShareDataPreferenceFragment extends PreferenceFragment
 	private SharedPreferences sharedPreferences;
 
 	@Override
-	public void onCreate(Bundle savedInstanceState)
+	public void onCreatePreferences(Bundle savedInstanceState, String rootKey)
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		super.onCreate(savedInstanceState);
-		addPreferencesFromResource(R.xml.notepad_preference_share_data);
+		setPreferencesFromResource(R.xml.notepad_preference_share_data, rootKey);
 		sharedPreferences = getPreferenceManager().getSharedPreferences();
+		updateReceiveTextComponentState();
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -82,15 +83,24 @@ public class ShareDataPreferenceFragment extends PreferenceFragment
 		Log.i(LOG_TAG, "shared preference " + key + " is changed.");
 
 		final String receiveTextKey = getString(R.string.receive_text_key);
-		if (key.equals(receiveTextKey))
+		if (receiveTextKey.equals(key))
 		{
-			// update component enable/disable
-			boolean defaultValue = getResources().getBoolean(R.bool.receive_text_default_value);
-			boolean receiveTextEnabled = prefs.getBoolean(key, defaultValue);
-			setReceiveTextComponentEnabled(receiveTextEnabled);
+			updateReceiveTextComponentState();
 		}
 
 		Log.v(LOG_TAG, "Bye");
+	}
+
+	private void updateReceiveTextComponentState()
+	{
+		if (!isAdded())
+		{
+			return;
+		}
+		final String receiveTextKey = getString(R.string.receive_text_key);
+		boolean defaultValue = getResources().getBoolean(R.bool.receive_text_default_value);
+		boolean receiveTextEnabled = sharedPreferences.getBoolean(receiveTextKey, defaultValue);
+		setReceiveTextComponentEnabled(receiveTextEnabled);
 	}
 
 	private void setReceiveTextComponentEnabled(boolean enabled)
@@ -109,6 +119,11 @@ public class ShareDataPreferenceFragment extends PreferenceFragment
 		}
 
 		Activity activity = getActivity();
+		if (activity == null)
+		{
+			Log.w(LOG_TAG, "activity is null");
+			return;
+		}
 		PackageManager packageManager = activity.getPackageManager();
 		ComponentName componentName = new ComponentName(activity.getApplicationContext(), ReceiveTextActivity.class);
 		packageManager.setComponentEnabledSetting(componentName, newState, PackageManager.DONT_KILL_APP); // dont stop

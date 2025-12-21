@@ -23,7 +23,6 @@
  */
 package org.routine_work.notepad.about;
 
-import android.app.Activity;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -33,6 +32,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.routine_work.notepad.BuildConfig;
 import org.routine_work.notepad.NotepadActivity;
@@ -45,7 +46,7 @@ import java.util.Date;
 /**
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
-public class AppVersionActivity extends Activity
+public class AppVersionActivity extends AppCompatActivity
 {
 
 	private static final String LOG_TAG = "simple-battery-logger";

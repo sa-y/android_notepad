@@ -23,13 +23,9 @@
  */
 package org.routine_work.notepad.template;
 
-import android.app.ListActivity;
-import android.app.LoaderManager;
 import android.content.ContentResolver;
 import android.content.ContentUris;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -44,6 +40,15 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
+
 import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
@@ -54,7 +59,7 @@ import org.routine_work.utils.Log;
 /**
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
-public class NoteTemplateListActivity extends ListActivity
+public class NoteTemplateListActivity extends AppCompatActivity
 		implements AdapterView.OnItemClickListener, NoteTemplateConstants,
 		LoaderManager.LoaderCallbacks<Cursor>
 {
@@ -64,6 +69,16 @@ public class NoteTemplateListActivity extends ListActivity
 	// instances
 	private String currentAction;
 	private SimpleCursorAdapter listAdapter;
+
+	private final ActivityResultLauncher<Intent> editNoteTemplateLauncher =
+			registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result ->
+			{
+				Log.v(LOG_TAG, "editNoteTemplateLauncher result => " + result.getResultCode());
+				if (result.getResultCode() == RESULT_OK)
+				{
+					listAdapter.notifyDataSetChanged();
+				}
+			});
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
@@ -171,7 +186,9 @@ public class NoteTemplateListActivity extends ListActivity
 	}
 
 	// BEGIN ---------- LoaderManager.LoaderCallbacks<Cursor> ----------
-	public Loader<Cursor> onCreateLoader(int id, Bundle bundle)
+	@NonNull
+	@Override
+	public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle bundle)
 	{
 		Log.v(LOG_TAG, "Hello");
 
@@ -188,7 +205,8 @@ public class NoteTemplateListActivity extends ListActivity
 		return cursorLoader;
 	}
 
-	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor)
+	@Override
+	public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor)
 	{
 		Log.v(LOG_TAG, "Hello");
 		Log.d(LOG_TAG, "cursor => " + cursor);
@@ -196,7 +214,8 @@ public class NoteTemplateListActivity extends ListActivity
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	public void onLoaderReset(Loader<Cursor> loader)
+	@Override
+	public void onLoaderReset(@NonNull Loader<Cursor> loader)
 	{
 		Log.v(LOG_TAG, "Hello");
 		listAdapter.swapCursor(null);
@@ -215,15 +234,15 @@ public class NoteTemplateListActivity extends ListActivity
 
 		NotepadActivity.enableHomeButton(this);
 
+		ListView listView = findViewById(android.R.id.list);
 		listAdapter = new SimpleCursorAdapter(this,
 				android.R.layout.simple_list_item_1, null,
-				NOTE_TEMPLATE_LIST_MAPPING_FROM, NOTE_TEMPLATE_LIST_MAPPING_TO);
-		setListAdapter(listAdapter);
+				NOTE_TEMPLATE_LIST_MAPPING_FROM, NOTE_TEMPLATE_LIST_MAPPING_TO, 0);
+		listView.setAdapter(listAdapter);
 
-		LoaderManager loaderManager = getLoaderManager();
+		LoaderManager loaderManager = LoaderManager.getInstance(this);
 		loaderManager.initLoader(NOTE_TEMPLATE_LOADER_ID, null, this);
 
-		ListView listView = getListView();
 		listView.setOnItemClickListener(this);
 
 		Intent intent = getIntent();
@@ -250,30 +269,17 @@ public class NoteTemplateListActivity extends ListActivity
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data)
-	{
-		Log.v(LOG_TAG, "Hello");
-
-		if (resultCode == RESULT_OK)
-		{
-			listAdapter.notifyDataSetChanged();
-		}
-
-		Log.v(LOG_TAG, "Bye");
-	}
-
 	private void startAddNewNoteTemplateActivity()
 	{
 		Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.NoteTemplate.CONTENT_URI);
-		startActivityForResult(intent, REQUEST_CODE_ADD_NOTE_TEMPLATE);
+		editNoteTemplateLauncher.launch(intent);
 	}
 
 	private void startEditNoteTemplateActivityById(long id)
 	{
 		Uri noteTemplateUri = ContentUris.withAppendedId(NoteStore.NoteTemplate.CONTENT_URI, id);
 		Intent editNoteTemplateIntent = new Intent(Intent.ACTION_EDIT, noteTemplateUri);
-		startActivityForResult(editNoteTemplateIntent, REQUEST_CODE_EDIT_NOTE_TEMPLATE);
+		editNoteTemplateLauncher.launch(editNoteTemplateIntent);
 	}
 
 	private void deleteNoteTemplateById(long id)
