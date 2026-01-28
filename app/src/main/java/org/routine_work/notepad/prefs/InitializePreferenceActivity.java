@@ -24,13 +24,18 @@
 package org.routine_work.notepad.prefs;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
+import org.routine_work.utils.Log;
 
 public class InitializePreferenceActivity extends AppCompatActivity implements OnClickListener
 {
@@ -43,6 +48,8 @@ public class InitializePreferenceActivity extends AppCompatActivity implements O
 		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.initialize_preference_activity);
+
+		NotepadActivity.enableHomeButton(this);
 
 		Button okButton = (Button) findViewById(R.id.ok_button);
 		okButton.setOnClickListener(this);
@@ -67,4 +74,41 @@ public class InitializePreferenceActivity extends AppCompatActivity implements O
 		}
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		MenuInflater menuInflater = getMenuInflater();
+		menuInflater.inflate(R.menu.quit_option_menu, menu);
+
+		Log.v(LOG_TAG, "Bye");
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		boolean result = true;
+		Log.v(LOG_TAG, "Hello");
+
+		Log.d(LOG_TAG, "item.getItemId() => " + item.getItemId());
+		int itemId = item.getItemId();
+		if (itemId == android.R.id.home)
+		{
+			finish();
+		}
+		else if (itemId == R.id.quit_menuitem)
+		{
+			NotepadActivity.quitApplication(this);
+			finish();
+		}
+		else
+		{
+			result = super.onOptionsItemSelected(item);
+		}
+
+		Log.v(LOG_TAG, "Bye");
+		return result;
+	}
 }

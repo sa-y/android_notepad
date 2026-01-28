@@ -26,11 +26,16 @@ package org.routine_work.notepad.prefs;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.routine_work.notepad.NotepadActivity;
@@ -46,7 +51,25 @@ import java.io.OutputStream;
 public class RestoreDatabaseActivity extends AppCompatActivity implements OnClickListener
 {
 	private static final String LOG_TAG = "simple-notepad";
-	static final int REQUEST_CODE_SELECT_STORAGE_FILE = 1001;
+
+	private final ActivityResultLauncher<Intent> selectStorageFileLauncher =
+			registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result ->
+			{
+				if (result.getResultCode() == RESULT_OK)
+				{
+					Intent data = result.getData();
+					if (data != null && data.getData() != null)
+					{
+						Uri backupFileUri = data.getData();
+						Log.d(LOG_TAG, "selected backupFileUri => " + backupFileUri);
+						boolean success = restoreDatabaseFile(backupFileUri);
+						if (success)
+						{
+							NotepadActivity.quitApplication(this);
+						}
+					}
+				}
+			});
 
 	@Override
 	public void onClick(View view)
@@ -70,6 +93,8 @@ public class RestoreDatabaseActivity extends AppCompatActivity implements OnClic
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.restore_database_activity);
 
+		NotepadActivity.enableHomeButton(this);
+
 		// Init Views
 		Button okButton = (Button) findViewById(R.id.ok_button);
 		okButton.setOnClickListener(this);
@@ -78,24 +103,41 @@ public class RestoreDatabaseActivity extends AppCompatActivity implements OnClic
 	}
 
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	public boolean onCreateOptionsMenu(Menu menu)
 	{
-		super.onActivityResult(requestCode, resultCode, data);
-		switch (requestCode)
+		Log.v(LOG_TAG, "Hello");
+
+		MenuInflater menuInflater = getMenuInflater();
+		menuInflater.inflate(R.menu.quit_option_menu, menu);
+
+		Log.v(LOG_TAG, "Bye");
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		boolean result = true;
+		Log.v(LOG_TAG, "Hello");
+
+		Log.d(LOG_TAG, "item.getItemId() => " + item.getItemId());
+		int itemId = item.getItemId();
+		if (itemId == android.R.id.home)
 		{
-			case REQUEST_CODE_SELECT_STORAGE_FILE:
-				if (data != null && data.getData() != null)
-				{
-					Uri backupFileUri = data.getData();
-					Log.d(LOG_TAG, "selected backupFileUri => " + backupFileUri);
-					boolean success = restoreDatabaseFile(backupFileUri);
-					if(success)
-					{
-						NotepadActivity.quitApplication(this);
-					}
-				}
-				break;
+			finish();
 		}
+		else if (itemId == R.id.quit_menuitem)
+		{
+			NotepadActivity.quitApplication(this);
+			finish();
+		}
+		else
+		{
+			result = super.onOptionsItemSelected(item);
+		}
+
+		Log.v(LOG_TAG, "Bye");
+		return result;
 	}
 
 	private void selectStorageFileToRestore()
@@ -105,7 +147,7 @@ public class RestoreDatabaseActivity extends AppCompatActivity implements OnClic
 		Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
 		intent.addCategory(Intent.CATEGORY_OPENABLE);
 		intent.setType("*/*");
-		startActivityForResult(intent, REQUEST_CODE_SELECT_STORAGE_FILE);
+		selectStorageFileLauncher.launch(intent);
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -121,7 +163,8 @@ public class RestoreDatabaseActivity extends AppCompatActivity implements OnClic
 			return result;
 		}
 
-		if (!isSQLiteDatabase(backupFileUri)) {
+		if (!isSQLiteDatabase(backupFileUri))
+		{
 			Log.e(LOG_TAG, "Selected file is not a valid SQLite database file: " + backupFileUri);
 			Toast.makeText(this, R.string.selected_file_is_invalid, Toast.LENGTH_LONG).show();
 			return result;
@@ -169,7 +212,7 @@ public class RestoreDatabaseActivity extends AppCompatActivity implements OnClic
 
 			// ファイルからヘッダー部分を読み込む
 			int bytesRead = inputStream.read(fileHeader, 0, fileHeader.length);
-			if (bytesRead == -1 ||  bytesRead < fileHeader.length)
+			if (bytesRead == -1 || bytesRead < fileHeader.length)
 			{
 				return false;
 			}

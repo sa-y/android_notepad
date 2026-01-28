@@ -28,6 +28,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -36,6 +39,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.utils.Log;
@@ -76,6 +80,8 @@ public class BackupDatabaseActivity extends AppCompatActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.backup_database_activity);
 
+		NotepadActivity.enableHomeButton(this);
+
 		Button okButton = findViewById(R.id.ok_button);
 		okButton.setOnClickListener(this);
 		Button cancelButton = findViewById(R.id.cancel_button);
@@ -90,6 +96,44 @@ public class BackupDatabaseActivity extends AppCompatActivity
 		Log.v(LOG_TAG, "Hello");
 		super.onResume();
 		Log.v(LOG_TAG, "Bye");
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		MenuInflater menuInflater = getMenuInflater();
+		menuInflater.inflate(R.menu.quit_option_menu, menu);
+
+		Log.v(LOG_TAG, "Bye");
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		boolean result = true;
+		Log.v(LOG_TAG, "Hello");
+
+		Log.d(LOG_TAG, "item.getItemId() => " + item.getItemId());
+		int itemId = item.getItemId();
+		if (itemId == android.R.id.home)
+		{
+			finish();
+		}
+		else if (itemId == R.id.quit_menuitem)
+		{
+			NotepadActivity.quitApplication(this);
+			finish();
+		}
+		else
+		{
+			result = super.onOptionsItemSelected(item);
+		}
+
+		Log.v(LOG_TAG, "Bye");
+		return result;
 	}
 
 	@Override
