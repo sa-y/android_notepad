@@ -60,7 +60,7 @@ public class NotepadPreferenceActivity extends AppCompatActivity
 		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_notepad_preference);
-		Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+		NotepadActivity.enableHomeButton(this);
 
 		if (savedInstanceState == null)
 		{
@@ -130,6 +130,7 @@ public class NotepadPreferenceActivity extends AppCompatActivity
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
+		Log.v(LOG_TAG, "Hello");
 		boolean result = true;
 
 		int itemId = item.getItemId();
@@ -139,13 +140,16 @@ public class NotepadPreferenceActivity extends AppCompatActivity
 		}
 		else if (itemId == android.R.id.home)
 		{
+			Log.v(LOG_TAG, "android.R.id.home is clicked.");
 			if (getSupportFragmentManager().getBackStackEntryCount() > 0)
 			{
+				Log.v(LOG_TAG, "pop back stack.");
 				getSupportFragmentManager().popBackStack();
 				setTitle(R.string.preferences_title);
 			}
 			else
 			{
+				Log.v(LOG_TAG, "finish activity.");
 				finish();
 			}
 		}
@@ -154,6 +158,7 @@ public class NotepadPreferenceActivity extends AppCompatActivity
 			result = super.onOptionsItemSelected(item);
 		}
 
+		Log.v(LOG_TAG, "Bye");
 		return result;
 	}
 }
