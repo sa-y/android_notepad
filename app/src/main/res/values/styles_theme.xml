@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<!-- EditText (AppCompat の共通スタイルを使用) -->
-	<style name="Widget.Notepad.Dark.EditText" parent="Widget.AppCompat.EditText" >
+	<!-- EditText -->
+	<style name="Widget.Notepad.Dark.EditText" parent="@android:style/Widget.Holo.EditText" >
 		<item name="android:textColor" >@color/primary_text_holo_dark</item>
 	</style>
 
-	<style name="Widget.Notepad.Light.EditText" parent="Widget.AppCompat.EditText" >
+	<style name="Widget.Notepad.Light.EditText" parent="@android:style/Widget.Holo.Light.EditText" >
 		<item name="android:textColor" >@color/primary_text_holo_light</item>
 	</style>
 
 	<!-- Dark Theme -->
-	<style name="Theme.Notepad.Dark" parent="Theme.AppCompat" >
-
+    <style name="Theme.Notepad.Dark" parent="Theme.AppCompat" >
 		<item name="android:textColorPrimary">@color/primary_text_holo_dark</item>
 		<item name="android:textColorSecondary">@color/secondary_text_holo_dark</item>
 		<item name="android:editTextStyle">@style/Widget.Notepad.Dark.EditText</item> 
@@ -29,11 +28,10 @@
 	</style>
 
 	<!-- Light Theme -->
-	<style name="Theme.Notepad.Light" parent="Theme.AppCompat.Light" >
-
+    <style name="Theme.Notepad.Light" parent="Theme.AppCompat.Light" >
 		<item name="android:textColorPrimary">@color/primary_text_holo_light</item>
 		<item name="android:textColorSecondary">@color/secondary_text_holo_light</item>
-		<item name="android:editTextStyle">@style/Widget.Notepad.Light.EditText</item>
+		<item name="android:editTextStyle">@style/Widget.Notepad.Light.EditText</item> 
 
 		<item name="ic_lock">@drawable/ic_lock_light</item>
 		<item name="ic_unlock">@drawable/ic_unlock_light</item>
