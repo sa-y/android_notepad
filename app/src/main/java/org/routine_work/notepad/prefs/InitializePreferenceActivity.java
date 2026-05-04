@@ -32,7 +32,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
 import org.routine_work.utils.Log;
@@ -58,6 +57,18 @@ public class InitializePreferenceActivity extends AppCompatActivity implements O
 	}
 
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		MenuInflater menuInflater = getMenuInflater();
+		menuInflater.inflate(R.menu.quit_option_menu, menu);
+
+		Log.v(LOG_TAG, "Bye");
+		return true;
+	}
+
+	@Override
 	public void onClick(View view)
 	{
 		int id = view.getId();
@@ -72,18 +83,6 @@ public class InitializePreferenceActivity extends AppCompatActivity implements O
 			finish();
 			setResult(RESULT_CANCELED);
 		}
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-		Log.v(LOG_TAG, "Hello");
-
-		MenuInflater menuInflater = getMenuInflater();
-		menuInflater.inflate(R.menu.quit_option_menu, menu);
-
-		Log.v(LOG_TAG, "Bye");
-		return true;
 	}
 
 	@Override

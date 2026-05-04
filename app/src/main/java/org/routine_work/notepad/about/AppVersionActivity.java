@@ -82,7 +82,7 @@ public class AppVersionActivity extends AppCompatActivity
 		}
 		catch (NameNotFoundException ex)
 		{
-			Log.e(LOG_TAG, "Get package infomation failed.", ex);
+			Log.e(LOG_TAG, "Get package information failed.", ex);
 		}
 
 	}

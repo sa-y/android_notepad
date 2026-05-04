@@ -91,14 +91,6 @@ public class BackupDatabaseActivity extends AppCompatActivity
 	}
 
 	@Override
-	protected void onResume()
-	{
-		Log.v(LOG_TAG, "Hello");
-		super.onResume();
-		Log.v(LOG_TAG, "Bye");
-	}
-
-	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		Log.v(LOG_TAG, "Hello");
@@ -114,9 +106,7 @@ public class BackupDatabaseActivity extends AppCompatActivity
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
 		boolean result = true;
-		Log.v(LOG_TAG, "Hello");
 
-		Log.d(LOG_TAG, "item.getItemId() => " + item.getItemId());
 		int itemId = item.getItemId();
 		if (itemId == android.R.id.home)
 		{
@@ -132,9 +122,17 @@ public class BackupDatabaseActivity extends AppCompatActivity
 			result = super.onOptionsItemSelected(item);
 		}
 
-		Log.v(LOG_TAG, "Bye");
 		return result;
 	}
+
+	@Override
+	protected void onResume()
+	{
+		Log.v(LOG_TAG, "Hello");
+		super.onResume();
+		Log.v(LOG_TAG, "Bye");
+	}
+
 
 	@Override
 	public void onClick(View view)
