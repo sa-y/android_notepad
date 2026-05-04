@@ -12,6 +12,7 @@
 		android:layout_marginTop="8dip"
 		android:gravity="left"
 		android:inputType="text"
+		android:importantForAutofill="no"
 		android:visibility="visible" />
 
 	<EditText
@@ -20,5 +21,6 @@
 		android:layout_height="fill_parent"
 		android:gravity="left|top"
 		android:inputType="textMultiLine"
+		android:importantForAutofill="no"
 		android:visibility="gone" />
 </FrameLayout>

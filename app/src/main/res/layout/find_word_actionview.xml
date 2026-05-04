@@ -8,5 +8,6 @@
 	android:singleLine="true"
 	android:inputType="text"
 	android:hint="@string/find_word_hint"
+	android:importantForAutofill="no"
 	android:imeOptions="actionSearch"
 />
