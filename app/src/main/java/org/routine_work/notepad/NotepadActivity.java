@@ -239,16 +239,25 @@ public class NotepadActivity extends AppCompatActivity implements NotepadConstan
 		// setup SearchView 
 		MenuItem searchMenuItem = menu.findItem(R.id.search_notes_menuitem);
 		searchView = (SearchView) searchMenuItem.getActionView();
-		searchView.setIconifiedByDefault(true);
-		searchView.setSubmitButtonEnabled(false);
-
-		searchView.setOnQueryTextListener(this);
-		searchView.setOnCloseListener(this);
-		Log.v(LOG_TAG, "initialQueryString => " + initialQueryString);
-		if (!TextUtils.isEmpty(initialQueryString))
+		if (searchView != null)
 		{
-			searchView.setIconified(false);
-			searchView.setQuery(initialQueryString, true);
+			searchView.setIconifiedByDefault(true);
+			searchView.setSubmitButtonEnabled(false);
+
+			searchView.setOnQueryTextListener(this);
+			searchView.setOnCloseListener(this);
+
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+			{
+				searchView.setImportantForAutofill(View.IMPORTANT_FOR_AUTOFILL_NO);
+			}
+
+			Log.v(LOG_TAG, "initialQueryString => " + initialQueryString);
+			if (!TextUtils.isEmpty(initialQueryString))
+			{
+				searchView.setIconified(false);
+				searchView.setQuery(initialQueryString, true);
+			}
 		}
 		initialQueryString = null;
 

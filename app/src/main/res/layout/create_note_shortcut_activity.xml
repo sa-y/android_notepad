@@ -24,6 +24,7 @@
 			android:layout_marginTop="8dip"
 			android:layout_marginBottom="8dip"
 			android:hint="@string/shortcut_name"
+			android:importantForAutofill="no"
 			android:inputType="text" />
 	</LinearLayout>
 

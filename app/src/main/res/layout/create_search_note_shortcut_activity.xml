@@ -24,6 +24,7 @@
 			android:layout_marginTop="4dip"
 			android:layout_marginBottom="4dip"
 			android:hint="@string/search_query"
+			android:importantForAutofill="no"
 			android:inputType="text" />
 
 		<TextView
@@ -38,6 +39,7 @@
 			android:layout_marginTop="4dip"
 			android:layout_marginBottom="4dip"
 			android:hint="@string/shortcut_name"
+			android:importantForAutofill="no"
 			android:inputType="text" />
 	</LinearLayout>
 

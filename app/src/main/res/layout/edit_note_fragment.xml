@@ -23,6 +23,7 @@
 				android:layout_weight="0"
 				android:hint="@string/title"
 				android:inputType="text"
+				android:importantForAutofill="no"
 				android:textSize="18sp" />
 
 			<ImageButton
@@ -58,6 +59,7 @@
 			android:gravity="left|top"
 			android:hint="@string/text"
 			android:inputType="textMultiLine"
+			android:importantForAutofill="no"
 			android:textSize="18sp" />
 	</LinearLayout>
 </ScrollView>
