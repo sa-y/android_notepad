@@ -27,6 +27,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -69,11 +72,48 @@ public class RestoreDatabaseActivity extends Activity implements OnClickListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.restore_database_activity);
 
+		NotepadActivity.enableHomeButton(this);
+
 		// Init Views
 		Button okButton = (Button) findViewById(R.id.ok_button);
 		okButton.setOnClickListener(this);
 		Button cancelButton = (Button) findViewById(R.id.cancel_button);
 		cancelButton.setOnClickListener(this);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		MenuInflater menuInflater = getMenuInflater();
+		menuInflater.inflate(R.menu.quit_option_menu, menu);
+
+		Log.v(LOG_TAG, "Bye");
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		boolean result = true;
+
+		int itemId = item.getItemId();
+		if (itemId == android.R.id.home)
+		{
+			finish();
+		}
+		else if (itemId == R.id.quit_menuitem)
+		{
+			NotepadActivity.quitApplication(this);
+			finish();
+		}
+		else
+		{
+			result = super.onOptionsItemSelected(item);
+		}
+
+		return result;
 	}
 
 	@Override
@@ -87,7 +127,7 @@ public class RestoreDatabaseActivity extends Activity implements OnClickListener
 					Uri backupFileUri = data.getData();
 					Log.d(LOG_TAG, "selected backupFileUri => " + backupFileUri);
 					boolean success = restoreDatabaseFile(backupFileUri);
-					if(success)
+					if (success)
 					{
 						NotepadActivity.quitApplication(this);
 					}
@@ -122,7 +162,8 @@ public class RestoreDatabaseActivity extends Activity implements OnClickListener
 			return result;
 		}
 
-		if (!isSQLiteDatabase(backupFileUri)) {
+		if (!isSQLiteDatabase(backupFileUri))
+		{
 			Log.e(LOG_TAG, "Selected file is not a valid SQLite database file: " + backupFileUri);
 			Toast.makeText(this, R.string.selected_file_is_invalid, Toast.LENGTH_LONG).show();
 			return result;
@@ -170,7 +211,7 @@ public class RestoreDatabaseActivity extends Activity implements OnClickListener
 
 			// ファイルからヘッダー部分を読み込む
 			int bytesRead = inputStream.read(fileHeader, 0, fileHeader.length);
-			if (bytesRead == -1 ||  bytesRead < fileHeader.length)
+			if (bytesRead == -1 || bytesRead < fileHeader.length)
 			{
 				return false;
 			}

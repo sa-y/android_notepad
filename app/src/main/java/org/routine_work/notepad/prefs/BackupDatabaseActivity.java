@@ -28,10 +28,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.utils.Log;
@@ -57,12 +61,49 @@ public class BackupDatabaseActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.backup_database_activity);
 
+		NotepadActivity.enableHomeButton(this);
+
 		Button okButton = (Button) findViewById(R.id.ok_button);
 		okButton.setOnClickListener(this);
 		Button cancelButton = (Button) findViewById(R.id.cancel_button);
 		cancelButton.setOnClickListener(this);
 
 		Log.v(LOG_TAG, "Bye");
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		MenuInflater menuInflater = getMenuInflater();
+		menuInflater.inflate(R.menu.quit_option_menu, menu);
+
+		Log.v(LOG_TAG, "Bye");
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		boolean result = true;
+
+		int itemId = item.getItemId();
+		if (itemId == android.R.id.home)
+		{
+			finish();
+		}
+		else if (itemId == R.id.quit_menuitem)
+		{
+			NotepadActivity.quitApplication(this);
+			finish();
+		}
+		else
+		{
+			result = super.onOptionsItemSelected(item);
+		}
+
+		return result;
 	}
 
 	@Override

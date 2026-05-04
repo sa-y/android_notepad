@@ -57,6 +57,8 @@ public class AppVersionActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.app_version_activity);
 
+		NotepadActivity.enableHomeButton(this);
+
 		// init package build time
 		Date buildTime = new Date(BuildConfig.BUILD_TIMESTAMP);
 		Log.v(LOG_TAG, "buildTime => " + buildTime.toString());
@@ -79,7 +81,7 @@ public class AppVersionActivity extends Activity
 		}
 		catch (NameNotFoundException ex)
 		{
-			Log.e(LOG_TAG, "Get package infomation failed.", ex);
+			Log.e(LOG_TAG, "Get package information failed.", ex);
 		}
 
 	}
@@ -87,9 +89,12 @@ public class AppVersionActivity extends Activity
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
+		Log.v(LOG_TAG, "Hello");
+
 		MenuInflater menuInflater = getMenuInflater();
 		menuInflater.inflate(R.menu.quit_option_menu, menu);
 
+		Log.v(LOG_TAG, "Bye");
 		return true;
 	}
 
@@ -99,9 +104,14 @@ public class AppVersionActivity extends Activity
 		boolean result = true;
 
 		int itemId = item.getItemId();
-		if (itemId == R.id.quit_menuitem)
+		if (itemId == android.R.id.home)
+		{
+			finish();
+		}
+		else if (itemId == R.id.quit_menuitem)
 		{
 			NotepadActivity.quitApplication(this);
+			finish();
 		}
 		else
 		{
