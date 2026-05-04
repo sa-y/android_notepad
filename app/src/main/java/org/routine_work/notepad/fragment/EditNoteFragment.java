@@ -68,10 +68,6 @@ public class EditNoteFragment extends Fragment
 
 	private static final String LOG_TAG = "simple-notepad";
 	private static final String SAVE_KEY_NOTE_URI = "noteUri";
-	private static final String SAVE_KEY_CURRENT_NOTE = "currentNote";
-	private static final String SAVE_KEY_ORIGINAL_NOTE = "originalNote";
-	private static final String FT_TITLE_LOCK = "FT_TITLE_LOCK";
-	private static final String FT_TITLE_UNLOCK = "FT_TITLE_UNLOCK";
 	private static final String FT_NOTE_TEMPLATE_PICKER = "FT_NOTE_TEMPLATE_PICKER";
 	// views
 	private EditText noteTitleEditText;
@@ -114,17 +110,9 @@ public class EditNoteFragment extends Fragment
 				setNoteUri((Uri) uri);
 			}
 
-			Object currentNoteObj = savedInstanceState.getSerializable(SAVE_KEY_CURRENT_NOTE);
-			if (currentNoteObj instanceof Note)
-			{
-				currentNote.copyFrom((Note) currentNoteObj);
-			}
-
-			Object originalNoteObj = savedInstanceState.getSerializable(SAVE_KEY_ORIGINAL_NOTE);
-			if (originalNoteObj instanceof Note)
-			{
-				originalNote.copyFrom((Note) originalNoteObj);
-			}
+			// Note content is reloaded from ContentProvider via Loader, 
+			// so we don't restore currentNote/originalNote from savedInstanceState 
+			// to avoid TransactionTooLargeException.
 		}
 
 		Log.v(LOG_TAG, "Bye");
@@ -278,8 +266,8 @@ public class EditNoteFragment extends Fragment
 
 		Log.d(LOG_TAG, "Save noteUri=> " + noteUri);
 		outState.putParcelable(SAVE_KEY_NOTE_URI, noteUri);
-		outState.putSerializable(SAVE_KEY_CURRENT_NOTE, currentNote);
-		outState.putSerializable(SAVE_KEY_ORIGINAL_NOTE, originalNote);
+		// Note content is not saved to avoid TransactionTooLargeException.
+		// It will be reloaded from ContentProvider after activity recreation.
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -599,8 +587,16 @@ public class EditNoteFragment extends Fragment
 	{
 		if (viewIsInflated)
 		{
-			noteTitleEditText.setText(currentNote.getTitle());
-			noteContentEditText.setText(currentNote.getContent());
+			String title = currentNote.getTitle();
+			if (!noteTitleEditText.getText().toString().equals(title))
+			{
+				noteTitleEditText.setText(title);
+			}
+			String content = currentNote.getContent();
+			if (!noteContentEditText.getText().toString().equals(content))
+			{
+				noteContentEditText.setText(content);
+			}
 		}
 	}
 
