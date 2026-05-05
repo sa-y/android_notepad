@@ -39,9 +39,9 @@ public interface NotepadConstants
 	int REQUEST_CODE_PICK_NOTE = 106;
 	int REQUEST_CODE_PICK_NOTE_TEMPLATE = 107;
 	int NOTE_LOADER_ID = 0;
+	String PACKAGE_NAME = "org.routine_work.notepad.utils";
 	String EXTRA_TITLE = Intent.EXTRA_TITLE;
 	String EXTRA_TEXT = Intent.EXTRA_TEXT;
-	String EXTRA_TITLE_LOCKED = NotepadConstants.class.getPackage().getName() + ".EXTRA_TITLE_LOCKED";
-	String EXTRA_NOTE_TEMPLATE = NotepadConstants.class.getPackage().getName() + ".EXTRA_NOTE_TEMPLATE";
-	String EXTRA_MODIFIED = NotepadConstants.class.getPackage().getName() + ".EXTRA_MODIFIED";
+	String EXTRA_TITLE_LOCKED = PACKAGE_NAME + ".EXTRA_TITLE_LOCKED";
+	String EXTRA_MODIFIED = PACKAGE_NAME + ".EXTRA_MODIFIED";
 }

@@ -67,8 +67,8 @@ public class NotepadActivity extends Activity implements NotepadConstants,
 		NoteControlCallback, NoteDetailEventCallback,
 		SearchView.OnCloseListener, SearchView.OnQueryTextListener
 {
-
-	public static final String ACTION_QUIT = NotepadActivity.class.getPackage().getName() + ".ACTION_QUIT";
+	public static final String PACKAGE_NAME = "org.routine_work.notepad";
+	public static final String ACTION_QUIT = PACKAGE_NAME + ".ACTION_QUIT";
 	private static final String FT_NOTE_DETAIL = "FT_NOTE_DETAIL";
 	private static final String FT_NOTE_TEMPLATE_PICKER = "FT_NOTE_TEMPLATE_PICKER";
 	private static final String LOG_TAG = "simple-notepad";
