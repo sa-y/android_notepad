@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	style="@style/body"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:fitsSystemWindows="true">
+    style="@style/body"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fitsSystemWindows="true">
 
-	<EditText
-		android:id="@+id/single_line_edittext"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="8dip"
-		android:gravity="left"
-		android:inputType="text"
-		android:importantForAutofill="no"
-		android:visibility="visible" />
+    <EditText
+        android:id="@+id/single_line_edittext"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dip"
+        android:gravity="left"
+        android:inputType="text"
+        android:importantForAutofill="no"
+        android:visibility="visible" />
 
-	<EditText
-		android:id="@+id/multi_line_edittext"
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-		android:gravity="left|top"
-		android:inputType="textMultiLine"
-		android:importantForAutofill="no"
-		android:visibility="gone" />
+    <EditText
+        android:id="@+id/multi_line_edittext"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="left|top"
+        android:inputType="textMultiLine"
+        android:importantForAutofill="no"
+        android:scrollbars="vertical"
+        android:visibility="gone" />
 </FrameLayout>
