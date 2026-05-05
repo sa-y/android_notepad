@@ -46,8 +46,8 @@ import org.routine_work.utils.Log;
  */
 public class EditTextActivity extends AppCompatActivity
 {
-
-	public static final String EXTRA_INPUT_TYPE = EditTextActivity.class.getPackage().getName() + ".INPUT_TYPE";
+	public static final String PACKAGE_NAME = "org.routine_work.notepad.common";
+	public static final String EXTRA_INPUT_TYPE = PACKAGE_NAME + ".INPUT_TYPE";
 	private static final String LOG_TAG = "simple-notepad";
 	private EditText mainEditText;
 
