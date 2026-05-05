@@ -14,7 +14,7 @@ android {
         applicationId = "org.routine_work.notepad"
         minSdk = 24
         targetSdk = 36
-        versionCode = 49
+        versionCode = 51
         versionName = "1.0.21"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
