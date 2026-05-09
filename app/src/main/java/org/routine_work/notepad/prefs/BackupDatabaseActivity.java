@@ -135,6 +135,44 @@ public class BackupDatabaseActivity extends AppCompatActivity
 
 
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		Log.v(LOG_TAG, "Hello");
+
+		MenuInflater menuInflater = getMenuInflater();
+		menuInflater.inflate(R.menu.quit_option_menu, menu);
+
+		Log.v(LOG_TAG, "Bye");
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		boolean result = true;
+		Log.v(LOG_TAG, "Hello");
+
+		Log.d(LOG_TAG, "item.getItemId() => " + item.getItemId());
+		int itemId = item.getItemId();
+		if (itemId == android.R.id.home)
+		{
+			finish();
+		}
+		else if (itemId == R.id.quit_menuitem)
+		{
+			NotepadActivity.quitApplication(this);
+			finish();
+		}
+		else
+		{
+			result = super.onOptionsItemSelected(item);
+		}
+
+		Log.v(LOG_TAG, "Bye");
+		return result;
+	}
+
+	@Override
 	public void onClick(View view)
 	{
 		int id = view.getId();
