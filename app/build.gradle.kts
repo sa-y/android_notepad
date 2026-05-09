@@ -1,8 +1,10 @@
+import com.android.build.api.dsl.ApplicationExtension
+
 plugins {
     alias(libs.plugins.android.application)
 }
 
-android {
+extensions.configure<ApplicationExtension> {
     namespace = "org.routine_work.notepad"
     compileSdk = 37
 
