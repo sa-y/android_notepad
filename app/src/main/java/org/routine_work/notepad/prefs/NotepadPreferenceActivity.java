@@ -71,6 +71,7 @@ public class NotepadPreferenceActivity extends AppCompatActivity
 					.commit();
 		}
 
+		/*
 		if (Build.VERSION.SDK_INT == Build.VERSION_CODES.VANILLA_ICE_CREAM)
 		{
 			View content = findViewById(android.R.id.content);
@@ -92,6 +93,7 @@ public class NotepadPreferenceActivity extends AppCompatActivity
 				});
 			}
 		}
+		 */
 
 		Log.v(LOG_TAG, "Bye");
 	}
