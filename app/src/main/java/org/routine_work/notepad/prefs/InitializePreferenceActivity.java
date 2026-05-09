@@ -50,9 +50,9 @@ public class InitializePreferenceActivity extends AppCompatActivity implements O
 
 		NotepadActivity.enableHomeButton(this);
 
-		Button okButton = (Button) findViewById(R.id.ok_button);
+		Button okButton = findViewById(R.id.ok_button);
 		okButton.setOnClickListener(this);
-		Button cancelButton = (Button) findViewById(R.id.cancel_button);
+		Button cancelButton = findViewById(R.id.cancel_button);
 		cancelButton.setOnClickListener(this);
 	}
 

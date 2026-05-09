@@ -61,6 +61,7 @@ public class NotepadPreferenceActivity extends AppCompatActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_notepad_preference);
 		NotepadActivity.enableHomeButton(this);
+		Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
 		if (savedInstanceState == null)
 		{

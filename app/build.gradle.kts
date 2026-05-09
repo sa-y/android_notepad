@@ -13,7 +13,7 @@ android {
     defaultConfig {
         applicationId = "org.routine_work.notepad"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 37
         versionCode = 52
         versionName = "1.0.21"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

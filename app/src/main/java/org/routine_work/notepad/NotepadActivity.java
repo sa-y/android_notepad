@@ -24,8 +24,6 @@
  */
 package org.routine_work.notepad;
 
-import android.animation.LayoutTransition;
-import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.ContentResolver;
@@ -33,6 +31,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -40,7 +39,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -167,13 +165,13 @@ public class NotepadActivity extends AppCompatActivity implements NotepadConstan
 		layoutWideTwoPaneValue = resources.getString(R.string.note_list_layout_wide_two_value);
 
 		// setup layout transition
-		LayoutTransition layoutTransition = new LayoutTransition();
-		ObjectAnimator fadeIn = ObjectAnimator.ofFloat((Object) null, "alpha", 0f, 1f);
-		layoutTransition.setAnimator(LayoutTransition.APPEARING, fadeIn);
-		layoutTransition.setStartDelay(LayoutTransition.APPEARING, 0);
-		layoutTransition.setDuration(LayoutTransition.APPEARING, 300);
-		LinearLayout noteDetailContainer = (LinearLayout) findViewById(R.id.note_detail_container);
-		noteDetailContainer.setLayoutTransition(layoutTransition);
+//		LayoutTransition layoutTransition = new LayoutTransition();
+//		ObjectAnimator fadeIn = ObjectAnimator.ofFloat((Object) null, "alpha", 0f, 1f);
+//		layoutTransition.setAnimator(LayoutTransition.APPEARING, fadeIn);
+//		layoutTransition.setStartDelay(LayoutTransition.APPEARING, 0);
+//		layoutTransition.setDuration(LayoutTransition.APPEARING, 300);
+//		LinearLayout noteDetailContainer = (LinearLayout) findViewById(R.id.note_detail_container);
+//		noteDetailContainer.setLayoutTransition(layoutTransition);
 
 		initializeWithIntent(getIntent());
 
