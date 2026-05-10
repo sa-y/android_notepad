@@ -31,7 +31,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowInsets;
 
 import org.routine_work.notepad.NotepadActivity;

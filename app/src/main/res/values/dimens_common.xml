@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<!-- common -->
-	<dimen name="body_paddingLeft">6dip</dimen>
-	<dimen name="body_paddingRight">6dip</dimen>
-	<dimen name="body_paddingTop">6dip</dimen>
-	<dimen name="body_paddingBottom">6dip</dimen>
+    <!-- common -->
+    <dimen name="body_paddingStart">6dip</dimen>
+    <dimen name="body_paddingEnd">6dip</dimen>
+    <dimen name="body_paddingTop">6dip</dimen>
+    <dimen name="body_paddingBottom">6dip</dimen>
 
-	<dimen name="fragment_layout_marginLeft">2dip</dimen>
-	<dimen name="fragment_layout_marginRight">2dip</dimen>
-	<dimen name="fragment_layout_marginTop">4dip</dimen>
-	<dimen name="fragment_layout_marginBottom">4dip</dimen>
+    <dimen name="fragment_layout_marginStart">2dip</dimen>
+    <dimen name="fragment_layout_marginEnd">2dip</dimen>
+    <dimen name="fragment_layout_marginTop">4dip</dimen>
+    <dimen name="fragment_layout_marginBottom">4dip</dimen>
 
-	<dimen name="list_item_paddingLeft">4dip</dimen>
-	<dimen name="list_item_paddingRight">4dip</dimen>
-	<dimen name="list_item_paddingTop">4dip</dimen>
-	<dimen name="list_item_paddingBottom">4dip</dimen>
+    <dimen name="list_item_paddingStart">4dip</dimen>
+    <dimen name="list_item_paddingEnd">4dip</dimen>
+    <dimen name="list_item_paddingTop">4dip</dimen>
+    <dimen name="list_item_paddingBottom">4dip</dimen>
 
-	<!-- find word EditText -->
-	<dimen name="find_word_edittext_layout_width">160dip</dimen>
+    <!-- find word EditText -->
+    <dimen name="find_word_edittext_layout_width">160dip</dimen>
 </resources>
