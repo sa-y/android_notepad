@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<!-- common -->
-	<dimen name="body_paddingLeft">12dip</dimen>
-	<dimen name="body_paddingRight">12dip</dimen>
-	<dimen name="body_paddingTop">12dip</dimen>
-	<dimen name="body_paddingBottom">12dip</dimen>
+    <!-- common -->
+    <dimen name="body_paddingStart">12dip</dimen>
+    <dimen name="body_paddingEnd">12dip</dimen>
+    <dimen name="body_paddingTop">12dip</dimen>
+    <dimen name="body_paddingBottom">12dip</dimen>
 
-	<dimen name="fragment_layout_marginLeft">6dip</dimen>
-	<dimen name="fragment_layout_marginRight">6dip</dimen>
-	<dimen name="fragment_layout_marginTop">12dip</dimen>
-	<dimen name="fragment_layout_marginBottom">12dip</dimen>
+    <dimen name="fragment_layout_marginStart">6dip</dimen>
+    <dimen name="fragment_layout_marginEnd">6dip</dimen>
+    <dimen name="fragment_layout_marginTop">12dip</dimen>
+    <dimen name="fragment_layout_marginBottom">12dip</dimen>
 
-	<dimen name="list_item_paddingLeft">8dip</dimen>
-	<dimen name="list_item_paddingRight">8dip</dimen>
-	<dimen name="list_item_paddingTop">8dip</dimen>
-	<dimen name="list_item_paddingBottom">8dip</dimen>
+    <dimen name="list_item_paddingStart">8dip</dimen>
+    <dimen name="list_item_paddingEnd">8dip</dimen>
+    <dimen name="list_item_paddingTop">8dip</dimen>
+    <dimen name="list_item_paddingBottom">8dip</dimen>
 </resources>
