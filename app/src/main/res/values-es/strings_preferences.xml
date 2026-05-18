@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="preferences">Ajustes</string>
+    <string name="preferences_title">Ajustes</string>
+
+    <!-- ############################################################ -->
+    <!-- Display Screen -->
+    <string name="display_screen_title">Pantalla</string>
+    <!-- Theme Category -->
+    <string name="theme_category_title">Tema</string>
+    <string name="notepad_theme">Tema del Bloc de notas</string>
+    <string name="notepad_theme_title">Tema del Bloc de notas</string>
+    <string name="dark_theme">Tema oscuro</string>
+    <string name="light_theme">Tema claro</string>
+
+    <!-- Layout Category -->
+    <string name="layout_category_title">Diseño</string>
+    <!-- Layout : Note List -->
+    <string name="note_list_layout_port_title">Diseño de lista de notas en vertical</string>
+    <string name="note_list_layout_land_title">Diseño de lista de notas en horizontal</string>
+    <string name="single_pane">Un solo panel</string>
+    <string name="wide_two_pane">Dos paneles</string>
+
+    <!-- Note List Category -->
+    <string name="note_list_category_title">Lista de notas</string>
+    <!-- Note List : Modified Time Visibility -->
+    <string name="note_list_item_modified_time_visibility_port_title">Hora de modificación en vertical</string>
+    <string name="note_list_item_modified_time_visibility_land_title">Hora de modificación en horizontal</string>
+    <string name="note_list_item_modified_time_visibility_summary_on">La hora de modificación es visible en la lista de notas.</string>
+    <string name="note_list_item_modified_time_visibility_summary_off">La hora de modificación no es visible en la lista de notas.</string>
+    <!-- Note List : Content Text Lines -->
+    <string name="note_list_item_content_lines_port_title">Líneas de texto en vertical</string>
+    <string name="note_list_item_content_lines_land_title">Líneas de texto en horizontal</string>
+    <string name="note_list_item_content_lines_summary">%1$s líneas</string>
+
+    <!-- Note List : Sort Order -->
+    <string name="note_list_sort_order_title">Orden de clasificación</string>
+    <!-- Note List : Sort Order Entries -->
+    <string name="note_list_sort_order_entry_title_asc">Título ascendente</string>
+    <string name="note_list_sort_order_entry_title_desc">Título descendente</string>
+    <string name="note_list_sort_order_entry_date_modified_asc">Fecha de modificación ascendente</string>
+    <string name="note_list_sort_order_entry_date_modified_desc">Fecha de modificación descendente</string>
+
+    <!-- Note Detail Category -->
+    <string name="note_detail_category_title">Vista y edición de notas</string>
+    <!-- Note Detail : Font Size -->
+    <string name="note_detail_font_size">Tamaño de fuente</string>
+    <string name="note_detail_font_size_title">Tamaño de fuente</string>
+    <string name="note_detail_font_size_port">Tamaño de fuente en vertical</string>
+    <string name="note_detail_font_size_land">Tamaño de fuente en horizontal</string>
+    <string name="note_detail_font_size__port_title">Tamaño de fuente en vertical</string>
+    <string name="note_detail_font_size__land_title">Tamaño de fuente en horizontal</string>
+    <!-- Note Detail : Font Size Entries-->
+    <string name="note_detail_font_size_10">10 (Minúsculo)</string>
+    <string name="note_detail_font_size_12">12 </string>
+    <string name="note_detail_font_size_14">14 (Pequeño)</string>
+    <string name="note_detail_font_size_16">16 </string>
+    <string name="note_detail_font_size_18">18 (Mediano)</string>
+    <string name="note_detail_font_size_20">20</string>
+    <string name="note_detail_font_size_22">22 (Grande)</string>
+    <string name="note_detail_font_size_24">24</string>
+    <string name="note_detail_font_size_26">26 (Gigante)</string>
+
+    <!-- Auto Link Category -->
+    <string name="note_autolink_category_title">Enlace automático</string>
+    <!-- Auto Link : Note Title -->
+    <string name="note_title_autolink_title">Enlace automático en el título</string>
+    <string name="note_title_autolink_summary_on">Las URL y el correo electrónico en el título se enlazan automáticamente.</string>
+    <string name="note_title_autolink_summary_off">Las URL y el correo electrónico en el título no se enlazan.</string>
+    <!-- Auto Link : Note Content -->
+    <string name="note_content_autolink_title">Enlace automático en el texto</string>
+    <string name="note_content_autolink_summary_on">Las URL y el correo electrónico en el texto se enlazan automáticamente.</string>
+    <string name="note_content_autolink_summary_off">Las URL y el correo electrónico en el texto no se enlazan.</string>
+
+    <!-- ActionBar Category -->
+    <string name="actionbar_category_title">Barra de acción</string>
+    <!-- ActionBar : Auto Hide -->
+    <string name="actionbar_auto_hide_port_title">Ocultar automáticamente en vertical</string>
+    <string name="actionbar_auto_hide_land_title">Ocultar automáticamente en horizontal</string>
+    <string name="actionbar_auto_hide_summary_on">La barra de acción se oculta automáticamente durante la edición de la nota.</string>
+    <string name="actionbar_auto_hide_summary_off">La barra de acción siempre se muestra durante la edición de la nota.</string>
+
+    <!-- Capitalization Category -->
+    <string name="capitalization_category_title">Mayúsculas</string>
+    <!-- Capitalization : Note Title -->
+    <string name="capitalization_title_title">Mayúsculas en el título</string>
+    <string name="capitalization_title_summary_on">El uso de mayúsculas en el título está activado.</string>
+    <string name="capitalization_title_summary_off">El uso de mayúsculas en el título está desactivado.</string>
+    <!-- Capitalization : Note Content -->
+    <string name="capitalization_content_title">Mayúsculas en el contenido</string>
+    <string name="capitalization_content_summary_on">El uso de mayúsculas en el contenido está activado.</string>
+    <string name="capitalization_content_summary_off">El uso de mayúsculas en el contenido está desactivado.</string>
+
+
+    <!-- ############################################################ -->
+    <!-- Share Data Screen -->
+    <string name="share_data_screen_title">Compartir datos</string>
+    <!-- Share Data Category -->
+    <string name="share_data_category_title">Compartir datos</string>
+    <!-- Receive Text -->
+    <string name="receive_text_title">Recibir texto</string>
+    <string name="receive_text_summary_on">La recepción de intents de texto está activada.</string>
+    <string name="receive_text_summary_off">La recepción de intents de texto está desactivada.</string>
+
+    <!-- ############################################################ -->
+    <!-- Backup and Reset Screen -->
+    <string name="backup_and_reset_screen_title">Copia de seguridad y restablecimiento</string>
+    <!-- Backup and Restore Category -->
+    <string name="backup_and_restore_category_title">Copia de seguridad y restauración</string>
+    <!-- Backup Data -->
+    <string name="backup_data">Copia de seguridad de datos</string>
+    <string name="backup_data_title">Copia de seguridad de datos</string>
+    <string name="backup_data_summary">Se realiza una copia de seguridad de todas las notas y plantillas.</string>
+    <string name="backup_data_confirm_message">Todas sus notas y plantillas se guardarán en el archivo seleccionado.</string>
+    <string name="backup_data_completed_message">Se ha realizado la copia de seguridad de todas las notas y plantillas.</string>
+    <string name="external_storage_not_mountted">El almacenamiento externo no está montado.</string>
+    <string name="request_permission_rationale_external_storage">Para realizar copias de seguridad y restauraciones, se requiere permiso de acceso al almacenamiento externo.</string>
+    <!-- Restore Data -->
+    <string name="restore_data">Restaurar datos</string>
+    <string name="restore_data_title">Restaurar datos</string>
+    <string name="restore_data_summary">Todas las notas y plantillas se restauran desde el archivo de copia de seguridad.</string>
+    <string name="restore_data_confirm_message">Las notas y plantillas actuales se eliminarán,
+		y todos los datos se restaurarán desde el archivo de copia de seguridad seleccionado.
+		Esta aplicación se cerrará para aplicar los cambios en los datos de las notas.
+	</string>
+    <!-- Pick Backup File -->
+    <string name="select_backup_file_title">Seleccionar archivo de copia de seguridad</string>
+    <string name="no_backup_file">Sin archivos de copia de seguridad</string>
+    <string name="selected_file_is_invalid">El archivo seleccionado tiene un formato no válido.</string>
+    <string name="failed_to_restore_database_file">Error al restaurar la base de datos desde el archivo de copia de seguridad.</string>
+
+    <!-- Reset Category -->
+    <string name="reset_category_title">Restablecer</string>
+    <!-- Initialize Preferences -->
+    <string name="initialize_preference">Inicializar ajustes</string>
+    <string name="initialize_preference_title">Inicializar ajustes</string>
+    <string name="initialize_preference_summary">Se inicializan todos los valores de los ajustes.</string>
+    <string name="initialize_preference_confirm_message">Todos los valores de los ajustes se inicializarán con su valor por defecto. Los datos actuales se eliminarán.</string>
+
+</resources>
