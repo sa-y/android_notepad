@@ -73,7 +73,7 @@ public class CreateAddNewNoteShortcutActivity extends Activity
 				ShortcutInfo.Builder builder = new ShortcutInfo.Builder(this, shortcutId);
 				builder.setShortLabel(shortcutName);
 				builder.setLongLabel(shortcutName);
-				builder.setIcon(Icon.createWithResource(this, R.drawable.ic_launcher_notepad_add));
+				builder.setIcon(Icon.createWithResource(this, R.mipmap.ic_launcher_notepad_add));
 				builder.setIntent(addNewNoteIntent);
 				ShortcutInfo shortcutInfo = builder.build();
 
@@ -92,7 +92,7 @@ public class CreateAddNewNoteShortcutActivity extends Activity
 		{
 			String shortcutName = getString(R.string.add_new_note_title);
 			Intent addNewNoteIntent = new Intent(this, AddNewNoteActivity.class);
-			Intent.ShortcutIconResource shortcutIconResource = Intent.ShortcutIconResource.fromContext(this, R.drawable.ic_launcher_notepad_add);
+			Intent.ShortcutIconResource shortcutIconResource = Intent.ShortcutIconResource.fromContext(this, R.mipmap.ic_launcher_notepad_add);
 
 			Intent resultIntent = new Intent();
 			resultIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, addNewNoteIntent);

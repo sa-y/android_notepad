@@ -134,7 +134,7 @@ public class CreateSearchNoteShortcutActivity extends Activity
 				ShortcutInfo.Builder builder = new ShortcutInfo.Builder(this, shortcutId);
 				builder.setShortLabel(shortcutName);
 				builder.setLongLabel(shortcutName);
-				builder.setIcon(Icon.createWithResource(this, R.drawable.ic_launcher_notepad_search));
+				builder.setIcon(Icon.createWithResource(this, R.mipmap.ic_launcher_notepad_search));
 				builder.setIntent(searchNoteIntent);
 				ShortcutInfo shortcutInfo = builder.build();
 
@@ -153,7 +153,7 @@ public class CreateSearchNoteShortcutActivity extends Activity
 		{
 			Intent searchNoteIntent = new Intent(Intent.ACTION_SEARCH, NoteStore.Note.CONTENT_URI);
 			searchNoteIntent.putExtra(SearchManager.QUERY, searchQuery);
-			ShortcutIconResource shortcutIconResource = Intent.ShortcutIconResource.fromContext(this, R.drawable.ic_launcher_notepad_search);
+			ShortcutIconResource shortcutIconResource = Intent.ShortcutIconResource.fromContext(this, R.mipmap.ic_launcher_notepad_search);
 
 			Intent resultIntent = new Intent();
 			resultIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, searchNoteIntent);

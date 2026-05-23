@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="108"
+   height="108"
+   id="svg7055"
+   version="1.1"
+   inkscape:version="1.4.3 (0d15f75, 2025-12-25)"
+   sodipodi:docname="ic_shortcut_add_foreground.svg"
+   inkscape:export-filename="C:\Users\masah\Desktop\ic_launcher_notepad_foreground.svg"
+   inkscape:export-xdpi="640"
+   inkscape:export-ydpi="640"
+   style="display:inline"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs7057">
+    <linearGradient
+       id="linearGradient3927">
+      <stop
+         style="stop-color:#c000ae;stop-opacity:1;"
+         offset="0"
+         id="stop3930" />
+      <stop
+         id="stop3936"
+         offset="0.30000001"
+         style="stop-color:#800074;stop-opacity:1;" />
+      <stop
+         style="stop-color:#68005f;stop-opacity:1;"
+         offset="1"
+         id="stop3932" />
+    </linearGradient>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="10.805556"
+     inkscape:cx="45.763494"
+     inkscape:cy="54.370178"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="2560"
+     inkscape:window-height="1369"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:showpageshadow="2"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid7074"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true"
+       originx="0"
+       originy="0"
+       spacingy="1"
+       spacingx="1"
+       units="px" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="18,101"
+       id="guide7076"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="90,19"
+       id="guide7078"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="8,90"
+       id="guide7080"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="89,18"
+       id="guide7082"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="64,54"
+       id="guide7084"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="54,56.469591"
+       id="guide7086"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="21,106"
+       orientation="1,0"
+       id="guide1"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="25,87"
+       orientation="0,-1"
+       id="guide2"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="30.460836,21"
+       orientation="0,-1"
+       id="guide3"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="87,19"
+       orientation="1,0"
+       id="guide4"
+       inkscape:locked="false" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7060">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer1"
+     inkscape:label="plus"
+     style="display:inline">
+    <path
+       id="rect2"
+       style="display:inline;fill:#10b17c;fill-opacity:1;stroke:none;stroke-width:0;stroke-dasharray:none;stroke-opacity:1"
+       d="M 51.3,38.7 V 51.3 H 38.7 v 5.4 h 12.6 v 12.6 h 5.4 V 56.7 H 69.3 V 51.3 H 56.7 V 38.7 Z" />
+  </g>
+</svg>
