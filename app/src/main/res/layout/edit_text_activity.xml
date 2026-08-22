@@ -10,7 +10,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dip"
-        android:gravity="left"
+        android:gravity="start"
         android:inputType="text"
         android:importantForAutofill="no"
         android:visibility="visible" />
@@ -19,7 +19,7 @@
         android:id="@+id/multi_line_edittext"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:gravity="left|top"
+        android:gravity="start|top"
         android:inputType="textMultiLine"
         android:importantForAutofill="no"
         android:scrollbars="vertical"

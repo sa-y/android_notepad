@@ -19,6 +19,7 @@
 		android:theme="@style/Theme.Notepad.Dark"
 		android:fullBackupContent="@xml/backup_rules"
 		android:dataExtractionRules="@xml/backup_rules"
+		android:supportsRtl="true"
 	>
 		<!--
 		android:resizeableActivity="true"

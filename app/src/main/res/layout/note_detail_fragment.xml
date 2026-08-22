@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- View Note -->
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/note_view_scrollview"
 	android:layout_width="fill_parent"
@@ -29,9 +30,9 @@
 		<TextView
 			android:id="@+id/note_content_textview"
 			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
+			android:layout_height="0dp"
 			android:layout_weight="1"
-			android:gravity="left|top"
+			android:gravity="start|top"
 			android:hint="@string/text"
 			android:minLines="4"
 			android:padding="4dip"
