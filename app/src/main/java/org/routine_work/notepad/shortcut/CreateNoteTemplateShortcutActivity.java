@@ -199,7 +199,7 @@ public class CreateNoteTemplateShortcutActivity extends AppCompatActivity
 				ShortcutInfo.Builder builder = new ShortcutInfo.Builder(this, shortcutId);
 				builder.setShortLabel(shortcutName);
 				builder.setLongLabel(shortcutName);
-				builder.setIcon(Icon.createWithResource(this, R.drawable.ic_launcher_notepad_add));
+				builder.setIcon(Icon.createWithResource(this, R.mipmap.ic_launcher_notepad_add));
 				builder.setIntent(new Intent(Intent.ACTION_INSERT, noteTemplateUri));
 				ShortcutInfo shortcutInfo = builder.build();
 
@@ -218,7 +218,7 @@ public class CreateNoteTemplateShortcutActivity extends AppCompatActivity
 		{
 			// Android 8.0 (APIレベル 26) より前
 			Intent addOrEditNoteWithTemplateIntent = new Intent(Intent.ACTION_INSERT, noteTemplateUri);
-			Intent.ShortcutIconResource shortcutIconResource = Intent.ShortcutIconResource.fromContext(this, R.drawable.ic_launcher_notepad_add);
+			Intent.ShortcutIconResource shortcutIconResource = Intent.ShortcutIconResource.fromContext(this, R.mipmap.ic_launcher_notepad_add);
 
 			Intent resultIntent = new Intent();
 			resultIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, addOrEditNoteWithTemplateIntent);

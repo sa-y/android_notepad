@@ -5,7 +5,7 @@
 	<shortcut
 		android:shortcutId="addNewNoteShortcut"
 		android:enabled="true"
-		android:icon="@drawable/ic_shortcut_add"
+		android:icon="@mipmap/ic_shortcut_add"
 		android:shortcutShortLabel="@string/new_note"
 		android:shortcutLongLabel="@string/add_new_note_title"
 		android:shortcutDisabledMessage="@string/new_note_shortcut_disabled">
