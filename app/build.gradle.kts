@@ -16,8 +16,8 @@ extensions.configure<ApplicationExtension> {
         applicationId = "org.routine_work.notepad"
         minSdk = 24
         targetSdk = 37
-        versionCode = 52
-        versionName = "1.0.21"
+        versionCode = 54
+        versionName = "1.0.23"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
