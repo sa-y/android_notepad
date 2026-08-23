@@ -121,7 +121,7 @@
     <bool name="note_content_autolink_default_value">true</bool>
 
     <!-- ActionBar Category -->
-    <!-- ActionBar : Portlaint -->
+    <!-- ActionBar : Portrait -->
     <string name="actionbar_auto_hide_port_key">actionbar_auto_hide_port</string>
     <!-- ActionBar : Landscape -->
     <string name="actionbar_auto_hide_land_key">actionbar_auto_hide_land</string>

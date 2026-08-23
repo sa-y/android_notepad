@@ -148,22 +148,7 @@ public class EditNoteFragment extends Fragment implements LoaderManager.LoaderCa
 		noteTitleLockImageButton.setOnClickListener(this);
 		noteTitleUnlockImageButton.setOnClickListener(this);
 
-		// Update capitalization mode of the note title 
-		int noteTitleInputType = InputType.TYPE_CLASS_TEXT;
-		if (NotepadPreferenceUtils.getNoteTitleCapitalization(requireContext()))
-		{
-			noteTitleInputType |= InputType.TYPE_TEXT_FLAG_CAP_SENTENCES;
-		}
-		noteTitleEditText.setInputType(noteTitleInputType);
-
-		// Update capitalization mode of the note content 
-		int noteContentInputType = InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE;
-		if (NotepadPreferenceUtils.getNoteContentCapitalization(requireContext()))
-		{
-			noteContentInputType |= InputType.TYPE_TEXT_FLAG_CAP_SENTENCES;
-		}
-		noteContentEditText.setInputType(noteContentInputType);
-
+		updateCapitalization();
 		updateNoteEditTexts();
 		updateNoteTitleLockedViews();
 		updateNoteLockButtonsViews();
@@ -231,7 +216,28 @@ public class EditNoteFragment extends Fragment implements LoaderManager.LoaderCa
 		noteTitleEditText.setTextSize(TypedValue.COMPLEX_UNIT_SP, titleFontSize);
 		noteContentEditText.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
 
+		updateCapitalization();
+
 		Log.v(LOG_TAG, "Bye");
+	}
+
+	private void updateCapitalization()
+	{
+		// Update capitalization mode of the note title 
+		int noteTitleInputType = InputType.TYPE_CLASS_TEXT;
+		if (NotepadPreferenceUtils.getNoteTitleCapitalization(requireContext()))
+		{
+			noteTitleInputType |= InputType.TYPE_TEXT_FLAG_CAP_SENTENCES;
+		}
+		noteTitleEditText.setInputType(noteTitleInputType);
+
+		// Update capitalization mode of the note content 
+		int noteContentInputType = InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE;
+		if (NotepadPreferenceUtils.getNoteContentCapitalization(requireContext()))
+		{
+			noteContentInputType |= InputType.TYPE_TEXT_FLAG_CAP_SENTENCES;
+		}
+		noteContentEditText.setInputType(noteContentInputType);
 	}
 
 	@Override
