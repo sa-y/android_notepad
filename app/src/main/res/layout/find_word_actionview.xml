@@ -2,7 +2,7 @@
 <EditText
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/find_word_edittext"
-	android:layout_width="@dimen/find_word_edittext_layout_width"
+	android:layout_width="match_parent"
 	android:layout_height="fill_parent"
 	android:layout_weight="1"
 	android:singleLine="true"

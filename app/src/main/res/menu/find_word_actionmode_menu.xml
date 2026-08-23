@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto">
-	<item
-		android:id="@+id/find_word_action_menuitem"
-		android:title="@string/find_word"
-		android:icon="@android:drawable/ic_menu_search"
-		app:actionLayout="@layout/find_word_actionview"
-		app:showAsAction="always"
-	/>
+
 	<item
 		android:id="@+id/prev_word_menuitem"
 		android:title="@string/prev_word"

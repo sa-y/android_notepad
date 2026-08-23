@@ -4,7 +4,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/note_view_scrollview"
 	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
+	android:layout_height="fill_parent"
 	android:layout_weight="1"
 	android:fillViewport="true"
 	android:fitsSystemWindows="true">
@@ -30,8 +30,7 @@
 		<TextView
 			android:id="@+id/note_content_textview"
 			android:layout_width="fill_parent"
-			android:layout_height="0dp"
-			android:layout_weight="1"
+			android:layout_height="wrap_content"
 			android:gravity="start|top"
 			android:hint="@string/text"
 			android:minLines="4"

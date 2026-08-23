@@ -32,7 +32,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.util.Linkify;
 import android.util.TypedValue;
-import android.view.ActionMode;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
@@ -51,6 +50,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ActionMode;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
 
@@ -390,7 +391,7 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 			// scroll to selected word
 			Rect rect = new Rect();
 			noteContentTextView.getLineBounds(selectedWordLineNumber, rect);
-			noteViewScrollView.scrollTo(rect.left, rect.top - noteContentTextView.getLineHeight());
+			noteViewScrollView.scrollTo(0, noteContentTextView.getTop() + rect.top - noteContentTextView.getLineHeight());
 		}
 	}
 
@@ -467,7 +468,7 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 	{
 		if (findWordActionMode == null)
 		{
-			findWordActionMode = requireActivity().startActionMode(findWordActionModeCallback);
+			findWordActionMode = ((AppCompatActivity) requireActivity()).startSupportActionMode(findWordActionModeCallback);
 			if (findWordActionMode != null)
 			{
 				findWordActionMode.invalidate();
@@ -489,8 +490,18 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 		{
 			Log.v(LOG_TAG, "onCreateActionMode() : Hello");
 
-			MenuInflater menuInflater = requireActivity().getMenuInflater();
+			MenuInflater menuInflater = mode.getMenuInflater();
 			menuInflater.inflate(R.menu.find_word_actionmode_menu, menu);
+
+			View actionView = requireActivity().getLayoutInflater().inflate(R.layout.find_word_actionview, null);
+			mode.setCustomView(actionView);
+			findWordEditText = (EditText) actionView.findViewById(R.id.find_word_edittext);
+			if (findWordEditText != null)
+			{
+				findWordEditText.setOnEditorActionListener(this);
+				findWordEditText.setOnFocusChangeListener(this);
+				IMEUtils.requestKeyboardFocus(findWordEditText);
+			}
 
 			Log.v(LOG_TAG, "onCreateActionMode() : Bye");
 			return true;
@@ -508,20 +519,6 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu)
 		{
 			Log.v(LOG_TAG, "Hello");
-
-			MenuItem findWordActionMenuItem = menu.findItem(R.id.find_word_action_menuitem);
-			View actionView = findWordActionMenuItem.getActionView();
-			if (actionView != null)
-			{
-				findWordEditText = (EditText) actionView.findViewById(R.id.find_word_edittext);
-				if (findWordEditText != null)
-				{
-					findWordEditText.setOnEditorActionListener(this);
-					findWordEditText.setOnFocusChangeListener(this);
-					IMEUtils.requestKeyboardFocus(findWordEditText);
-				}
-			}
-
 			Log.v(LOG_TAG, "Bye");
 			return false;
 		}
