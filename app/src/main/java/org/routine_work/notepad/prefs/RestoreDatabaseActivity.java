@@ -171,7 +171,7 @@ public class RestoreDatabaseActivity extends AppCompatActivity implements OnClic
 		}
 
 		try (OutputStream outputStream = new FileOutputStream(NoteStore.getNoteDatabasePath(this));
-			 InputStream inputStream = getContentResolver().openInputStream(backupFileUri))
+		     InputStream inputStream = getContentResolver().openInputStream(backupFileUri))
 		{
 			if (outputStream != null && inputStream != null)
 			{

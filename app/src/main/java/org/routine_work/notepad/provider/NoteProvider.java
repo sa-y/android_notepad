@@ -95,7 +95,7 @@ public class NoteProvider extends ContentProvider
 
 	@Override
 	public Cursor query(Uri uri, String[] projection,
-						String selection, String[] selectionArgs, String sort)
+	                    String selection, String[] selectionArgs, String sort)
 	{
 		Log.v(LOG_TAG, "Hello");
 		Log.d(LOG_TAG, "query uri => " + uri);
@@ -234,7 +234,7 @@ public class NoteProvider extends ContentProvider
 
 	@Override
 	public int update(Uri uri, ContentValues values, String where,
-					  String[] whereArgs)
+	                  String[] whereArgs)
 	{
 		int count;
 		Log.v(LOG_TAG, "Hello");

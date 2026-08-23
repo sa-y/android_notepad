@@ -23,7 +23,6 @@
  */
 package org.routine_work.notepad.fragment;
 
-import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.res.Resources;
@@ -110,7 +109,7 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-							 Bundle savedInstanceState)
+	                         Bundle savedInstanceState)
 	{
 		Log.v(LOG_TAG, "Hello");
 

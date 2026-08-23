@@ -61,7 +61,7 @@ public class BackupDatabaseService extends IntentService
 		Uri backupFileUri = intent.getData();
 
 		try (OutputStream outputStream = getContentResolver().openOutputStream(backupFileUri);
-			 InputStream inputStream = new FileInputStream(NoteStore.getNoteDatabasePath(this)))
+		     InputStream inputStream = new FileInputStream(NoteStore.getNoteDatabasePath(this)))
 		{
 			if (outputStream != null && inputStream != null)
 			{

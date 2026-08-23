@@ -58,7 +58,7 @@ public class DeleteNoteFragment extends NoteDetailFragment implements NotepadCon
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-							 Bundle savedInstanceState)
+	                         Bundle savedInstanceState)
 	{
 		View v;
 		Log.v(LOG_TAG, "Hello");

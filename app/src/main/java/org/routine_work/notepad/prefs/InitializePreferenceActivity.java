@@ -32,6 +32,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
 import org.routine_work.utils.Log;

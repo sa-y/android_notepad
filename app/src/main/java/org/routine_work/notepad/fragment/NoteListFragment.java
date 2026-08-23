@@ -101,7 +101,7 @@ public class NoteListFragment extends ListFragment
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-							 Bundle savedInstanceState)
+	                         Bundle savedInstanceState)
 	{
 		Log.v(LOG_TAG, "Hello");
 
@@ -144,7 +144,7 @@ public class NoteListFragment extends ListFragment
 
 	@Override
 	public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v,
-									@Nullable ContextMenuInfo menuInfo)
+	                                @Nullable ContextMenuInfo menuInfo)
 	{
 		Log.v(LOG_TAG, "Hello");
 

@@ -161,7 +161,7 @@ public class BackupDatabaseActivity extends AppCompatActivity
 		}
 
 		try (OutputStream outputStream = getContentResolver().openOutputStream(backupFileUri);
-			 InputStream inputStream = new FileInputStream(noteDatabasePath))
+		     InputStream inputStream = new FileInputStream(noteDatabasePath))
 		{
 			Log.v(LOG_TAG, "outputStream => " + outputStream);
 			Log.v(LOG_TAG, "inputStream => " + inputStream);

@@ -9,7 +9,8 @@ import org.routine_work.notepad.R;
 public class NotepadPreferenceFragment extends PreferenceFragmentCompat
 {
 	@Override
-	public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+	public void onCreatePreferences(Bundle savedInstanceState, String rootKey)
+	{
 		setPreferencesFromResource(R.xml.notepad_preference_root, rootKey);
 	}
 }

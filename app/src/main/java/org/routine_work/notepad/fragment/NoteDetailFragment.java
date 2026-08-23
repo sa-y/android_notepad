@@ -128,7 +128,7 @@ public class NoteDetailFragment extends Fragment
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-							 Bundle savedInstanceState)
+	                         Bundle savedInstanceState)
 	{
 		Log.v(LOG_TAG, "Hello");
 		View v = inflater.inflate(R.layout.note_detail_fragment, container, false);

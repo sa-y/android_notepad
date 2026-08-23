@@ -1,94 +1,93 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- notepad-app-level-11 -->
+<?xml version="1.0" encoding="utf-8"?><!-- notepad-app-level-11 -->
 <resources>
-	<string name="app_name">Notepad</string>
+    <string name="app_name">Notepad</string>
 
-	<string name="quit">Quit</string>
-	<string name="save">Save</string>
-	<string name="no_data">No Data</string>
+    <string name="quit">Quit</string>
+    <string name="save">Save</string>
+    <string name="no_data">No Data</string>
 
-	<string name="note">Note</string>
-	<string name="no_note">No Note</string>
-	<string name="title">Title</string>
-	<string name="text">Text</string>
-	<string name="name">Name</string>
+    <string name="note">Note</string>
+    <string name="no_note">No Note</string>
+    <string name="title">Title</string>
+    <string name="text">Text</string>
+    <string name="name">Name</string>
 
-	<string name="lock">Lock</string>
-	<string name="unlock">Unlock</string>
-	<string name="lock_title">Lock Title</string>
-	<string name="unlock_title">Unlock Title</string>
-	<string name="lock_title_confirm">The editing of this title becomes impossible. Are you all right?</string>
-	<string name="unlock_title_confirm">This title will be editable. Are you all right?</string>
+    <string name="lock">Lock</string>
+    <string name="unlock">Unlock</string>
+    <string name="lock_title">Lock Title</string>
+    <string name="unlock_title">Unlock Title</string>
+    <string name="lock_title_confirm">The editing of this title becomes impossible. Are you all right?</string>
+    <string name="unlock_title_confirm">This title will be editable. Are you all right?</string>
 
-	<string name="note_template">Note Template</string>
-	<string name="no_note_template">No Note Template</string>
-	<string name="template_name">Template Name</string>
-	<string name="title_template">Title Template</string>
-	<string name="text_template">Text Template</string>
-	<string name="title_lock">Title Lock</string>
-	<string name="edit_same_title">Edit Same Title</string>
+    <string name="note_template">Note Template</string>
+    <string name="no_note_template">No Note Template</string>
+    <string name="template_name">Template Name</string>
+    <string name="title_template">Title Template</string>
+    <string name="text_template">Text Template</string>
+    <string name="title_lock">Title Lock</string>
+    <string name="edit_same_title">Edit Same Title</string>
 
-	<string name="note_not_exist">The specified note does not exist.</string>
-	<string name="note_not_specified">A note is not specified.</string>
+    <string name="note_not_exist">The specified note does not exist.</string>
+    <string name="note_not_specified">A note is not specified.</string>
 
-	<string name="search_note_label">Notepad</string>
-	<string name="search_note_hint">Search note</string>
-	<string name="search_note_description">Note in Simple Notepad</string>
+    <string name="search_note_label">Notepad</string>
+    <string name="search_note_hint">Search note</string>
+    <string name="search_note_description">Note in Simple Notepad</string>
 
-	<string name="find_word_hint">Find word</string>
-    <plurals name="found_word_count_message">  
-        <item quantity="one">%1$d occurrence found</item>  
-        <item quantity="other">%1$d occurrences found</item>  
-    </plurals>  
+    <string name="find_word_hint">Find word</string>
+    <plurals name="found_word_count_message">
+        <item quantity="one">%1$d occurrence found</item>
+        <item quantity="other">%1$d occurrences found</item>
+    </plurals>
 
-	<!-- activity title -->
-	<string name="note_list_title">Note List</string>
-	<string name="view_note_title">View Note</string>
-	<string name="edit_note_title">Edit Note</string>
-	<string name="add_new_note_title">New Note</string>
-	<string name="delete_note_title">Delete Note</string>
-	<string name="delete_notes_title">Delete Notes</string>
-	<string name="select_note_title">Select Note</string>
-	<string name="insert_note_title">Insert Note</string>
+    <!-- activity title -->
+    <string name="note_list_title">Note List</string>
+    <string name="view_note_title">View Note</string>
+    <string name="edit_note_title">Edit Note</string>
+    <string name="add_new_note_title">New Note</string>
+    <string name="delete_note_title">Delete Note</string>
+    <string name="delete_notes_title">Delete Notes</string>
+    <string name="select_note_title">Select Note</string>
+    <string name="insert_note_title">Insert Note</string>
 
-	<string name="note_template_list_title">Template List</string>
-	<string name="edit_note_template_title">Edit Template</string>
-	<string name="add_new_note_template_title">New Template</string>
-	<string name="select_note_template_title">Select Template</string>
+    <string name="note_template_list_title">Template List</string>
+    <string name="edit_note_template_title">Edit Template</string>
+    <string name="add_new_note_template_title">New Template</string>
+    <string name="select_note_template_title">Select Template</string>
 
-	<!-- menu item label -->
-	<string name="new_note">New</string>
-	<string name="edit_note">Edit</string>
-	<string name="delete_note">Delete</string>
-	<string name="share_note">Share</string>
-	<string name="delete_notes">Delete Notes</string>
-	<string name="search_note">Search</string>
-	<string name="find_word">Find Word</string>
-	<string name="prev_word">Prev Word</string>
-	<string name="next_word">Next Word</string>
+    <!-- menu item label -->
+    <string name="new_note">New</string>
+    <string name="edit_note">Edit</string>
+    <string name="delete_note">Delete</string>
+    <string name="share_note">Share</string>
+    <string name="delete_notes">Delete Notes</string>
+    <string name="search_note">Search</string>
+    <string name="find_word">Find Word</string>
+    <string name="prev_word">Prev Word</string>
+    <string name="next_word">Next Word</string>
 
-	<string name="copy_note_title">Copy Title</string>
-	<string name="copy_note_content">Copy Text</string>
-	<string name="copy_note_title_done">The title has copied.</string>
-	<string name="copy_note_content_done">The text has copied.</string>
+    <string name="copy_note_title">Copy Title</string>
+    <string name="copy_note_content">Copy Text</string>
+    <string name="copy_note_title_done">The title has copied.</string>
+    <string name="copy_note_content_done">The text has copied.</string>
 
-	<string name="templates">Templates</string>
-	<string name="add_new_note_template">Add</string>
-	<string name="edit_note_template">Edit</string>
-	<string name="delete_note_template">Delete</string>
+    <string name="templates">Templates</string>
+    <string name="add_new_note_template">Add</string>
+    <string name="edit_note_template">Edit</string>
+    <string name="delete_note_template">Delete</string>
 
-	<!-- create note shortcut -->
-	<string name="new_note_shortcut_title">New Note Shortcut</string>
-	<string name="search_note_title">Search Note</string>
-	<string name="new_search_shortcut_title">New Search Shortcut</string>
-	<string name="new_from_template_title">New from Template</string>
-	<string name="new_template_shortcut_title">New Template Shortcut</string>
+    <!-- create note shortcut -->
+    <string name="new_note_shortcut_title">New Note Shortcut</string>
+    <string name="search_note_title">Search Note</string>
+    <string name="new_search_shortcut_title">New Search Shortcut</string>
+    <string name="new_from_template_title">New from Template</string>
+    <string name="new_template_shortcut_title">New Template Shortcut</string>
 
-	<string name="search_query">Search Query</string>
-	<string name="shortcut_name">Shortcut Name</string>
-	<string name="no_search_query_message">Please input a search query.</string>
-	<string name="no_shortcut_name_message">Please input a shortcut name.</string>
+    <string name="search_query">Search Query</string>
+    <string name="shortcut_name">Shortcut Name</string>
+    <string name="no_search_query_message">Please input a search query.</string>
+    <string name="no_shortcut_name_message">Please input a shortcut name.</string>
 
-	<!-- app shortcut -->
-	<string name="new_note_shortcut_disabled">Disable New Note Shortcut</string>
+    <!-- app shortcut -->
+    <string name="new_note_shortcut_disabled">Disable New Note Shortcut</string>
 </resources>

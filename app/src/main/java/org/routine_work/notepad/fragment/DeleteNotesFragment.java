@@ -69,7 +69,7 @@ public class DeleteNotesFragment extends ListFragment
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-							 Bundle savedInstanceState)
+	                         Bundle savedInstanceState)
 	{
 		View v = inflater.inflate(R.layout.note_list_fragment, container, false);
 
