@@ -24,7 +24,6 @@
 package org.routine_work.notepad.template;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
@@ -36,7 +35,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
+
+import androidx.appcompat.app.AppCompatDialog;
+import androidx.cursoradapter.widget.SimpleCursorAdapter;
 
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.provider.NoteStore;
@@ -47,7 +48,7 @@ import org.routine_work.utils.Log;
 /**
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
-public class NoteTemplatePickerDialog extends Dialog
+public class NoteTemplatePickerDialog extends AppCompatDialog
 		implements OnItemClickListener,
 		NoteTemplateConstants
 {

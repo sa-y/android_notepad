@@ -26,12 +26,13 @@ package org.routine_work.notepad;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.utils.NotepadConstants;
+import org.routine_work.utils.Log;
 
 /**
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
@@ -45,6 +46,7 @@ public class ReceiveTextActivity extends AppCompatActivity implements NotepadCon
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		Log.v(LOG_TAG, "Hello");
+		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
 		Intent intent = getIntent();
 		Log.d(LOG_TAG, "intent.action => " + intent.getAction());
