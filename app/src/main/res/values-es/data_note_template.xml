@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="template_blank_note_name">Nota en blanco</string>
+
+    <string name="template_blank_note_title"></string>
+    <string name="template_blank_note_content"></string>
+    <bool name="template_blank_note_title_locked">false</bool>
+    <bool name="template_blank_note_edit_same_title">false</bool>
+
+    <string name="template_quick_note_name">Nota rápida</string>
+
+    <string name="template_quick_note_title">#{date} #{time}</string>
+    <string name="template_quick_note_content"></string>
+    <bool name="template_quick_note_title_locked">true</bool>
+    <bool name="template_quick_note_edit_same_title">false</bool>
+
+    <string name="template_action_log_note_name">Registro de acciones</string>
+
+    <string name="template_action_log_note_title">#{date} - Registro</string>
+    <string name="template_action_log_note_content">#{time}, </string>
+    <bool name="template_action_log_note_title_locked">true</bool>
+    <bool name="template_action_log_note_edit_same_title">true</bool>
+
+    <string name="template_daily_report_note_name">Informe diario</string>
+
+    <string name="template_daily_report_note_title">#{date} - Informe</string>
+    <string name="template_daily_report_note_content"># #{time}\n</string>
+    <bool name="template_daily_report_note_title_locked">true</bool>
+    <bool name="template_daily_report_note_edit_same_title">true</bool>
+
+    <string name="template_diary_note_name">Diario</string>
+
+    <string name="template_diary_note_title">#{date} - Diario</string>
+    <string name="template_diary_note_content"></string>
+    <bool name="template_diary_note_title_locked">true</bool>
+    <bool name="template_diary_note_edit_same_title">true</bool>
+
+</resources>
