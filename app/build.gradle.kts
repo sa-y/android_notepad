@@ -4,9 +4,15 @@ plugins {
     alias(libs.plugins.android.application)
 }
 
-extensions.configure<ApplicationExtension> {
+android {
     namespace = "org.routine_work.notepad"
-    compileSdk = 37
+
+    compileSdk {
+        version = release(37) {
+            minorApiLevel = 1
+        }
+    }
+    buildToolsVersion = "36.0.0"
 
     buildFeatures {
         buildConfig = true
@@ -16,8 +22,8 @@ extensions.configure<ApplicationExtension> {
         applicationId = "org.routine_work.notepad"
         minSdk = 24
         targetSdk = 37
-        versionCode = 54
-        versionName = "1.0.23"
+        versionCode = 55
+        versionName = "1.1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -35,6 +41,7 @@ extensions.configure<ApplicationExtension> {
             buildConfigField("long", "BUILD_TIMESTAMP", "${System.currentTimeMillis()}L")
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -42,7 +49,6 @@ extensions.configure<ApplicationExtension> {
 }
 
 dependencies {
-
     implementation(libs.appcompat)
     implementation(libs.preference)
     implementation(libs.material)
