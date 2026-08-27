@@ -18,6 +18,8 @@
     <string name="unlock_title">タイトルをアンロック</string>
     <string name="lock_title_confirm">タイトルは編集できなくなります。よろしいですか？</string>
     <string name="unlock_title_confirm">タイトルは編集可能になります。よろしいですか？</string>
+    <string name="lock_title_tooltip">タイトルを編集不可にする</string>
+    <string name="unlock_title_tooltip">タイトルを編集可能にする</string>
 
     <string name="note_template">ノートのテンプレート</string>
     <string name="no_note_template">ノートのテンプレートがありません</string>

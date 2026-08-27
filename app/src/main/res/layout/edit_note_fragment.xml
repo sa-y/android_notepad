@@ -27,6 +27,7 @@
             android:layout_gravity="end|center_vertical"
             android:layout_margin="4dip"
             android:contentDescription="@string/lock_title"
+            android:tooltipText="@string/lock_title_tooltip"
             android:padding="4dip"
             android:src="?attr/ic_unlock"
             android:visibility="visible" />
@@ -38,6 +39,7 @@
             android:layout_gravity="end|center_vertical"
             android:layout_margin="4dip"
             android:contentDescription="@string/unlock_title"
+            android:tooltipText="@string/unlock_title_tooltip"
             android:padding="4dip"
             android:src="?attr/ic_lock"
             android:visibility="gone" />

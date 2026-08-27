@@ -18,6 +18,8 @@
     <string name="unlock_title">Desbloquear título</string>
     <string name="lock_title_confirm">La edición de este título será imposible. ¿Está de acuerdo?</string>
     <string name="unlock_title_confirm">Este título será editable. ¿Está de acuerdo?</string>
+    <string name="lock_title_tooltip">Hacer el título no editable</string>
+    <string name="unlock_title_tooltip">Hacer el título editable</string>
 
     <string name="note_template">Plantilla de nota</string>
     <string name="no_note_template">Sin plantillas de nota</string>
