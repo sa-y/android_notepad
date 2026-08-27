@@ -19,12 +19,18 @@
             android:layout_height="wrap_content"
             android:hint="@string/title"
             android:lines="1"
-            android:padding="4dip"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:singleLine="true"
             android:textColor="?android:attr/textColorSecondary"
-            android:textSize="18sp" />
+            android:textSize="22sp" />
 
-        <View style="@style/note_detail_separator" />
+        <View
+            style="@style/note_detail_separator"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp" />
 
         <TextView
             android:id="@+id/note_content_textview"
@@ -33,7 +39,10 @@
             android:gravity="start|top"
             android:hint="@string/text"
             android:minLines="4"
-            android:padding="4dip"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:singleLine="false"
             android:textColor="?android:attr/textColorSecondary"
             android:textSize="18sp" />
