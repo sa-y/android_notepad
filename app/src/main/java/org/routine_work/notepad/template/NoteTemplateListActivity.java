@@ -235,6 +235,12 @@ public class NoteTemplateListActivity extends AppCompatActivity
 		NotepadActivity.enableHomeButton(this);
 
 		ListView listView = findViewById(android.R.id.list);
+
+		View emptyView = findViewById(android.R.id.empty);
+		if(emptyView != null){
+			listView.setEmptyView(emptyView);
+		}
+
 		listAdapter = new SimpleCursorAdapter(this,
 				android.R.layout.simple_list_item_1, null,
 				NOTE_TEMPLATE_LIST_MAPPING_FROM, NOTE_TEMPLATE_LIST_MAPPING_TO, 0);

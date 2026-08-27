@@ -83,7 +83,6 @@ public class NoteTemplateDetailActivity extends AppCompatActivity
 	private String currentAction;
 	private Uri currentNoteTemplateUri;
 	private NoteTemplateDetailListAdapter noteTemplateDetailListAdapter;
-	private ListView listView;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
@@ -188,7 +187,13 @@ public class NoteTemplateDetailActivity extends AppCompatActivity
 
 		NotepadActivity.enableHomeButton(this);
 
-		listView = findViewById(android.R.id.list);
+		ListView listView = findViewById(android.R.id.list);
+
+		View emptyView = findViewById(android.R.id.empty);
+		if(emptyView != null){
+			listView.setEmptyView(emptyView);
+		}
+
 		noteTemplateDetailListAdapter = new NoteTemplateDetailListAdapter();
 		listView.setAdapter(noteTemplateDetailListAdapter);
 
