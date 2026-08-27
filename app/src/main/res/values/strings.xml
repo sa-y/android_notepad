@@ -31,7 +31,7 @@
     <string name="note_not_specified">A note is not specified.</string>
 
     <string name="search_note_label">Notepad</string>
-    <string name="search_note_hint">Search note</string>
+    <string name="search_note_hint">Search notes</string>
     <string name="search_note_description">Note in Simple Notepad</string>
 
     <string name="find_word_hint">Find word</string>

@@ -31,9 +31,9 @@
     <string name="note_not_specified">ノートが指定されていません。</string>
 
     <string name="search_note_label">Notepad</string>
-    <string name="search_note_hint">ノートを検索</string>
+    <string name="search_note_hint">ノートの検索</string>
     <string name="search_note_description">Simple Notepad のノート</string>
-    <string name="find_word_hint">単語を検索</string>
+    <string name="find_word_hint">単語の検索</string>
     <plurals name="found_word_count_message">
         <item quantity="other">%1$d か所ありました</item>
     </plurals>

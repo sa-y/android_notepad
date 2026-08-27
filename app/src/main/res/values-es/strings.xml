@@ -31,7 +31,7 @@
     <string name="note_not_specified">No se ha especificado ninguna nota.</string>
 
     <string name="search_note_label">Bloc de notas</string>
-    <string name="search_note_hint">Buscar nota</string>
+    <string name="search_note_hint">Buscar notas</string>
     <string name="search_note_description">Nota en el Bloc de notas simple</string>
 
     <string name="find_word_hint">Buscar palabra</string>

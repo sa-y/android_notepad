@@ -250,6 +250,12 @@ public class NotepadActivity extends AppCompatActivity implements NotepadConstan
 				searchView.setImportantForAutofill(View.IMPORTANT_FOR_AUTOFILL_NO);
 			}
 
+			View searchEditText = searchView.findViewById(androidx.appcompat.R.id.search_src_text);
+			if (searchEditText != null)
+			{
+				searchEditText.setContentDescription(getString(R.string.search_note_hint));
+			}
+
 			Log.v(LOG_TAG, "initialQueryString => " + initialQueryString);
 			if (!TextUtils.isEmpty(initialQueryString))
 			{
