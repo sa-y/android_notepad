@@ -239,6 +239,10 @@ public class NotepadActivity extends AppCompatActivity implements NotepadConstan
 		searchView = (SearchView) searchMenuItem.getActionView();
 		if (searchView != null)
 		{
+			// Limit SearchView width to ensure space for other menu items
+//			int displayWidth = getResources().getDisplayMetrics().widthPixels;
+//			searchView.setMaxWidth((int) (displayWidth * 0.6));
+
 			searchView.setIconifiedByDefault(true);
 			searchView.setSubmitButtonEnabled(false);
 
@@ -566,8 +570,13 @@ public class NotepadActivity extends AppCompatActivity implements NotepadConstan
 			if (!TextUtils.isEmpty(queryString))
 			{
 				searchView.setIconified(false);
+				searchView.setQuery(queryString, true);
 			}
-			searchView.setQuery(queryString, true);
+			else
+			{
+				searchView.setQuery(null, true);
+				searchView.setIconified(true);
+			}
 		}
 		else
 		{
