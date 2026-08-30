@@ -9,6 +9,7 @@
         android:id="@+id/single_line_edittext"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:minHeight="48dp"
         android:layout_marginTop="8dip"
         android:gravity="start"
         android:inputType="text"
