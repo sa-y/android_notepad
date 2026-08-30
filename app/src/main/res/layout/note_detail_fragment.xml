@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/title"
             android:lines="1"
+            android:minHeight="48dp"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:paddingTop="8dp"
