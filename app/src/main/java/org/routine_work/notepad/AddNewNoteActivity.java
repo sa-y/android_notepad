@@ -66,6 +66,8 @@ public class AddNewNoteActivity extends AppCompatActivity implements NotepadCons
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		Log.v(LOG_TAG, "Hello");
+		setTheme(NotepadPreferenceUtils.getTheme(this));
+		super.onCreate(savedInstanceState);
 
 		// initialize noteTemplateUri
 		Uri noteTemplateUri = null;
@@ -109,8 +111,6 @@ public class AddNewNoteActivity extends AppCompatActivity implements NotepadCons
 		{
 			Log.v(LOG_TAG, "is not finishing.");
 			Log.v(LOG_TAG, "Initialize UI.");
-			setTheme(NotepadPreferenceUtils.getTheme(this));
-			super.onCreate(savedInstanceState);
 			setContentView(R.layout.add_new_note_activity);
 		}
 		Log.v(LOG_TAG, "Bye");
