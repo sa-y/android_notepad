@@ -61,6 +61,7 @@ import org.routine_work.notepad.utils.NoteUtils;
 import org.routine_work.notepad.utils.NotepadConstants;
 import org.routine_work.utils.IMEUtils;
 import org.routine_work.utils.Log;
+import org.routine_work.utils.SafeArrowKeyMovementMethod;
 
 public class EditNoteFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, View.OnFocusChangeListener, View.OnClickListener, NotepadConstants
 {
@@ -139,7 +140,9 @@ public class EditNoteFragment extends Fragment implements LoaderManager.LoaderCa
 		View v = inflater.inflate(R.layout.edit_note_fragment, container, false);
 
 		noteTitleEditText = (EditText) v.findViewById(R.id.note_title_edittext);
+		noteTitleEditText.setMovementMethod(SafeArrowKeyMovementMethod.getInstance());
 		noteContentEditText = (EditText) v.findViewById(R.id.note_content_edittext);
+		noteContentEditText.setMovementMethod(SafeArrowKeyMovementMethod.getInstance());
 		noteContentEditText.setOnFocusChangeListener(this);
 		noteTitleLockImageButton = (ImageButton) v.findViewById(R.id.note_title_lock_button);
 		noteTitleUnlockImageButton = (ImageButton) v.findViewById(R.id.note_title_unlock_button);

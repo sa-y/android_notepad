@@ -62,6 +62,7 @@ import org.routine_work.notepad.utils.NotepadConstants;
 import org.routine_work.notepad.utils.TextViewFindWordContext;
 import org.routine_work.utils.IMEUtils;
 import org.routine_work.utils.Log;
+import org.routine_work.utils.SafeLinkMovementMethod;
 
 public class ViewNoteFragment extends NoteDetailFragment implements NotepadConstants
 
@@ -120,6 +121,7 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 		if (NotepadPreferenceUtils.getNoteTitleAutoLink(requireContext()))
 		{
 			noteTitleTextView.setAutoLinkMask(Linkify.ALL);
+			noteTitleTextView.setMovementMethod(SafeLinkMovementMethod.getInstance());
 		}
 		else
 		{
@@ -129,6 +131,7 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 		if (NotepadPreferenceUtils.getNoteContentAutoLink(requireContext()))
 		{
 			noteContentTextView.setAutoLinkMask(Linkify.ALL);
+			noteContentTextView.setMovementMethod(SafeLinkMovementMethod.getInstance());
 		}
 		else
 		{

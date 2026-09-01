@@ -40,6 +40,7 @@ import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.utils.Log;
+import org.routine_work.utils.SafeArrowKeyMovementMethod;
 
 /**
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
@@ -66,7 +67,9 @@ public class EditTextActivity extends AppCompatActivity
 		setContentView(R.layout.edit_text_activity);
 
 		EditText singleLineEditText = (EditText) findViewById(R.id.single_line_edittext);
+		singleLineEditText.setMovementMethod(SafeArrowKeyMovementMethod.getInstance());
 		EditText multiLineEditText = (EditText) findViewById(R.id.multi_line_edittext);
+		multiLineEditText.setMovementMethod(SafeArrowKeyMovementMethod.getInstance());
 
 		Intent intent = getIntent();
 
