@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?><!-- notepad-app-level-11 -->
+<resources>
+    <string name="app_name">Bloco de notas</string>
+
+    <string name="quit">Sair</string>
+    <string name="save">Salvar</string>
+    <string name="no_data">Sem dados</string>
+
+    <string name="note">Nota</string>
+    <string name="no_note">Sem notas</string>
+    <string name="title">Título</string>
+    <string name="text">Texto</string>
+    <string name="name">Nome</string>
+
+    <string name="lock">Bloquear</string>
+    <string name="unlock">Desbloquear</string>
+    <string name="lock_title">Bloquear título</string>
+    <string name="unlock_title">Desbloquear título</string>
+    <string name="lock_title_confirm">A edição deste título será impossível. Você está de acordo?</string>
+    <string name="unlock_title_confirm">Este título será editável. Você está de acordo?</string>
+    <string name="lock_title_tooltip">Tornar o título não editável</string>
+    <string name="unlock_title_tooltip">Tornar o título editável</string>
+
+    <string name="note_template">Modelo de nota</string>
+    <string name="no_note_template">Sem modelos de nota</string>
+    <string name="template_name">Nome do modelo</string>
+    <string name="title_template">Modelo de título</string>
+    <string name="text_template">Modelo de texto</string>
+    <string name="title_lock">Bloqueio de título</string>
+    <string name="edit_same_title">Editar o mesmo título</string>
+
+    <string name="note_not_exist">A nota especificada não existe.</string>
+    <string name="note_not_specified">Nenhuma nota foi especificada.</string>
+
+    <string name="search_note_label">Bloco de notas</string>
+    <string name="search_note_hint">Pesquisar notas</string>
+    <string name="search_note_description">Nota no Bloco de Notas Simples</string>
+
+    <string name="find_word_hint">Localizar palavra</string>
+    <plurals name="found_word_count_message">
+        <item quantity="one">%1$d ocorrência encontrada</item>
+        <item quantity="many">%1$d ocorrências encontradas</item>
+        <item quantity="other">%1$d ocorrências encontradas</item>
+    </plurals>
+
+    <!-- activity title -->
+    <string name="note_list_title">Lista de notas</string>
+    <string name="view_note_title">Ver nota</string>
+    <string name="edit_note_title">Editar nota</string>
+    <string name="add_new_note_title">Nova nota</string>
+    <string name="delete_note_title">Excluir nota</string>
+    <string name="delete_notes_title">Excluir notas</string>
+    <string name="select_note_title">Selecionar nota</string>
+    <string name="insert_note_title">Inserir nota</string>
+
+    <string name="note_template_list_title">Lista de modelos</string>
+    <string name="edit_note_template_title">Editar modelo</string>
+    <string name="add_new_note_template_title">Novo modelo</string>
+    <string name="select_note_template_title">Selecionar modelo</string>
+
+    <!-- menu item label -->
+    <string name="new_note">Novo</string>
+    <string name="edit_note">Editar</string>
+    <string name="delete_note">Excluir</string>
+    <string name="share_note">Compartilhar</string>
+    <string name="delete_notes">Excluir notas</string>
+    <string name="search_note">Pesquisar</string>
+    <string name="find_word">Localizar palavra</string>
+    <string name="prev_word">Palavra anterior</string>
+    <string name="next_word">Próxima palavra</string>
+
+    <string name="copy_note_title">Copiar título</string>
+    <string name="copy_note_content">Copiar texto</string>
+    <string name="copy_note_title_done">O título foi copiado.</string>
+    <string name="copy_note_content_done">O texto foi copiado.</string>
+
+    <string name="templates">Modelos</string>
+    <string name="add_new_note_template">Adicionar</string>
+    <string name="edit_note_template">Editar</string>
+    <string name="delete_note_template">Excluir</string>
+
+    <!-- create note shortcut -->
+    <string name="new_note_shortcut_title">Atalho para nova nota</string>
+    <string name="search_note_title">Pesquisar nota</string>
+    <string name="new_search_shortcut_title">Atalho para nova pesquisa</string>
+    <string name="new_from_template_title">Novo a partir de modelo</string>
+    <string name="new_template_shortcut_title">Atalho para novo modelo</string>
+
+    <string name="search_query">Consulta de pesquisa</string>
+    <string name="shortcut_name">Nome do atalho</string>
+    <string name="no_search_query_message">Por favor, insira uma consulta de pesquisa.</string>
+    <string name="no_shortcut_name_message">Por favor, insira um nome para o atalho.</string>
+
+    <!-- app shortcut -->
+    <string name="new_note_shortcut_disabled">Desativar atalho para nova nota</string>
+</resources>
