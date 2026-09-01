@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?><!-- notepad-app-level-11 -->
+<resources>
+    <string name="app_name">记事本</string>
+
+    <string name="quit">退出</string>
+    <string name="save">保存</string>
+    <string name="no_data">无数据</string>
+
+    <string name="note">笔记</string>
+    <string name="no_note">无笔记</string>
+    <string name="title">标题</string>
+    <string name="text">文本</string>
+    <string name="name">名称</string>
+
+    <string name="lock">锁定</string>
+    <string name="unlock">解锁</string>
+    <string name="lock_title">固定标题</string>
+    <string name="unlock_title">解锁标题</string>
+    <string name="lock_title_confirm">固定后标题将无法修改。确定吗？</string>
+    <string name="unlock_title_confirm">该标题将可以编辑。确定吗？</string>
+    <string name="lock_title_tooltip">使标题不可编辑</string>
+    <string name="unlock_title_tooltip">使标题可编辑</string>
+
+    <string name="note_template">笔记模板</string>
+    <string name="no_note_template">无笔记模板</string>
+    <string name="template_name">模板名称</string>
+    <string name="title_template">标题模板</string>
+    <string name="text_template">文本模板</string>
+    <string name="title_lock">标题锁定</string>
+    <string name="edit_same_title">编辑相同标题</string>
+
+    <string name="note_not_exist">指定的笔记不存在。</string>
+    <string name="note_not_specified">未指定笔记。</string>
+
+    <string name="search_note_label">记事本</string>
+    <string name="search_note_hint">搜索笔记</string>
+    <string name="search_note_description">简易记事本中的笔记</string>
+
+    <string name="find_word_hint">查找单词</string>
+    <plurals name="found_word_count_message">
+        <item quantity="other">找到 %1$d 处匹配</item>
+    </plurals>
+
+    <!-- activity title -->
+    <string name="note_list_title">笔记列表</string>
+    <string name="view_note_title">查看笔记</string>
+    <string name="edit_note_title">编辑笔记</string>
+    <string name="add_new_note_title">新建笔记</string>
+    <string name="delete_note_title">删除笔记</string>
+    <string name="delete_notes_title">删除多个笔记</string>
+    <string name="select_note_title">选择笔记</string>
+    <string name="insert_note_title">插入笔记</string>
+
+    <string name="note_template_list_title">模板列表</string>
+    <string name="edit_note_template_title">编辑模板</string>
+    <string name="add_new_note_template_title">新建模板</string>
+    <string name="select_note_template_title">选择模板</string>
+
+    <!-- menu item label -->
+    <string name="new_note">新建</string>
+    <string name="edit_note">编辑</string>
+    <string name="delete_note">删除</string>
+    <string name="share_note">分享</string>
+    <string name="delete_notes">删除笔记</string>
+    <string name="search_note">搜索</string>
+    <string name="find_word">查找单词</string>
+    <string name="prev_word">上一个</string>
+    <string name="next_word">下一个</string>
+
+    <string name="copy_note_title">复制标题</string>
+    <string name="copy_note_content">复制文本</string>
+    <string name="copy_note_title_done">标题已复制。</string>
+    <string name="copy_note_content_done">文本已复制。</string>
+
+    <string name="templates">模板</string>
+    <string name="add_new_note_template">添加</string>
+    <string name="edit_note_template">编辑</string>
+    <string name="delete_note_template">删除</string>
+
+    <!-- create note shortcut -->
+    <string name="new_note_shortcut_title">新建笔记快捷方式</string>
+    <string name="search_note_title">搜索笔记</string>
+    <string name="new_search_shortcut_title">新建搜索快捷方式</string>
+    <string name="new_from_template_title">从模板新建</string>
+    <string name="new_template_shortcut_title">新建模板快捷方式</string>
+
+    <string name="search_query">搜索查询</string>
+    <string name="shortcut_name">快捷方式名称</string>
+    <string name="no_search_query_message">请输入搜索查询。</string>
+    <string name="no_shortcut_name_message">请输入快捷方式名称。</string>
+
+    <!-- app shortcut -->
+    <string name="new_note_shortcut_disabled">禁用新建笔记快捷方式</string>
+</resources>
