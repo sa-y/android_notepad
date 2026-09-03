@@ -108,7 +108,7 @@ public class NoteTemplatePickerDialog extends AppCompatDialog
 		setContentView(R.layout.note_template_picker_dialog);
 		setTitle(R.string.select_note_template_title);
 
-		listView = (ListView) findViewById(android.R.id.list);
+		listView = findViewById(android.R.id.list);
 		emptyView = findViewById(android.R.id.empty);
 
 		if (onItemClickListener != null)

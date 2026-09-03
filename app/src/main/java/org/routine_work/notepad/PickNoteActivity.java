@@ -86,6 +86,12 @@ public class PickNoteActivity extends AppCompatActivity
 		}
 
 		listView = findViewById(android.R.id.list);
+
+		View emptyView = findViewById(android.R.id.empty);
+		if(emptyView != null){
+			listView.setEmptyView(emptyView);
+		}
+
 		listAdapter = new NoteCursorAdapter(this, null);
 		listView.setAdapter(listAdapter);
 
