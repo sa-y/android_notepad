@@ -23,7 +23,6 @@
  */
 package org.routine_work.notepad.shortcut;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
@@ -31,11 +30,13 @@ import android.graphics.drawable.Icon;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.routine_work.notepad.AddNewNoteActivity;
 import org.routine_work.notepad.R;
 import org.routine_work.utils.Log;
 
-public class CreateAddNewNoteShortcutActivity extends Activity
+public class CreateAddNewNoteShortcutActivity extends AppCompatActivity
 {
 
 	private static final String LOG_TAG = "simple-notepad";
@@ -79,7 +80,7 @@ public class CreateAddNewNoteShortcutActivity extends Activity
 
 				shortcutManager.requestPinShortcut(shortcutInfo, null);
 
-				setResult(Activity.RESULT_OK);
+				setResult(RESULT_OK);
 				finish();
 			}
 			else
@@ -99,7 +100,7 @@ public class CreateAddNewNoteShortcutActivity extends Activity
 			resultIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, shortcutIconResource);
 			resultIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, shortcutName);
 
-			setResult(Activity.RESULT_OK, resultIntent);
+			setResult(RESULT_OK, resultIntent);
 			finish();
 		}
 	}

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?><!-- View Note -->
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/note_view_scrollview"
     android:layout_width="fill_parent"
-    android:layout_height="match_parent"
+    android:layout_height="fill_parent"
     android:layout_weight="1"
     android:fillViewport="true"
     android:fitsSystemWindows="true">
@@ -18,12 +19,20 @@
             android:layout_height="wrap_content"
             android:hint="@string/title"
             android:lines="1"
-            android:padding="4dip"
+            android:minHeight="48dp"
+            android:gravity="center_vertical"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:singleLine="true"
             android:textColor="?android:attr/textColorSecondary"
-            android:textSize="18sp" />
+            android:textSize="22sp" />
 
-        <View style="@style/note_detail_separator" />
+        <View
+            style="@style/note_detail_separator"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" />
 
         <TextView
             android:id="@+id/note_content_textview"
@@ -32,7 +41,10 @@
             android:gravity="start|top"
             android:hint="@string/text"
             android:minLines="4"
-            android:padding="4dip"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:singleLine="false"
             android:textColor="?android:attr/textColorSecondary"
             android:textSize="18sp" />

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about_app_title">Sobre o Aplicativo</string>
+    <string name="about_app_summary">Informações sobre este aplicativo</string>
+
+    <string name="application_version_title">Informações da Versão</string>
+    <string name="application_version_summary">Mostra as informações da versão deste aplicativo.</string>
+    <string name="application_store_title">Loja de Aplicativos</string>
+    <string name="application_store_summary">Abrir a página deste aplicativo na loja.</string>
+    <string name="application_management_title">Gerenciamento de Aplicativo</string>
+    <string name="application_management_summary">Abrir a tela de gerenciamento deste aplicativo.</string>
+
+    <!-- AppVersionActivity -->
+    <string name="version">Versão</string>
+    <string name="build_time">Hora da Compilação</string>
+    <string name="build_time_format">yyyyMMdd-kkmmss</string>
+
+</resources>

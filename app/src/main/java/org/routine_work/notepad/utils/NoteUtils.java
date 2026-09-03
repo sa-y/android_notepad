@@ -122,32 +122,21 @@ public class NoteUtils implements NotepadConstants
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	/**
-	 * Start NoteDetailActivity without note template
-	 * <p>
-	 * Start NoteDetailActivity for editing new blank note.
-	 *
-	 * @param activity
-	 */
-	public static void startActivityToAddNewBlankNote(Activity activity)
+	public static Intent getIntentForAddNewBlankNote(Activity activity)
 	{
+		Intent intent = null;
 		Log.v(LOG_TAG, "Hello");
 
-		Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
+		intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		activity.startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
 
 		Log.v(LOG_TAG, "Bye");
+		return intent;
 	}
 
-	public static void startActivityToAddNewNoteWithTemplate(Activity activity, long noteTemplateId)
+	public static Intent getIntentForAddNewNoteWithTemplate(Activity activity, Uri noteTemplateUri)
 	{
-		Uri noteTemplateUri = ContentUris.withAppendedId(NoteStore.NoteTemplate.CONTENT_URI, noteTemplateId);
-		NoteUtils.startActivityToAddNewNoteWithTemplate(activity, noteTemplateUri);
-	}
-
-	public static void startActivityToAddNewNoteWithTemplate(Activity activity, Uri noteTemplateUri)
-	{
+		Intent intent = null;
 		Log.v(LOG_TAG, "Hello");
 
 		String where = null;
@@ -195,21 +184,19 @@ public class NoteUtils implements NotepadConstants
 				{
 					Log.d(LOG_TAG, "note is already exist.");
 					// if note is already exist
-					Intent intent = new Intent(Intent.ACTION_EDIT, noteUri);
+					intent = new Intent(Intent.ACTION_EDIT, noteUri);
 					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					intent.putExtra(EXTRA_TEXT, content);
-					activity.startActivityForResult(intent, REQUEST_CODE_EDIT_NOTE);
 				}
 				else
 				{
 					Log.d(LOG_TAG, "note is not found.");
 					// if not found, insert new note
-					Intent intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
+					intent = new Intent(Intent.ACTION_INSERT, NoteStore.Note.CONTENT_URI);
 					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					intent.putExtra(EXTRA_TITLE, title);
 					intent.putExtra(EXTRA_TEXT, content);
 					intent.putExtra(EXTRA_TITLE_LOCKED, titleLocked);
-					activity.startActivityForResult(intent, REQUEST_CODE_ADD_NOTE);
 				}
 			}
 		}
@@ -221,11 +208,12 @@ public class NoteUtils implements NotepadConstants
 			}
 		}
 		Log.v(LOG_TAG, "Bye");
+		return intent;
 	}
 
-	public static void startActivityToAddNewNoteWithFirstTemplate(Activity activity)
+	public static Intent getIntentForAddNewNoteWithFirstTemplate(Activity activity)
 	{
-		NoteUtils.startActivityToAddNewNoteWithTemplate(activity, NoteStore.NoteTemplate.CONTENT_URI);
+		return NoteUtils.getIntentForAddNewNoteWithTemplate(activity, NoteStore.NoteTemplate.CONTENT_URI);
 	}
 
 	public static Uri searchNoteByTitle(Context context, String title)

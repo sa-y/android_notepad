@@ -23,7 +23,6 @@
  */
 package org.routine_work.notepad.common;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
@@ -35,15 +34,18 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.utils.Log;
+import org.routine_work.utils.SafeArrowKeyMovementMethod;
 
 /**
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
-public class EditTextActivity extends Activity
+public class EditTextActivity extends AppCompatActivity
 {
 	public static final String PACKAGE_NAME = "org.routine_work.notepad.common";
 	public static final String EXTRA_INPUT_TYPE = PACKAGE_NAME + ".INPUT_TYPE";
@@ -65,7 +67,9 @@ public class EditTextActivity extends Activity
 		setContentView(R.layout.edit_text_activity);
 
 		EditText singleLineEditText = (EditText) findViewById(R.id.single_line_edittext);
+		singleLineEditText.setMovementMethod(SafeArrowKeyMovementMethod.getInstance());
 		EditText multiLineEditText = (EditText) findViewById(R.id.multi_line_edittext);
+		multiLineEditText.setMovementMethod(SafeArrowKeyMovementMethod.getInstance());
 
 		Intent intent = getIntent();
 

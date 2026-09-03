@@ -25,17 +25,18 @@
 package org.routine_work.notepad.prefs;
 
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
+
+import androidx.annotation.Nullable;
+import androidx.preference.PreferenceFragmentCompat;
 
 import org.routine_work.notepad.R;
 
-public class BackupAndResetPreferenceFragment extends PreferenceFragment
+public class BackupAndResetPreferenceFragment extends PreferenceFragmentCompat
 {
 
 	@Override
-	public void onCreate(Bundle savedInstanceState)
+	public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey)
 	{
-		super.onCreate(savedInstanceState);
-		addPreferencesFromResource(R.xml.notepad_preference_backup_and_reset);
+		setPreferencesFromResource(R.xml.notepad_preference_backup_and_reset, rootKey);
 	}
 }

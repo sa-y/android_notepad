@@ -23,17 +23,14 @@
  */
 package org.routine_work.notepad.fragment;
 
-import android.app.Activity;
-import android.app.LoaderManager;
 import android.content.ClipboardManager;
-import android.content.Loader;
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.util.Linkify;
 import android.util.TypedValue;
-import android.view.ActionMode;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
@@ -50,6 +47,13 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ActionMode;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
+
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
@@ -58,6 +62,7 @@ import org.routine_work.notepad.utils.NotepadConstants;
 import org.routine_work.notepad.utils.TextViewFindWordContext;
 import org.routine_work.utils.IMEUtils;
 import org.routine_work.utils.Log;
+import org.routine_work.utils.SafeLinkMovementMethod;
 
 public class ViewNoteFragment extends NoteDetailFragment implements NotepadConstants
 
@@ -78,14 +83,14 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 	}
 
 	@Override
-	public void onAttach(Activity activity)
+	public void onAttach(@NonNull Context context)
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		super.onAttach(activity);
-		if (activity instanceof NoteControlCallback)
+		super.onAttach(context);
+		if (context instanceof NoteControlCallback)
 		{
-			noteControlCallback = (NoteControlCallback) activity;
+			noteControlCallback = (NoteControlCallback) context;
 		}
 
 		Log.v(LOG_TAG, "Bye");
@@ -105,7 +110,7 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-							 Bundle savedInstanceState)
+	                         Bundle savedInstanceState)
 	{
 		Log.v(LOG_TAG, "Hello");
 
@@ -113,18 +118,20 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 
 		noteViewScrollView = (ScrollView) view.findViewById(R.id.note_view_scrollview);
 
-		if (NotepadPreferenceUtils.getNoteTitleAutoLink(getActivity()))
+		if (NotepadPreferenceUtils.getNoteTitleAutoLink(requireContext()))
 		{
 			noteTitleTextView.setAutoLinkMask(Linkify.ALL);
+			noteTitleTextView.setMovementMethod(SafeLinkMovementMethod.getInstance());
 		}
 		else
 		{
 			noteTitleTextView.setAutoLinkMask(0);
 		}
 
-		if (NotepadPreferenceUtils.getNoteContentAutoLink(getActivity()))
+		if (NotepadPreferenceUtils.getNoteContentAutoLink(requireContext()))
 		{
 			noteContentTextView.setAutoLinkMask(Linkify.ALL);
+			noteContentTextView.setMovementMethod(SafeLinkMovementMethod.getInstance());
 		}
 		else
 		{
@@ -139,7 +146,7 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 	}
 
 	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater)
+	public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater)
 	{
 		Log.v(LOG_TAG, "Hello");
 
@@ -149,13 +156,16 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 		menuInflater.inflate(R.menu.share_note_option_menu, menu);
 
 		MenuItem searchNoteMenuItem = menu.findItem(R.id.search_notes_menuitem);
-		searchNoteMenuItem.setVisible(false);
+		if (searchNoteMenuItem != null)
+		{
+			searchNoteMenuItem.setVisible(false);
+		}
 
 		Log.v(LOG_TAG, "Bye");
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
+	public boolean onOptionsItemSelected(@NonNull MenuItem item)
 	{
 		boolean result = true;
 		Log.v(LOG_TAG, "Hello");
@@ -191,10 +201,10 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 	}
 
 	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo)
+	public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenuInfo menuInfo)
 	{
 		super.onCreateContextMenu(menu, v, menuInfo);
-		MenuInflater menuInflater = getActivity().getMenuInflater();
+		MenuInflater menuInflater = requireActivity().getMenuInflater();
 		int id = v.getId();
 		if (id == R.id.note_title_textview)
 		{
@@ -207,7 +217,7 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 	}
 
 	@Override
-	public boolean onContextItemSelected(MenuItem item)
+	public boolean onContextItemSelected(@NonNull MenuItem item)
 	{
 		boolean result = true;
 		Log.v(LOG_TAG, "Hello");
@@ -260,11 +270,11 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		LoaderManager loaderManager = getLoaderManager();
+		LoaderManager loaderManager = LoaderManager.getInstance(this);
 		Loader loader = loaderManager.getLoader(NOTE_LOADER_ID);
 		Log.d(LOG_TAG, "loader => " + loader);
 
-		String type = getActivity().getContentResolver().getType(noteUri);
+		String type = requireContext().getContentResolver().getType(noteUri);
 		Log.d(LOG_TAG, "noteUri => " + noteUri);
 		Log.d(LOG_TAG, "type => " + type);
 		if (NoteStore.Note.NOTE_ITEM_CONTENT_TYPE.equals(type))
@@ -290,7 +300,7 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 	private void initFindWordContextColors()
 	{
 		// Init findWordContext text backgound color
-		Resources.Theme theme = getActivity().getTheme();
+		Resources.Theme theme = requireContext().getTheme();
 		TypedValue outValue = new TypedValue();
 		theme.resolveAttribute(R.attr.foundWordBackgroundColor, outValue, true);
 		Log.v(LOG_TAG, "foundWordBackgroundColor => " + Integer.toHexString(outValue.data));
@@ -325,7 +335,7 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 		Log.v(LOG_TAG, "Hello");
 
 		if (noteControlCallback != null
-				&& NoteStore.isNoteItemUri(getActivity(), noteUri))
+				&& NoteStore.isNoteItemUri(requireContext(), noteUri))
 		{
 			noteControlCallback.startEditNote(noteUri);
 		}
@@ -338,7 +348,7 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 		Log.v(LOG_TAG, "Hello");
 
 		if (noteControlCallback != null
-				&& NoteStore.isNoteItemUri(getActivity(), noteUri))
+				&& NoteStore.isNoteItemUri(requireContext(), noteUri))
 		{
 			noteControlCallback.startDeleteNote(noteUri);
 		}
@@ -351,20 +361,26 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 		Log.v(LOG_TAG, "Hello");
 		String noteTitle = noteTitleTextView.getText().toString();
 		String noteContent = noteContentTextView.getText().toString();
-		NoteUtils.shareNote(getActivity(), noteTitle, noteContent);
+		NoteUtils.shareNote(requireContext(), noteTitle, noteContent);
 		Log.v(LOG_TAG, "Bye");
 	}
 
 	private void copyNoteTitleToClipboard()
 	{
-		ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Activity.CLIPBOARD_SERVICE);
-		clipboardManager.setText(noteTitleTextView.getText());
+		ClipboardManager clipboardManager = (ClipboardManager) requireContext().getSystemService(Context.CLIPBOARD_SERVICE);
+		if (clipboardManager != null)
+		{
+			clipboardManager.setText(noteTitleTextView.getText());
+		}
 	}
 
 	private void copyNoteContentToClipboard()
 	{
-		ClipboardManager clipboardManager = (ClipboardManager) getActivity().getSystemService(Activity.CLIPBOARD_SERVICE);
-		clipboardManager.setText(noteContentTextView.getText());
+		ClipboardManager clipboardManager = (ClipboardManager) requireContext().getSystemService(Context.CLIPBOARD_SERVICE);
+		if (clipboardManager != null)
+		{
+			clipboardManager.setText(noteContentTextView.getText());
+		}
 	}
 
 	private void updateFindWordViews()
@@ -377,7 +393,7 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 			// scroll to selected word
 			Rect rect = new Rect();
 			noteContentTextView.getLineBounds(selectedWordLineNumber, rect);
-			noteViewScrollView.scrollTo(rect.left, rect.top - noteContentTextView.getLineHeight());
+			noteViewScrollView.scrollTo(0, noteContentTextView.getTop() + rect.top - noteContentTextView.getLineHeight());
 		}
 	}
 
@@ -404,11 +420,11 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 			int yOffset = (int) (this.getResources().getDisplayMetrics().density * 50.0f);
 			int foundCount = findWordContext.getFoundWordCount();
 			String foundMessage = getResources().getQuantityString(R.plurals.found_word_count_message, foundCount, foundCount);
-			Toast toast = Toast.makeText(getActivity(), foundMessage, Toast.LENGTH_LONG);
+			Toast toast = Toast.makeText(requireContext(), foundMessage, Toast.LENGTH_LONG);
 			toast.setGravity(Gravity.TOP, 0, yOffset);
 			toast.show();
 
-			IMEUtils.hideSoftKeyboardWindow(getActivity(), findWordEditText);
+			IMEUtils.hideSoftKeyboardWindow(requireContext(), findWordEditText);
 		}
 	}
 
@@ -454,7 +470,7 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 	{
 		if (findWordActionMode == null)
 		{
-			findWordActionMode = getActivity().startActionMode(findWordActionModeCallback);
+			findWordActionMode = ((AppCompatActivity) requireActivity()).startSupportActionMode(findWordActionModeCallback);
 			if (findWordActionMode != null)
 			{
 				findWordActionMode.invalidate();
@@ -476,8 +492,18 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 		{
 			Log.v(LOG_TAG, "onCreateActionMode() : Hello");
 
-			MenuInflater menuInflater = getActivity().getMenuInflater();
+			MenuInflater menuInflater = mode.getMenuInflater();
 			menuInflater.inflate(R.menu.find_word_actionmode_menu, menu);
+
+			View actionView = requireActivity().getLayoutInflater().inflate(R.layout.find_word_actionview, null);
+			mode.setCustomView(actionView);
+			findWordEditText = (EditText) actionView.findViewById(R.id.find_word_edittext);
+			if (findWordEditText != null)
+			{
+				findWordEditText.setOnEditorActionListener(this);
+				findWordEditText.setOnFocusChangeListener(this);
+				IMEUtils.requestKeyboardFocus(findWordEditText);
+			}
 
 			Log.v(LOG_TAG, "onCreateActionMode() : Bye");
 			return true;
@@ -495,20 +521,6 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 		public boolean onPrepareActionMode(ActionMode mode, Menu menu)
 		{
 			Log.v(LOG_TAG, "Hello");
-
-			MenuItem findWordActionMenuItem = menu.findItem(R.id.find_word_action_menuitem);
-			View actionView = findWordActionMenuItem.getActionView();
-			if (actionView != null)
-			{
-				findWordEditText = (EditText) actionView.findViewById(R.id.find_word_edittext);
-				if (findWordEditText != null)
-				{
-					findWordEditText.setOnEditorActionListener(this);
-					findWordEditText.setOnFocusChangeListener(this);
-					IMEUtils.requestKeyboardFocus(findWordEditText);
-				}
-			}
-
 			Log.v(LOG_TAG, "Bye");
 			return false;
 		}
@@ -581,11 +593,11 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 				Log.v(LOG_TAG, "find_word_edittext : focused => " + focused);
 				if (focused)
 				{
-					IMEUtils.showSoftKeyboardWindow(getActivity(), view);
+					IMEUtils.showSoftKeyboardWindow(requireContext(), view);
 				}
 				else
 				{
-					IMEUtils.hideSoftKeyboardWindow(getActivity(), view);
+					IMEUtils.hideSoftKeyboardWindow(requireContext(), view);
 				}
 			}
 			else

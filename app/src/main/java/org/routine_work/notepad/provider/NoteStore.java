@@ -115,6 +115,29 @@ public class NoteStore
 		return result;
 	}
 
+	public static boolean isNoteListUri(Context context, Uri uri)
+	{
+		return isNoteListUri(context.getContentResolver(), uri);
+	}
+
+	public static boolean isNoteListUri(ContentResolver cr, Uri uri)
+	{
+		boolean result = false;
+		Log.v(LOG_TAG, "Hello");
+		Log.d(LOG_TAG, "uri => " + uri);
+
+		if (uri != null)
+		{
+			String type = cr.getType(uri);
+			Log.v(LOG_TAG, "uri.type => " + type);
+			result = Note.NOTE_LIST_CONTENT_TYPE.equals(type);
+		}
+
+		Log.d(LOG_TAG, "result => " + result);
+		Log.v(LOG_TAG, "Bye");
+		return result;
+	}
+
 	public static boolean isNoteItemUri(Context context, Uri uri)
 	{
 		return isNoteItemUri(context.getContentResolver(), uri);

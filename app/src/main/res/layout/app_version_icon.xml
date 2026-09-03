@@ -3,4 +3,5 @@
     android:layout_width="72dp"
     android:layout_height="72dp"
     android:layout_gravity="center"
+    android:contentDescription="@string/app_name"
     android:src="@drawable/ic_launcher_notepad" />

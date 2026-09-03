@@ -24,8 +24,12 @@
 package org.routine_work.notepad.template;
 
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDialog;
+import androidx.fragment.app.DialogFragment;
 
 /**
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
@@ -33,10 +37,11 @@ import android.os.Bundle;
 public class NoteTemplatePickerDialogFragment extends DialogFragment
 {
 
+	@NonNull
 	@Override
-	public Dialog onCreateDialog(Bundle savedInstanceState)
+	public Dialog onCreateDialog(@Nullable Bundle savedInstanceState)
 	{
-		Dialog dialog = new NoteTemplatePickerDialog(getActivity());
+		Dialog dialog = new NoteTemplatePickerDialog(requireActivity());
 
 		return dialog;
 	}

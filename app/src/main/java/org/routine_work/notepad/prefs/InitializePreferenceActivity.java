@@ -23,7 +23,6 @@
  */
 package org.routine_work.notepad.prefs;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,11 +31,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
 import org.routine_work.utils.Log;
 
-public class InitializePreferenceActivity extends Activity implements OnClickListener
+public class InitializePreferenceActivity extends AppCompatActivity implements OnClickListener
 {
 
 	public static final String LOG_TAG = "simple-battery-logger";
@@ -50,9 +51,9 @@ public class InitializePreferenceActivity extends Activity implements OnClickLis
 
 		NotepadActivity.enableHomeButton(this);
 
-		Button okButton = (Button) findViewById(R.id.ok_button);
+		Button okButton = findViewById(R.id.ok_button);
 		okButton.setOnClickListener(this);
-		Button cancelButton = (Button) findViewById(R.id.cancel_button);
+		Button cancelButton = findViewById(R.id.cancel_button);
 		cancelButton.setOnClickListener(this);
 	}
 
@@ -89,7 +90,9 @@ public class InitializePreferenceActivity extends Activity implements OnClickLis
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
 		boolean result = true;
+		Log.v(LOG_TAG, "Hello");
 
+		Log.d(LOG_TAG, "item.getItemId() => " + item.getItemId());
 		int itemId = item.getItemId();
 		if (itemId == android.R.id.home)
 		{
@@ -105,6 +108,7 @@ public class InitializePreferenceActivity extends Activity implements OnClickLis
 			result = super.onOptionsItemSelected(item);
 		}
 
+		Log.v(LOG_TAG, "Bye");
 		return result;
 	}
 }

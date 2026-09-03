@@ -23,7 +23,6 @@
  */
 package org.routine_work.notepad.prefs;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -35,6 +34,10 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.provider.NoteStore;
@@ -45,10 +48,28 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class RestoreDatabaseActivity extends Activity implements OnClickListener
+public class RestoreDatabaseActivity extends AppCompatActivity implements OnClickListener
 {
 	private static final String LOG_TAG = "simple-notepad";
-	static final int REQUEST_CODE_SELECT_STORAGE_FILE = 1001;
+
+	private final ActivityResultLauncher<Intent> selectStorageFileLauncher =
+			registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result ->
+			{
+				if (result.getResultCode() == RESULT_OK)
+				{
+					Intent data = result.getData();
+					if (data != null && data.getData() != null)
+					{
+						Uri backupFileUri = data.getData();
+						Log.d(LOG_TAG, "selected backupFileUri => " + backupFileUri);
+						boolean success = restoreDatabaseFile(backupFileUri);
+						if (success)
+						{
+							NotepadActivity.quitApplication(this);
+						}
+					}
+				}
+			});
 
 	@Override
 	public void onClick(View view)
@@ -97,7 +118,9 @@ public class RestoreDatabaseActivity extends Activity implements OnClickListener
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
 		boolean result = true;
+		Log.v(LOG_TAG, "Hello");
 
+		Log.d(LOG_TAG, "item.getItemId() => " + item.getItemId());
 		int itemId = item.getItemId();
 		if (itemId == android.R.id.home)
 		{
@@ -113,30 +136,8 @@ public class RestoreDatabaseActivity extends Activity implements OnClickListener
 			result = super.onOptionsItemSelected(item);
 		}
 
+		Log.v(LOG_TAG, "Bye");
 		return result;
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data)
-	{
-		switch (requestCode)
-		{
-			case REQUEST_CODE_SELECT_STORAGE_FILE:
-				if (data != null && data.getData() != null)
-				{
-					Uri backupFileUri = data.getData();
-					Log.d(LOG_TAG, "selected backupFileUri => " + backupFileUri);
-					boolean success = restoreDatabaseFile(backupFileUri);
-					if (success)
-					{
-						NotepadActivity.quitApplication(this);
-					}
-				}
-				break;
-			default:
-				super.onActivityResult(requestCode, resultCode, data);
-				break;
-		}
 	}
 
 	private void selectStorageFileToRestore()
@@ -146,7 +147,7 @@ public class RestoreDatabaseActivity extends Activity implements OnClickListener
 		Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
 		intent.addCategory(Intent.CATEGORY_OPENABLE);
 		intent.setType("*/*");
-		startActivityForResult(intent, REQUEST_CODE_SELECT_STORAGE_FILE);
+		selectStorageFileLauncher.launch(intent);
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -170,7 +171,7 @@ public class RestoreDatabaseActivity extends Activity implements OnClickListener
 		}
 
 		try (OutputStream outputStream = new FileOutputStream(NoteStore.getNoteDatabasePath(this));
-			 InputStream inputStream = getContentResolver().openInputStream(backupFileUri))
+		     InputStream inputStream = getContentResolver().openInputStream(backupFileUri))
 		{
 			if (outputStream != null && inputStream != null)
 			{

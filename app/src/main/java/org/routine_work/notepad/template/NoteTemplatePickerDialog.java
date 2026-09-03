@@ -23,16 +23,21 @@
  */
 package org.routine_work.notepad.template;
 
-import android.app.Dialog;
+import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
+
+import androidx.appcompat.app.AppCompatDialog;
+import androidx.cursoradapter.widget.SimpleCursorAdapter;
 
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.provider.NoteStore;
@@ -43,7 +48,7 @@ import org.routine_work.utils.Log;
 /**
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
-public class NoteTemplatePickerDialog extends Dialog
+public class NoteTemplatePickerDialog extends AppCompatDialog
 		implements OnItemClickListener,
 		NoteTemplateConstants
 {
@@ -81,8 +86,15 @@ public class NoteTemplatePickerDialog extends Dialog
 		Log.v(LOG_TAG, "Hello");
 		if (parent == listView)
 		{
-			NoteUtils.startActivityToAddNewNoteWithTemplate(getOwnerActivity(), id);
-			dismiss();
+			Activity activity = getOwnerActivity();
+			Log.v(LOG_TAG, "activity => " + activity);
+			if (activity != null)
+			{
+				Uri noteTemplateUri = ContentUris.withAppendedId(NoteStore.NoteTemplate.CONTENT_URI, id);
+				Intent intentForAddNewNoteWithTemplate = NoteUtils.getIntentForAddNewNoteWithTemplate(activity, noteTemplateUri);
+				activity.startActivity(intentForAddNewNoteWithTemplate);
+				dismiss();
+			}
 		}
 		Log.v(LOG_TAG, "Bye");
 	}

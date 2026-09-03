@@ -23,7 +23,6 @@
  */
 package org.routine_work.notepad.debug;
 
-import android.app.ListActivity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.os.AsyncTask;
@@ -31,7 +30,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
@@ -41,7 +43,7 @@ import org.routine_work.utils.Log;
 /**
  * @author Masahiko, SAWAI <masahiko.sawai@gmail.com>
  */
-public class DebugFunctionActivity extends ListActivity
+public class DebugFunctionActivity extends AppCompatActivity
 		implements AdapterView.OnItemClickListener
 {
 
@@ -53,6 +55,7 @@ public class DebugFunctionActivity extends ListActivity
 					"Create Test Notes",
 					"Delete All Notes",
 			};
+	private ListView listView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -63,13 +66,14 @@ public class DebugFunctionActivity extends ListActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.simple_list);
 
+		listView = findViewById(android.R.id.list);
 		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1,
 				android.R.id.text1,
 				FUNCTION_NAMES);
-		setListAdapter(arrayAdapter);
+		listView.setAdapter(arrayAdapter);
 
-		getListView().setOnItemClickListener(this);
+		listView.setOnItemClickListener(this);
 
 		Log.v(LOG_TAG, "Bye");
 	}

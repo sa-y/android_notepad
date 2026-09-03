@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?><!-- notepad-app-level-11 -->
+<resources>
+    <string name="app_name">記事本</string>
+
+    <string name="quit">退出</string>
+    <string name="save">儲存</string>
+    <string name="no_data">無資料</string>
+
+    <string name="note">筆記</string>
+    <string name="no_note">無筆記</string>
+    <string name="title">標題</string>
+    <string name="text">本文</string>
+    <string name="name">名稱</string>
+
+    <string name="lock">鎖定</string>
+    <string name="unlock">解鎖</string>
+    <string name="lock_title">固定標題</string>
+    <string name="unlock_title">取消固定標題</string>
+    <string name="lock_title_confirm">標題固定後將無法修改。確定嗎？</string>
+    <string name="unlock_title_confirm">標題將恢復為可編輯狀態。確定嗎？</string>
+    <string name="lock_title_tooltip">使標題不可編輯</string>
+    <string name="unlock_title_tooltip">使標題可編輯</string>
+
+    <string name="note_template">筆記範本</string>
+    <string name="no_note_template">無筆記範本</string>
+    <string name="template_name">範本名稱</string>
+    <string name="title_template">標題範本</string>
+    <string name="text_template">本文範本</string>
+    <string name="title_lock">標題鎖定</string>
+    <string name="edit_same_title">編輯相同標題</string>
+
+    <string name="note_not_exist">指定的筆記不存在。</string>
+    <string name="note_not_specified">未指定筆記。</string>
+
+    <string name="search_note_label">記事本</string>
+    <string name="search_note_hint">搜尋筆記</string>
+    <string name="search_note_description">簡易記事本中的筆記</string>
+
+    <string name="find_word_hint">尋找單字</string>
+    <plurals name="found_word_count_message">
+        <item quantity="other">找到 %1$d 處相符</item>
+    </plurals>
+
+    <!-- activity title -->
+    <string name="note_list_title">筆記列表</string>
+    <string name="view_note_title">查看筆記</string>
+    <string name="edit_note_title">編輯筆記</string>
+    <string name="add_new_note_title">新增筆記</string>
+    <string name="delete_note_title">刪除筆記</string>
+    <string name="delete_notes_title">刪除多則筆記</string>
+    <string name="select_note_title">選擇筆記</string>
+    <string name="insert_note_title">插入筆記</string>
+
+    <string name="note_template_list_title">範本列表</string>
+    <string name="edit_note_template_title">編輯範本</string>
+    <string name="add_new_note_template_title">新增範本</string>
+    <string name="select_note_template_title">選擇範本</string>
+
+    <!-- menu item label -->
+    <string name="new_note">新增</string>
+    <string name="edit_note">編輯</string>
+    <string name="delete_note">刪除</string>
+    <string name="share_note">分享</string>
+    <string name="delete_notes">刪除筆記</string>
+    <string name="search_note">搜尋</string>
+    <string name="find_word">尋找單字</string>
+    <string name="prev_word">上一個</string>
+    <string name="next_word">下一個</string>
+
+    <string name="copy_note_title">複製標題</string>
+    <string name="copy_note_content">複製本文</string>
+    <string name="copy_note_title_done">標題已複製。</string>
+    <string name="copy_note_content_done">本文已複製。</string>
+
+    <string name="templates">範本</string>
+    <string name="add_new_note_template">新增</string>
+    <string name="edit_note_template">編輯</string>
+    <string name="delete_note_template">刪除</string>
+
+    <!-- create note shortcut -->
+    <string name="new_note_shortcut_title">新增筆記捷徑</string>
+    <string name="search_note_title">搜尋筆記</string>
+    <string name="new_search_shortcut_title">新增搜尋捷徑</string>
+    <string name="new_from_template_title">從範本新增</string>
+    <string name="new_template_shortcut_title">新增範本捷徑</string>
+
+    <string name="search_query">搜尋查詢</string>
+    <string name="shortcut_name">捷徑名稱</string>
+    <string name="no_search_query_message">請輸入搜尋查詢。</string>
+    <string name="no_shortcut_name_message">請輸入捷徑名稱。</string>
+
+    <!-- app shortcut -->
+    <string name="new_note_shortcut_disabled">停用新增筆記捷徑</string>
+</resources>

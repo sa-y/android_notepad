@@ -25,13 +25,14 @@ package org.routine_work.notepad.prefs;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.ListPreference;
-import android.preference.PreferenceFragment;
+
+import androidx.preference.ListPreference;
+import androidx.preference.PreferenceFragmentCompat;
 
 import org.routine_work.notepad.R;
 import org.routine_work.utils.Log;
 
-public class DisplayPreferenceFragment extends PreferenceFragment
+public class DisplayPreferenceFragment extends PreferenceFragmentCompat
 		implements SharedPreferences.OnSharedPreferenceChangeListener
 {
 
@@ -40,15 +41,10 @@ public class DisplayPreferenceFragment extends PreferenceFragment
 	private SharedPreferences sharedPreferences;
 
 	@Override
-	public void onCreate(Bundle savedInstanceState)
+	public void onCreatePreferences(Bundle savedInstanceState, String rootKey)
 	{
-		Log.v(LOG_TAG, "Hello");
-
-		super.onCreate(savedInstanceState);
-		addPreferencesFromResource(R.xml.notepad_preference_display);
+		setPreferencesFromResource(R.xml.notepad_preference_display, rootKey); // 対応するXMLをロード
 		sharedPreferences = getPreferenceManager().getSharedPreferences();
-
-		Log.v(LOG_TAG, "Bye");
 	}
 
 	@Override
@@ -92,38 +88,25 @@ public class DisplayPreferenceFragment extends PreferenceFragment
 
 		if (isAdded())
 		{
-
-			String prefKey;
-			String prefValueString;
-			CharSequence summary;
-			ListPreference listPreference;
-
 			// Theme
-			prefKey = getString(R.string.notepad_theme_key);
-			listPreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
-			if (listPreference != null)
-			{
-				summary = listPreference.getEntry();
-				listPreference.setSummary(summary);
-			}
+			updateListPreferenceSummary(R.string.notepad_theme_key);
 
 			// Layout
 			final String noteListLayoutPortKey = getString(R.string.note_list_layout_port_key);
 			final String noteListLayoutLandKey = getString(R.string.note_list_layout_land_key);
+			CharSequence summary;
 
-			ListPreference noteListLayoutPortPreference = (ListPreference) getPreferenceScreen().findPreference(noteListLayoutPortKey);
+			ListPreference noteListLayoutPortPreference = findPreference(noteListLayoutPortKey);
 			Log.v(LOG_TAG, "noteListLayoutPortPreference => " + noteListLayoutPortPreference);
 			if (noteListLayoutPortPreference != null)
 			{
 				final String noteListLayoutPortDefaultValue = getString(R.string.note_list_layout_port_default_value);
 				String noteListLayoutPortValue = sharedPreferences.getString(noteListLayoutPortKey, noteListLayoutPortDefaultValue);
-				Log.v(LOG_TAG, "noteListLayoutPortDefaultValue => " + noteListLayoutPortDefaultValue);
 				summary = getLayoutName(noteListLayoutPortValue);
-				Log.v(LOG_TAG, "summary => " + summary);
 				noteListLayoutPortPreference.setSummary(summary);
 			}
 
-			ListPreference noteListLayoutLandPreference = (ListPreference) getPreferenceScreen().findPreference(noteListLayoutLandKey);
+			ListPreference noteListLayoutLandPreference = findPreference(noteListLayoutLandKey);
 			if (noteListLayoutLandPreference != null)
 			{
 				final String noteListLayoutLandDefaultValue = getString(R.string.note_list_layout_land_default_value);
@@ -133,53 +116,55 @@ public class DisplayPreferenceFragment extends PreferenceFragment
 			}
 
 			// Text Lines in Portrait
-			prefKey = getString(R.string.note_list_item_content_lines_port_key);
-			listPreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
-			if (listPreference != null)
-			{
-				prefValueString = listPreference.getEntry().toString();
-				summary = getString(R.string.note_list_item_content_lines_summary, prefValueString);
-				listPreference.setSummary(summary);
-			}
+			updateListPreferenceSummaryWithFormat(R.string.note_list_item_content_lines_port_key, R.string.note_list_item_content_lines_summary);
 
 			// Text Lines in Landscape
-			prefKey = getString(R.string.note_list_item_content_lines_land_key);
-			listPreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
-			if (listPreference != null)
-			{
-				prefValueString = listPreference.getEntry().toString();
-				summary = getString(R.string.note_list_item_content_lines_summary, prefValueString);
-				listPreference.setSummary(summary);
-			}
+			updateListPreferenceSummaryWithFormat(R.string.note_list_item_content_lines_land_key, R.string.note_list_item_content_lines_summary);
 
 			// Sort Order
-			prefKey = getString(R.string.note_list_sort_order_key);
-			listPreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
-			if (listPreference != null)
-			{
-				summary = listPreference.getEntry();
-				listPreference.setSummary(summary);
-			}
+			updateListPreferenceSummary(R.string.note_list_sort_order_key);
 
-			// Note Detail : Font Size in Portrait
-			prefKey = getString(R.string.note_detail_font_size_port_key);
-			listPreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
-			if (listPreference != null)
-			{
-				summary = listPreference.getEntry();
-				listPreference.setSummary(summary);
-			}
+			// Font Size in Portrait
+			updateListPreferenceSummary(R.string.note_detail_font_size_port_key);
 
-			// Note Detail : Font Size in Landscape
-			prefKey = getString(R.string.note_detail_font_size_land_key);
-			listPreference = (ListPreference) getPreferenceScreen().findPreference(prefKey);
-			if (listPreference != null)
-			{
-				summary = listPreference.getEntry();
-				listPreference.setSummary(summary);
-			}
+			// Font Size in Landscape
+			updateListPreferenceSummary(R.string.note_detail_font_size_land_key);
 		}
 		Log.v(LOG_TAG, "Hello");
+	}
+
+	/**
+	 * ListPreferenceのサマリーをEntryの値で更新するヘルパーメソッド
+	 * A helper method to update the summary of a ListPreference using a entry value.
+	 *
+	 * @param keyResId Preferenceのキーの文字列リソースID
+	 */
+	private void updateListPreferenceSummary(int keyResId)
+	{
+		String prefKey = getString(keyResId);
+		ListPreference preference = findPreference(prefKey);
+		if (preference != null)
+		{
+			preference.setSummary(preference.getEntry());
+		}
+	}
+
+	/**
+	 * A helper method to update the summary of a ListPreference using a format string.
+	 *
+	 * @param keyResId           Preference Key Resource ID
+	 * @param summaryFormatResId Summary Format Resource ID
+	 */
+	private void updateListPreferenceSummaryWithFormat(int keyResId, int summaryFormatResId)
+	{
+		String prefKey = getString(keyResId);
+		ListPreference preference = findPreference(prefKey);
+		if (preference != null)
+		{
+			String entry = preference.getEntry().toString();
+			String summary = getString(summaryFormatResId, entry);
+			preference.setSummary(summary);
+		}
 	}
 
 	private String getLayoutName(String layoutValue)

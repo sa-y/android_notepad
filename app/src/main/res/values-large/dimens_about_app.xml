@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="about_app_paddingTop">24dip</dimen>
+    <dimen name="about_app_paddingBottom">24dip</dimen>
+    <dimen name="about_app_paddingEnd">24dip</dimen>
+    <dimen name="about_app_paddingStart">24dip</dimen>
+
     <dimen name="about_app_icon_frame_padding">20dip</dimen>
     <dimen name="about_app_info_frame_padding">20dip</dimen>
 

@@ -8,14 +8,6 @@ build
 /captures
 /local.properties
 # Android Studio
-/.idea/.name
-/.idea/assetWizardSettings.xml
-/.idea/caches
-/.idea/deploymentTargetSelector.xml
-/.idea/deviceManager.xml
-/.idea/libraries
-/.idea/modules.xml
-/.idea/navEditor.xml
-/.idea/shelf/
-/.idea/usage.statistics.xml
-/.idea/workspace.xml
+/.idea/
+# Android Studio AI (Gemini) artifacts
+.artifacts/

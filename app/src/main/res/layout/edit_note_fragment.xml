@@ -17,26 +17,34 @@
             android:hint="@string/title"
             android:inputType="text"
             android:importantForAutofill="no"
+            android:minHeight="48dp"
+            android:gravity="center_vertical"
+            android:paddingStart="8dp"
+            android:paddingEnd="48dp"
             android:saveEnabled="false"
-            android:textSize="18sp" />
+            android:textSize="22sp" />
 
         <ImageButton
             android:id="@+id/note_title_lock_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_gravity="end|center_vertical"
-            android:layout_margin="4dip"
-            android:padding="4dip"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/lock_title"
+            android:scaleType="center"
+            android:tooltipText="@string/lock_title_tooltip"
             android:src="?attr/ic_unlock"
             android:visibility="visible" />
 
         <ImageButton
             android:id="@+id/note_title_unlock_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_gravity="end|center_vertical"
-            android:layout_margin="4dip"
-            android:padding="4dip"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/unlock_title"
+            android:scaleType="center"
+            android:tooltipText="@string/unlock_title_tooltip"
             android:src="?attr/ic_lock"
             android:visibility="gone" />
     </FrameLayout>
@@ -52,6 +60,10 @@
         android:hint="@string/text"
         android:inputType="textMultiLine"
         android:importantForAutofill="no"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:saveEnabled="false"
         android:scrollbars="vertical"
         android:textSize="18sp" />

@@ -58,3 +58,28 @@
     public static void setOutputLevel(...);
     public static void setTraceMode(...);
 }
+
+# Keep Fragments referenced in XML
+-keep public class * extends androidx.fragment.app.Fragment {
+    public <init>();
+}
+
+-keep public class * extends androidx.preference.PreferenceFragmentCompat {
+    public <init>();
+}
+
+# Keep Serializable classes to prevent issues when data is persisted
+-keepnames class * implements java.io.Serializable
+
+-keepclassmembers class * implements java.io.Serializable {
+    static final long serialVersionUID;
+    private static final java.io.ObjectStreamField[] serialPersistentFields;
+    !static !transient <fields>;
+    !private <fields>;
+    !private <methods>;
+    private void writeObject(java.io.ObjectOutputStream);
+    private void readObject(java.io.ObjectInputStream);
+    java.lang.Object writeReplace();
+    java.lang.Object readResolve();
+}
+

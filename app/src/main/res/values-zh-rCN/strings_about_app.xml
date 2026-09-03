@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="about_app_title">关于应用</string>
+    <string name="about_app_summary">有关此应用程序的信息</string>
+
+    <string name="application_version_title">版本信息</string>
+    <string name="application_version_summary">显示此应用程序的版本信息。</string>
+    <string name="application_store_title">应用商店</string>
+    <string name="application_store_summary">在商店中打开此应用程序的页面。</string>
+    <string name="application_management_title">应用管理</string>
+    <string name="application_management_summary">打开管理此应用程序的屏幕。</string>
+
+    <!-- AppVersionActivity -->
+    <string name="version">版本</string>
+    <string name="build_time">编译时间</string>
+    <string name="build_time_format">yyyyMMdd-kkmmss</string>
+
+</resources>

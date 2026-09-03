@@ -23,26 +23,28 @@
  */
 package org.routine_work.notepad.prefs;
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.WindowInsets;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
 
 import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
 import org.routine_work.utils.Log;
 
-import java.util.List;
+import java.util.Objects;
 
 /**
  * @author sawai
  */
-public class NotepadPreferenceActivity extends PreferenceActivity
+public class NotepadPreferenceActivity extends AppCompatActivity
+		implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback
 {
 
 	private static final String LOG_TAG = "simple-notepad";
@@ -54,8 +56,19 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 
 		setTheme(NotepadPreferenceUtils.getTheme(this));
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_notepad_preference);
 		NotepadActivity.enableHomeButton(this);
+		Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
+		if (savedInstanceState == null)
+		{
+			getSupportFragmentManager()
+					.beginTransaction()
+					.replace(R.id.notepad_preference_container, new NotepadPreferenceFragment())
+					.commit();
+		}
+
+		/*
 		if (Build.VERSION.SDK_INT == Build.VERSION_CODES.VANILLA_ICE_CREAM)
 		{
 			View content = findViewById(android.R.id.content);
@@ -77,19 +90,32 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 				});
 			}
 		}
+		 */
 
 		Log.v(LOG_TAG, "Bye");
 	}
 
 	@Override
-	public void onBuildHeaders(List<Header> target)
+	public boolean onPreferenceStartFragment(@NonNull PreferenceFragmentCompat caller, @NonNull Preference pref)
 	{
 		Log.v(LOG_TAG, "Hello");
+		// Instantiate the new Fragment
+		final Bundle args = pref.getExtras();
+		final Fragment fragment = getSupportFragmentManager().getFragmentFactory().instantiate(
+				getClassLoader(),
+				pref.getFragment());
+		fragment.setArguments(args);
+		fragment.setTargetFragment(caller, 0);
+		// Replace the existing Fragment with the new Fragment
+		getSupportFragmentManager().beginTransaction()
+				.replace(R.id.notepad_preference_container, fragment)
+				.addToBackStack(null)
+				.commit();
 
-		super.onBuildHeaders(target);
-		loadHeadersFromResource(R.xml.notepad_preference_header, target);
+		setTitle(pref.getTitle());
 
 		Log.v(LOG_TAG, "Bye");
+		return true;
 	}
 
 	@Override
@@ -104,6 +130,7 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
+		Log.v(LOG_TAG, "Hello");
 		boolean result = true;
 
 		int itemId = item.getItemId();
@@ -113,42 +140,25 @@ public class NotepadPreferenceActivity extends PreferenceActivity
 		}
 		else if (itemId == android.R.id.home)
 		{
-			NotepadActivity.goHomeActivity(this);
+			Log.v(LOG_TAG, "android.R.id.home is clicked.");
+			if (getSupportFragmentManager().getBackStackEntryCount() > 0)
+			{
+				Log.v(LOG_TAG, "pop back stack.");
+				getSupportFragmentManager().popBackStack();
+				setTitle(R.string.preferences_title);
+			}
+			else
+			{
+				Log.v(LOG_TAG, "finish activity.");
+				finish();
+			}
 		}
 		else
 		{
 			result = super.onOptionsItemSelected(item);
 		}
 
-		return result;
-	}
-
-	private static final String[] VALID_FRAGMENT_NAMES = {
-			"org.routine_work.notepad.prefs.DisplayPreferenceFragment",
-			"org.routine_work.notepad.prefs.ShareDataPreferenceFragment",
-			"org.routine_work.notepad.prefs.BackupAndResetPreferenceFragment",
-			"org.routine_work.notepad.prefs.AboutAppPreferenceFragment"
-	};
-
-	@Override
-	@TargetApi(Build.VERSION_CODES.KITKAT)
-	protected boolean isValidFragment(String fragmentName)
-	{
-		boolean result = false;
-		Log.v(LOG_TAG, "Hello");
-		Log.v(LOG_TAG, "fragmentName => " + fragmentName);
-
-		for (String validFragmentName : VALID_FRAGMENT_NAMES)
-		{
-			if (validFragmentName.equals(fragmentName))
-			{
-				result = true;
-				break;
-			}
-		}
-		Log.v(LOG_TAG, "result => " + result);
 		Log.v(LOG_TAG, "Bye");
 		return result;
 	}
-
 }

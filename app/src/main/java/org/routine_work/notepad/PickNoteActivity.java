@@ -24,12 +24,8 @@
 package org.routine_work.notepad;
 
 import android.app.Activity;
-import android.app.ListActivity;
-import android.app.LoaderManager;
 import android.content.ContentUris;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -38,13 +34,20 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
+import androidx.loader.content.Loader;
+
 import org.routine_work.notepad.fragment.NoteCursorAdapter;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.utils.NotepadConstants;
 import org.routine_work.utils.Log;
 
-public class PickNoteActivity extends ListActivity
+public class PickNoteActivity extends AppCompatActivity
 		implements NotepadConstants,
 		AdapterView.OnItemClickListener,
 		LoaderManager.LoaderCallbacks<Cursor>
@@ -54,6 +57,7 @@ public class PickNoteActivity extends ListActivity
 	private static final String LOG_TAG = "simple-notepad";
 	// instance variables
 	private NoteCursorAdapter listAdapter;
+	private ListView listView;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -71,13 +75,13 @@ public class PickNoteActivity extends ListActivity
 			setTitle(title);
 		}
 
+		listView = findViewById(android.R.id.list);
 		listAdapter = new NoteCursorAdapter(this, null);
-		setListAdapter(listAdapter);
+		listView.setAdapter(listAdapter);
 
-		LoaderManager loaderManager = getLoaderManager();
+		LoaderManager loaderManager = LoaderManager.getInstance(this);
 		loaderManager.initLoader(NOTE_LOADER_ID, null, this);
 
-		ListView listView = getListView();
 		listView.setOnItemClickListener(this);
 
 		Log.v(LOG_TAG, "Bye");
@@ -98,7 +102,9 @@ public class PickNoteActivity extends ListActivity
 	}
 
 	// BEGIN ---------- LoaderManager.LoaderCallbacks<Cursor> ----------
-	public Loader<Cursor> onCreateLoader(int id, Bundle bundle)
+	@NonNull
+	@Override
+	public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle bundle)
 	{
 		Log.v(LOG_TAG, "Hello");
 
@@ -116,14 +122,16 @@ public class PickNoteActivity extends ListActivity
 		return cursorLoader;
 	}
 
-	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor)
+	@Override
+	public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor)
 	{
 		Log.v(LOG_TAG, "Hello");
 		listAdapter.swapCursor(cursor);
 		Log.v(LOG_TAG, "Bye");
 	}
 
-	public void onLoaderReset(Loader<Cursor> loader)
+	@Override
+	public void onLoaderReset(@NonNull Loader<Cursor> loader)
 	{
 		Log.v(LOG_TAG, "Hello");
 		listAdapter.swapCursor(null);

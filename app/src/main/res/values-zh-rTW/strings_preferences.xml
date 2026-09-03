@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?><!-- This file is made every languages -->
+<resources>
+
+    <string name="preferences">設定</string>
+    <string name="preferences_title">設定</string>
+
+    <!-- ############################################################ -->
+    <!-- Display Screen -->
+    <string name="display_screen_title">顯示</string>
+    <!-- Theme Category -->
+    <string name="theme_category_title">主題</string>
+    <string name="notepad_theme">記事本主題</string>
+    <string name="notepad_theme_title">記事本主題</string>
+    <string name="dark_theme">深色主題</string>
+    <string name="light_theme">淺色主題</string>
+
+    <!-- Layout Category -->
+    <string name="layout_category_title">版面配置</string>
+    <!-- Layout : Note List -->
+    <string name="note_list_layout_port_title">直向下的筆記列表版面</string>
+    <string name="note_list_layout_land_title">橫向下的筆記列表版面</string>
+    <string name="single_pane">單窗格模式</string>
+    <string name="wide_two_pane">雙窗格模式</string>
+
+    <!-- Note List Category -->
+    <string name="note_list_category_title">筆記列表</string>
+    <!-- Note List : Modified Time Visibility -->
+    <string name="note_list_item_modified_time_visibility_port_title">直向下的修改時間</string>
+    <string name="note_list_item_modified_time_visibility_land_title">橫向下的修改時間</string>
+    <string name="note_list_item_modified_time_visibility_summary_on">在筆記列表中顯示修改時間。</string>
+    <string name="note_list_item_modified_time_visibility_summary_off">在筆記列表中不顯示修改時間。</string>
+    <!-- Note List : Content Text Lines -->
+    <string name="note_list_item_content_lines_port_title">直向下的文字行數</string>
+    <string name="note_list_item_content_lines_land_title">橫向下的文字行數</string>
+    <string name="note_list_item_content_lines_summary">%1$s 行</string>
+
+    <!-- Note List : Sort Order -->
+    <string name="note_list_sort_order_title">排序方式</string>
+    <!-- Note List : Sort Order Entries -->
+    <string name="note_list_sort_order_entry_title_asc">標題升序</string>
+    <string name="note_list_sort_order_entry_title_desc">標題降序</string>
+    <string name="note_list_sort_order_entry_date_modified_asc">修改時間升序</string>
+    <string name="note_list_sort_order_entry_date_modified_desc">修改時間降序</string>
+
+    <!-- Note Detail Category -->
+    <string name="note_detail_category_title">筆記查看與編輯</string>
+    <!-- Note Detail : Font Size -->
+    <string name="note_detail_font_size">字型大小</string>
+    <string name="note_detail_font_size_title">字型大小</string>
+    <string name="note_detail_font_size_port">直向下的字型大小</string>
+    <string name="note_detail_font_size_land">橫向下的字型大小</string>
+    <string name="note_detail_font_size__port_title">直向下的字型大小</string>
+    <string name="note_detail_font_size__land_title">橫向下的字型大小</string>
+    <!-- Note Detail : Font Size Entries-->
+    <string name="note_detail_font_size_10">10 (極小)</string>
+    <string name="note_detail_font_size_12">12 </string>
+    <string name="note_detail_font_size_14">14 (較小)</string>
+    <string name="note_detail_font_size_16">16 </string>
+    <string name="note_detail_font_size_18">18 (中等)</string>
+    <string name="note_detail_font_size_20">20</string>
+    <string name="note_detail_font_size_22">22 (較大)</string>
+    <string name="note_detail_font_size_24">24</string>
+    <string name="note_detail_font_size_26">26 (極大)</string>
+
+    <!-- Auto Link Category -->
+    <string name="note_autolink_category_title">自動連結</string>
+    <!-- Auto Link : Note Title -->
+    <string name="note_title_autolink_title">標題中的自動連結</string>
+    <string name="note_title_autolink_summary_on">標題中的 URL 和電子郵件將自動建立連結。</string>
+    <string name="note_title_autolink_summary_off">標題中的 URL 和電子郵件不會建立連結。</string>
+    <!-- Auto Link : Note Content -->
+    <string name="note_content_autolink_title">本文中的自動連結</string>
+    <string name="note_content_autolink_summary_on">本文中的 URL 和電子郵件將自動建立連結。</string>
+    <string name="note_content_autolink_summary_off">本文中的 URL 和電子郵件不會建立連結。</string>
+
+    <!-- ActionBar Category -->
+    <string name="actionbar_category_title">動作列</string>
+    <!-- ActionBar : Auto Hide -->
+    <string name="actionbar_auto_hide_port_title">直向下自動隱藏</string>
+    <string name="actionbar_auto_hide_land_title">橫向下自動隱藏</string>
+    <string name="actionbar_auto_hide_summary_on">編輯筆記時自動隱藏動作列。</string>
+    <string name="actionbar_auto_hide_summary_off">編輯筆記時始終顯示動作列。</string>
+
+    <!-- Capitalization Category -->
+    <string name="capitalization_category_title">大寫設定</string>
+    <!-- Capitalization : Note Title -->
+    <string name="capitalization_title_title">標題首字母大寫</string>
+    <string name="capitalization_title_summary_on">已啟用標題首字母大寫。</string>
+    <string name="capitalization_title_summary_off">已停用標題首字母大寫。</string>
+    <!-- Capitalization : Note Content -->
+    <string name="capitalization_content_title">本文首字母大寫</string>
+    <string name="capitalization_content_summary_on">已啟用本文首字母大寫。</string>
+    <string name="capitalization_content_summary_off">已停用本文首字母大寫。</string>
+
+
+    <!-- ############################################################ -->
+    <!-- Share Data Screen -->
+    <string name="share_data_screen_title">分享資料</string>
+    <!-- Share Data Category -->
+    <string name="share_data_category_title">分享資料</string>
+    <!-- Receive Text -->
+    <string name="receive_text_title">接收文字</string>
+    <string name="receive_text_summary_on">已啟用文字 Intent 接收。</string>
+    <string name="receive_text_summary_off">已停用文字 Intent 接收。</string>
+
+    <!-- ############################################################ -->
+    <!-- Backup and Reset Screen -->
+    <string name="backup_and_reset_screen_title">備份與重設</string>
+    <!-- Backup and Restore Category -->
+    <string name="backup_and_restore_category_title">備份與還原</string>
+    <!-- Backup Data -->
+    <string name="backup_data">備份資料</string>
+    <string name="backup_data_title">備份資料</string>
+    <string name="backup_data_summary">備份所有筆記和範本。</string>
+    <string name="backup_data_confirm_message">所有筆記和範本將備份到您選擇的檔案中。</string>
+    <string name="backup_data_completed_message">所有筆記和範本已備份。</string>
+    <string name="external_storage_not_mountted">未掛載外部儲存裝置。</string>
+    <string name="request_permission_rationale_external_storage">備份和還原需要存取外部儲存裝置的權限。</string>
+    <!-- Restore Data -->
+    <string name="restore_data">還原資料</string>
+    <string name="restore_data_title">還原資料</string>
+    <string name="restore_data_summary">從備份檔案還原所有筆記和範本。</string>
+    <string name="restore_data_confirm_message">目前的筆記和範本將被刪除，所有資料將從選定的備份檔案還原。應用程式將結束以套用資料變更。</string>
+    <!-- Pick Backup File -->
+    <string name="select_backup_file_title">選擇備份檔案</string>
+    <string name="no_backup_file">無備份檔案</string>
+    <string name="selected_file_is_invalid">所選檔案格式無效。</string>
+    <string name="failed_to_restore_database_file">無法從備份檔案還原資料庫。</string>
+
+    <!-- Reset Category -->
+    <string name="reset_category_title">重設</string>
+    <!-- Initialize Preferences -->
+    <string name="initialize_preference">初始化設定</string>
+    <string name="initialize_preference_title">初始化設定</string>
+    <string name="initialize_preference_summary">初始化所有設定值。</string>
+    <string name="initialize_preference_confirm_message">所有設定值將初始化為預設值。目前資料將被刪除。</string>
+
+</resources>

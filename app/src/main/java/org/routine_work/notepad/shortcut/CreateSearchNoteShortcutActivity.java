@@ -23,7 +23,6 @@
  */
 package org.routine_work.notepad.shortcut;
 
-import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.content.Intent.ShortcutIconResource;
@@ -38,14 +37,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.routine_work.notepad.AddNewNoteActivity;
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.routine_work.notepad.R;
 import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.utils.NotepadConstants;
 import org.routine_work.utils.Log;
 
-public class CreateSearchNoteShortcutActivity extends Activity
+public class CreateSearchNoteShortcutActivity extends AppCompatActivity
 		implements View.OnClickListener, NotepadConstants
 {
 
@@ -85,7 +85,7 @@ public class CreateSearchNoteShortcutActivity extends Activity
 		if (viewId == R.id.cancel_button)
 		{
 			Log.d(LOG_TAG, "Cancel Button is clicked.");
-			setResult(Activity.RESULT_CANCELED);
+			setResult(RESULT_CANCELED);
 			finish();
 		}
 		else if (viewId == R.id.ok_button)
@@ -140,12 +140,12 @@ public class CreateSearchNoteShortcutActivity extends Activity
 
 				shortcutManager.requestPinShortcut(shortcutInfo, null);
 
-				setResult(Activity.RESULT_OK);
+				setResult(RESULT_OK);
 				finish();
 			}
 			else
 			{
-				setResult(Activity.RESULT_CANCELED);
+				setResult(RESULT_CANCELED);
 				finish();
 			}
 		}
@@ -159,7 +159,7 @@ public class CreateSearchNoteShortcutActivity extends Activity
 			resultIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, searchNoteIntent);
 			resultIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, shortcutIconResource);
 			resultIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, shortcutName);
-			setResult(Activity.RESULT_OK, resultIntent);
+			setResult(RESULT_OK, resultIntent);
 			finish();
 		}
 
