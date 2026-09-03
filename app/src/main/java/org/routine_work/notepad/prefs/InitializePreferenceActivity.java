@@ -32,9 +32,13 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
+import org.routine_work.notepad.utils.EdgeToEdgeUtils;
 import org.routine_work.utils.Log;
 
 public class InitializePreferenceActivity extends AppCompatActivity implements OnClickListener
@@ -45,9 +49,15 @@ public class InitializePreferenceActivity extends AppCompatActivity implements O
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		setTheme(NotepadPreferenceUtils.getTheme(this));
+		EdgeToEdgeUtils.setup(this);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.initialize_preference_activity);
+
+		ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.initialize_preference_root), (v, insets) -> {
+			Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+			v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+			return insets;
+		});
 
 		NotepadActivity.enableHomeButton(this);
 

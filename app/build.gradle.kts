@@ -50,6 +50,8 @@ android {
 
 dependencies {
     implementation(libs.appcompat)
+    implementation(libs.activity)
+    implementation(libs.core)
     implementation(libs.preference)
     implementation(libs.material)
     testImplementation(libs.junit)

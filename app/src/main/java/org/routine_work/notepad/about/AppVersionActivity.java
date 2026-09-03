@@ -34,11 +34,14 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import org.routine_work.notepad.BuildConfig;
 import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
-import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
+import org.routine_work.notepad.utils.EdgeToEdgeUtils;
 import org.routine_work.utils.Log;
 
 import java.util.Date;
@@ -54,9 +57,15 @@ public class AppVersionActivity extends AppCompatActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		setTheme(NotepadPreferenceUtils.getTheme(this));
+		EdgeToEdgeUtils.setup(this);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.app_version_activity);
+
+		ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.app_version_root), (v, insets) -> {
+			Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+			v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+			return insets;
+		});
 
 		NotepadActivity.enableHomeButton(this);
 

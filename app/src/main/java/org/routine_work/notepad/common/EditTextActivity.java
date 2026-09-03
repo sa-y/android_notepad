@@ -35,10 +35,13 @@ import android.view.WindowManager;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import org.routine_work.notepad.NotepadActivity;
 import org.routine_work.notepad.R;
-import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
+import org.routine_work.notepad.utils.EdgeToEdgeUtils;
 import org.routine_work.utils.Log;
 import org.routine_work.utils.SafeArrowKeyMovementMethod;
 
@@ -56,7 +59,7 @@ public class EditTextActivity extends AppCompatActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		Log.v(LOG_TAG, "Hello");
-		setTheme(NotepadPreferenceUtils.getTheme(this));
+		EdgeToEdgeUtils.setup(this);
 		super.onCreate(savedInstanceState);
 
 		NotepadActivity.enableHomeButton(this);
@@ -65,6 +68,12 @@ public class EditTextActivity extends AppCompatActivity
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE
 						| WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 		setContentView(R.layout.edit_text_activity);
+
+		ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.edit_text_root), (v, insets) -> {
+			Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+			v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+			return insets;
+		});
 
 		EditText singleLineEditText = (EditText) findViewById(R.id.single_line_edittext);
 		singleLineEditText.setMovementMethod(SafeArrowKeyMovementMethod.getInstance());
