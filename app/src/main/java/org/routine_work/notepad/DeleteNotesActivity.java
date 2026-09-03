@@ -29,8 +29,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
-import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
+import org.routine_work.notepad.utils.EdgeToEdgeUtils;
 import org.routine_work.notepad.utils.NotepadConstants;
 import org.routine_work.utils.Log;
 
@@ -42,9 +45,15 @@ public class DeleteNotesActivity extends AppCompatActivity implements NotepadCon
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		setTheme(NotepadPreferenceUtils.getTheme(this));
+		EdgeToEdgeUtils.setup(this);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.delete_notes_activity);
+
+		ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.delete_notes_root), (v, insets) -> {
+			Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+			v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+			return insets;
+		});
 
 		NotepadActivity.enableHomeButton(this);
 	}

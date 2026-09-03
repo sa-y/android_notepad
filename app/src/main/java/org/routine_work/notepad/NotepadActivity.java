@@ -45,6 +45,9 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -58,6 +61,7 @@ import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
 import org.routine_work.notepad.template.NoteTemplateInitializer;
 import org.routine_work.notepad.template.NoteTemplatePickerDialogFragment;
+import org.routine_work.notepad.utils.EdgeToEdgeUtils;
 import org.routine_work.notepad.utils.NoteSearchQueryParser;
 import org.routine_work.notepad.utils.NoteUtils;
 import org.routine_work.notepad.utils.NotepadConstants;
@@ -152,9 +156,15 @@ public class NotepadActivity extends AppCompatActivity implements NotepadConstan
 	{
 		Log.v(LOG_TAG, "Hello");
 
-		setTheme(NotepadPreferenceUtils.getTheme(this));
+		EdgeToEdgeUtils.setup(this);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.notepad_activity);
+
+		ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+			Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+			v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+			return insets;
+		});
 
 		NotepadActivity.enableHomeButton(this);
 

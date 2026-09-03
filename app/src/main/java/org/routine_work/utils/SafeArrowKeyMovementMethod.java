@@ -1,6 +1,5 @@
 package org.routine_work.utils;
 
-import android.text.Selection;
 import android.text.Spannable;
 import android.text.method.ArrowKeyMovementMethod;
 import android.text.method.MovementMethod;

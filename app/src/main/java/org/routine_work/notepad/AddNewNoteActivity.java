@@ -30,9 +30,12 @@ import android.os.Bundle;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
-import org.routine_work.notepad.prefs.NotepadPreferenceUtils;
 import org.routine_work.notepad.provider.NoteStore;
+import org.routine_work.notepad.utils.EdgeToEdgeUtils;
 import org.routine_work.notepad.utils.NoteUtils;
 import org.routine_work.notepad.utils.NotepadConstants;
 import org.routine_work.utils.Log;
@@ -66,7 +69,7 @@ public class AddNewNoteActivity extends AppCompatActivity implements NotepadCons
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		Log.v(LOG_TAG, "Hello");
-		setTheme(NotepadPreferenceUtils.getTheme(this));
+		EdgeToEdgeUtils.setup(this);
 		super.onCreate(savedInstanceState);
 
 		// initialize noteTemplateUri
@@ -112,6 +115,11 @@ public class AddNewNoteActivity extends AppCompatActivity implements NotepadCons
 			Log.v(LOG_TAG, "is not finishing.");
 			Log.v(LOG_TAG, "Initialize UI.");
 			setContentView(R.layout.add_new_note_activity);
+			ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.add_new_note_root), (v, insets) -> {
+				Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+				v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+				return insets;
+			});
 		}
 		Log.v(LOG_TAG, "Bye");
 	}
