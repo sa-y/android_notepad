@@ -57,7 +57,6 @@ public class NoteTemplatePickerDialog extends AppCompatDialog
 	private Cursor cursor;
 	private SimpleCursorAdapter listAdapter;
 	private ListView listView;
-	private View emptyView;
 	private AdapterView.OnItemClickListener onItemClickListener;
 
 	public NoteTemplatePickerDialog(Context context)
@@ -109,7 +108,8 @@ public class NoteTemplatePickerDialog extends AppCompatDialog
 		setTitle(R.string.select_note_template_title);
 
 		listView = findViewById(android.R.id.list);
-		emptyView = findViewById(android.R.id.empty);
+		View emptyView = findViewById(android.R.id.empty);
+		listView.setEmptyView(emptyView);
 
 		if (onItemClickListener != null)
 		{
@@ -166,16 +166,7 @@ public class NoteTemplatePickerDialog extends AppCompatDialog
 				};
 		Cursor c = cr.query(NoteStore.NoteTemplate.CONTENT_URI, null, where, whereArgs,
 				NoteStore.NoteTemplate.Columns._ID + " ASC");
-		if (c != null && c.moveToFirst())
-		{
-			swapCursor(c);
-		}
-		else
-		{
-			swapCursor(null);
-		}
-
-		updateVisibility();
+		swapCursor(c);
 
 		Log.v(LOG_TAG, "Bye");
 	}
@@ -190,17 +181,4 @@ public class NoteTemplatePickerDialog extends AppCompatDialog
 		cursor = newCursor;
 	}
 
-	private void updateVisibility()
-	{
-		if (cursor != null)
-		{
-			listView.setVisibility(View.VISIBLE);
-			emptyView.setVisibility(View.GONE);
-		}
-		else
-		{
-			listView.setVisibility(View.GONE);
-			emptyView.setVisibility(View.VISIBLE);
-		}
-	}
 }
