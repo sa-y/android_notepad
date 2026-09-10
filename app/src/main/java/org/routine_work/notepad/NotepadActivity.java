@@ -345,8 +345,11 @@ public class NotepadActivity extends AppCompatActivity implements NotepadConstan
 		boolean result;
 		Log.v(LOG_TAG, "Hello");
 
-		Log.v(LOG_TAG, "searchView.isIconified() =>  " + searchView.isIconified()); // androud 4 : true, androud 7 : false
-		Log.v(LOG_TAG, "searchView.isShown() =>  " + searchView.isShown());
+		if (searchView != null)
+		{
+			Log.v(LOG_TAG, "searchView.isIconified() =>  " + searchView.isIconified()); // androud 4 : true, androud 7 : false
+			Log.v(LOG_TAG, "searchView.isShown() =>  " + searchView.isShown());
+		}
 
 		if ((keyCode == KeyEvent.KEYCODE_BACK)
 				&& (searchView != null && searchView.isShown() && !searchView.isIconified()))
@@ -397,12 +400,15 @@ public class NotepadActivity extends AppCompatActivity implements NotepadConstan
 
 		doSearchWithQueryText(queryText);
 		Log.v(LOG_TAG, "queryText => " + queryText);
-		Log.v(LOG_TAG, "searchView.isShown() => " + searchView.isShown());
-		Log.v(LOG_TAG, "searchView.isIconified() => " + searchView.isIconified());
-		if (TextUtils.isEmpty(queryText) == false && searchView != null && searchView.isIconified())
+		if (searchView != null)
 		{
-			searchView.setIconified(false);
-			searchView.clearFocus();
+			Log.v(LOG_TAG, "searchView.isShown() => " + searchView.isShown());
+			Log.v(LOG_TAG, "searchView.isIconified() => " + searchView.isIconified());
+			if (!TextUtils.isEmpty(queryText) && searchView.isIconified())
+			{
+				searchView.setIconified(false);
+				searchView.clearFocus();
+			}
 		}
 
 		Log.v(LOG_TAG, "Bye");
@@ -692,7 +698,10 @@ public class NotepadActivity extends AppCompatActivity implements NotepadConstan
 				viewNoteFragment.loadNote();
 			}
 
-			searchView.clearFocus();
+			if (searchView != null)
+			{
+				searchView.clearFocus();
+			}
 		}
 
 		Log.v(LOG_TAG, "Bye");
