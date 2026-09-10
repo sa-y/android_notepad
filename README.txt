@@ -1,5 +1,5 @@
-notepad-app
-===========
+Simple Notepad
+==============
 
 Simple Notepad is a simple notepad application for Android.
 
