@@ -23,6 +23,7 @@
  */
 package org.routine_work.notepad.fragment;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -305,7 +306,7 @@ public class EditNoteFragment extends Fragment implements LoaderManager.LoaderCa
 			Log.v(LOG_TAG, "note_title_edittext : focused => " + focused);
 			if (focused)
 			{
-				IMEUtils.showSoftKeyboardWindow(requireContext(), view);
+				IMEUtils.showSoftKeyboardWindow(getContext(), view);
 			}
 		}
 		else if (id == R.id.note_content_edittext)
@@ -313,21 +314,25 @@ public class EditNoteFragment extends Fragment implements LoaderManager.LoaderCa
 			Log.v(LOG_TAG, "note_content_edittext : focused => " + focused);
 			if (focused)
 			{
-				IMEUtils.showSoftKeyboardWindow(requireContext(), view);
+				IMEUtils.showSoftKeyboardWindow(getContext(), view);
 			}
 
 			if (actionBarAutoHide)
 			{
-				ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
-				if (actionBar != null)
+				Activity activity = getActivity();
+				if (activity instanceof AppCompatActivity)
 				{
-					if (focused)
+					ActionBar actionBar = ((AppCompatActivity) activity).getSupportActionBar();
+					if (actionBar != null)
 					{
-						actionBar.hide();
-					}
-					else
-					{
-						actionBar.show();
+						if (focused)
+						{
+							actionBar.hide();
+						}
+						else
+						{
+							actionBar.show();
+						}
 					}
 				}
 			}
@@ -595,12 +600,12 @@ public class EditNoteFragment extends Fragment implements LoaderManager.LoaderCa
 			if ((TextUtils.isEmpty(currentNote.getTitle()) == false) && (TextUtils.isEmpty(currentNote.getContent()) == true))
 			{
 //				IMEUtils.requestKeyboardFocus(noteContentEditText); // 
-				IMEUtils.requestSoftKeyboardWindow(requireContext(), noteContentEditText);
+				IMEUtils.requestSoftKeyboardWindow(getContext(), noteContentEditText);
 			}
 			else
 			{
 //				IMEUtils.requestKeyboardFocus(noteTitleEditText);
-				IMEUtils.requestSoftKeyboardWindow(requireContext(), noteTitleEditText);
+				IMEUtils.requestSoftKeyboardWindow(getContext(), noteTitleEditText);
 			}
 		}
 		Log.v(LOG_TAG, "Bye");

@@ -23,6 +23,7 @@
  */
 package org.routine_work.notepad.fragment;
 
+import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.res.Resources;
@@ -420,11 +421,11 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 			int yOffset = (int) (this.getResources().getDisplayMetrics().density * 50.0f);
 			int foundCount = findWordContext.getFoundWordCount();
 			String foundMessage = getResources().getQuantityString(R.plurals.found_word_count_message, foundCount, foundCount);
-			Toast toast = Toast.makeText(requireContext(), foundMessage, Toast.LENGTH_LONG);
+			Toast toast = Toast.makeText(getContext(), foundMessage, Toast.LENGTH_LONG);
 			toast.setGravity(Gravity.TOP, 0, yOffset);
 			toast.show();
 
-			IMEUtils.hideSoftKeyboardWindow(requireContext(), findWordEditText);
+			IMEUtils.hideSoftKeyboardWindow(getContext(), findWordEditText);
 		}
 	}
 
@@ -470,10 +471,14 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 	{
 		if (findWordActionMode == null)
 		{
-			findWordActionMode = ((AppCompatActivity) requireActivity()).startSupportActionMode(findWordActionModeCallback);
-			if (findWordActionMode != null)
+			AppCompatActivity activity = (AppCompatActivity) getActivity();
+			if (activity != null)
 			{
-				findWordActionMode.invalidate();
+				findWordActionMode = activity.startSupportActionMode(findWordActionModeCallback);
+				if (findWordActionMode != null)
+				{
+					findWordActionMode.invalidate();
+				}
 			}
 		}
 	}
@@ -495,7 +500,13 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 			MenuInflater menuInflater = mode.getMenuInflater();
 			menuInflater.inflate(R.menu.find_word_actionmode_menu, menu);
 
-			View actionView = requireActivity().getLayoutInflater().inflate(R.layout.find_word_actionview, null);
+			Activity activity = getActivity();
+			if (activity == null)
+			{
+				return false;
+			}
+			LayoutInflater layoutInflater = activity.getLayoutInflater();
+			View actionView = layoutInflater.inflate(R.layout.find_word_actionview, null);
 			mode.setCustomView(actionView);
 			findWordEditText = (EditText) actionView.findViewById(R.id.find_word_edittext);
 			if (findWordEditText != null)
@@ -593,11 +604,11 @@ public class ViewNoteFragment extends NoteDetailFragment implements NotepadConst
 				Log.v(LOG_TAG, "find_word_edittext : focused => " + focused);
 				if (focused)
 				{
-					IMEUtils.showSoftKeyboardWindow(requireContext(), view);
+					IMEUtils.showSoftKeyboardWindow(getContext(), view);
 				}
 				else
 				{
-					IMEUtils.hideSoftKeyboardWindow(requireContext(), view);
+					IMEUtils.hideSoftKeyboardWindow(getContext(), view);
 				}
 			}
 			else
