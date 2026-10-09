@@ -30,6 +30,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.InputType;
@@ -145,6 +146,12 @@ public class EditNoteFragment extends Fragment implements LoaderManager.LoaderCa
 		noteContentEditText = (EditText) v.findViewById(R.id.note_content_edittext);
 		noteContentEditText.setMovementMethod(SafeArrowKeyMovementMethod.getInstance());
 		noteContentEditText.setOnFocusChangeListener(this);
+
+		if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.O_MR1)
+		{
+			noteTitleEditText.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+			noteContentEditText.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+		}
 		noteTitleLockImageButton = (ImageButton) v.findViewById(R.id.note_title_lock_button);
 		noteTitleUnlockImageButton = (ImageButton) v.findViewById(R.id.note_title_unlock_button);
 		viewIsInflated = true;
